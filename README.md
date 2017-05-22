@@ -14,5 +14,3 @@ https://getcomposer.org/doc/00-intro.md
 * Now the installation is complete and from yor browser navigate till the root directory of the project and after that add '/public' directory for calling the index page.
 
 * For llinx machin user it is mandatory to give 777 permission to '/storage' folder of the project which will be storing and manipulating some log files and session files of Laravel.
-
-* 
