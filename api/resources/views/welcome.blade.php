@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello</h1>
+    <h1>Helslo</h1>
     @can('delete_user')
         <a href="#">asdhasd</a>
     @endcan

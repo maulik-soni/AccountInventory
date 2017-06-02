@@ -15,3 +15,8 @@ Route::get('/', function () {
 	/*Auth::loginUsingId(1);*/
     return view('welcome');
 });
+
+Route::get('/l',function(){
+	Auth::logout();
+return redirect('/');
+})->middleware('is:admin');

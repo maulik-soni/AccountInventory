@@ -16,3 +16,27 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {*/
+    /*return $request->user();*/
+
+/*Route::group(['prefix'=>'/user','middleware'=>'auth:api'],function(){
+	Route::group(['middleware'=>'is:admin'],function(){
+		Route::put('/{user}','UserController@update');
+		Route::delete('/{user}','UserController@delete');
+		Route::post('/','UserController@make');	
+	});
+	Route::get('/{user}','UserController@show');
+});*/
+
+
+
+/*});*/
+
+/*Route::resource('user','UserController');*/
+
+
+
+
+

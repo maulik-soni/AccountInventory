@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
     use Notifiable;
+
+        protected $connection = 'china_db';
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +30,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /////////////////////////////////////////////////////////////
+
     public function roles(){
         return $this->belongsToMany(Role::class);
     }
@@ -37,11 +42,8 @@ class User extends Authenticatable
             return $this->roles->contains('name',$role);
         }
 
-        return !! $role->intersect($this->roles)->count();
+       /* return !! $role->intersect($this->roles)->count();*/
 
     }
 
-    public function assign($role){
-        return $this->actAs($role);
-    }
 }
