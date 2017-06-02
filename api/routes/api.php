@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/memoin', "memoinController@memoinEntry");
+Route::post('/memoout', "memooutController@memooutEntry");
 
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {*/
     /*return $request->user();*/
