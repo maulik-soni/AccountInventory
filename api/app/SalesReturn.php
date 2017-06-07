@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sales extends Model
+class SalesReturn extends Model
 {
     public $timestamps = false;
-    protected $table = 'sales';
+    protected $table = 'sales_return';
     protected $primaryKey = 'PCS_ID';
 }

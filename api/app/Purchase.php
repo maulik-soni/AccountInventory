@@ -8,4 +8,5 @@ class Purchase extends Model
 {
     public $timestamps = false;
     protected $table = 'purchase';
+    protected $primaryKey = 'PCS_ID';
 }

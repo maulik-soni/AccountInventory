@@ -15,14 +15,16 @@ use Illuminate\Http\Request;
 
 
 Route::post('/newpurchase', 'purchaseConroller@newPurchaseEntry');
-Route::post('/editpurchase', 'purchaseConroller@editPurchase');
-Route::post('/delpurchase', 'purchaseConroller@delPurchase');
-
+Route::post('/purchasereturn', 'purchaseConroller@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
-Route::post('/editsales', 'salesConroller@editSales');
-Route::post('/delsales', 'salesConroller@delSaless');
+Route::post('/salesreturn', 'salesConroller@salesReturn');
 
+Route::put('/editpurchase', 'purchaseConroller@editPurchase');
+Route::put('/editsales', 'salesConroller@editSales');
 
-Route::get('/purchasereport/{lastid?}/{limit?}', 'purchaseConroller@purchaseReport');
-Route::get('/salesreport/{lastid?}/{limit?}', 'salesConroller@salesReport');
+Route::delete('/delsales', 'salesConroller@delSales');
+Route::delete('/delpurchase', 'purchaseConroller@delPurchase');
+
+Route::get('/purchasereport', 'purchaseConroller@purchaseReport');
+Route::get('/salesreport', 'salesConroller@salesReport');
 
