@@ -25,23 +25,34 @@ class memoinController extends Controller
         $memoIn_table->amount = $new_memoIn['amount'];
         $memoIn_table->stone_type = $new_memoIn['stone_type'];
         $memoIn_table->no_of_days = $new_memoIn['no_of_days'];
- $memoIn_table->save();
+        $memoIn_table->save();
     } 
 
-    // public function memoinReport($lastid='',  $limit=''){
-    //     $memmo = \App\MemoIn::all();
-    //     print_r($memo);
-    // } 
+    public function memoinReport($PCS_ID=''){
+        $memo = \App\MemoIn::all();
+        print_r($memo);
+    } 
 
-    // public function editMemoin(){
-    //     $oldmemo = Request:all();
-    //     $oldmemo_data = \App\MemoIn::find($oldmemo['id']);
-    //     print_r($oldmemo_data);
-    // }
+    public function editMemoin(){
+        $oldmemo = Request:all();
+        $oldmemo_data = \App\MemoIn::find($oldmemo['$PCS_ID']);
+        print_r($oldmemo_data);
+        $newMemo = Request::all();
+        $memoIn_table = new \App\MemoIn;
+        $memoIn_table = MemoIn::find($newMemo['$PCS_ID']);
+        foreach($newMemo as $fields){
+            if($fields != "PCS_ID"){
+                $memoIn_table->$fields = $newMemo[$fields];
+            }
+        }
+        $memoIn_table->save();
+    }
 
-    // public function deleteMemoin(){
-    //     $data = Request::all();
-    //     \App\MemoIn::where('id','=',$data['id'])->delete();
-    // }
+    public function deleteMemoin($PCS_ID=''){
+        $data = Request::all();
+        \App\MemoIn::where('id','=',$data['id'])->delete();
+        $memoIn_table = new \App\MemoIn;
+        MemoIn::where('PCS_ID','=',$data['PCS_ID'])->delete();
+    }
    
 }
