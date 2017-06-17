@@ -10,9 +10,9 @@ class salesConroller extends Controller
     public function newSalesEntry(){
         $new_sales = Request::all();
         $sales = new \App\Sales;
-        foreach ($new_sales as $fields) {
-            if($fields != "sr_no"){            
-                $sales->$fields = $new_sales[$fields];                   
+        foreach ($new_sales as $fields=>$value) {
+            if($fields != "sr_no" && $fields != "brokerName" && $fields != "brokerType" && $fields != "brokerage" && $fields != "taxes"){                 
+                $sales->$fields = $new_sales[$fields];
             }
         }
         $sales->save();
@@ -27,6 +27,8 @@ class salesConroller extends Controller
             $sales_data = Sales::all()->take($params['limit']);
         }else if(!empty($params['lastid'])){
             $sales_data = Sales::all()->where('sr_no','>',$params['lastid']);
+        }else if(!empty($params['pcsid'])){
+            $sales_data = Sales::all()->where('PCS_ID','=',$params['pcsid']);
         }else{
             $sales_data = Sales::all();
         }

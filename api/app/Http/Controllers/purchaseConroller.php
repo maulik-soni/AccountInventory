@@ -9,9 +9,13 @@ class purchaseConroller extends Controller
 {
     public function newPurchaseEntry(){
         $new_purchase = Request::all();
+        //print_r($new_purchase);
         $purchase = new \App\Purchase;
-        foreach ($new_purchase as $fields) {
-            if($fields != "sr_no"){            
+        foreach ($new_purchase as $fields=>$value) {
+            // var_dump($fields);
+            // echo "<br>";
+            // var_dump($value);
+            if($fields != "sr_no" && $fields != "brokerName" && $fields != "brokerType" && $fields != "brokerage" && $fields != "taxes"){            
                 $purchase->$fields = $new_purchase[$fields];                   
             }
         }
@@ -27,6 +31,8 @@ class purchaseConroller extends Controller
             $purchase_data = Purchase::all()->take($params['limit']);
         }else if(!empty($params['lastid'])){
             $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid']);
+        }else if(!empty($params['pcsid'])){
+            $purchase_data = Purchase::all()->where('PCS_ID','=',$params['pcsid']);
         }else{
             $purchase_data = Purchase::all();
         }
@@ -37,9 +43,9 @@ class purchaseConroller extends Controller
         $newpurchase = Request::all();
         $purchase = new \App\Purchase;
         $purchase = Purchase::find($newpurchase['PCS_ID']);
-        foreach ($newpurchase as $fields) {            
+        foreach ($newpurchase as $fields) {
             if($fields != "PCS_ID"){
-                $purchase->$fields = $newpurchase[$fields];       
+                $purchase->$fields = $newpurchase[$fields];
             }
         }
         $purchase->save();
