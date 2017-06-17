@@ -16,7 +16,7 @@ class CreateMemoInTable extends Migration {
 		{
 			$table->integer('PCS_ID')->primary();
 			$table->string('memo_invoice_number', 256)->nullable();
-			$table->string('data', 256)->nullable();
+			$table->string('date', 256)->nullable();
 			$table->string('account_name', 256)->nullable();
 			$table->string('broker', 256)->nullable();
 			$table->string('reference', 256)->nullable();
