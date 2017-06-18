@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -40,5 +41,21 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function authenticate(Request $request){
+        $this->validate($request,[
+            'email'=>'required|email',
+            'password'=>'required']);
+
+        $credentials= $request->only('email','password');
+
+         if (Auth::attempt($credentials)){
+            $token=$request->user()->api_token;
+            $role=$request->user()->getRole();
+            return response()->json(['token'=> $token,'role'=> $role],200);
+         }
+
+         return response()->json(['error'=> 'invalid password or email'],401);
     }
 }
