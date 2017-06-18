@@ -1,0 +1,163 @@
+<div class="container">
+	<form (ngSubmit)="onSubmit()" #memoinForm="ngForm">
+		<div class="block-header">
+			<h2>New Memo in Entry</h2>
+			<ul class="actions">
+				<li>
+					<a class="icon-pop" href="#">
+						<i class="zmdi zmdi-trending-up"></i>
+					</a>
+				</li>
+				<li>
+					<a class="icon-pop" href="#">
+						<i class="zmdi zmdi-check-all"></i>
+					</a>
+				</li>
+				<li class="dropdown">
+					<a class="icon-pop" href="#" data-toggle="dropdown">
+						<i class="zmdi zmdi-more-vert"></i>
+					</a>
+
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li>
+							<a href="#">Refresh</a>
+						</li>
+						<li>
+							<a href="#">Manage Widgets</a>
+						</li>
+						<li>
+							<a href="#">Widgets Settings</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h2>Basic Memo in Information</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoin.memo_invoice_number" name = "memo_invoice_number" placeholder="Invoice Number">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoin.no_of_days" name = "no_of_days" placeholder="Days">	
+							</div>
+						</div>
+					</div>
+          <div class="col-sm-4">
+						<ng2-datepicker [options]="options" [(ngModel)]="newmemoin.date" [ngModelOptions]="{standalone: true}"></ng2-datepicker>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h2>Dealer and Broker Details</h2>
+			</div>
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-12">
+						<p class="f-500 c-black m-b-15">Dealer Name</p>
+						<ng-select [allowClear]="true"
+							[items]="items"
+							[disabled]="disabled"							
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newmemoin.account_name"
+							placeholder="No Dealer Name selected" name = "account_name">
+						</ng-select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<p class="f-500 c-black m-b-15">Broker Name</p>
+						<ng-select [allowClear]="true"
+							[items]="items"
+							[disabled]="disabled"							
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newmemoin.broker"
+							placeholder="No Broker Name selected" name = "broker">
+						</ng-select>
+					</div>
+					<div class="col-sm-4 m-t-45">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoin.reference" name = "reference" placeholder="Reference">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h2>Goods Details</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" placeholder="PCS ID" [(ngModel)] = "newmemoin.PCS_ID" name = "PCS_ID">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row m-t-25">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" placeholder="Diamond Carats" [(ngModel)] = "newmemoin.carats" name = "carats">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" placeholder="Number of peding pieces" [(ngModel)] = "newmemoin.pending_pcs" name = "pending_pcs">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" placeholder="Pending Carats" [(ngModel)] = "newmemoin.pending_carats" name = "pending_carats">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row m-t-20">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" placeholder="Stone Type" [(ngModel)] = "newmemoin.stone_type" name = "stone_type">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" placeholder="Amount" [(ngModel)] = "newmemoin.amount" name = "amount">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
+	</form>
+</div>

@@ -1,0 +1,88 @@
+<div class="container">
+	<div class="block-header">
+        <h2>Sales Report</h2>
+        
+        <ul class="actions">
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-trending-up"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="zmdi zmdi-check-all"></i>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" data-toggle="dropdown">
+                    <i class="zmdi zmdi-more-vert"></i>
+                </a>
+                
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a href="#">Refresh</a>
+                    </li>
+                    <li>
+                        <a href="#">Manage Widgets</a>
+                    </li>
+                    <li>
+                        <a href="#">Widgets Settings</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="card">
+   <div class="card-header">
+      <h2>Sales Report <small>Total Sales of your Company.</small></h2>
+   </div>
+   <div id="data-table-command-header" class="bootgrid-header container-fluid">
+      <div class="row">
+         <div class="col-sm-12 actionBar">
+            <div class="search form-group">
+               <div class="input-group"><span class="zmdi icon input-group-addon glyphicon-search"></span> <input type="text" class="search-field form-control" placeholder="Search"></div>
+            </div>            
+         </div>
+      </div>
+   </div>
+   <table id="data-table-command" class="table table-striped table-vmiddle bootgrid-table" aria-busy="false">
+      <thead>
+         <tr>
+            <th data-column-id="id" class="text-left" style=""><a href="javascript:void(0);" class="column-header-anchor sortable"><span class="text">ID</span><span class="zmdi icon "></span></a></th>
+            <th data-column-id="sender" class="text-left" style=""><a href="javascript:void(0);" class="column-header-anchor sortable"><span class="text">Sender</span><span class="zmdi icon "></span></a></th>
+            <th data-column-id="received" class="text-left" style=""><a href="javascript:void(0);" class="column-header-anchor sortable"><span class="text">Received</span><span class="zmdi icon zmdi-expand-more"></span></a></th>
+            <th data-column-id="commands" class="text-left" style=""><a href="javascript:void(0);" class="column-header-anchor "><span class="text">Commands</span><span class="zmdi icon "></span></a></th>
+         </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor = "let m of mydata">            
+            <td class="text-left" style="">{{m.PCS_ID}}</td>
+            <td class="text-left" style="">{{m.account_name}}</td>
+            <td class="text-left" style="">29.10.2013</td>
+            <td class="text-left" style=""><button type="button" data-action="clear-localstorage" class="btn btn-icon command-edit waves-effect waves-circle" data-row-id="10253"><span class="zmdi zmdi-edit"></span></button> <button type="button" class="btn btn-icon command-delete waves-effect waves-circle" data-row-id="10253"><span class="zmdi zmdi-delete"></span></button></td>
+         </tr>
+
+         
+      </tbody>
+   </table>
+   <div id="data-table-command-footer" class="bootgrid-footer container-fluid">
+      <div class="row">
+         <div class="col-sm-6">
+            <ul class="pagination">
+               <li class="first disabled" aria-disabled="true"><a data-page="first" class="button"><i class="zmdi zmdi-more-horiz"></i></a></li>
+               <li class="prev disabled" aria-disabled="true"><a data-page="prev" class="button"><i class="zmdi zmdi-chevron-left"></i></a></li>
+               <li class="page-1 active" aria-disabled="false" aria-selected="true"><a data-page="1" class="button">1</a></li>
+               <li class="page-2" aria-disabled="false" aria-selected="false"><a data-page="2" class="button">2</a></li>
+               <li class="next" aria-disabled="false"><a data-page="next" class="button"><i class="zmdi zmdi-chevron-right"></i></a></li>
+               <li class="last" aria-disabled="false"><a data-page="last" class="button"><i class="zmdi zmdi-more-horiz"></i></a></li>
+            </ul>
+         </div>
+         <!--<div class="col-sm-6 infoBar">
+            <div class="infos">Showing 1 to 10 of 20 entries</div>
+         </div>-->
+      </div>
+   </div>
+</div>
+</div>
