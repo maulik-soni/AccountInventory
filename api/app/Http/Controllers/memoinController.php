@@ -15,7 +15,7 @@ class memoinController extends Controller
         $memoIn_table = new \App\MemoIn;
         $memoIn_table->PCS_ID = $new_memoIn['PCS_ID'];
         $memoIn_table->memo_invoice_number = $new_memoIn['memo_invoice_number'];
-        $memoIn_table->data = $new_memoIn['data'];
+        $memoIn_table->date = $new_memoIn['date'];
         $memoIn_table->account_name = $new_memoIn['account_name'];
         $memoIn_table->broker = $new_memoIn['broker'];
         $memoIn_table->reference = $new_memoIn['reference'];
@@ -28,15 +28,14 @@ class memoinController extends Controller
         $memoIn_table->save();
     } 
 
-    public function memoinReport($PCS_ID=''){
+    public function memoinReport(){
         $memo = \App\MemoIn::all();
-        print_r($memo);
+        return $memo;
     } 
 
     public function editMemoin(){
-        $oldmemo = Request:all();
-        $oldmemo_data = \App\MemoIn::find($oldmemo['$PCS_ID']);
-        print_r($oldmemo_data);
+        $oldmemo = Request::all();
+        $oldmemo_data = \App\MemoIn::find($oldmemo['$PCS_ID']);        
         $newMemo = Request::all();
         $memoIn_table = new \App\MemoIn;
         $memoIn_table = MemoIn::find($newMemo['$PCS_ID']);
@@ -55,4 +54,8 @@ class memoinController extends Controller
         MemoIn::where('PCS_ID','=',$data['PCS_ID'])->delete();
     }
    
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/issue-3

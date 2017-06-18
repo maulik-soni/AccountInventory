@@ -15,7 +15,7 @@ class memooutController extends Controller
         $memoOut_table = new \App\MemoOut;
         $memoOut_table->PCS_ID = $new_memoOut['PCS_ID'];
         $memoOut_table->memo_invoice_number = $new_memoOut['memo_invoice_number'];
-        $memoOut_table->data = $new_memoOut['data'];
+        $memoOut_table->date = $new_memoOut['date'];
         $memoOut_table->account_name = $new_memoOut['account_name'];
         $memoOut_table->broker = $new_memoOut['broker'];
         $memoOut_table->reference = $new_memoOut['reference'];
@@ -31,7 +31,7 @@ class memooutController extends Controller
 
     public function memooutReport($PCS_ID=''){
         $memo = \App\MemoOut::all();
-        print_r($memo);
+        return $memo;
     } 
 
     public function editMemoout(){

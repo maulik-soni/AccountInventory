@@ -17,15 +17,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/memoin', "memoinController@memoinEntry");
-Route::post('/memoinreport', "memoinController@memoinReport");
-Route::post('/editmemoin', "memoinController@editMemoin");
-Route::post('/deletememoin', "memoinController@deleteMemoin");
-Route::post('/memoout', "memooutController@memooutEntry");
-Route::post('/memooutreport', "memooutController@memooutReport");
-Route::post('/editmemoout', "memooutController@editMemoout");
-Route::post('/deletememoout', "memooutController@deleteMemoout");
-
 Route::post('/login', 'UserController@authenticate');
 
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {*/
@@ -50,3 +41,26 @@ Route::post('/login', 'UserController@authenticate');
 
 
 
+
+Route::post('/newpurchase', 'purchaseConroller@newPurchaseEntry');
+Route::post('/purchasereturn', 'purchaseConroller@purchaseReturn');
+Route::post('/newsales', 'salesConroller@newSalesEntry');
+Route::post('/salesreturn', 'salesConroller@salesReturn');
+
+Route::put('/editpurchase', 'purchaseConroller@editPurchase');
+Route::put('/editsales', 'salesConroller@editSales');
+
+Route::delete('/delsales', 'salesConroller@delSales');
+Route::delete('/delpurchase', 'purchaseConroller@delPurchase');
+
+Route::get('/purchasereport', 'purchaseConroller@purchaseReport');
+Route::middleware('cors')->get('/salesreport', 'salesConroller@salesReport');
+
+Route::post('/memoin', "memoinController@memoinEntry");
+Route::get('/memoinreport', "memoinController@memoinReport");
+Route::put('/editmemoin', "memoinController@editMemoin");
+Route::delete('/deletememoin', "memoinController@deleteMemoin");
+Route::post('/memoout', "memooutController@memooutEntry");
+Route::get('/memooutreport', "memooutController@memooutReport");
+Route::put('/editmemoout', "memooutController@editMemoout");
+Route::delete('/deletememoout', "memooutController@deleteMemoout");
