@@ -17,6 +17,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/memoin', "memoinController@memoinEntry");
+Route::post('/memoinreport', "memoinController@memoinReport");
+Route::post('/editmemoin', "memoinController@editMemoin");
+Route::post('/deletememoin', "memoinController@deleteMemoin");
+Route::post('/memoout', "memooutController@memooutEntry");
+Route::post('/memooutreport', "memooutController@memooutReport");
+Route::post('/editmemoout', "memooutController@editMemoout");
+Route::post('/deletememoout', "memooutController@deleteMemoout");
 
 Route::post('/login', 'UserController@authenticate');
 
