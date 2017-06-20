@@ -13,6 +13,8 @@ export class ConstantServiceService {
   CLARITY:any;
   SIZES:any;
   TAXES:any;
+  DOLAR:any;
+  INVOICE:any;
 
   constructor() {
     this.BROKERTYPES = ["Flat","Direct","Slab"];
@@ -34,6 +36,12 @@ export class ConstantServiceService {
     this.SIZES = ["S","L","ES","EL","M"];
 
     this.TAXES = ["mVAT","CST"];
+
+    this.DOLAR = 65;
+
+    this.INVOICE = "INVOICE-"+Math.ceil(Math.random()*10000);
+
+
   }
 
 }

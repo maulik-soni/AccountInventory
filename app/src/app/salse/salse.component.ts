@@ -3,6 +3,7 @@ import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { Sales } from '../sales';
 import { WebServicesService } from '../web-services.service';
+import { ConstantServiceService } from '../constant-service.service';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
@@ -15,17 +16,13 @@ export abstract class AbstractViewInit {
   selector: 'app-salse',
   templateUrl: './salse.component.html',
   styleUrls: ['./salse.component.css'],
-  providers: [WebServicesService]
+  providers: [WebServicesService,ConstantServiceService]
 })
 export class SalseComponent implements OnInit {
 
-  date: DateModel;
-  options: DatePickerOptions;
-  newsales = new Sales();
-  
-  doption:['12','121','1232'];
   constructor(
-    private _webservice : WebServicesService
+    private _webservice : WebServicesService,
+    public ConstantService : ConstantServiceService
   ) { 
     this.options = new DatePickerOptions();
   }
@@ -39,23 +36,30 @@ export class SalseComponent implements OnInit {
     console.log("view loaded");
   }
 
-   public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-    'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-    'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-    'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-    'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-    'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-    'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-    'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-    'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-    'Zagreb', 'Zaragoza', 'Łódź'];
- 
-  public less:any = {};
-  public comission:any = {};
-  private value:any = {}; 
+  date: DateModel;
+  options: DatePickerOptions;
+  
+  show:false;
+  searchPCS:any;
+  showPurchase:any;
+  public brokertypes:Array<string> = this.ConstantService.BROKERTYPES;
+  public brokers:Array<string> = this.ConstantService.BROKERS;
+  public dollar:any = this.ConstantService.DOLAR;
+  public invoice:any = this.ConstantService.INVOICE;
+  public countries:Array<string> = this.ConstantService.COUNRTIES;
+  public names:Array<string> = this.ConstantService.NAMES;
+
+  public less:any = {less1:0,less2:0,less3:0};
+  public comission:any = {comission1:0,comission2:0};
+  private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
- 
+  private disable:any = false;
+  
+
+  newsales:any = {};
+  newsalesdata:any = {};
+  
   private get disabledV():string {
     return this._disabledV;
   }
@@ -66,7 +70,12 @@ export class SalseComponent implements OnInit {
   }
  
   public selected(value:any):void {
-    console.log('Selected value is: ', value,this.options);
+    console.log('Selected value is: ', value.text);
+    if(value.text == 'Direct'){
+      this.disable = true;
+    }else{
+      this.disable = false;
+    }
   }
  
   public removed(value:any):void {
@@ -80,32 +89,90 @@ export class SalseComponent implements OnInit {
   public refreshValue(value:any):void {
     this.value = value;
   }
-  newsalesdata:any;
-  submitted = false;
+  
+  public calcDay(value:any):void{
+    console.log(typeof value,this.newsales.sales_date,this.newsales.payment_terms);
+    var date;
+    if(this.newsales.sales_date != undefined && this.newsales.payment_terms != undefined){
+      var targetDate = new Date(this.newsales.sales_date);
+      this.newsales.due_date = this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.newsales.payment_terms)));
+      console.log(this.newsales.due_date);
+    }
+  }
+
+  public dateConversion(date){
+    console.log(date);
+    var dd = new Date(date).getDate();
+    var mm = new Date(date).getMonth() + 1;
+    var yyyy = new Date(date).getFullYear();
+    var dateString = yyyy + "/" + mm + "/" + dd;
+    return dateString;
+
+  }
+
+  public calAmount():void{
+    var salesAmount = this.newsales.sale_rate*this.mypurchase.total_diamond_carat*this.mypurchase.total_diamond_pcs;
+    var lessDis = parseInt(this.less.less1)+parseInt(this.less.less2)+parseInt(this.less.less3);
+    salesAmount = parseInt((salesAmount*(1-(lessDis/100))).toFixed(2));
+    salesAmount = parseInt((salesAmount*(1-(this.newsales.sale_disc/100))).toFixed(2));
+    this.newsales.sales_amount_INR = salesAmount;
+    this.newsales.sales_amount_dolar = parseInt((salesAmount/this.dollar).toFixed(2));
+    this.newsales.diff_amount_INR = salesAmount-parseInt(this.mypurchase.amount_INR);
+    this.newsales.diff_amount_dolar = parseInt(this.newsales.sales_amount_dolar)-parseInt(this.mypurchase.amount_dolar);
+  }
+
+  
   onSubmit() { 
-    this.submitted = true;
     this.newsales.less = JSON.stringify(this.less);
     this.newsales.comission = JSON.stringify(this.comission);
-    console.log(this.newsales);
-    this.newsalesdata = JSON.parse(JSON.stringify(this.newsales));
-    console.log(this.newsalesdata);
-    
-    this.newsalesdata.sales_date = this.newsalesdata.sales_date.formatted;
-    this.newsalesdata.due_date = this.newsalesdata.due_date.formatted;
-    this.newsalesdata.country = this.newsalesdata.country[0].text;
-    this.newsalesdata.account_name = this.newsalesdata.account_name[0].text;
-    this.newsalesdata.brokerName = this.newsalesdata.brokerName[0].text;
-    this.newsalesdata.brokerType = this.newsalesdata.brokerType[0].text;
-    this.newsalesdata.diamond_shape = this.newsalesdata.diamond_shape[0].text; 
-    this.newsalesdata.diamond_color = this.newsalesdata.diamond_color[0].text;
-    this.newsalesdata.stock_status_group = this.newsalesdata.stock_status_group[0].text;
     this.newsalesdata.broker_details = {
-      brokerName : this.newsalesdata.brokerName,
-      brokerType : this.newsalesdata.brokerType,
-      brokerage : this.newsalesdata.brokerage
+      brokerName : this.newsales.brokerName,
+      brokerType : this.newsales.brokerType,
+      brokerage : this.newsales.brokerage
     };
-    this.newsalesdata.broker_details = JSON.stringify(this.newsalesdata.broker_details);
+    // console.log(this.newsales);
+    // console.log(JSON.stringify(this.newsales));
+    this.newsalesdata = JSON.parse(JSON.stringify(this.newsales));
+    // console.log(this.newsalesdata);
+    //console.log(JSON.stringify(this.newsalesdata));
+    this.newsalesdata = Object.assign(this.mypurchase,this.newsalesdata);
+    console.log(this.newsalesdata,JSON.stringify(this.newsalesdata));
+    delete this.newsalesdata.purchase_date;
+    delete this.newsalesdata.aginst_Hform;
+    delete this.newsalesdata.mVAT;
+    delete this.newsalesdata.brokerType;
+    console.log(this.newsalesdata,JSON.stringify(this.newsalesdata));    
+    // this.newsales.due_date = this.newsales.due_date.formatted;
+    this.newsalesdata.country = JSON.stringify(this.newsales.country);
+    this.newsalesdata.account_name = JSON.stringify(this.newsales.account_name);
+    this.newsalesdata.sales_date = this.dateConversion(this.newsales.sales_date);
+    // this.newsales.brokerName = this.newsales.brokerName[0].text;
+    // this.newsales.brokerType = this.newsales.brokerType[0].text;
+    // this.newsales.diamond_shape = this.newsales.diamond_shape[0].text; 
+    // this.newsales.diamond_color = this.newsales.diamond_color[0].text;
+    // this.newsales.stock_status_group = this.newsales.stock_status_group[0].text;
+    // this.newsales.broker_details = {
+    //   brokerName : this.newsales.brokerName,
+    //   brokerType : this.newsales.brokerType,
+    //   brokerage : this.newsales.brokerage
+    // };
+    // this.newsales.broker_details = JSON.stringify(this.newsales.broker_details);
     this._webservice.postsalesdata(this.newsalesdata);
+  }
+  mypurchase:any = {};
+  search(){
+    this._webservice.fetchpurchase(this.searchPCS)
+      .subscribe(
+        resData => {
+          this.mypurchase = resData[2];          
+          this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
+          this.showPurchase = true;
+          this.newsales = new Sales(this.invoice,this.dollar,this.mypurchase.amount_INR,this.mypurchase.amount_dolar,0);
+          console.log(this.mypurchase,JSON.stringify(this.mypurchase));
+          console.log(this.newsalesdata,JSON.stringify(this.newsalesdata));
+        }
+      );
+    
   }
 
 }

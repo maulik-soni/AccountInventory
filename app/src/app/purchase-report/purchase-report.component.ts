@@ -20,4 +20,14 @@ export class PurchaseReportComponent implements OnInit {
       .subscribe( resData => this.mydata = resData);
   }
 
+  purchaseReturn(data){
+    console.log(data.PCS_ID);
+    for(var i=0; i<this.mydata.length; i++){
+      if(this.mydata[i].PCS_ID == data.PCS_ID){
+        this.mydata.splice(i,1);
+      }
+    }
+    this._webservice.purchaseReturn(data.PCS_ID);
+  }
+
 }

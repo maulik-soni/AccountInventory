@@ -1,7 +1,8 @@
 export class Purchase { 
    constructor( 
-      public invoice_number?: number, 
+      public invoice_number?: string, 
       public currency_convrsion_rate?:number,
+      public aginst_Hform?:boolean,
       public days?:number,
       public purchase_date?:string,
       public due_date?:string,
@@ -39,7 +40,6 @@ export class Purchase {
       public amount_INR?:number,
       public amount_dolar?:number,
       public taxes?:string,
-      public mVAT?:number,
-      public aginst_Hform?:string
+      public mVAT?:number
    ) {  } 
 }

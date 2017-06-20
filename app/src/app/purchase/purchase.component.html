@@ -2,35 +2,6 @@
 	<form (ngSubmit)="onSubmit()" #purchaseForm="ngForm">
 		<div class="block-header">
 			<h2>New Purchase Entry</h2>
-			<ul class="actions">
-				<li>
-					<a class="icon-pop" href="#">
-						<i class="zmdi zmdi-trending-up"></i>
-					</a>
-				</li>
-				<li>
-					<a class="icon-pop" href="#">
-						<i class="zmdi zmdi-check-all"></i>
-					</a>
-				</li>
-				<li class="dropdown">
-					<a class="icon-pop" href="#" data-toggle="dropdown">
-						<i class="zmdi zmdi-more-vert"></i>
-					</a>
-
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li>
-							<a href="#">Refresh</a>
-						</li>
-						<li>
-							<a href="#">Manage Widgets</a>
-						</li>
-						<li>
-							<a href="#">Widgets Settings</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
 		</div>
 		<div class="card">
 			<div class="card-header">
@@ -124,19 +95,6 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-4 m-t-15">
-						<p class="f-500 c-black m-b-15">Broker Name</p>
-						<ng-select [allowClear]="true"
-							[items]="brokers"
-							[disabled]="disabled"
-							(data)="refreshValue($event)"
-							(selected)="selected($event)"
-							(removed)="removed($event)"
-							(typed)="typed($event)"
-							[(ngModel)] = "newpurchase.brokerName"
-							placeholder="No Broker Name selected" name = "brokerName">
-						</ng-select>
-					</div>
-					<div class="col-sm-4 m-t-15">
 						<p class="f-500 m-b-15 c-black">Broker Type</p>
 						<ng-select [allowClear]="true"
 							[items]="brokertypes"
@@ -149,11 +107,23 @@
 							placeholder="No Broker Type selected" name = "brokerType">
 						</ng-select>
 					</div>
-
+					<div class="col-sm-4 m-t-15">
+						<p class="f-500 c-black m-b-15">Broker Name</p>
+						<ng-select [allowClear]="true"
+							[items]="brokers"
+							[disabled] = "disable"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.brokerName"
+							placeholder="No Broker Name selected" name = "brokerName">
+						</ng-select>
+					</div>
 					<div class="col-sm-4 m-t-45">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.brokerage" name = "brokerage" placeholder="Brokerage in %">
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.brokerage" name = "brokerage" placeholder="Brokerage in %" [disabled] = "disable">
 							</div>
 						</div>
 					</div>
@@ -249,8 +219,8 @@
 							(selected)="selected($event)"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
-							[(ngModel)] = "newpurchase.diamond_color"
-							placeholder="No Clarity of Diamond selected" name = "diamond_color">
+							[(ngModel)] = "newpurchase.diamond_clarity"
+							placeholder="No Clarity of Diamond selected" name = "diamond_clarity">
 						</ng-select>
 					</div>
 					<!--<div class="col-sm-4">
@@ -269,8 +239,8 @@
 							(selected)="selected($event)"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
-							[(ngModel)] = "newpurchase.diamond_color"
-							placeholder="No Size of Diamond selected" name = "diamond_color">
+							[(ngModel)] = "newpurchase.diamond_size"
+							placeholder="No Size of Diamond selected" name = "diamond_size">
 						</ng-select>
 					</div>
 					<div class="col-sm-4">
@@ -482,7 +452,7 @@
 					<div class="col-sm-4 m-t-5">
 						<ng-select [allowClear]="true"
 						[items]="taxes"
-						[disabled]="disabled"
+						[disabled]="newpurchase.aginst_Hform"
 						(data)="refreshValue($event)"
 						(selected)="selected($event)"
 						(removed)="removed($event)"
@@ -493,11 +463,11 @@
 					</div>
 					<div class="form-group  col-sm-4">
 						<div class="fg-line">
-							<input type="text" class="form-control fg-input" placeholder="% Tax" [(ngModel)] = "newpurchase.mVAT" name = "mVAT"> 
+							<input type="text" class="form-control fg-input" placeholder="% Tax" [(ngModel)] = "newpurchase.mVAT" name = "mVAT" [disabled] = "newpurchase.aginst_Hform" (blur) = "addTax()"> 
 						</div>
 					</div>
 					<label class="checkbox checkbox-inline m-r-20">
-						<input type="checkbox" value="againstHForm" [(ngModel)] = "newpurchase.aginst_Hform" name = "aginst_Hform">
+						<input type="checkbox" value="againstHForm" [(ngModel)] = "newpurchase.aginst_Hform" name = "aginst_Hform" (change)="checkAgianstHform()">
 						<i class="input-helper"></i>
 						Against H-Form
 					</label>

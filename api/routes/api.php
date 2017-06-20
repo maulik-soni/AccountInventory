@@ -46,6 +46,9 @@ Route::post('/newpurchase', 'purchaseConroller@newPurchaseEntry');
 Route::post('/purchasereturn', 'purchaseConroller@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
 Route::post('/salesreturn', 'salesConroller@salesReturn');
+Route::get('/purchaseretrunreport','purchaseConroller@purchaseReturnReport');
+Route::get('/salesretrunreport','salesConroller@salesReturnReport');
+
 
 Route::put('/editpurchase', 'purchaseConroller@editPurchase');
 Route::put('/editsales', 'salesConroller@editSales');

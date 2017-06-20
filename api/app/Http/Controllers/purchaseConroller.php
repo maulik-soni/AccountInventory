@@ -58,7 +58,8 @@ class purchaseConroller extends Controller
     }
 
     public function purchaseReturn(){
-        $PR_pcsid = Request('PCS_ID');
+        // print_r(Request::all()[0]);
+        $PR_pcsid = Request::all()[0];
         $purchase = new \App\Purchase;
         $purchase_return = new \App\PurchaseReturn;
         $PR_data = Purchase::where('PCS_ID','=',$PR_pcsid)->get()->toArray();
@@ -67,6 +68,13 @@ class purchaseConroller extends Controller
         }
         $purchase_return->save();
         Purchase::where('PCS_ID','=',$PR_pcsid)->delete();
+    }
+
+     public function purchaseReturnReport(){
+        $params = Request::all();
+        $purchase_return = new \App\PurchaseReturn;
+        $purchase_data = PurchaseReturn::all();
+        return $purchase_data;
     }
 
 }
