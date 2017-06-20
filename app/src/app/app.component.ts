@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
 
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './authorization/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,30 @@ import { Component } from '@angular/core';
     './app.component.css'
   ]
 })
-export class AppComponent {
-  title = 'app';
+
+
+export class AppComponent implements OnInit {
+  islogin = this.checkLogin();
+
+  constructor(private authservice:AuthService,
+              private route:Router,
+             
+              ) { }
+
+ 
+ 
+  ngOnInit():any {
+  
+  
 }
+
+checkLogin(){
+    if(this.authservice.isLoggedIn()){
+    return true;
+    }
+    return false;
+
+}
+}
+
+

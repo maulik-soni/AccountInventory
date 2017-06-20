@@ -18,9 +18,12 @@ import { SalseReportComponent } from './salse-report/salse-report.component';
 import { PurchaseReportComponent } from './purchase-report/purchase-report.component';
 import { MemoinComponent } from './memoin/memoin.component';
 import { MemooutComponent } from './memoout/memoout.component';
+import { SigninComponent } from './signin/signin.component';
+import { AuthService } from './authorization/auth.service';
 
 export const appRoutes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: SigninComponent },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'purchase-entry',  component: PurchaseComponent },
   { path: 'sales-entry',  component: SalseComponent },
@@ -45,7 +48,8 @@ export const appRoutes: Routes = [
     SalseReportComponent,
     PurchaseReportComponent,
     MemoinComponent,
-    MemooutComponent
+    MemooutComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,7 @@ export const appRoutes: Routes = [
   exports: [
     RouterModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
