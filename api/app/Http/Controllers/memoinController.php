@@ -9,8 +9,7 @@ class memoinController extends Controller
 {
     
     public function memoinEntry(){
-        print_r(Request::all());
-
+        // print_r(Request::all());
         $new_memoIn = Request::all();
         $memoIn_table = new \App\MemoIn;
         $memoIn_table->PCS_ID = $new_memoIn['PCS_ID'];
@@ -54,8 +53,6 @@ class memoinController extends Controller
         MemoIn::where('PCS_ID','=',$data['PCS_ID'])->delete();
     }
    
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> origin/issue-3
+

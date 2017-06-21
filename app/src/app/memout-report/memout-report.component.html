@@ -1,41 +1,11 @@
 <div class="container">
     <div class="block-header">
-        <h2>Purchase Report</h2>
-
-        <ul class="actions">
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-trending-up"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="zmdi zmdi-check-all"></i>
-                </a>
-            </li>
-            <li class="dropdown">
-                <a href="#" data-toggle="dropdown">
-                    <i class="zmdi zmdi-more-vert"></i>
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-right">
-                    <li>
-                        <a href="#">Refresh</a>
-                    </li>
-                    <li>
-                        <a href="#">Manage Widgets</a>
-                    </li>
-                    <li>
-                        <a href="#">Widgets Settings</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+        <h2>Memo Report</h2>       
     </div>
 
     <div class="card">
         <div class="card-header">
-            <h2>Purchase Report <small>Total Sales of your Company.</small></h2>
+            <h2>Memo Return Report <small>Total Memo returned by your Company.</small></h2>
         </div>
         <!--<div id="data-table-command-header" class="bootgrid-header container-fluid">
             <div class="row">
@@ -47,12 +17,11 @@
                 </div>
             </div>
         </div>-->
-        
         <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-collapse" *ngFor="let m of mydata">
                 <div role="tab" id="headingOne">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.memo_invoice_number}}                            
                         </a>
                     </h4>
                 </div>
@@ -67,30 +36,32 @@
                        Currency Conversion : {{m.currency_convrsion_rate}}<br>                     
                        Country : {{m.country}}<br>
                        Notes : {{m.notes}}<br>-->
-                       
 
                         <div class="col-sm-12" style= "height:auto;color:#666;">
                             <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
                                 <div style="width:30%; float:left;padding:10px;">
                                     <span style="font-size:14px;float:left; width:100%;">
-                                    <b>Dealer Name :</b> {{m.account_name}}
+                                    <b>Client Name :</b> {{m.account_name}}
                                     </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
+                                    <span style="font-size:14px;float:left; width:100%;">
+                                    <b>Broker Name :</b> {{m.broker}}
+                                    </span>
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
                                     <b>Currency Conversion :</b> {{m.currency_convrsion_rate}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
                                     <b>Country :</b> {{m.country}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
                                     <b>Notes :</b> {{m.notes}}
-                                    </span>
+                                    </span>-->
                                 </div>
                                 <div style="width:40%; float:right;padding:">
                                     <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Date : </b>{{m.purchase_date}}
+                                    <b>Date : </b>{{m.date}}
                                     </span>
                                     <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Invoice# : </b>{{m.invoice_number}}
+                                    <b>Invoice# : </b>{{m.memo_invoice_number}}
                                     </span>
                                 </div>
                             </div>
@@ -107,12 +78,15 @@
                                     <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
                                     Pcs ID : {{m.PCS_ID}}
                                     <span style="font-size:10px; float:left; width:100%;">
-                                    Total Carats : {{m.total_diamond_carat}}
-                                    Total Picies : {{m.total_diamond_pcs}}
+                                    Carats : {{m.carats}}
+                                    <br>
+                                    Picies : {{m.pending_pcs}}
+                                    <br>
+                                    Stone Type : {{m.stone_type}}
                                     </span>
                                     </span>
                                     <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    ₹{{m.amount_INR}}(${{m.amount_dolar}})
+                                    ₹{{m.amount}}
                                     </span>
                                 </div>
                                 <!--<div style="width:100%;float:left;">
@@ -128,11 +102,11 @@
                                 </div>-->
                                 <div style="width:100%;float:left; background:#fff;">
                                     <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                    Total : ₹{{m.amount_INR}}(${{m.amount_dolar}})
+                                    Total : ₹{{m.amount}}
                                     </span>
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-sm waves-effect" (click)="purchaseReturn(m)">Retrun This Purchase</button>
+                            
                         </div>
                     </div>
                 </div>

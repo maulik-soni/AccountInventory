@@ -14,10 +14,16 @@ export class PurchaseReportComponent implements OnInit {
   constructor(
     private _webservice : WebServicesService
   ) { }
-
+  searching: any = { PCS_ID: '' };
   ngOnInit() {
     this._webservice.getpurchasereport()
-      .subscribe( resData => this.mydata = resData);
+      .subscribe( resData =>{
+        this.mydata = resData;
+        for(var i=0; i<this.mydata.length; i++){
+          this.mydata[i].country = JSON.parse(this.mydata[i].country)[0].text ;
+          this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text ;
+        }
+      });
   }
 
   purchaseReturn(data){

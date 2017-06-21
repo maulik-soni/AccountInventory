@@ -15,7 +15,9 @@ export class WebServicesService {
     purchaseretrun:this.base_url+'/purchasereturn',
     salesreturn:this.base_url+'/salesreturn',
     purchaseretrunreport:this.base_url+'/purchaseretrunreport',
-    salesretrunreport:this.base_url+'/salesretrunreport'
+    salesretrunreport:this.base_url+'/salesretrunreport',
+    memoinreport:this.base_url+'/memoinreport',
+    memooutreport:this.base_url+'/memooutreport'
   };
   
   constructor(private _http:Http) { }
@@ -42,11 +44,16 @@ export class WebServicesService {
     this._http.post(this.apis.postnewsales,data,options).subscribe();
   }
 
-  postmemoin(data){
-    console.log(data);
+  postmemo(data,memotype){
+    console.log(data,memotype);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewmemoin,data,options).subscribe();
+    if(memotype == "memoissue"){
+      this._http.post(this.apis.postnewmemoin,data,options).subscribe();
+    }else{
+      this._http.post(this.apis.postnewmemoout,data,options).subscribe();
+    }
+    // 
   }
 
   postmemoout(data){
@@ -81,6 +88,16 @@ export class WebServicesService {
   fetchpurchase(pcsid){
     return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
       .map((response:Response) => response.json()); 
+  }
+
+  memoinreport(){
+    return this._http.get(this.apis.memoinreport)
+      .map((response:Response) => response.json());
+  }
+
+  memooutreport(){
+    return this._http.get(this.apis.memooutreport)
+      .map((response:Response) => response.json());
   }
 
 }

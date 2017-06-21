@@ -16,7 +16,14 @@ export class PurchaseReturnComponent implements OnInit {
 
   ngOnInit() {
     this._webservice.purchaseretrunreport()
-      .subscribe(resData => this.purchasereturn = resData);
+      .subscribe(resData => {
+        this.purchasereturn = resData;
+        for(var i=0; i<this.purchasereturn.length; i++){
+          console.log(this.purchasereturn[i].country);
+          this.purchasereturn[i].country = JSON.parse(this.purchasereturn[i].country)[0].text ;
+          this.purchasereturn[i].account_name = JSON.parse(this.purchasereturn[i].account_name)[0].text ;
+        }
+      });
   }
 
 }

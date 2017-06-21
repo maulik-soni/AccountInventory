@@ -16,7 +16,14 @@ export class SalseReturnComponent implements OnInit {
 
   ngOnInit() {
     this._webservice.salesretrunreport()
-      .subscribe( resData => this.salesreturn = resData);
+      .subscribe( resData =>{ 
+        this.salesreturn = resData
+        for(var i = 0; i<this.salesreturn.length; i++){
+          
+          this.salesreturn[i].account_name = JSON.parse(this.salesreturn[i].account_name)[0].text;
+          this.salesreturn[i].country = JSON.parse(this.salesreturn[i].country)[0].text; 
+        }
+      });
   }
 
 

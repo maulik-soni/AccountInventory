@@ -57,7 +57,7 @@ Route::delete('/delsales', 'salesConroller@delSales');
 Route::delete('/delpurchase', 'purchaseConroller@delPurchase');
 
 Route::get('/purchasereport', 'purchaseConroller@purchaseReport');
-Route::middleware('cors')->get('/salesreport', 'salesConroller@salesReport');
+Route::get('/salesreport', 'salesConroller@salesReport');
 
 Route::post('/memoin', "memoinController@memoinEntry");
 Route::get('/memoinreport', "memoinController@memoinReport");

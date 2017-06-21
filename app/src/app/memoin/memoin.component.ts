@@ -1,35 +1,31 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { MemoIn } from '../memoin';
 import { WebServicesService } from '../web-services.service';
+import { DatepickerModule } from 'angular2-material-datepicker';
+import { ConstantServiceService } from '../constant-service.service';
 
 @Component({
   selector: 'app-memoin',
   templateUrl: './memoin.component.html',
   styleUrls: ['./memoin.component.css'],
-  providers: [WebServicesService]
+  providers: [WebServicesService,ConstantServiceService]
 })
 export class MemoinComponent implements OnInit {
 
-  date: DateModel;
-  options: DatePickerOptions;
+  
   constructor(
-    private _webservice : WebServicesService
-  ) {
-    this.options = new DatePickerOptions();
-  }
-  public  newmemoin = new MemoIn();;
-  public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-    'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-    'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-    'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-    'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-    'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-    'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-    'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-    'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-    'Zagreb', 'Zaragoza', 'Łódź'];
+    private _webservice : WebServicesService,
+    public ConstantService : ConstantServiceService
+  ) { }
+
+  public names:Array<string> = this.ConstantService.NAMES;
+  public brokers:Array<string> = this.ConstantService.BROKERS;
+  public invoice:any = this.ConstantService.INVOICE;
+
+  public  newmemoin = new MemoIn(this.invoice);
+
+  public memotype:any = "memoissue";
 
   private value:any = {}; 
   private _disabledV:string = '0';
@@ -45,7 +41,7 @@ export class MemoinComponent implements OnInit {
   }
  
   public selected(value:any):void {
-    console.log('Selected value is: ', value,this.options);
+    console.log('Selected value is: ', value);
   }
  
   public removed(value:any):void {
@@ -59,18 +55,28 @@ export class MemoinComponent implements OnInit {
   public refreshValue(value:any):void {
     this.value = value;
   }
+  
+  public dateConversion(date){
+    console.log(date);
+    var dd = new Date(date).getDate();
+    var mm = new Date(date).getMonth() + 1;
+    var yyyy = new Date(date).getFullYear();
+    var dateString = yyyy + "/" + mm + "/" + dd;
+    return dateString;
+
+  }
 
   submitted = false;
   newmemoindata : any;
-  onSubmit() { 
+  onSubmit() {
     this.submitted = true;
     console.log(this.newmemoin);
     this.newmemoindata = JSON.parse(JSON.stringify(this.newmemoin));
-    this.newmemoindata.account_name = this.newmemoindata.account_name[0].text;
-    this.newmemoindata.broker = this.newmemoindata.broker[0].text;
-    this.newmemoindata.date = this.newmemoindata.date.formatted
+    this.newmemoindata.account_name = JSON.stringify(this.newmemoindata.account_name);
+    this.newmemoindata.broker = JSON.stringify(this.newmemoindata.broker);
+    this.newmemoindata.date = this.dateConversion(this.newmemoindata.date);
     console.log(this.newmemoindata);
-    this._webservice.postmemoin(this.newmemoindata);
+    this._webservice.postmemo(this.newmemoindata,this.memotype);
   }
 
   ngOnInit() {

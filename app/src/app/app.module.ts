@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from "./dashboard/dashboard.component";
@@ -18,6 +19,8 @@ import { SalseReportComponent } from './salse-report/salse-report.component';
 import { PurchaseReportComponent } from './purchase-report/purchase-report.component';
 import { MemoinComponent } from './memoin/memoin.component';
 import { MemooutComponent } from './memoout/memoout.component';
+import { MemoinReportComponent } from './memoin-report/memoin-report.component';
+import { MemoutReportComponent } from './memout-report/memout-report.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -28,8 +31,10 @@ export const appRoutes: Routes = [
   { path: 'sales-return',  component: SalseReturnComponent },
   { path: 'purchase-report',  component: PurchaseReportComponent },
   { path: 'sales-report',  component: SalseReportComponent },
-  { path: 'memoin',  component: MemoinComponent },
-  { path: 'memoout',  component: MemooutComponent }
+  { path: 'addmemo',  component: MemoinComponent },
+  { path: 'memoissue-report', component: MemoinReportComponent },
+  { path: 'memoreturn-report', component: MemoutReportComponent }
+  //{ path: 'memoout',  component: MemooutComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -45,7 +50,9 @@ export const appRoutes: Routes = [
     SalseReportComponent,
     PurchaseReportComponent,
     MemoinComponent,
-    MemooutComponent
+    MemooutComponent,
+    MemoinReportComponent,
+    MemoutReportComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +62,8 @@ export const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     DatepickerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    Ng2FilterPipeModule
   ],
   exports: [
     RouterModule

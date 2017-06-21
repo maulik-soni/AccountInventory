@@ -3,20 +3,24 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use \App\Sales;
+use \App\Purchase;
 use \App\SalesReturn;
 
 class salesConroller extends Controller
 {
     public function newSalesEntry(){
         $new_sales = Request::all();
-        print_r($new_sales);
+        // print_r($new_sales);
         $sales = new \App\Sales;
+        $purchase = new \App\Purchase;
         foreach ($new_sales as $fields=>$value) {
             if($fields != "sr_no" && $fields != "brokerName" && $fields != "brokerType" && $fields != "brokerage" && $fields != "taxes"){                 
                 $sales->$fields = $new_sales[$fields];
             }
-        }
+        }        
         $sales->save();
+        Purchase::where('PCS_ID','=',$new_sales['PCS_ID'])->delete();
+
     }   
 
     public function salesReport(){

@@ -5,7 +5,7 @@ import { SelectModule } from 'ng2-select';
 import { Purchase } from '../purchase';
 import { WebServicesService } from '../web-services.service';
 import { ConstantServiceService } from '../constant-service.service';
-import { DatepickerModule } from 'angular2-material-datepicker'
+import { DatepickerModule } from 'angular2-material-datepicker';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
@@ -167,7 +167,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public addTax(){
     console.log(this.newpurchase.amount_INR,this.newpurchase.mVAT);
     if(this.newpurchase.amount_INR!=undefined && this.newpurchase.mVAT!=undefined){
-      this.oldamountINR = this.newpurchase.amount_INR;
+      this.CALAmount();
       this.newpurchase.amount_INR = this.newpurchase.amount_INR+(this.newpurchase.amount_INR*(this.newpurchase.mVAT/100));
       this.newpurchase.amount_dolar = this.newpurchase.amount_INR/this.newpurchase.currency_convrsion_rate;
     }
@@ -176,8 +176,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public checkAgianstHform(){
     console.log(this.newpurchase.aginst_Hform);
     if(this.newpurchase.aginst_Hform){
-      this.newpurchase.amount_INR = this.oldamountINR;
-      this.newpurchase.amount_dolar = this.newpurchase.amount_INR/this.newpurchase.currency_convrsion_rate;
+      this.CALAmount();
       this.newpurchase.mVAT = undefined;
       this.newpurchase.taxes = undefined;
     }

@@ -164,8 +164,15 @@ export class SalseComponent implements OnInit {
     this._webservice.fetchpurchase(this.searchPCS)
       .subscribe(
         resData => {
-          this.mypurchase = resData[2];          
+          console.log(resData);
+          
+            console.log(Object.keys(resData)[0]);
+          
+          this.mypurchase = resData[Object.keys(resData)[0]];
+
           this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
+          this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
+          this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text;
           this.showPurchase = true;
           this.newsales = new Sales(this.invoice,this.dollar,this.mypurchase.amount_INR,this.mypurchase.amount_dolar,0);
           console.log(this.mypurchase,JSON.stringify(this.mypurchase));
