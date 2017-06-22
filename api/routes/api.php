@@ -64,3 +64,10 @@ Route::post('/memoout', "memooutController@memooutEntry");
 Route::get('/memooutreport', "memooutController@memooutReport");
 Route::put('/editmemoout', "memooutController@editMemoout");
 Route::delete('/deletememoout', "memooutController@deleteMemoout");
+
+
+Route::post('/createlabissue','LabIssueController@create');
+Route::put('/editlabissue','LabIssueController@editlab');
+Route::delete('/dellab','LabIssueController@delLabissue');
+Route::get('/reportlab','LabIssueController@repoLabissue');
+Route::get('/changestatus','LabIssueController@changestatus');
