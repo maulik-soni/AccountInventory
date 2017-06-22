@@ -1,5 +1,5 @@
 <div class="container">
-	<form (ngSubmit)="onSubmit()" #memoinForm="ngForm">
+	<form (ngSubmit)="onSubmit()" #memoForm="ngForm">
 		<div class="block-header">
 			<h2>New Memo Entry</h2>
 			<ul class="actions">
@@ -13,7 +13,7 @@
 					<label class="radio radio-inline m-r-20">
 						<input type="radio" value="memoreturn" name = "memotype" [(ngModel)] = "memotype" value="memoreturn">
 						<i class="input-helper"></i>
-						Memo Return
+						Memo In
 					</label>
 				</li>			
 			</ul>
@@ -28,20 +28,22 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoin.memo_invoice_number" name = "memo_invoice_number" placeholder="Invoice Number">
+								<p class="form-label">Invoice Number</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.memo_invoice_number" name = "memo_invoice_number">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoin.no_of_days" name = "no_of_days" placeholder="Days">	
+								<p class="form-label">Days</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.no_of_days" name = "no_of_days">	
 							</div>
 						</div>
 					</div>
           <div class="col-sm-4">
-						
-						<material-datepicker [(date)]="newmemoin.date" placeholder="Memo Date" ></material-datepicker>
+						<p class="form-label">Memo Date</p>
+						<material-datepicker [(date)]="newmemo.date" ></material-datepicker>
 					</div>
 				</div>
 			</div>
@@ -53,35 +55,36 @@
 			<div class="card-body card-padding">
 				<div class="row">
 					<div class="col-sm-12">
-						<p class="f-500 c-black m-b-15">Dealer Name</p>
+						<p class="form-label">Dealer Name</p>
 						<ng-select [allowClear]="true"
 							[items]="names"
 							[disabled]="disabled"							
 							(selected)="selected($event)"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
-							[(ngModel)] = "newmemoin.account_name"
+							[(ngModel)] = "newmemo.account_name"
 							placeholder="No Dealer Name selected" name = "account_name">
 						</ng-select>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-4 m-t-15">
-						<p class="f-500 c-black m-b-15">Broker Name</p>
+						<p class="form-label">Broker Name</p>
 						<ng-select [allowClear]="true"
 							[items]="brokers"
-							[disabled]="disabled"							
+							[disabled]="disabled"	
 							(selected)="selected($event)"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
-							[(ngModel)] = "newmemoin.broker"
+							[(ngModel)] = "newmemo.broker"
 							placeholder="No Broker Name selected" name = "broker">
 						</ng-select>
 					</div>
-					<div class="col-sm-4 m-t-45">
+					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoin.reference" name = "reference" placeholder="Reference">
+								<p class="form-label">Reference</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.reference" name = "reference">
 							</div>
 						</div>
 					</div>
@@ -98,7 +101,8 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="PCS ID" [(ngModel)] = "newmemoin.PCS_ID" name = "PCS_ID">
+								<p class="form-label">PCS ID</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.PCS_ID" name = "PCS_ID">
 							</div>
 						</div>
 					</div>
@@ -107,21 +111,24 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Diamond Carats" [(ngModel)] = "newmemoin.carats" name = "carats">
+								<p class="form-label">Diamond Carats</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.carats" name = "carats">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Number of peding pieces" [(ngModel)] = "newmemoin.pending_pcs" name = "pending_pcs">
+								<p class="form-label">Number of peding pieces</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.pending_pcs" name = "pending_pcs">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Pending Carats" [(ngModel)] = "newmemoin.pending_carats" name = "pending_carats">
+								<p class="form-label">Pending Carats</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.pending_carats" name = "pending_carats">
 							</div>
 						</div>
 					</div>
@@ -131,14 +138,16 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Stone Type" [(ngModel)] = "newmemoin.stone_type" name = "stone_type">
+								<p class="form-label">Stone Type</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.stone_type" name = "stone_type">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Amount" [(ngModel)] = "newmemoin.amount" name = "amount">
+								<p class="form-label">Amount</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.amount" name = "amount">
 							</div>
 						</div>
 					</div>

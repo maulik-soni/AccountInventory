@@ -55,3 +55,8 @@
     font-size : inherit !important;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s !important;
 }
+
+.form-label{
+    font-size: 11px;
+    margin: 0px;
+}

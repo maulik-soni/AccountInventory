@@ -59,11 +59,13 @@ Route::delete('/delpurchase', 'purchaseConroller@delPurchase');
 Route::get('/purchasereport', 'purchaseConroller@purchaseReport');
 Route::get('/salesreport', 'salesConroller@salesReport');
 
+Route::post('/memoinchangestatus','memoinController@changeStatus');
+Route::post('/memoissuechangestatus','memoissueController@changeStatus');
 Route::post('/memoin', "memoinController@memoinEntry");
 Route::get('/memoinreport', "memoinController@memoinReport");
 Route::put('/editmemoin', "memoinController@editMemoin");
 Route::delete('/deletememoin', "memoinController@deleteMemoin");
-Route::post('/memoout', "memooutController@memooutEntry");
-Route::get('/memooutreport', "memooutController@memooutReport");
-Route::put('/editmemoout', "memooutController@editMemoout");
-Route::delete('/deletememoout', "memooutController@deleteMemoout");
+Route::post('/memoissue', "memoissueController@memoissueEntry");
+Route::get('/memoissuereport', "memoissueController@memoissueReport");
+Route::put('/editmemoissue', "memoissueController@editmemoissue");
+Route::delete('/deletememoissue', "memoissueController@deletememoissue");

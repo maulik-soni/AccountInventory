@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MemoIn extends Model
+class MemoIssue extends Model
 {
     public $timestamps = false;
-    protected $table = 'memo_in';
+    protected $table = 'memo_issue';
     protected $primaryKey = 'PCS_ID';
 }

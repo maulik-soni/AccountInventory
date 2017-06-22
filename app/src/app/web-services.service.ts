@@ -11,13 +11,15 @@ export class WebServicesService {
     postnewpurchase:this.base_url+'/newpurchase',
     postnewsales:this.base_url+'/newsales',
     postnewmemoin:this.base_url+'/memoin',
-    postnewmemoout:this.base_url+'/memoout',
+    postnewmemoissue:this.base_url+'/memoissue',
     purchaseretrun:this.base_url+'/purchasereturn',
     salesreturn:this.base_url+'/salesreturn',
     purchaseretrunreport:this.base_url+'/purchaseretrunreport',
     salesretrunreport:this.base_url+'/salesretrunreport',
     memoinreport:this.base_url+'/memoinreport',
-    memooutreport:this.base_url+'/memooutreport'
+    memoissuereport:this.base_url+'/memoissuereport',
+    memoissuechangestatus:this.base_url+'/memoissuechangestatus',
+    memoinchangestatus : this.base_url+'/memoinchangestatus'
   };
   
   constructor(private _http:Http) { }
@@ -51,16 +53,16 @@ export class WebServicesService {
     if(memotype == "memoissue"){
       this._http.post(this.apis.postnewmemoin,data,options).subscribe();
     }else{
-      this._http.post(this.apis.postnewmemoout,data,options).subscribe();
+      this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
     }
     // 
   }
 
-  postmemoout(data){
+  postmemoissue(data){
     console.log(data);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewmemoout,data,options).subscribe();
+    this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
   }
 
   purchaseReturn(PCS_ID){
@@ -95,9 +97,21 @@ export class WebServicesService {
       .map((response:Response) => response.json());
   }
 
-  memooutreport(){
-    return this._http.get(this.apis.memooutreport)
+  memoissuereport(){
+    return this._http.get(this.apis.memoissuereport)
       .map((response:Response) => response.json());
+  }
+
+  memoinchangestatus(pcsid){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.memoinchangestatus+"?pcsid="+pcsid,options);
+  }
+
+  memoissuechangestatus(pcsid){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
   }
 
 }

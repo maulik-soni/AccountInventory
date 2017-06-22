@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MemooutComponent } from './memoout.component';
+import { MemoComponent } from './memo.component';
 
-describe('MemooutComponent', () => {
-  let component: MemooutComponent;
-  let fixture: ComponentFixture<MemooutComponent>;
+describe('MemoinComponent', () => {
+  let component: MemoComponent;
+  let fixture: ComponentFixture<MemoinComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MemooutComponent ]
+      declarations: [ MemoComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MemooutComponent);
+    fixture = TestBed.createComponent(MemoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

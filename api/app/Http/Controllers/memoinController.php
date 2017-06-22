@@ -24,6 +24,7 @@ class memoinController extends Controller
         $memoIn_table->amount = $new_memoIn['amount'];
         $memoIn_table->stone_type = $new_memoIn['stone_type'];
         $memoIn_table->no_of_days = $new_memoIn['no_of_days'];
+        $memoIn_table->status = "ISSUED";
         $memoIn_table->save();
     } 
 
@@ -34,7 +35,7 @@ class memoinController extends Controller
 
     public function editMemoin(){
         $oldmemo = Request::all();
-        $oldmemo_data = \App\MemoIn::find($oldmemo['$PCS_ID']);        
+        $oldmemo_data = \App\MemoIn::find($oldmemo['$PCS_ID']);
         $newMemo = Request::all();
         $memoIn_table = new \App\MemoIn;
         $memoIn_table = MemoIn::find($newMemo['$PCS_ID']);
@@ -53,6 +54,12 @@ class memoinController extends Controller
         MemoIn::where('PCS_ID','=',$data['PCS_ID'])->delete();
     }
    
+    public function changeStatus(){
+        $pcsid = Request::Input('pcsid');
+        $memoIn_table = \App\MemoIn::find($pcsid);
+        $memoIn_table->status = "RETURNED";
+        $memoIn_table->return_date = date("Y/m/d");
+        $memoIn_table->save();
+    }
 
 }
-

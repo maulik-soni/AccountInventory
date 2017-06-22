@@ -630,13 +630,15 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.invoice_number" name = "invoice_number" placeholder="Invoice Number">								
+								<p class="form-label">Invoice Number</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.invoice_number" name = "invoice_number" placeholder="Invoice Number">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
+								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
 								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.currency_convrsion_rate" name = "currency_convrsion_rate" placeholder="Conversion Rate ($&#8594;&#8377;)">								
 							</div>
 						</div>
@@ -644,6 +646,7 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
+								<p class="form-label">Terms of Payment</p>
 								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.payment_terms" name="payment_terms" placeholder="Terms of Payment" (blur)="calcDay(newsales.payment_terms)">
 							</div>
 						</div>
@@ -653,6 +656,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<!--<ng2-datepicker [options]="options" [(ngModel)]="newsales.purchase_date" [ngModelOptions]="{standalone: true}"></ng2-datepicker>-->
+						<p class="form-label">Sales Date</p>
 						<material-datepicker [(date)]="newsales.sales_date" (onSelect)="calcDay($event)" placeholder="Sales Date" ></material-datepicker>
 					</div>
 					<!--<div class="col-sm-4">
@@ -661,11 +665,13 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
+								<p class="form-label">Due Date</p>
 								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.due_date" name="due_date" placeholder="Due Date" disabled="true">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
+						<p class="form-label">Country</p>
 						<ng-select [allowClear]="true"
 							[items]="countries"
 							[disabled]="disabled"
@@ -683,7 +689,8 @@
 					<div class="col-sm-8">
 						<div class="form-group ">
 							<div class="fg-line">
-								<textarea class="form-control" rows="3" name="notes" [(ngModel)] = "newsales.notes" placeholder="Notes or Remarks"></textarea>
+								<p class="form-label">Notes or Remarks</p>
+								<textarea class="form-control" rows="3" name="notes" [(ngModel)] = "newsales.notes"></textarea>
 							</div>
 						</div>
 					</div>					
@@ -698,7 +705,7 @@
 			<div class="card-body card-padding">
 				<div class="row">
 					<div class="col-sm-12">
-						<p class="f-500 c-black m-b-15">Dealer Name</p>
+						<p class="form-label">Dealer Name</p>
 						<ng-select [allowClear]="true"
 							[items]="names"
 							[disabled]="disabled"
@@ -713,7 +720,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-4 m-t-15">
-						<p class="f-500 m-b-15 c-black">Broker Type</p>
+						<p class="form-label">Broker Type</p>
 						<ng-select [allowClear]="true"
 							[items]="brokertypes"
 							[disabled]="disabled"
@@ -726,7 +733,7 @@
 						</ng-select>
 					</div>
 					<div class="col-sm-4 m-t-15">
-						<p class="f-500 c-black m-b-15">Broker Name</p>
+						<p class="form-label">Broker Name</p>
 						<ng-select [allowClear]="true"
 							[items]="brokers"
 							[disabled] = "disable"
@@ -741,6 +748,7 @@
 					<div class="col-sm-4 m-t-45">
 						<div class="form-group">
 							<div class="fg-line">
+								<p class="form-label">Brokerage in %</p>
 								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.brokerage" name = "brokerage" placeholder="Brokerage in %" [disabled] = "disable">
 							</div>
 						</div>
@@ -760,6 +768,7 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
+								<p class="form-label">LESS1</p>
 								<input type="text" class="form-control fg-input" placeholder="LESS1" [(ngModel)] = "less.less1" name = "less1">
 							</div>
 						</div>
@@ -767,7 +776,8 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="LESS2" [(ngModel)] = "less.less2" name = "less2" value="0">
+								<p class="form-label">LESS2</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less2" name = "less2" value="0">
 							</div>
 						</div>
 					</div>
@@ -781,7 +791,8 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="LESS3" [(ngModel)] = "less.less3" name = "less3">
+								<p class="form-label">LESS3</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less3" name = "less3">
 							</div>
 						</div>
 					</div>
@@ -792,14 +803,16 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Comission1" [(ngModel)] = "comission.comission1" name = "comission2">
+								<p class="form-label">Comission1</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission1" name = "comission2">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Comission2" [(ngModel)] = "comission.comission2" name = "comission2">
+								<p class="form-label">Comission2</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission2" name = "comission2">
 							</div>
 						</div>
 					</div>
@@ -810,14 +823,16 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Sales Rate" [(ngModel)] = "newsales.sale_rate"  name = "less2" (blur)="calAmount()">
+								<p class="form-label">Sales Rate</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.sale_rate"  name = "less2" (blur)="calAmount()">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Sales Discount" [(ngModel)] = "newsales.sale_disc" name = "sale_disc">
+								<p class="form-label">Sales Discount</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.sale_disc" name = "sale_disc">
 							</div>
 						</div>
 					</div>
@@ -827,14 +842,16 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Purchase amount in INR" [(ngModel)] = "newsales.purchase_amount_INR"  name = "purchase_amount_INR">
+								<p class="form-label">Purchase amount in INR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.purchase_amount_INR"  name = "purchase_amount_INR">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Purchase amount in DOLLAR" [(ngModel)] = "newsales.purchase_amount_dolar" name = "purchase_amount_dolar">
+								<p class="form-label">Purchase amount in DOLLAR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.purchase_amount_dolar" name = "purchase_amount_dolar">
 							</div>
 						</div>
 					</div>
@@ -844,14 +861,16 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Sales amount in INR" [(ngModel)] = "newsales.sales_amount_INR" name = "sales_amount_INR">
+								<p class="form-label">Sales amount in INR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.sales_amount_INR" name = "sales_amount_INR">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Sales amount in DOLLAR" [(ngModel)] = "newsales.sales_amount_dolar"  name = "sales_amount_dolar">
+								<p class="form-label">Sales amount in INR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.sales_amount_dolar"  name = "sales_amount_dolar">
 							</div>
 						</div>
 					</div>
@@ -861,7 +880,8 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Freight" [(ngModel)] = "newsales.freight" name = "freight">
+								<p class="form-label">Freight</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.freight" name = "freight">
 							</div>
 						</div>
 					</div>
@@ -872,14 +892,16 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Amount Difference in INR" [(ngModel)] = "newsales.diff_amount_INR" name = "diff_amount_INR">
+								<p class="form-label">Amount Difference in INR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.diff_amount_INR" name = "diff_amount_INR">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Amount Difference in DOLLAR" [(ngModel)] = "newsales.diff_amount_dolar"  name = "diff_amount_dolar">
+								<p class="form-label">Amount Difference in DOLLAR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.diff_amount_dolar"  name = "diff_amount_dolar">
 							</div>
 						</div>
 					</div>

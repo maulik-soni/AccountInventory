@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectModule } from 'ng2-select';
-import { MemoIn } from '../memoin';
+import { Memo } from '../memo';
 import { WebServicesService } from '../web-services.service';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import { ConstantServiceService } from '../constant-service.service';
 
 @Component({
-  selector: 'app-memoin',
-  templateUrl: './memoin.component.html',
-  styleUrls: ['./memoin.component.css'],
+  selector: 'app-memo',
+  templateUrl: './memo.component.html',
+  styleUrls: ['./memo.component.css'],
   providers: [WebServicesService,ConstantServiceService]
 })
-export class MemoinComponent implements OnInit {
+export class MemoComponent implements OnInit {
 
   
   constructor(
@@ -23,7 +23,7 @@ export class MemoinComponent implements OnInit {
   public brokers:Array<string> = this.ConstantService.BROKERS;
   public invoice:any = this.ConstantService.INVOICE;
 
-  public  newmemoin = new MemoIn(this.invoice);
+  public  newmemo = new Memo(this.invoice);
 
   public memotype:any = "memoissue";
 
@@ -67,16 +67,16 @@ export class MemoinComponent implements OnInit {
   }
 
   submitted = false;
-  newmemoindata : any;
+  newmemodata : any;
   onSubmit() {
     this.submitted = true;
-    console.log(this.newmemoin);
-    this.newmemoindata = JSON.parse(JSON.stringify(this.newmemoin));
-    this.newmemoindata.account_name = JSON.stringify(this.newmemoindata.account_name);
-    this.newmemoindata.broker = JSON.stringify(this.newmemoindata.broker);
-    this.newmemoindata.date = this.dateConversion(this.newmemoindata.date);
-    console.log(this.newmemoindata);
-    this._webservice.postmemo(this.newmemoindata,this.memotype);
+    console.log(this.newmemo);
+    this.newmemodata = JSON.parse(JSON.stringify(this.newmemo));
+    this.newmemodata.account_name = JSON.stringify(this.newmemodata.account_name);
+    this.newmemodata.broker = JSON.stringify(this.newmemodata.broker);
+    this.newmemodata.date = this.dateConversion(this.newmemodata.date);
+    console.log(this.newmemodata);
+    this._webservice.postmemo(this.newmemodata,this.memotype);
   }
 
   ngOnInit() {

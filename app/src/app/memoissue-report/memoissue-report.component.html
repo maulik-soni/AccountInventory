@@ -1,13 +1,11 @@
 <div class="container">
     <div class="block-header">
-        <h2>Memo in Report</h2>
-
-       
+        <h2>Memo Issue Report</h2>       
     </div>
 
     <div class="card">
         <div class="card-header">
-            <h2>Memo In <small>Total Memo issued by your Company.</small></h2>
+            <h2>Memo Issue <small>Total Memo issued by your Company.</small></h2>
         </div>
         <!--<div id="data-table-command-header" class="bootgrid-header container-fluid">
             <div class="row">
@@ -108,7 +106,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <button class="btn btn-primary btn-sm waves-effect" (click)="memoinReturn(m)">Retrun This Memo</button>
+                            <button class="btn btn-primary btn-sm waves-effect" (click)="memoissueReturn(m)">Memo Received</button>
                         </div>
                     </div>
                 </div>
@@ -119,7 +117,7 @@
 
      <div class="card">
         <div class="card-header">
-            <h2>Memo Return <small>Total Memo returned by your Company.</small></h2>
+            <h2>Memo Received <small>Total Memo Received by your Company.</small></h2>
         </div>
         <!--<div id="data-table-command-header" class="bootgrid-header container-fluid">
             <div class="row">
@@ -132,7 +130,7 @@
             </div>
         </div>-->
         <div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-collapse" *ngFor="let m of returned">
+            <div class="panel panel-collapse" *ngFor="let m of received">
                 <div role="tab" id="headingOne">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.memo_invoice_number}}                            
@@ -230,6 +228,5 @@
             </div>
         </div>
 
-    </div>    
-    
+    </div>
 </div>

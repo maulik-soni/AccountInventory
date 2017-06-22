@@ -17,10 +17,9 @@ import { SalseReturnComponent } from './salse-return/salse-return.component';
 import { PurchaseReturnComponent } from './purchase-return/purchase-return.component';
 import { SalseReportComponent } from './salse-report/salse-report.component';
 import { PurchaseReportComponent } from './purchase-report/purchase-report.component';
-import { MemoinComponent } from './memoin/memoin.component';
-import { MemooutComponent } from './memoout/memoout.component';
+import { MemoComponent } from './memo/memo.component';
 import { MemoinReportComponent } from './memoin-report/memoin-report.component';
-import { MemoutReportComponent } from './memout-report/memout-report.component';
+import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -31,9 +30,9 @@ export const appRoutes: Routes = [
   { path: 'sales-return',  component: SalseReturnComponent },
   { path: 'purchase-report',  component: PurchaseReportComponent },
   { path: 'sales-report',  component: SalseReportComponent },
-  { path: 'addmemo',  component: MemoinComponent },
-  { path: 'memoissue-report', component: MemoinReportComponent },
-  { path: 'memoreturn-report', component: MemoutReportComponent }
+  { path: 'memo',  component: MemoComponent },
+  { path: 'memoin-report', component: MemoinReportComponent },
+  { path: 'memoissue-report', component: MemoissueReportComponent }
   //{ path: 'memoout',  component: MemooutComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -49,10 +48,9 @@ export const appRoutes: Routes = [
     PurchaseReturnComponent,
     SalseReportComponent,
     PurchaseReportComponent,
-    MemoinComponent,
-    MemooutComponent,
+    MemoComponent,
     MemoinReportComponent,
-    MemoutReportComponent
+    MemoissueReportComponent
   ],
   imports: [
     BrowserModule,
