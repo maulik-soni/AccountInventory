@@ -22,7 +22,7 @@ class purchaseConroller extends Controller
         $purchase->save();
     }   
 
-    public function purchaseReport(){
+    public function purchaseReport(Request $request){
         $params = Request::all();
         $purchase = new \App\Purchase;
         if(!empty($params['limit']) && !empty($params['lastid'])){
@@ -37,6 +37,7 @@ class purchaseConroller extends Controller
             $purchase_data = Purchase::all();
         }
         return $purchase_data;
+        
     }
 
     public function editPurchase(){

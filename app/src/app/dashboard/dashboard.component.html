@@ -125,6 +125,22 @@
 	            </ul>
         	</li>
 
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Bills</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/payable-bill']">Payable Bill</a></li>
+                <li><a [routerLink]="['/recievable-bill']">Recievable Bill</a></li>
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>CashBook</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/new-cashbook']">New Cashbook Entry</a></li>
+                <li><a [routerLink]="['/cashbook-report']">Cashbook Reports</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>

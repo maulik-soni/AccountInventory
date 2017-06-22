@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
-import { Purchase } from '../purchase';
-import { WebServicesService } from '../web-services.service';
-import { ConstantServiceService } from '../constant-service.service';
+import { Purchase } from './purchase';
+import { WebServicesService } from './../services/web-services.service';
+import { ConstantServicesService } from './../services/constant-services.service';
 import { DatepickerModule } from 'angular2-material-datepicker'
 
 export abstract class AbstractViewInit {
@@ -14,10 +14,9 @@ export abstract class AbstractViewInit {
 }
 
 @Component({
-  selector: 'app-purchase',
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.css'],
-  providers: [WebServicesService,ConstantServiceService]
+  providers: [WebServicesService,ConstantServicesService]
 })
 export class PurchaseComponent implements OnInit, AbstractViewInit {
 
@@ -27,7 +26,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   
   constructor( 
     private _webservice : WebServicesService,
-    public ConstantService : ConstantServiceService 
+    public ConstantService : ConstantServicesService 
   ) { 
     this.options = new DatePickerOptions();
   }

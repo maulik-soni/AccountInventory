@@ -11,5 +11,6 @@ import { SigninComponent } from './signin.component';
     FormsModule
   ],
   declarations: [SigninComponent],
+  exports:[CommonModule]
 })
 export class SigninModule { }

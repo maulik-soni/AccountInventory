@@ -15,7 +15,7 @@ class CreatePurchaseTable extends Migration {
 		Schema::create('purchase', function(Blueprint $table)
 		{
 			$table->integer('PCS_ID')->primary();
-			$table->integer('sr_no', true);
+			$table->integer('sr_no', false);
 			$table->string('invoice_number', 256);
 			$table->string('purchase_date', 256);
 			$table->string('due_date', 256);
