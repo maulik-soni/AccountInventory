@@ -66,27 +66,21 @@ Route::post('/memoin', "memoinController@memoinEntry");
 Route::get('/memoinreport', "memoinController@memoinReport");
 Route::put('/editmemoin', "memoinController@editMemoin");
 Route::delete('/deletememoin', "memoinController@deleteMemoin");
-<<<<<<< HEAD
+
 Route::post('/memoissue', "memoissueController@memoissueEntry");
 Route::get('/memoissuereport', "memoissueController@memoissueReport");
 Route::put('/editmemoissue', "memoissueController@editmemoissue");
 Route::delete('/deletememoissue', "memoissueController@deletememoissue");
 
 
-Route::post('/createlabissue','LabIssueController@create');
-Route::put('/editlabissue','LabIssueController@editlab');
-Route::delete('/dellab','LabIssueController@delLabissue');
-Route::get('/reportlab','LabIssueController@repoLabissue');
-Route::get('/changestatus','LabIssueController@changestatus');
-=======
-Route::post('/memoout', "memooutController@memooutEntry");
-Route::get('/memooutreport', "memooutController@memooutReport");
-Route::put('/editmemoout', "memooutController@editMemoout");
-Route::delete('/deletememoout', "memooutController@deleteMemoout");
-
 Route::get('/payablebill','purchaseConroller@purchaseReport');
 Route::get('/recievablebill','salesConroller@salesReport');
 
 Route::post('/newuser','UserController@make');
 Route::post('/newcashbbok','CashbookController@create');	
->>>>>>> origin/issue-11
+
+Route::post('/createlabissue','LabIssueController@create');
+Route::put('/editlabissue','LabIssueController@editlab');
+Route::delete('/dellab','LabIssueController@delLabissue');
+Route::get('/reportlab','LabIssueController@repoLabissue');
+Route::get('/changestatus','LabIssueController@changestatus');	
