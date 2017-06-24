@@ -46,6 +46,9 @@ Route::post('/newpurchase', 'purchaseConroller@newPurchaseEntry');
 Route::post('/purchasereturn', 'purchaseConroller@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
 Route::post('/salesreturn', 'salesConroller@salesReturn');
+Route::get('/purchaseretrunreport','purchaseConroller@purchaseReturnReport');
+Route::get('/salesretrunreport','salesConroller@salesReturnReport');
+
 
 Route::put('/editpurchase', 'purchaseConroller@editPurchase');
 Route::put('/editsales', 'salesConroller@editSales');
@@ -54,13 +57,22 @@ Route::delete('/delsales', 'salesConroller@delSales');
 Route::delete('/delpurchase', 'purchaseConroller@delPurchase');
 
 Route::get('/purchasereport', 'purchaseConroller@purchaseReport');
-Route::middleware('cors')->get('/salesreport', 'salesConroller@salesReport');
+Route::get('/salesreport', 'salesConroller@salesReport');
 
+Route::post('/memoinchangestatus','memoinController@changeStatus');
+Route::post('/memoissuechangestatus','memoissueController@changeStatus');
 Route::post('/memoin', "memoinController@memoinEntry");
 Route::get('/memoinreport', "memoinController@memoinReport");
 Route::put('/editmemoin', "memoinController@editMemoin");
 Route::delete('/deletememoin', "memoinController@deleteMemoin");
-Route::post('/memoout', "memooutController@memooutEntry");
-Route::get('/memooutreport', "memooutController@memooutReport");
-Route::put('/editmemoout', "memooutController@editMemoout");
-Route::delete('/deletememoout', "memooutController@deleteMemoout");
+Route::post('/memoissue', "memoissueController@memoissueEntry");
+Route::get('/memoissuereport', "memoissueController@memoissueReport");
+Route::put('/editmemoissue', "memoissueController@editmemoissue");
+Route::delete('/deletememoissue', "memoissueController@deletememoissue");
+
+
+Route::post('/createlabissue','LabIssueController@create');
+Route::put('/editlabissue','LabIssueController@editlab');
+Route::delete('/dellab','LabIssueController@delLabissue');
+Route::get('/reportlab','LabIssueController@repoLabissue');
+Route::get('/changestatus','LabIssueController@changestatus');

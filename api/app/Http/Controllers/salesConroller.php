@@ -3,19 +3,24 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Request;
 use \App\Sales;
+use \App\Purchase;
 use \App\SalesReturn;
 
 class salesConroller extends Controller
 {
     public function newSalesEntry(){
         $new_sales = Request::all();
+        // print_r($new_sales);
         $sales = new \App\Sales;
+        $purchase = new \App\Purchase;
         foreach ($new_sales as $fields=>$value) {
             if($fields != "sr_no" && $fields != "brokerName" && $fields != "brokerType" && $fields != "brokerage" && $fields != "taxes"){                 
                 $sales->$fields = $new_sales[$fields];
             }
-        }
+        }        
         $sales->save();
+        Purchase::where('PCS_ID','=',$new_sales['PCS_ID'])->delete();
+
     }   
 
     public function salesReport(){
@@ -54,7 +59,8 @@ class salesConroller extends Controller
     }
 
     public function salesReturn(){
-        $SR_pcsid = Request('PCS_ID');
+        print_r(Request::all()[0]);
+        $SR_pcsid = Request::all()[0];
         $sales = new \App\Sales;
         $sales_return = new \App\SalesReturn;
         $SR_data = Sales::where('PCS_ID','=',$SR_pcsid)->get()->toArray();
@@ -63,6 +69,13 @@ class salesConroller extends Controller
         }
         $sales_return->save();
         Sales::where('PCS_ID','=',$SR_pcsid)->delete();
+    }
+
+    public function salesReturnReport(){
+        $params = Request::all();
+        $purchase_return = new \App\SalesReturn;
+        $purchase_data = SalesReturn::all();
+        return $purchase_data;
     }
 
 }
