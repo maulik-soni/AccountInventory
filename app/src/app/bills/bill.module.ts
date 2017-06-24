@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 // import { DatePickerModule } from 'ng2-datepicker';
 // import { SelectModule } from 'ng2-select';
 import { FormsModule } from '@angular/forms';
-import { DashboardModule } from './../dashboard/dashboard.module';
+// import { DashboardComponent } from'./../dashboard/dashboard.component';
+import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
 import { BillRoutingModule } from './bill-routing.module';
 // import { NgForm } from '@angular/forms';
 
@@ -19,11 +20,12 @@ import { WebServicesService } from './../services/web-services.service';
 @NgModule({
   imports: [
     CommonModule,
+        DashboardStructureModule,
     // DatepickerModule,
     // DatePickerModule,
     // SelectModule,
     FormsModule,
-    DashboardModule,
+
     BillRoutingModule
   ],
   declarations: [PayableBillComponent,RecievableBillComponent],

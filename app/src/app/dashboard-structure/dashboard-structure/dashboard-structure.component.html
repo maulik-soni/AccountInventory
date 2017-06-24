@@ -69,7 +69,7 @@
 
 <section id="main" data-layout="layout-1">
   <aside id="sidebar" class="sidebar c-overflow mCustomScrollbar _mCS_1 mCS-autoHide" style="overflow: visible;">
-    <div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical_horizontal mCSB_outside" tabindex="0">
+    <div id="mCSB_1" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical_horizontal mCSB_outside" style="height:auto!important;max-height:100%!important;" tabindex="0">
       <div id="mCSB_1_container" class="mCSB_container mCS_x_hidden mCS_no_scrollbar_x" style="position: relative; top: 0px; left: 0px; width: 100%;" dir="ltr">
         <div class="profile-menu">
           <a href="#">
@@ -102,26 +102,26 @@
           <li class="sub-menu">
             <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Purchase</a>
             <ul style="display: none;">
-                <li><a [routerLink]="['/purchase-entry']">New Purchase Entry</a></li>
-                <li><a [routerLink]="['/purchase-return']">Purchase Return</a></li>
-                <li><a [routerLink]="['/purchase-report']">Purchase Report</a></li>
+                <li><a [routerLink]="['/purchase/purchase-entry']">New Purchase Entry</a></li>
+                <li><a [routerLink]="['/purchase/purchase-return']">Purchase Return</a></li>
+                <li><a [routerLink]="['/purchase/purchase-report']">Purchase Report</a></li>
             </ul>
           </li>
 
         	<li class="sub-menu">
 	            <a href="#"><i class="zmdi zmdi-money-box"></i>Sales</a>
 	            <ul style="display: none;">
-	                <li><a [routerLink]="['/sales-entry']">New Sales Entry</a></li>
-	                <li><a [routerLink]="['/sales-return']">Sales Return</a></li>
-	                <li><a [routerLink]="['/sales-report']">Sales Report</a></li>
+	                <li><a [routerLink]="['/sales/sales-entry']">New Sales Entry</a></li>
+	                <li><a [routerLink]="['/sales/sales-return']">Sales Return</a></li>
+	                <li><a [routerLink]="['/sales/sales-report']">Sales Report</a></li>
 	            </ul>
         	</li>
           
           <li class="sub-menu">
 	            <a href="#"><i class="zmdi zmdi-file-text"></i>Memo</a>
 	            <ul style="display: none;">
-	                <li><a [routerLink]="['/memoin']">Memo In</a></li>
-	                <li><a [routerLink]="['/memoout']">Memo Out</a></li>
+	                <li><a [routerLink]="['/memo/memo-in']">Memo In</a></li>
+	                <li><a [routerLink]="['/memo/memo-out']">Memo Out</a></li>
 	            </ul>
         	</li>
 
