@@ -4,6 +4,7 @@ import { HttpModule } from '@angular/http';
 
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
+import { AuthorizedGuard } from './authorized.service';
 
 @NgModule({
   imports: [
@@ -11,6 +12,6 @@ import { AuthGuard } from './auth-guard.service';
     HttpModule
   ],
   declarations: [],
-  providers:[AuthService,AuthGuard]
+  providers:[AuthService,AuthGuard,AuthorizedGuard]
 })
 export class AuthModule { }

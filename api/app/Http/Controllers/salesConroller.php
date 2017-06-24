@@ -23,7 +23,7 @@ class salesConroller extends Controller
 
     }   
 
-    public function salesReport(){
+    public function salesReport(Request $request){
         $params = Request::all();
         $sales = new \App\Sales;
         if(!empty($params['limit']) && !empty($params['lastid'])){

@@ -13,14 +13,15 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'name'=>'required',
-            'email'=>'required',
+            'email'=>'required|email',
             'password'=>'required',
             ]);
 
         $user = new User([
             'name'=> $request->input('name'),
             'email'=>$request->input('email'),
-            'password'=>bcrypt($request->input('password'))]);
+            'password'=>bcrypt($request->input('password')),
+            'api_token'=>str_random($length = 60)]);
 
         $user->save();
         return response()->json(['message'=>'successfully created user'],201);

@@ -1,0 +1,45 @@
+<dashboard>
+  <div class="container">
+    <div class="block-header">
+      <h2>CashBook</h2>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h2>New Cashbook Entry</h2>
+      </div>
+      <div class="card-body card-padding">
+        <form #ac="ngForm" novalidate (ngSubmit)="onSubmit()">
+          <div class="row">
+           <div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" name = "voucher" #voucher="ngModel" [(ngModel)]="cashbook.voucher" placeholder="Voucher Number">								
+							</div>
+						</div>
+					</div>
+
+          <div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" name = "vamount" #vamount="ngModel" [(ngModel)]="cashbook.amount" placeholder="Amount">								
+							</div>
+						</div>
+					</div>
+
+          <div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<input type="text" class="form-control fg-input" name = "vtype" #vtype="ngModel" [(ngModel)]="cashbook.type" placeholder="Type">								
+							</div>
+						</div>
+					</div>
+
+          <button class="btn btn-success btn-lg waves-effect"[disabled]="!ac.valid" type="submit">Add Entry</button>
+          </div>
+          
+
+        </form>
+      </div>
+    </div>
+  </div>
+</dashboard>
