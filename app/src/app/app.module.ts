@@ -20,6 +20,8 @@ import { PurchaseReportComponent } from './purchase-report/purchase-report.compo
 import { MemoComponent } from './memo/memo.component';
 import { MemoinReportComponent } from './memoin-report/memoin-report.component';
 import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
+import { LabissueComponent } from './labissue/labissue.component';
+import { LabissueReportComponent } from './labissue-report/labissue-report.component';
 
 export const appRoutes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -32,7 +34,9 @@ export const appRoutes: Routes = [
   { path: 'sales-report',  component: SalseReportComponent },
   { path: 'memo',  component: MemoComponent },
   { path: 'memoin-report', component: MemoinReportComponent },
-  { path: 'memoissue-report', component: MemoissueReportComponent }
+  { path: 'memoissue-report', component: MemoissueReportComponent },
+  { path: 'labissue-entry', component: LabissueComponent },
+  { path: 'labissue-report', component: LabissueReportComponent }
   //{ path: 'memoout',  component: MemooutComponent }
   // { path: '**', component: PageNotFoundComponent }
 ];
@@ -50,7 +54,9 @@ export const appRoutes: Routes = [
     PurchaseReportComponent,
     MemoComponent,
     MemoinReportComponent,
-    MemoissueReportComponent
+    MemoissueReportComponent,
+    LabissueComponent,
+    LabissueReportComponent
   ],
   imports: [
     BrowserModule,

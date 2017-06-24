@@ -19,7 +19,10 @@ export class WebServicesService {
     memoinreport:this.base_url+'/memoinreport',
     memoissuereport:this.base_url+'/memoissuereport',
     memoissuechangestatus:this.base_url+'/memoissuechangestatus',
-    memoinchangestatus : this.base_url+'/memoinchangestatus'
+    memoinchangestatus : this.base_url+'/memoinchangestatus',
+    createlabissue : this.base_url+'/createlabissue',
+    reportlab:this.base_url+'/reportlab',
+    changelabissuestatus:this.base_url+'/changestatus'
   };
   
   constructor(private _http:Http) { }
@@ -108,10 +111,37 @@ export class WebServicesService {
     return this._http.post(this.apis.memoinchangestatus+"?pcsid="+pcsid,options);
   }
 
+  changelabissuestatus(pcsid){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.get(this.apis.changelabissuestatus+"?PCS_ID="+pcsid,options);
+  }
+
+  createlabissue(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.createlabissue,data,options).subscribe();
+  }
+
+  reportlab(){
+    console.log("GET");
+    return this._http.get(this.apis.reportlab)
+      .map((response:Response) => response.json());
+  }
+
   memoissuechangestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
+    return this._http.get(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
+  }
+
+  dateConversion(date){
+    console.log(date);
+    var dd = new Date(date).getDate();
+    var mm = new Date(date).getMonth() + 1;
+    var yyyy = new Date(date).getFullYear();
+    var dateString = yyyy + "/" + mm + "/" + dd;
+    return dateString;
   }
 
 }

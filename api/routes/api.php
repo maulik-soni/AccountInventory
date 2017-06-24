@@ -69,3 +69,10 @@ Route::post('/memoissue', "memoissueController@memoissueEntry");
 Route::get('/memoissuereport', "memoissueController@memoissueReport");
 Route::put('/editmemoissue', "memoissueController@editmemoissue");
 Route::delete('/deletememoissue', "memoissueController@deletememoissue");
+
+
+Route::post('/createlabissue','LabIssueController@create');
+Route::put('/editlabissue','LabIssueController@editlab');
+Route::delete('/dellab','LabIssueController@delLabissue');
+Route::get('/reportlab','LabIssueController@repoLabissue');
+Route::get('/changestatus','LabIssueController@changestatus');

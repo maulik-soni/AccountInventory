@@ -1,0 +1,247 @@
+<div class="container">
+    <div class="block-header">
+        <h2>Lab Issue Report</h2>
+
+       
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h2>Lab Issue <small>Total Lab issue by your Company.</small></h2>
+        </div>
+        <!--<div id="data-table-command-header" class="bootgrid-header container-fluid">
+            <div class="row">
+                <div class="col-sm-12 actionBar">
+                    <div class="search form-group">
+                        <div class="input-group"><span class="zmdi icon input-group-addon glyphicon-search"></span> <input type="text" class="search-field form-control"
+                                placeholder="Search"></div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="panel-group" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-collapse" *ngFor="let m of issued">
+                <div role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                       <!--Pcs ID : {{m.PCS_ID}}<br>
+                       Dealer Name : {{m.account_name}}<br>
+                       Date of Purchase : {{m.purchase_date}}<br>
+                       Due Date : {{m.due_date}}<br>
+                       Total Carats : {{m.total_diamond_carat}}<br>
+                       Total Picies : {{m.total_diamond_pcs}}<br>
+                       Currency Conversion : {{m.currency_convrsion_rate}}<br>                     
+                       Country : {{m.country}}<br>
+                       Notes : {{m.notes}}<br>-->
+
+                        <div class="col-sm-12" style= "height:auto;color:#666;">
+                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
+                                <div style="width:30%; float:left;padding:10px;">
+                                    <!--<span style="font-size:14px;float:left; width:100%;">
+                                    <b>Client Name :</b> {{m.account_name}}
+                                    </span>
+                                    <span style="font-size:14px;float:left; width:100%;">
+                                    <b>Broker Name :</b> {{m.broker}}
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
+                                    <b>Currency Conversion :</b> {{m.currency_convrsion_rate}}
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
+                                    <b>Country :</b> {{m.country}}
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
+                                    <b>Notes :</b> {{m.notes}}
+                                    </span>-->
+                                </div>
+                                <div style="width:40%; float:right;padding:">
+                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                                    <b>Issue Date : </b>{{m.date}}
+                                    </span>
+                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                                    <b>Invoice# : </b>{{m.invoice_number}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="width:100%; padding:0px; float:left;">
+                                <div style="width:100%;float:left;background:#efefef;">
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
+                                    Decription
+                                    </span>
+                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                                    Amount
+                                    </span>
+                                </div>
+                                <div style="width:100%;float:left;">
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+                                    Pcs ID : {{m.PCS_ID}}
+                                    <span style="font-size:11px; float:left; width:100%;">
+                                    Total Carats : {{m.carat}}
+                                    <!--<br>
+                                                    Total Picies : {{mypurchase.total_diamond_pcs}}-->
+                                    <br>
+                                    Color : {{m.color}}
+                                    <br>
+                                    Shape : {{m.shape}}
+                                    <br>
+                                    Size : {{m.size}}
+                                    <br>
+                                    Clarity : {{m.clarity}}
+                                    </span>
+                                    </span>
+                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                                    ₹{{m.amount}}
+                                    </span>
+                                </div>
+                                <!--<div style="width:100%;float:left;">
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+                                    Promotional Code            
+                                    <span style="font-size:10px; float:left; width:100%;">
+                                    (0%)
+                                    </span>
+                                    </span>
+                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                                    373 INR
+                                    </span>
+                                </div>-->
+                                <div style="width:100%;float:left; background:#fff;">
+                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
+                                    Total : ₹{{m.amount}}
+                                    </span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary btn-sm waves-effect" (click)="labissuereceived(m)">Lab issue Received</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+     <div class="card">
+        <div class="card-header">
+            <h2>Lab Issue Received<small>Total Lab Issue Received by your Company.</small></h2>
+        </div>
+        <!--<div id="data-table-command-header" class="bootgrid-header container-fluid">
+            <div class="row">
+                <div class="col-sm-12 actionBar">
+                    <div class="search form-group">
+                        <div class="input-group"><span class="zmdi icon input-group-addon glyphicon-search"></span> <input type="text" class="search-field form-control"
+                                placeholder="Search"></div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <div class="panel-group" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-collapse" *ngFor="let m of received">
+                <div role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                       <!--Pcs ID : {{m.PCS_ID}}<br>
+                       Dealer Name : {{m.account_name}}<br>
+                       Date of Purchase : {{m.purchase_date}}<br>
+                       Due Date : {{m.due_date}}<br>
+                       Total Carats : {{m.total_diamond_carat}}<br>
+                       Total Picies : {{m.total_diamond_pcs}}<br>
+                       Currency Conversion : {{m.currency_convrsion_rate}}<br>                     
+                       Country : {{m.country}}<br>
+                       Notes : {{m.notes}}<br>-->
+
+                        <div class="col-sm-12" style= "height:auto;color:#666;">
+                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
+                                <div style="width:30%; float:left;padding:10px;">
+                                    <!--<span style="font-size:14px;float:left; width:100%;">
+                                    <b>Client Name :</b> {{m.account_name}}
+                                    </span>
+                                    <span style="font-size:14px;float:left; width:100%;">
+                                    <b>Broker Name :</b> {{m.broker}}
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
+                                    <b>Currency Conversion :</b> {{m.currency_convrsion_rate}}
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
+                                    <b>Country :</b> {{m.country}}
+                                    </span>-->
+                                    <!--<span style="font-size:14px;float:left;width:100%;">
+                                    <b>Notes :</b> {{m.notes}}
+                                    </span>-->
+                                </div>
+                                <div style="width:40%; float:right;padding:">
+                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                                    <b>Return Date : </b>{{m.return_date}}
+                                    </span>
+                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                                    <b>Issue Date : </b>{{m.date}}
+                                    </span>
+                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                                    <b>Invoice# : </b>{{m.invoice_number}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="width:100%; padding:0px; float:left;">
+                                <div style="width:100%;float:left;background:#efefef;">
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
+                                    Decription
+                                    </span>
+                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                                    Amount
+                                    </span>
+                                </div>
+                                <div style="width:100%;float:left;">
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+                                    Pcs ID : {{m.PCS_ID}}
+                                    <span style="font-size:11px; float:left; width:100%;">
+                                    Total Carats : {{m.carat}}
+                                    <!--<br>
+                                                    Total Picies : {{mypurchase.total_diamond_pcs}}-->
+                                    <br>
+                                    Color : {{m.color}}
+                                    <br>
+                                    Shape : {{m.shape}}
+                                    <br>
+                                    Size : {{m.size}}
+                                    <br>
+                                    Clarity : {{m.clarity}}
+                                    </span>
+                                    </span>
+                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                                    ₹{{m.amount}}
+                                    </span>
+                                </div>
+                                <!--<div style="width:100%;float:left;">
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+                                    Promotional Code            
+                                    <span style="font-size:10px; float:left; width:100%;">
+                                    (0%)
+                                    </span>
+                                    </span>
+                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                                    373 INR
+                                    </span>
+                                </div>-->
+                                <div style="width:100%;float:left; background:#fff;">
+                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
+                                    Total : ₹{{m.amount}}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>    
+    
+</div>
