@@ -125,6 +125,31 @@
 	            </ul>
         	</li>
 
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Bills</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/bills/payable-bill']">Payable Bill</a></li>
+                <li><a [routerLink]="['/bills/recievable-bill']">Recievable Bill</a></li>
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>CashBook</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/cashbook/new-cashbook']">New Cashbook Entry</a></li>
+                <li><a [routerLink]="['/cashbook/cashbook-report']">Cashbook Reports</a></li>
+            </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Users</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/users/add-new']">Add New User</a></li>
+                <li><a [routerLink]="['/cashbook/cashbook-report']">Roles and Permission</a></li>
+                <li><a [routerLink]="['/cashbook/cashbook-report']">User Report</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>

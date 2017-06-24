@@ -18,18 +18,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/login', 'UserController@authenticate');
+Route::post('/newuser','UserController@make');
 
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {*/
     /*return $request->user();*/
 
-/*Route::group(['prefix'=>'/user','middleware'=>'auth:api'],function(){
-	Route::group(['middleware'=>'is:admin'],function(){
-		Route::put('/{user}','UserController@update');
-		Route::delete('/{user}','UserController@delete');
-		Route::post('/','UserController@make');	
-	});
-	Route::get('/{user}','UserController@show');
-});*/
+// Route::group(['prefix'=>'/user','middleware'=>'auth:api'],function(){
+// 	Route::group(['middleware'=>'is:admin'],function(){
+// 		Route::put('/{user}','UserController@update');
+// 		Route::delete('/{user}','UserController@delete');
+// 		Route::post('/','UserController@make');	
+// 	});
+// 	Route::get('/{user}','UserController@show');
+// });
 
 
 
@@ -64,3 +65,9 @@ Route::post('/memoout', "memooutController@memooutEntry");
 Route::get('/memooutreport', "memooutController@memooutReport");
 Route::put('/editmemoout', "memooutController@editMemoout");
 Route::delete('/deletememoout', "memooutController@deleteMemoout");
+
+Route::get('/payablebill','purchaseConroller@purchaseReport');
+Route::get('/recievablebill','salesConroller@salesReport');
+
+Route::post('/newuser','UserController@make');
+Route::post('/newcashbbok','CashbookController@create');	
