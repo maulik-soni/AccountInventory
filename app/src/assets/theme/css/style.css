@@ -60,3 +60,11 @@
     font-size: 11px;
     margin: 0px;
 }
+
+.mCustomScrollBox{
+    overflow: auto !important;
+}
+
+.mCSB_dragger_bar{
+    display: none !important;
+}
