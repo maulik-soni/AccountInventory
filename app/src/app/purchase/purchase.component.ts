@@ -46,7 +46,6 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public clarity:Array<string> = this.ConstantService.CLARITY;
   public sizes:Array<string> = this.ConstantService.SIZES;
   public taxes:Array<string> = this.ConstantService.TAXES;
-  // newpurchase.concurrency_convrsion_ratev =
   public invoice:any = this.ConstantService.INVOICE;
   public dolar:any = this.ConstantService.DOLAR;
 
@@ -59,17 +58,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   private disabled:boolean = false;
   private oldamountINR = 0;
   private disable:any = false;
-
-  public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-    'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-    'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-    'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-    'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-    'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-    'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-    'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-    'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-    'Zagreb', 'Zaragoza', 'Łódź'];
+  private comissionCheck:any = false;
 
   private get disabledV():string {
     return this._disabledV;
@@ -177,8 +166,17 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     console.log(this.newpurchase.aginst_Hform);
     if(this.newpurchase.aginst_Hform){
       this.CALAmount();
-      this.newpurchase.mVAT = undefined;
+      this.newpurchase.mVAT = 0;
       this.newpurchase.taxes = undefined;
+    }
+  }
+
+
+  public checkComission(){
+    console.log(this.comissionCheck);
+    if(!this.comissionCheck){
+      this.comission.comission1 = 0;
+      this.comission.comission2 = 0;
     }
   }
 

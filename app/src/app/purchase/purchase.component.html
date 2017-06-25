@@ -136,6 +136,33 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<label class="checkbox checkbox-inline m-r-20">						
+							<input type="checkbox" value="comissionCheck" [(ngModel)] = "comissionCheck" name = "comissionCheck" (change)="checkComission()">
+							<i class="input-helper"></i>
+							<b>Comission</b>
+						</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Aggent Comission1 in %</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission1" name = "comission2" [disabled] = "!comissionCheck">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Aggent Comission2 in %</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission2" name = "comission2" [disabled] = "!comissionCheck">
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="card">
@@ -353,25 +380,7 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Comission</p>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Comission1</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission1" name = "comission2">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Comission2</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission2" name = "comission2">
-							</div>
-						</div>
-					</div>
-				</div>
+				
 
 				<div class="row m-t-25">
 					<div class="col-sm-4">
