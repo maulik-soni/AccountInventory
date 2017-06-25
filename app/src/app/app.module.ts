@@ -18,6 +18,8 @@ import { DashboardStructureModule } from './dashboard-structure/dashboard-struct
 import { BillModule } from './bills/bill.module';
 import { CashbookModule } from './cashbook/cashbook.module';
 import { UserModule } from './user/user.module';
+import { DatepickerModule } from 'angular2-material-datepicker';
+import {LabissueModule} from './labissue/labissue.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,8 +35,11 @@ import { UserModule } from './user/user.module';
     SalesModule,
     SigninModule,
     UserModule,
+    BrowserAnimationsModule,
+    DatepickerModule,
     // ServicesModule,   
-    AppRoutingModule 
+    AppRoutingModule,
+    LabissueModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

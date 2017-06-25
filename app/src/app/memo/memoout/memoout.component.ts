@@ -69,7 +69,7 @@ export class MemooutComponent implements OnInit {
     this.newmemooutdata.broker = this.newmemooutdata.broker[0].text;
     this.newmemooutdata.date = this.newmemooutdata.date.formatted
     console.log(this.newmemooutdata);
-    this._webservice.postmemoout(this.newmemooutdata);
+    //this._webservice.postmemoout(this.newmemooutdata);
     
   }
 

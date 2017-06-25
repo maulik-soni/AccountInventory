@@ -1,16 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 import { DatePickerModule } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { FormsModule } from '@angular/forms';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
-import { MemoComponent } from './memo/memo.component';
-import { MemoRoutingModule } from './memo-routing.module';
 import { DatepickerModule } from 'angular2-material-datepicker';
-import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
-import { MemoinReportComponent } from './memoin-report/memoin-report.component';
+import { LabissueEntryComponent } from './labissue-entry/labissue-entry.component';
+import { LabissueReportComponent } from './labissue-report/labissue-report.component';
+import { LabissueRoutingModule } from './labissue-rounting.module';
 
 @NgModule({
   imports: [
@@ -19,15 +17,12 @@ import { MemoinReportComponent } from './memoin-report/memoin-report.component';
     DatePickerModule,
     SelectModule,
     FormsModule,
-    MemoRoutingModule,
+    LabissueRoutingModule,
     DatepickerModule
   ],
   declarations: [
-    MemoComponent,    
-    MemoissueReportComponent,
-    MemoinReportComponent
-  ],
-
+    LabissueEntryComponent,
+    LabissueReportComponent
+  ]
 })
-
-export class MemoModule { }
+export class LabissueModule { }

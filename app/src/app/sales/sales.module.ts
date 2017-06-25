@@ -9,6 +9,8 @@ import { SalesComponent } from './sales.component';
 import { SalesReturnComponent } from './sales-return/sales-return.component';
 import { SalesReportComponent } from './sales-report/sales-report.component';
 import { SalesRoutingModule } from './sales-routing.module';
+import { DatepickerModule } from 'angular2-material-datepicker';
+
 
 @NgModule({
   imports: [
@@ -17,7 +19,8 @@ import { SalesRoutingModule } from './sales-routing.module';
     DashboardStructureModule,
     SelectModule,
     FormsModule,
-    SalesRoutingModule
+    SalesRoutingModule,
+    DatepickerModule
   ],
   declarations: [SalesComponent,SalesReportComponent,SalesReturnComponent]
 })

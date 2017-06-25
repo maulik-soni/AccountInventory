@@ -1,0 +1,182 @@
+<dashboard>
+
+  <div class="container">
+	<div class="card">
+		<div class="card-body card-padding">
+			<div id="data-table-command-header" class="bootgrid-header container-fluid">
+				<div class="row">
+					<div class="search form-group">
+						<input type="text" class="search-field form-control"
+									placeholder="Search the Purchased Stone by 'PCS ID'" [(ngModel)]="searchPCS">
+					</div>
+					<button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="card" *ngIf="showPurchase">
+		<div class="card-header">
+			<h2>Purchased Stone details</h2>
+		</div>
+		<div class="card-body card-padding">
+			<div class="row">
+				<div class="col-sm-12" style= "height:auto;color:#666;">
+					<div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
+						<div style="width:30%; float:left;padding:10px;">
+							<span style="font-size:14px;float:left; width:100%;">
+							<b>Dealer Name :</b> {{mypurchase.account_name}}
+							</span>
+							<span style="font-size:14px;float:left;width:100%;">
+							<b>Currency Conversion :</b> {{mypurchase.currency_convrsion_rate}} 
+							</span>
+							<span style="font-size:14px;float:left;width:100%;">
+							<b>Country :</b> {{mypurchase.country}}
+							</span>
+							<span style="font-size:14px;float:left;width:100%;">
+							<b>Notes :</b> {{mypurchase.notes}}
+							</span>
+						</div>
+						<div style="width:40%; float:right;padding:">
+							<span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+							<b>Date : </b> {{mypurchase.purchase_date}}
+							</span>
+							<span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+							<b>Invoice# : </b> {{mypurchase.invoice_number}}
+							</span>
+						</div>
+					</div>
+					<div style="width:100%; padding:0px; float:left;">
+						<div style="width:100%;float:left;background:#efefef;">
+							<span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
+							Decription
+							</span>
+							<span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+							Amount
+							</span>
+						</div>
+						<div style="width:100%;float:left;">
+							<span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+							Pcs ID : {{newlabissue.PCS_ID}}
+							<span style="font-size:11px; float:left; width:100%;">
+							Total Carats : {{newlabissue.carat}}
+              <!--<br>
+							Total Picies : {{mypurchase.total_diamond_pcs}}-->
+              <br>
+              Color : {{newlabissue.color}}
+              <br>
+              Shape : {{newlabissue.shape}}
+              <br>
+              Size : {{newlabissue.size}}
+              <br>
+              Clarity : {{newlabissue.clarity}}
+							</span>
+							</span>
+							<span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+							₹{{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
+							</span>
+						</div>
+						<!--<div style="width:100%;float:left;">
+							<span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+							Promotional Code            
+							<span style="font-size:10px; float:left; width:100%;">
+							(0%)
+							</span>
+							</span>
+							<span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+							373 INR
+							</span>
+						</div>-->
+						<div style="width:100%;float:left; background:#fff;">
+							<span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
+							Total : ₹{{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>				
+		</div>
+	</div>
+	
+	<form *ngIf="showPurchase">
+		<div class="card">
+			<div class="card-header">
+				<h2>Lab Issue Information</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Invoice Number</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.invoice_number" name = "invoice_number" >
+							</div>
+						</div>
+					</div>
+          <div class="col-sm-4">
+            <p class="form-label">Lab Issue Date</p>
+            <material-datepicker [(date)]="newlabissue.date"></material-datepicker>
+          </div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Client's Reference Number</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.client_ref_num" name="client_ref_num">
+							</div>
+						</div>
+					</div>
+				</div>
+        <div class="row">
+          <div class="col-sm-4">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Service</p>
+                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.service" name = "service" >
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Diamond's Height</p>
+                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.height" name = "height" >
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Diameter</p>
+                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.diameter" name = "diameter" >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class = "row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Rate</p>
+                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.rate" name = "Rate" >
+                </div>
+              </div>
+            </div>
+
+            <div class = "col-sm-4">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Amount</p>
+                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.amount" name = "amount" >
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-success btn-lg waves-effect" type="submit" (click) = "onSubmit()"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
+			</div>
+		</div>
+
+	</form>
+</div>
+
+</dashboard>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 
-import { ConstantServicesService } from './constant-services.service';
+import { ConstantServiceService } from './constant-services.service';
 import { WebServicesService } from './web-services.service'; 
 @NgModule({
   imports: [
@@ -11,7 +11,7 @@ import { WebServicesService } from './web-services.service';
   ],
   declarations: [],
   providers:[
-    ConstantServicesService,
+    ConstantServiceService,
     WebServicesService
   ]
 })

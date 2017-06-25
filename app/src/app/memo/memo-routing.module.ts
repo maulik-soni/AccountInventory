@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { RouterModule, Routes,Router } from '@angular/router';
 
-import { MemoinComponent } from './memoin/memoin.component';
-import { MemooutComponent } from './memoout/memoout.component';
-
+import { MemoComponent } from './memo/memo.component';
+import { MemoinReportComponent } from './memoin-report/memoin-report.component';
+import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
 
 import { AuthGuard } from './../authorization/auth-guard.service';
 import { AdminGuard } from './../authorization/admin-role-guard.service';
@@ -16,12 +16,16 @@ const memoRoutes:Routes=[
     canActivate:[AuthGuard,AdminGuard],
     children:[
       {
-        path:'memo-in',
-        component: MemoinComponent
+        path:'memo-entry',
+        component: MemoComponent
       },
       {
-        path:'memo-out',
-        component: MemooutComponent
+        path:'memoin-report',
+        component: MemoinReportComponent
+      },
+      {
+        path:'memoissue-report',
+        component: MemoissueReportComponent
       },
     ]
   }
