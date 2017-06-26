@@ -14,7 +14,7 @@ import { PurchaseModule } from './purchase/purchase.module';
 import { SalesModule } from './sales/sales.module';
 import { SigninModule } from './signin/signin.module';
 import { DashboardStructureModule } from './dashboard-structure/dashboard-structure.module';
-// import { ServicesModule } from './services/services.module';
+
 import { BillModule } from './bills/bill.module';
 import { CashbookModule } from './cashbook/cashbook.module';
 import { UserModule } from './user/user.module';

@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { Purchase } from './purchase';
 import { WebServicesService } from './../services/web-services.service';
 import { ConstantServiceService } from './../services/constant-services.service';
 import { DatepickerModule } from 'angular2-material-datepicker';
+import { ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
+import { ComponentFactory } from '@angular/core';
+import { PiecesTypeComponent } from './pieces-type/pieces-type.component';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { newPurchase } from './purchase.interface';
+
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
@@ -17,22 +23,119 @@ export abstract class AbstractViewInit {
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.css'],
-  providers: [WebServicesService,ConstantServiceService]
+  providers: [WebServicesService,ConstantServiceService],
 })
 export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   date: DateModel;
   options: DatePickerOptions;
 
+  @ViewChild('subContainer1', {read: ViewContainerRef}) subContainer1: ViewContainerRef;
+
+   public myForm: FormGroup;
+
+    
 
   constructor(
     private _webservice : WebServicesService,
-    public ConstantService : ConstantServiceService
+    public ConstantService : ConstantServiceService,
+    private compFactoryResolver: ComponentFactoryResolver,
+    private _fb: FormBuilder
   ) {
     this.options = new DatePickerOptions();
   }
 
-  ngOnInit() {}
+  addComponents() {
+    console.log("add component",this.newpurchase);
+    let compFactory:any;
+    compFactory = this.compFactoryResolver.resolveComponentFactory(PiecesTypeComponent);
+    this.subContainer1.createComponent(compFactory);
+  }
+
+
+  ngOnInit() {
+
+    this.myForm = this._fb.group({
+            invoice_number: [''],
+            currency_convrsion_rate:[''],
+            payment_terms:[''],
+            purchase_date:[''],
+            due_date:[''],
+            country:[''],
+            notes:[''],
+            account_name:[''],
+            brokerType:[''],
+            brokerName:[''],
+            brokerage:[''],
+            comission1:[''],
+            comission2:[''],
+            avg_INR:[''],
+            avg_dolar:[''],
+            amount_INR:[''],
+            amount_dolar:[''],
+            mVAT:[''],
+            aginst_Hform:[''],            
+            piecesTypes: this._fb.array([])
+        });
+        
+        // add address
+        this.AddpiecesType();
+        
+
+  }
+
+
+  initPiecesType() {
+        return this._fb.group({
+            PCS_ID: [''],
+            certificate_number: [''],
+            kapan:[''],
+            LAB_type:[''],
+            total_diamond_pcs:[''],
+            total_diamond_carat:[''],
+            bill_type:[''],
+            polishing_type:[''],
+            item:[''],
+            RAP_price:[''],
+            cost_discount:[''],
+            cost_rate_per_carat:[''],
+            wd_rate:[''],
+            wd_rate_carat:[''],
+            less1:[''],
+            less2:[''],
+            less3:[''],
+            rate_INR:[''],
+            rate_dolar:[''],
+            diamond_lot_number:[''],
+            diamond_clarity:[''],
+            stock_status_group:[''],
+            diamond_shape:[''],
+            diamond_color:[''],
+            diamond_size:['']
+        });
+    }
+
+    AddpiecesType() {
+        const control = <FormArray>this.myForm.controls['piecesTypes'];
+        const addrCtrl = this.initPiecesType();
+        control.push(addrCtrl);
+        /* subscribe to individual address value changes */
+        // addrCtrl.valueChanges.subscribe(x => {
+        //   console.log(x);
+        // })
+    }
+
+    removeAddress(i: number) {
+        const control = <FormArray>this.myForm.controls['piecesTypes'];
+        control.removeAt(i);
+    }
+
+    save(model: newPurchase,data) {
+        // call API to save
+        // ...
+        var formData:any = model;
+        console.log(formData._value,data);
+    }
 
   ngAfterViewInit(){}
 
@@ -49,7 +152,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public invoice:any = this.ConstantService.INVOICE;
   public dolar:any = this.ConstantService.DOLAR;
 
-  newpurchase = new Purchase(this.invoice,this.dolar,false);
+  newpurchase = new Purchase(this.invoice,this.dolar,false,"Bill To Bill");
 
   public less:any = {less1:0,less2:0,less3:0};
   public comission:any = {comission1:0,comission2:0};
@@ -59,6 +162,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   private oldamountINR = 0;
   private disable:any = false;
   private comissionCheck:any = false;
+  private piecetype:any = "singlestone";
 
   private get disabledV():string {
     return this._disabledV;
@@ -69,13 +173,16 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this.disabled = this._disabledV === '1';
   }
 
-  public selected(value:any):void {
-    console.log('Selected value is: ', value.text);
+  public selected(value:any,id):void {
+
+    console.log('Selected value is: ', value, value.text);
     if(value.text == 'Direct'){
       this.disable = true;
     }else{
       this.disable = false;
     }
+    this.myForm.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
+    console.log(this.myForm);
   }
 
   public removed(value:any):void {
@@ -93,6 +200,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public calcDay(value:any):void{
     console.log(typeof value,this.newpurchase.purchase_date,this.newpurchase.payment_terms);
+    this.myForm.controls['purchase_date'].patchValue(this.dateConversion(this.newpurchase.purchase_date));
     var date;
     if(this.newpurchase.purchase_date != undefined && this.newpurchase.payment_terms != undefined){
       var targetDate = new Date(this.newpurchase.purchase_date);      
@@ -179,6 +287,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
       this.comission.comission2 = 0;
     }
   }
+
 
   newpurchasedata:any;
   submitted = false;

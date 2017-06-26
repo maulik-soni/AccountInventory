@@ -1,5 +1,5 @@
-<dashboard><div class="container">
-	<form (ngSubmit)="onSubmit()" #purchaseForm="ngForm">
+<!--<dashboard><div class="container">
+	<form (ngSubmit)="onSubmit()" [formGroup] = "purchaseForm" #purchaseForm="ngForm">
 		<div class="block-header">
 			<h2>New Purchase Entry</h2>
 		</div>
@@ -37,14 +37,10 @@
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-sm-4">
-						<!--<ng2-datepicker [options]="options" [(ngModel)]="newpurchase.purchase_date" [ngModelOptions]="{standalone: true}"></ng2-datepicker>-->
+					<div class="col-sm-4">						
 						<p class="form-label">Purchase Date</p>
 						<material-datepicker [(date)]="newpurchase.purchase_date" (onSelect)="calcDay($event)"></material-datepicker>
-					</div>
-					<!--<div class="col-sm-4">
-						<ng2-datepicker [options]="options" [(ngModel)]="newpurchase.due_date" [ngModelOptions]="{standalone: true}"></ng2-datepicker>
-					</div>-->					
+					</div>				
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
@@ -168,9 +164,25 @@
 		<div class="card">
 			<div class="card-header">
 				<h2>Goods Details</h2>
+				<ul class="actions">
+					<li>
+						<label class="radio radio-inline m-r-20">
+							<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype">
+							<i class="input-helper"></i>
+							Single Stone
+						</label>
+						
+						<label class="radio radio-inline m-r-20">
+							<input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype">
+							<i class="input-helper"></i>
+							Parcel
+						</label>
+					</li>			
+				</ul>
 			</div>
-
-			<div class="card-body card-padding">
+			-->
+			<!--<app-pieces-type #subContainer1 [newpurchase] = "newpurchase"></app-pieces-type>-->
+			<!--<div class="card-body card-padding" *ngIf="piecetype == 'singlestone'">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group">
@@ -179,15 +191,7 @@
 								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.PCS_ID" name = "PCS_ID">
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Lot Number</p>
-								<input type="text" class="form-control fg-input" name = "diamond_lot_number" [(ngModel)] = "newpurchase.diamond_lot_number">
-							</div>
-						</div>
-					</div>
+					</div>					
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
@@ -239,15 +243,7 @@
 						</ng-select>
 					</div>					
 				</div>
-
 				<div class="row m-t-25">					
-					<!--<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Diamond Clarity" [(ngModel)] = "newpurchase.diamond_clarity" name = "diamond_clarity">
-							</div>
-						</div>
-					</div>-->
 					<div class="col-sm-4 m-b-10">
 						<p class="form-label m-b-10">Clarity of Diamond</p>
 						<ng-select [allowClear]="true"
@@ -260,27 +256,7 @@
 							[(ngModel)] = "newpurchase.diamond_clarity"
 							placeholder="No Clarity of Diamond selected" name = "diamond_clarity">
 						</ng-select>
-					</div>
-					<!--<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Size of Diamond" [(ngModel)] = "newpurchase.diamond_size" name = "diamond_size">
-							</div>
-						</div>
-					</div>-->
-					<div class="col-sm-4">
-						<p class="form-label m-b-10">Size of Diamond</p>
-						<ng-select [allowClear]="true"
-							[items]="sizes"
-							[disabled]="disabled"
-							(data)="refreshValue($event)"
-							(selected)="selected($event)"
-							(removed)="removed($event)"
-							(typed)="typed($event)"
-							[(ngModel)] = "newpurchase.diamond_size"
-							placeholder="No Size of Diamond selected" name = "diamond_size">
-						</ng-select>
-					</div>
+					</div>										
 					<div class="col-sm-4 m-t-10">
 						<div class="form-group">
 							<div class="fg-line">
@@ -344,43 +320,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header">
-				<h2>Purchase Revenue Details</h2>
-			</div>
-
-			<div class="card-body card-padding">
-				<div class="row">
-					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">LESS1</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less1" name = "less1">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">LESS2</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less2"  name = "less2">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">LESS3</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less3" name = "less3">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				
 
 				<div class="row m-t-25">
 					<div class="col-sm-4">
@@ -428,6 +367,203 @@
 					</div>
 				</div>
 
+				<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">LESS1</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less1" name = "less1">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">LESS2</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less2"  name = "less2">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">LESS3</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less3" name = "less3">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row m-t-25">
+					<p class="col-sm-12 c-black f-500">Rate</p>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Rate in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.rate_INR" name = "rate_INR">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Rate in USD($)</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.rate_dolar" name="rate_dolar">
+							</div>
+						</div>
+					</div>
+				</div>				
+			</div>
+
+			<div class="card-body card-padding" *ngIf="piecetype == 'parcel'">
+				<div class="row">					
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Lot Number</p>
+								<input type="text" class="form-control fg-input" name = "diamond_lot_number" [(ngModel)] = "newpurchase.diamond_lot_number">
+							</div>
+						</div>
+					</div>					
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-4">
+						<p class="form-label m-b-10">Stock Group</p>
+						<ng-select [allowClear]="true"
+							[items]="groups"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.stock_status_group"
+							placeholder="No Stock Group selected" name = "stock_status_group">
+						</ng-select>
+					</div>
+					<div class="col-sm-4">
+						<p class="form-label m-b-10">Shape of Diamond</p>
+						<ng-select [allowClear]="true"
+							[items]="shapes"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.diamond_shape"
+							placeholder="No Shape of Diamond selected" name = "diamond_shape">
+						</ng-select>
+					</div>
+					<div class="col-sm-4">
+						<p class="form-label m-b-10">Color of Diamond</p>
+						<ng-select [allowClear]="true"
+							[items]="colors"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.diamond_color"
+							placeholder="No Color of Diamond selected" name = "diamond_color">
+						</ng-select>
+					</div>					
+				</div>
+
+				<div class="row m-t-25">										
+					<div class="col-sm-4 m-b-10">
+						<p class="form-label m-b-10">Clarity of Diamond</p>
+						<ng-select [allowClear]="true"
+							[items]="clarity"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.diamond_clarity"
+							placeholder="No Clarity of Diamond selected" name = "diamond_clarity">
+						</ng-select>
+					</div>					
+					<div class="col-sm-4">
+						<p class="form-label m-b-10">Size of Diamond</p>
+						<ng-select [allowClear]="true"
+							[items]="sizes"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.diamond_size"
+							placeholder="No Size of Diamond selected" name = "diamond_size">
+						</ng-select>
+					</div>
+					<div class="col-sm-4 m-t-10">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Kapan</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.kapan" name = "kapan">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row m-t-20">					
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Total Number of Pieces</p>
+								<input type="text" class="form-control fg-input" placeholder="" [(ngModel)] = "newpurchase.total_diamond_pcs" name = "total_diamond_pcs">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Total Number of Carats</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.total_diamond_carat" name = "total_diamond_carat" >
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row m-t-20">										
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Item</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newpurchase.item" name = "item">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">LESS1</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less1" name = "less1">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">LESS2</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less2"  name = "less2">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">LESS3</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less3" name = "less3">
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<div class="row m-t-25">
 					<p class="col-sm-12 c-black f-500">Rate</p>
 					<div class="col-sm-4 m-t-5">
@@ -448,6 +584,16 @@
 					</div>
 
 				</div>
+
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h2>Purchase Revenue Details</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				
 
 				<div class="row m-t-25">
 					<p class="col-sm-12 c-black f-500">Average</p>
@@ -522,4 +668,287 @@
 		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
 	</form>
 </div>
+</dashboard>-->
+<dashboard>
+
+<div class="container">
+    <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm,newpurchase)">
+        <div class="block-header">
+			<h2>New Purchase Entry</h2>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h2>Basic Purchase Information</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Invoice Number</p>
+								<input type="text" class="form-control fg-input" formControlName = "invoice_number">								
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName = "currency_convrsion_rate">								
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Terms of Payment</p>
+								<input type="text" class="form-control fg-input" formControlName="payment_terms" (blur)="calcDay(newpurchase.payment_terms)">
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-4">						
+						<p class="form-label">Purchase Date</p>
+						<material-datepicker [(date)]="newpurchase.purchase_date" (onSelect)="calcDay($event)"></material-datepicker>
+					</div>				
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Due Date</p>
+								<input type="text" class="form-control fg-input"  formControlName ="due_date" disabled="true">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<p class="form-label">Country</p>
+						<ng-select [allowClear]="true"
+							[items]="countries"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'country')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)]="newpurchase.country"
+							placeholder="Select The Country" name="country" [ngModelOptions]="{standalone: true}">
+						</ng-select> 
+					</div>
+				</div>
+
+				<div class="row m-t-15">
+					<div class="col-sm-8">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Notes or Remarks</p>
+								<textarea class="form-control" rows="3" formControlName="notes"></textarea>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="card-header">
+				<h2>Dealer and Broker Details</h2>
+			</div>
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-12">
+						<p class="form-label m-b-10">Dealer Name</p>
+						<ng-select [allowClear]="true"
+							[items]="names"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'account_name')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.account_name"
+							placeholder="Select Dealer's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<p class="form-label m-b-10">Broker Type</p>
+						<ng-select [allowClear]="true"
+							[items]="brokertypes"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'brokerType')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.brokerType"
+							placeholder="No Broker Type selected" name = "brokerType" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<p class="form-label m-b-10">Broker Name</p>
+						<ng-select [allowClear]="true"
+							[items]="brokers"
+							[disabled] = "disable"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'brokerName')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.brokerName"
+							placeholder="No Broker Name selected" name = "brokerName" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-4 m-t-20">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Brokerage in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage" [disabled] = "disable">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<label class="checkbox checkbox-inline m-r-20">						
+							<input type="checkbox" value="comissionCheck" [(ngModel)] = "comissionCheck" name = "comissionCheck" (change)="checkComission()" [ngModelOptions]="{standalone: true}">
+							<i class="input-helper"></i>
+							<b>Comission</b>
+						</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Aggent Comission1 in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2" [disabled] = "!comissionCheck">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Aggent Comission2 in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2" [disabled] = "!comissionCheck">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+        <!--addresses-->
+		
+		
+
+        <div formArrayName="piecesTypes">
+          <div *ngFor="let piecesType of myForm.controls.piecesTypes.controls; let i=index">
+            <div>
+              <!--<span>Address {{i + 1}}</span>-->
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.piecesTypes.controls.length > 1" (click)="removeAddress(i)"></span>
+            </div>
+            <div [formGroupName]="i">
+              <app-pieces-type [mygroup]="myForm.controls.piecesTypes.controls[i]"></app-pieces-type>
+			  <!--<address></address>-->
+            </div>
+          </div>
+        </div>
+
+		<button (click)="AddpiecesType()" class="btn btn-danger btn-lg  m-btn waves-effect"><i class="zmdi zmdi-plus"></i>Add goods</button>
+<!--
+        <div class="margin-20">
+          <a (click)="AddpiecesType()" style="cursor: default">
+            Add another Stone or Parcel
+          </a>
+        </div>-->
+
+		<div class="card">
+			<div class="card-header">
+				<h2>Purchase Revenue Details</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				
+
+				<div class="row m-t-25">
+					<p class="col-sm-12 c-black f-500">Average</p>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Average in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName = "avg_INR" name = "avg_INR">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Average in USD($)</p>
+								<input type="text" class="form-control fg-input" formControlName = "avg_dolar" name = "avg_dolar">
+								<label class="fg-label"></label>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row m-t-25">
+					<p class="col-sm-12 c-black f-500">Amount</p>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Amount in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName = "amount_INR" name = "amount_INR">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Amount in USD($)</p>
+								<input type="text" class="form-control fg-input" formControlName = "amount_dolar" name = "amount_dolar">
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="row m-t-25">
+					<div class="col-sm-4 m-t-15">						
+						<ng-select [allowClear]="true"
+						[items]="taxes"
+						[disabled]="newpurchase.aginst_Hform"
+						(data)="refreshValue($event)"
+						(selected)="selected($event,'taxes')"
+						(removed)="removed($event)"
+						(typed)="typed($event)"
+						[(ngModel)] = "newpurchase.taxes"
+						placeholder="No Taxes selected" name = "taxes" [ngModelOptions]="{standalone: true}">
+					</ng-select>
+					</div>
+					<div class="form-group  col-sm-4">
+						<div class="fg-line">
+							<p class="form-label">% Tax</p>
+							<input type="text" class="form-control fg-input" formControlName = "mVAT" name = "mVAT" [disabled] = "newpurchase.aginst_Hform" (blur) = "addTax()"> 
+						</div>
+					</div>
+					<label class="checkbox checkbox-inline m-r-20">						
+						<input type="checkbox" value="againstHForm" formControlName = "aginst_Hform" name = "aginst_Hform" (change)="checkAgianstHform()">
+						<i class="input-helper"></i>
+						Against H-Form
+					</label>
+				</div>
+			</div>
+		</div>
+
+
+
+        <div class="margin-20">
+          <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </div>
+        <div class="margin-20">
+          <div>myForm details:-</div>
+          <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
+          <pre>form value: <br>{{myForm.value | json}}</pre>
+		  <pre>{{newpurchase.purchase_date}}</pre>
+        </div>
+    </form>
+</div>
+
 </dashboard>
