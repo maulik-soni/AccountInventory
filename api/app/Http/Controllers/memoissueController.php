@@ -9,7 +9,7 @@ class memoissueController extends Controller
 {
     
     public function memoissueEntry(){
-        print_r(Request::all());
+        //print_r(Request::all());
 
         $new_memoissue = Request::all();
         $memoissue_table = new \App\MemoIssue;
@@ -25,7 +25,7 @@ class memoissueController extends Controller
         $memoissue_table->amount = $new_memoissue['amount'];
         $memoissue_table->stone_type = $new_memoissue['stone_type'];
         $memoissue_table->no_of_days = $new_memoissue['no_of_days'];
-        $memoIn_table->status = "ISSUED";
+        $memoissue_table->status = "ISSUED";
         $memoissue_table->save();
 
     } 

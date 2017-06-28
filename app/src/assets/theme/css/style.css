@@ -69,3 +69,7 @@
 .mCSB_dragger_bar{
     display: none !important;
 }
+
+.fg-line .form-control:disabled{
+    color : #000;
+}

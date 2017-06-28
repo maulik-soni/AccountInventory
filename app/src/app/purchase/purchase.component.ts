@@ -34,8 +34,6 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
    public myForm: FormGroup;
 
-    
-
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
@@ -78,12 +76,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             piecesTypes: this._fb.array([])
         });
         
-        // add address
         this.AddpiecesType();
-        
-
   }
-
 
   initPiecesType() {
         return this._fb.group({
@@ -125,16 +119,47 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
         // })
     }
 
-    removeAddress(i: number) {
+    removePiece(i: number) {
         const control = <FormArray>this.myForm.controls['piecesTypes'];
         control.removeAt(i);
     }
 
-    save(model: newPurchase,data) {
+    // save(model: newPurchase,data) {
+    //     // call API to save
+    //     // ...
+    //     var formData:any = model;
+    //     console.log(formData._value,data);
+    // }
+
+
+    save(formData,data) {
         // call API to save
         // ...
-        var formData:any = model;
-        console.log(formData._value,data);
+        // var formData:any = model;
+        // var temp:any = formData._valu;
+        console.log(formData._value);
+        var newpurchase = JSON.parse(JSON.stringify(formData._value));
+        var piecesarray = JSON.parse(JSON.stringify(newpurchase.piecesTypes));
+        delete newpurchase.piecesTypes;
+        var purchaseData:any = [];
+        for(var i = 0; i < piecesarray.length; i++){
+          purchaseData.push(Object.assign({}, newpurchase, piecesarray[i]));
+          purchaseData[i].less = {
+            less1:piecesarray[i].less1,
+            less2:piecesarray[i].less2,
+            less3:piecesarray[i].less3
+          };
+          delete purchaseData[i].less1;
+          delete purchaseData[i].less2;
+          delete purchaseData[i].less3;
+          purchaseData[i].comission = {
+            comission1:piecesarray[i].comission1,
+            comission2:piecesarray[i].comission2
+          };
+          delete purchaseData[i].comission1 
+          delete purchaseData[i].comission2
+        }
+        console.log(purchaseData);
     }
 
   ngAfterViewInit(){}
@@ -162,7 +187,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   private oldamountINR = 0;
   private disable:any = false;
   private comissionCheck:any = false;
-  private piecetype:any = "singlestone";
+  
 
   private get disabledV():string {
     return this._disabledV;
@@ -198,18 +223,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this.value = value;
   }
 
-  public calcDay(value:any):void{
-    console.log(typeof value,this.newpurchase.purchase_date,this.newpurchase.payment_terms);
+  public calcDay():void{    
     this.myForm.controls['purchase_date'].patchValue(this.dateConversion(this.newpurchase.purchase_date));
-    var date;
-    if(this.newpurchase.purchase_date != undefined && this.newpurchase.payment_terms != undefined){
-      var targetDate = new Date(this.newpurchase.purchase_date);      
-      this.newpurchase.due_date = this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.newpurchase.payment_terms)));
+    if(this.newpurchase.purchase_date != undefined && this.myForm.value.payment_terms != undefined){
+      var targetDate = new Date(this.newpurchase.purchase_date);
+      this.myForm.controls['due_date'].patchValue( this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.myForm.value.payment_terms))));
     }
   }
 
   public dateConversion(date){
-    console.log(date);
     var dd = new Date(date).getDate();
     var mm = new Date(date).getMonth() + 1;
     var yyyy = new Date(date).getFullYear();
@@ -218,8 +240,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   }
 
+  dateToTimeStamp(str){
+	  var date = str.split("/");
+    var d = new Date(date[0], date[1] - 1, date[2]);
+    return  d;
+  }
+
+
   public RPCaratCost(){
-    console.log("afqw23r23");
+    
     if(this.newpurchase.RAP_price != undefined && this.newpurchase.cost_discount != undefined){
       console.log(this.newpurchase.RAP_price-(this.newpurchase.RAP_price*this.newpurchase.cost_discount/100));
 
@@ -288,6 +317,11 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
   }
 
+  public parenFunction(dolarV):void{
+    console.log(dolarV);
+      // this.myForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
+      // this.myForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
+  }
 
   newpurchasedata:any;
   submitted = false;

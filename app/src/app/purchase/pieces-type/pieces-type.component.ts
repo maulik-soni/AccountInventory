@@ -1,9 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormGroup,FormArray } from '@angular/forms';
 import { Purchase } from '../purchase';
 import { WebServicesService } from '../../services/web-services.service';
 import { ConstantServiceService } from '../../services/constant-services.service';
+import { newPurchase } from '../purchase.interface';
 
 @Component({
   moduleId: module.id,
@@ -29,12 +30,18 @@ export class PiecesTypeComponent implements OnInit {
   public invoice:any = this.ConstantService.INVOICE;
   public dolar:any = this.ConstantService.DOLAR;
 
+  @Output() childEvent: EventEmitter<any> = new EventEmitter();
   @Input('mygroup')
+  
+  // @Input('dolarValue') dolarvalue:number;
+  
   public piecesTypeForm: FormGroup;
+  
   newpurchase = new Purchase();
   private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
+  private piecetype:any = "singlestone";
 
   private get disabledV():string {
     return this._disabledV;
@@ -62,6 +69,65 @@ export class PiecesTypeComponent implements OnInit {
 
   public refreshValue(value:any):void {
     this.value = value;
+  }
+
+  public RPCaratCost(){
+    var a = 1;
+    this.childEvent.emit();
+    if(this.piecesTypeForm.value.RAP_price != undefined && this.piecesTypeForm.value.cost_discount != undefined){
+      this.piecesTypeForm.controls['cost_rate_per_carat'].patchValue(this.piecesTypeForm.value.RAP_price-(this.piecesTypeForm.value.RAP_price*this.piecesTypeForm.value.cost_discount/100));
+    }
+  }
+
+  public WDRPCarat(){
+    var costRatePC = this.piecesTypeForm.value.cost_rate_per_carat;
+    var WDRate = this.piecesTypeForm.value.wd_rate;
+
+    if(costRatePC != undefined && WDRate != undefined){ 
+      var WDrateCarat = costRatePC+(costRatePC*WDRate/100);      
+      this.piecesTypeForm.controls['wd_rate_carat'].patchValue(parseFloat(WDrateCarat.toFixed(2)));
+      // this.CALrate();
+    }
+  }
+
+  public CALrate(){
+    var costRatePC = parseFloat(this.piecesTypeForm.value.cost_rate_per_carat);
+    var totalDiamondC = parseFloat(this.piecesTypeForm.value.total_diamond_carat);
+    var totalDiamondP = parseFloat(this.piecesTypeForm.value.total_diamond_pcs);
+    var dolarRate = parseFloat(this.piecesTypeForm.value.currency_convrsion_rate);
+
+    if (costRatePC != undefined && totalDiamondC  != undefined && totalDiamondP != undefined && dolarRate != undefined){
+      var rateINR = costRatePC*totalDiamondC*totalDiamondP;
+      var rateDOLAR = rateINR/dolarRate;
+      this.piecesTypeForm.controls['rate_INR'].patchValue(parseFloat(rateINR.toFixed(2)));
+      this.piecesTypeForm.controls['rate_dolar'].patchValue(parseFloat(rateDOLAR.toFixed(2)));
+      this.CALavg();
+    }
+  }
+
+  public CALavg(){
+    var rateINR = parseFloat(this.piecesTypeForm.value.rate_INR);
+    var totalDiamondC = parseFloat(this.piecesTypeForm.value.total_diamond_carat);
+    var dolarRate = parseFloat(this.piecesTypeForm.value.currency_convrsion_rate);
+
+    if(rateINR != undefined && totalDiamondC != undefined && dolarRate != undefined){
+      var avgINR = this.piecesTypeForm.value.rate_INR/this.piecesTypeForm.value.total_diamond_carat;
+      var avgDOLAR = avgINR/this.piecesTypeForm.value.currency_convrsion_rate;
+      this.piecesTypeForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
+      this.piecesTypeForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
+      // this.CALAmount();
+    }
+    
+  }
+
+  public CALAmount(){
+    this.piecesTypeForm.value.amount_INR =  this.piecesTypeForm.value.avg_INR*this.piecesTypeForm.value.total_diamond_carat;
+    var lessDis = parseInt(this.piecesTypeForm.value.less1)+parseInt(this.piecesTypeForm.value.less2)+parseInt(this.piecesTypeForm.value.less3);
+    console.log(this.piecesTypeForm.value.amount_INR,lessDis,(this.piecesTypeForm.value.amount_INR*(lessDis/100)))
+    var amountINR = this.piecesTypeForm.value.amount_INR-(this.piecesTypeForm.value.amount_INR*(lessDis/100));
+    var amountDOLAR = this.piecesTypeForm.value.amount_INR/this.piecesTypeForm.value.currency_convrsion_rate;
+    this.piecesTypeForm.value.amount_INR = parseInt(amountINR.toFixed(2));
+    this.piecesTypeForm.value.amount_dolar = parseInt(amountDOLAR.toFixed(2));
   }
 
   constructor(

@@ -695,7 +695,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "currency_convrsion_rate">								
+								<input type="text" class="form-control fg-input" formControlName = "currency_convrsion_rate" (blur)="dolarValueSer()">		
 							</div>
 						</div>
 					</div>
@@ -836,28 +836,25 @@
 		</div>
         <!--addresses-->
 		
-		
-
         <div formArrayName="piecesTypes">
-          <div *ngFor="let piecesType of myForm.controls.piecesTypes.controls; let i=index">
-            <div>
-              <!--<span>Address {{i + 1}}</span>-->
-              <span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.piecesTypes.controls.length > 1" (click)="removeAddress(i)"></span>
-            </div>
-            <div [formGroupName]="i">
-              <app-pieces-type [mygroup]="myForm.controls.piecesTypes.controls[i]"></app-pieces-type>
-			  <!--<address></address>-->
-            </div>
-          </div>
+          	<div *ngFor="let piecesType of myForm.controls.piecesTypes.controls; let i=index">
+            
+			<div class="card">
+				<div class="card-header">
+					<h2 style="display: inline-block">Purchase Item {{i + 1}}</h2>
+					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.piecesTypes.controls.length > 1" (click)="removePiece(i)"></span>
+				</div>
+				<div [formGroupName]="i">
+					<app-pieces-type [mygroup]="myForm.controls.piecesTypes.controls[i]" (childEvent) = "parenFunction($event)"></app-pieces-type>
+				<!--<address></address>-->
+				</div>
+			</div>
+
+          	</div>
         </div>
 
-		<button (click)="AddpiecesType()" class="btn btn-danger btn-lg  m-btn waves-effect"><i class="zmdi zmdi-plus"></i>Add goods</button>
-<!--
-        <div class="margin-20">
-          <a (click)="AddpiecesType()" style="cursor: default">
-            Add another Stone or Parcel
-          </a>
-        </div>-->
+		<button (click)="AddpiecesType()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Purchase Item</button>
+
 
 		<div class="card">
 			<div class="card-header">
@@ -940,14 +937,14 @@
 
 
         <div class="margin-20">
-          <button type="submit" class="btn btn-primary pull-right">Submit</button>
+          <button type="submit" class="btn btn-lg btn-primary pull-right">Submit</button>
         </div>
-        <div class="margin-20">
+        <!--<div class="margin-20">
           <div>myForm details:-</div>
           <pre>Is myForm valid?: <br>{{myForm.valid | json}}</pre>
           <pre>form value: <br>{{myForm.value | json}}</pre>
 		  <pre>{{newpurchase.purchase_date}}</pre>
-        </div>
+        </div>-->
     </form>
 </div>
 

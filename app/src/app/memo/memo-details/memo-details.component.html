@@ -1,0 +1,80 @@
+<form  [formGroup]="memoDetails">
+  <div class="card">
+		<div class="card-header">
+			<!--<h2>Goods Details</h2>-->
+			<ul class="actions">
+				<li>
+					<label class="radio radio-inline m-r-20">
+						<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						Single Stone
+					</label>
+					
+					<label class="radio radio-inline m-r-20">
+						<input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						Parcel
+					</label>
+				</li>			
+			</ul>
+		</div>
+  
+    <div class="card-body card-padding" *ngIf="piecetype == 'singlestone'">
+      <div class="row m-t-25">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">PCS ID</p>
+              <input type="text" class="form-control fg-input" formControlName = "PCS_ID" name = "PCS_ID">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Diamond Carats</p>
+              <input type="text" class="form-control fg-input" formControlName = "carats" name = "carats">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Stone Type</p>
+              <input type="text" class="form-control fg-input" formControlName = "stone_type" name = "stone_type">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body card-padding" *ngIf="piecetype == 'parcel'">
+      <div class="row m-t-25">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Lot Number</p>
+              <input type="text" class="form-control fg-input" formControlName = "Lot_Number" name = "Lot_Number">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Diamond Carats</p>
+              <input type="text" class="form-control fg-input" formControlName = "carats" name = "carats">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Stone Type</p>
+              <input type="text" class="form-control fg-input" formControlName = "stone_type" name = "stone_type">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -168,10 +168,12 @@ export class WebServicesService {
 
   dateConversion(date){
     console.log(date);
-    var dd = new Date(date).getDate();
-    var mm = new Date(date).getMonth() + 1;
-    var yyyy = new Date(date).getFullYear();
-    var dateString = yyyy + "/" + mm + "/" + dd;
+    var date:any = new Date(date);
+    // console.log(date.getTime(),date.getMonth());
+    // var dd:any = date.getDate();
+    // var mm:any = date.getMonth() + 1;
+    // var yyyy:any = date.getFullYear();
+    var dateString = date.getFullYear() + "/" + date.getMonth() + 1 + "/" + date.getDate();
     return dateString;
   }
 
