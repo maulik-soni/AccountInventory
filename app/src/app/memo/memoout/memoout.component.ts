@@ -1,37 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
-// import { SelectModule } from 'ng2-select';
-import { MemoOut } from './memoout';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { SelectModule } from 'ng2-select';
+import { Memo } from '../memo';
+import { DatepickerModule } from 'angular2-material-datepicker';
 import { WebServicesService } from './../../services/web-services.service';
+import { ConstantServiceService } from './../../services/constant-services.service';
+import { newMemo } from '../memo.interface';
+// import { SelectModule } from 'ng2-select';
+// import { MemoOut } from './memoout';
+
 
 @Component({
   selector: 'app-memoout',
   templateUrl: './memoout.component.html',
   styleUrls: ['./memoout.component.css'],
-  providers : [ WebServicesService ]
+  providers : [ WebServicesService,ConstantServiceService ]
 })
 export class MemooutComponent implements OnInit {
 
-  date: DateModel;
-  options: DatePickerOptions;
+  public myForm: FormGroup;
+
   constructor(
-    private _webservice : WebServicesService
-  ) {
-    this.options = new DatePickerOptions();
-  }
-  public newmemoout= new MemoOut();;
-  public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-    'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-    'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-    'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-    'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-    'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-    'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-    'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-    'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-    'Zagreb', 'Zaragoza', 'Łódź'];
- 
-  submitted = false;
+    private _webservice : WebServicesService,
+    public ConstantService : ConstantServiceService,
+    private _fb: FormBuilder
+  ) { }
+  
+  public names:Array<string> = this.ConstantService.NAMES;
+  public brokers:Array<string> = this.ConstantService.BROKERS;
+  public invoice:any = this.ConstantService.INVOICE;
+
+  public  newmemo = new Memo(this.invoice);
+
+  public memotype:any = "memoissue";
+
   private value:any = {}; 
   private _disabledV:string = '0';
   private disabled:boolean = false;
@@ -46,7 +48,7 @@ export class MemooutComponent implements OnInit {
   }
  
   public selected(value:any):void {
-    console.log('Selected value is: ', value,this.options);
+    console.log('Selected value is: ', value);
   }
  
   public removed(value:any):void {
@@ -60,20 +62,89 @@ export class MemooutComponent implements OnInit {
   public refreshValue(value:any):void {
     this.value = value;
   }
-  newmemooutdata : any;
-  onSubmit() { 
+  
+  public dateConversion(date){
+    console.log(date);
+    var dd = new Date(date).getDate();
+    var mm = new Date(date).getMonth() + 1;
+    var yyyy = new Date(date).getFullYear();
+    var dateString = yyyy + "/" + mm + "/" + dd;
+    return dateString;
+  }
+
+  submitted = false;
+  newmemodata : any;
+
+  onSubmit() {
     this.submitted = true;
-    console.log(this.newmemoout);     
-    this.newmemooutdata = JSON.parse(JSON.stringify(this.newmemoout));
-    this.newmemooutdata.account_name = this.newmemooutdata.account_name[0].text;
-    this.newmemooutdata.broker = this.newmemooutdata.broker[0].text;
-    this.newmemooutdata.date = this.newmemooutdata.date.formatted
-    console.log(this.newmemooutdata);
-    //this._webservice.postmemoout(this.newmemooutdata);
-    
+    console.log(this.newmemo);
+    this.newmemodata = JSON.parse(JSON.stringify(this.newmemo));
+    this.newmemodata.account_name = JSON.stringify(this.newmemodata.account_name);
+    this.newmemodata.broker = JSON.stringify(this.newmemodata.broker);
+    this.newmemodata.date = this.dateConversion(this.newmemodata.date);
+    console.log(this.newmemodata);
+    // this._webservice.postmemo(this.newmemodata,this.memotype);
   }
 
   ngOnInit() {
+    this.myForm = this._fb.group({
+      memo_invoice_number: [''],
+      no_of_days:[''],
+      due_date:[''],
+      date:[''],
+      account_name:[''],
+      broker:[''],
+      reference:[''],
+      memoDetails: this._fb.array([])
+    });
+    this.memoAdd();
   }
+
+  initMemoDtails() {
+    return this._fb.group({
+      PCS_ID: [''],
+      Lot_Number:[''],
+      carats: [''],
+      stone_type:['']
+    });
+  }
+
+  public calcDay():void{    
+    this.myForm.controls['date'].patchValue(this.dateConversion(this.newmemo.date));
+    if(this.newmemo.date != undefined && this.myForm.value.no_of_days != undefined){
+      var targetDate = new Date(this.newmemo.date);
+      this.myForm.controls['due_date'].patchValue(this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.myForm.value.no_of_days))));
+    }
+  }
+
+  dateToTimeStamp(str){
+	  var date = str.split("/");
+    var d = new Date(date[0], date[1] - 1, date[2]);
+    return  d;
+  }
+
+  memoAdd() {
+    const control = <FormArray>this.myForm.controls['memoDetails'];
+    const addrCtrl = this.initMemoDtails();
+    control.push(addrCtrl);
+  }
+
+  removePiece(i: number) {
+    const control = <FormArray>this.myForm.controls['memoDetails'];
+    control.removeAt(i);
+  }
+
+  save(formData) {
+    console.log(formData._value,JSON.parse(JSON.stringify(formData._value)));
+    var newMemo = JSON.parse(JSON.stringify(formData._value));
+    console.log(newMemo); 
+    var memoPCDetails = JSON.parse(JSON.stringify(newMemo.memoDetails));
+    delete newMemo.memoDetails;
+    var memoData:any = [];
+    for(var i = 0; i < memoPCDetails.length; i++){
+      memoData.push(Object.assign({}, newMemo, memoPCDetails[i]));
+    }
+    console.log(memoData);
+    }
 
 }

@@ -6,12 +6,13 @@ import { DatePickerModule } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
-import { MemoComponent } from './memo/memo.component';
+import { MemoInComponent } from './memoin/memoin.component';
 import { MemoRoutingModule } from './memo-routing.module';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
 import { MemoinReportComponent } from './memoin-report/memoin-report.component';
 import { MemoDetailsComponent } from './memo-details/memo-details.component';
+import { MemooutComponent } from './memoout/memoout.component';
 
 @NgModule({
   imports: [
@@ -26,10 +27,11 @@ import { MemoDetailsComponent } from './memo-details/memo-details.component';
     ReactiveFormsModule
   ],
   declarations: [
-    MemoComponent,    
+    MemoInComponent,    
     MemoissueReportComponent,
     MemoinReportComponent,
-    MemoDetailsComponent
+    MemoDetailsComponent,
+    MemooutComponent
   ],
 
 })

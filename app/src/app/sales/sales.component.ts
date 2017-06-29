@@ -4,14 +4,15 @@ import { SelectModule } from 'ng2-select';
 import { Sales } from './sales';
 import { WebServicesService } from './../services/web-services.service';
 import { ConstantServiceService } from './../services/constant-services.service';
-
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { newSales } from './sales.interface';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
     console.log('after View init');
   }
 }
-
+  
 
 @Component({
   selector: 'app-salse',
@@ -21,16 +22,69 @@ export abstract class AbstractViewInit {
 })
 export class SalesComponent implements OnInit {
 
+  public myForm: FormGroup;
+  
   constructor(
     private _webservice : WebServicesService,
-    public ConstantService : ConstantServiceService
+    public ConstantService : ConstantServiceService,
+    private _fb: FormBuilder
   ) { 
     this.options = new DatePickerOptions();
   }
 
   ngOnInit() {
-    
+
+    this.myForm = this._fb.group({
+            invoice_number:[''],
+            currency_convrsion_rate:[''],
+            sales_date:[''],
+            due_date:[''],
+            country:[''],
+            notes:[''],
+            payment_terms:[''],
+            account_name:[''],
+            brokerName:[''],
+            brokerType:[''],
+            brokerage:[''],
+            comission1:[''],
+            comission2:[''],
+            purchase_amount_INR:[''],
+            purchase_amount_dolar:[''],
+            freight:[''],
+            sales_amount_INR:[''],
+            sales_amount_dolar:[''],
+            diff_amount_INR:[''],
+            diff_amount_dolar:[''],
+            salesDetails: this._fb.array([])
+        });
+    this.addSalesDetails();
   }
+
+  initSalesDetails() {
+        return this._fb.group({
+            less1:[''],
+            less2:[''],
+            less3:[''],
+            sale_disc:[''],
+            sale_rate:[''],
+            postcode: ['']
+        });
+    }
+
+    addSalesDetails() {
+        const control = <FormArray>this.myForm.controls['salesDetails'];
+        const addrCtrl = this.initSalesDetails();
+        control.push(addrCtrl);
+    }
+
+    removeSalesDetails(i: number) {
+        const control = <FormArray>this.myForm.controls['salesDetails'];
+        control.removeAt(i);
+    }
+
+    save(model) {
+        console.log(model);
+    }
 
   ngAfterViewInit(){
     

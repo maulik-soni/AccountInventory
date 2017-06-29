@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { RouterModule, Routes,Router } from '@angular/router';
 
 @Component({
   selector: 'app-memo-details',
@@ -12,9 +13,15 @@ export class MemoDetailsComponent implements OnInit {
   public memoDetails: FormGroup;
   private piecetype:any = "singlestone";
 
-  
+  private searchResult = false;
 
-  constructor() { }
+  constructor(private _router: Router) {
+    console.log(this._router.url);
+  }
+
+  search(){
+    this.searchResult = true;
+  }
 
   ngOnInit() {
   }

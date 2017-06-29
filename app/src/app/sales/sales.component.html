@@ -1,4 +1,4 @@
-<dashboard>
+<!--<dashboard>
 <div class="container">	
 	<div class="card">
 		<div class="card-body card-padding">
@@ -358,6 +358,426 @@
 			</div>
 			
 		</div>
+	</form>
+</div>
+
+</dashboard>-->
+
+
+<dashboard>
+<div class="container">	
+	<!--<div class="card">
+		<div class="card-body card-padding">
+			<div id="data-table-command-header" class="bootgrid-header container-fluid">
+				<div class="row">
+					<div class="search form-group">
+						<input type="text" class="search-field form-control"
+									placeholder="Search Purchase by 'PCS ID'" [(ngModel)]="searchPCS">
+							
+					</div>
+					<button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+				</div>
+			</div>
+		</div>
+	</div>-->
+
+	<!--<div class="card" *ngIf="showPurchase">
+		<div class="card-header">
+			<h2>Your Purchase</h2>
+		</div>
+		<div class="card-body card-padding">
+			<div class="row">
+				<div class="col-sm-12" style= "height:auto;color:#666;">
+					<div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
+						<div style="width:30%; float:left;padding:10px;">
+							<span style="font-size:14px;float:left; width:100%;">
+							<b>Client Name :</b> {{mypurchase.account_name}}
+							</span>
+							<span style="font-size:14px;float:left;width:100%;">
+							<b>Currency Conversion :</b> {{mypurchase.currency_convrsion_rate}} 
+							</span>
+							<span style="font-size:14px;float:left;width:100%;">
+							<b>Country :</b> {{mypurchase.country}}
+							</span>
+							<span style="font-size:14px;float:left;width:100%;">
+							<b>Notes :</b> {{mypurchase.notes}}
+							</span>
+						</div>
+						<div style="width:40%; float:right;padding:">
+							<span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+							<b>Date : </b> {{mypurchase.purchase_date}}
+							</span>
+							<span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+							<b>Invoice# : </b> {{mypurchase.invoice_number}}
+							</span>
+						</div>
+					</div>
+					<div style="width:100%; padding:0px; float:left;">
+						<div style="width:100%;float:left;background:#efefef;">
+							<span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
+							Decription
+							</span>
+							<span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+							Amount
+							</span>
+						</div>
+						<div style="width:100%;float:left;">
+							<span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+							Pcs ID : {{mypurchase.PCS_ID}}
+							<span style="font-size:10px; float:left; width:100%;">
+							Total Carats : {{mypurchase.total_diamond_carat}}
+							Total Picies : {{mypurchase.total_diamond_pcs}}
+							</span>
+							</span>
+							<span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+							₹{{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
+							</span>
+						</div>						
+						<div style="width:100%;float:left; background:#fff;">
+							<span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
+							Total : ₹{{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>				
+		</div>
+	</div>-->
+	
+	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+		<div class="card">
+			<div class="card-header">
+				<h2>Basic Sales Information</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Invoice Number</p>
+								<input type="text" class="form-control fg-input" formControlName="invoice_number" name = "invoice_number">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName="currency_convrsion_rate" name = "currency_convrsion_rate">								
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Terms of Payment</p>
+								<input type="text" class="form-control fg-input" formControlName="payment_terms" name="payment_terms" placeholder="Terms of Payment" (blur)="calcDay(newsales.payment_terms)">
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-4">
+						<p class="form-label">Sales Date</p>
+						<material-datepicker [(date)]="newsales.sales_date" (onSelect)="calcDay($event)"></material-datepicker>
+					</div>				
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Due Date</p>
+								<input type="text" class="form-control fg-input" formControlName="due_date" name="due_date" placeholder="Due Date" disabled="true">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<p class="form-label">Country</p>
+						<ng-select [allowClear]="true"
+							[items]="countries"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)]="newsales.country"
+							placeholder="Select The Country" name="country" [ngModelOptions]="{standalone: true}">
+						</ng-select> 
+					</div>
+				</div>
+
+				<div class="row m-t-15">
+					<div class="col-sm-8">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Notes or Remarks</p>
+								<textarea class="form-control" rows="3" name="notes" formControlName="notes"></textarea>
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+
+		<div class="card">
+			<div class="card-header">
+				<h2>Client's and Broker Details</h2>
+			</div>
+			<div class="card-body card-padding">
+				<div class="row">
+					<div class="col-sm-12">
+						<p class="form-label">Dealer Name</p>
+						<ng-select [allowClear]="true"
+							[items]="names"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newsales.account_name"
+							placeholder="Select Dealer's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<p class="form-label">Broker Type</p>
+						<ng-select [allowClear]="true"
+							[items]="brokertypes"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newsales.brokerType"
+							placeholder="No Broker Type selected" name = "brokerType" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<p class="form-label">Broker Name</p>
+						<ng-select [allowClear]="true"
+							[items]="brokers"
+							[disabled] = "disable"
+							(data)="refreshValue($event)"
+							(selected)="selected($event)"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newsales.brokerName"
+							placeholder="No Broker Name selected" name = "brokerName" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Brokerage in %</p>
+								<input type="text" class="form-control fg-input" formControlName="brokerage" name = "brokerage" placeholder="Brokerage in %" [disabled] = "disable">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Comission</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+						<div class="fg-line">
+							<p class="form-label">Comission1</p>
+							<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2">
+						</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+						<div class="fg-line">
+							<p class="form-label">Comission2</p>
+							<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2">
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div formArrayName="salesDetails">
+          <div *ngFor="let address of myForm.controls.salesDetails.controls; let i=index" class="panel panel-default">
+            <div class="card">
+				
+				<div class="card-header">
+					<h2>Sale Item {{i + 1}}</h2>
+					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.salesDetails.controls.length > 1" (click)="removeSalesDetails(i)"></span>
+				</div>
+				<div class="panel-body" [formGroupName]="i">
+					<app-sales-details [group]="myForm.controls.salesDetails.controls[i]"></app-sales-details>
+				</div>
+			</div>
+          </div>
+        </div>
+		<button (click)="addSalesDetails()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</button>
+		<div class="card">
+			<div class="card-header">
+				<h2>Sales Revenue Details</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				<!--<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">LESS1</p>
+								<input type="text" class="form-control fg-input" placeholder="LESS1" [(ngModel)] = "less.less1" name = "less1">
+							</div>
+						</div>
+					</div>										
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">LESS2</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less2" name = "less2" value="0">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">LESS3</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "less.less3" name = "less3">
+							</div>
+						</div>
+					</div>
+				</div>-->
+
+				<!--<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Comission</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Comission1</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission1" name = "comission2">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Comission2</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "comission.comission2" name = "comission2">
+							</div>
+						</div>
+					</div>
+				</div>-->
+
+				<!--<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Rate & Diescount</p>					
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Sales Rate</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.sale_rate"  name = "less2" (blur)="calAmount()">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Sales Discount</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.sale_disc" name = "sale_disc">
+							</div>
+						</div>
+					</div>
+				</div>-->
+				<!--<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Purchase Amount in INR and DOLLAR</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Purchase amount in INR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.purchase_amount_INR"  name = "purchase_amount_INR">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Purchase amount in DOLLAR</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newsales.purchase_amount_dolar" name = "purchase_amount_dolar">
+							</div>
+						</div>
+					</div>
+				</div>-->
+				<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Amount in INR & DOLLAR</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Sales amount in INR</p>
+								<input type="text" class="form-control fg-input" formControlName="sales_amount_INR" name = "sales_amount_INR">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Sales amount in INR</p>
+								<input type="text" class="form-control fg-input" formControlName="sales_amount_dolar"  name = "sales_amount_dolar">
+							</div>
+						</div>
+					</div>
+				</div>			
+
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Freight</p>
+								<input type="text" class="form-control fg-input" formControlName="freight" name = "freight">
+							</div>
+						</div>
+					</div>
+				</div>				
+
+				<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Amount Difference in INR & DOLLAR</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Amount Difference in INR</p>
+								<input type="text" class="form-control fg-input" formControlName="diff_amount_INR" name = "diff_amount_INR">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Amount Difference in DOLLAR</p>
+								<input type="text" class="form-control fg-input" formControlName="diff_amount_dolar"  name = "diff_amount_dolar">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Purchase Amount in INR and DOLLAR</p>
+					<div class="col-sm-4 m-t-15">
+					<div class="form-group ">
+						<div class="fg-line">
+						<p class="form-label">Purchase amount in INR</p>
+						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_INR"  name = "purchase_amount_INR">
+						</div>
+					</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+					<div class="form-group ">
+						<div class="fg-line">
+						<p class="form-label">Purchase amount in DOLLAR</p>
+						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_dolar" name = "purchase_amount_dolar">
+						</div>
+					</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
 	</form>
 </div>
 

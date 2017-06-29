@@ -1,40 +1,28 @@
-<dashboard><div class="container">
-	<form (ngSubmit)="onSubmit()" #memooutForm="ngForm">
+<dashboard>
+
+	<div class="container">
+	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 		<div class="block-header">
-			<h2>New Memo in Entry</h2>
+			<h2>New Jangad Entry</h2>
 			<ul class="actions">
 				<li>
-					<a class="icon-pop" href="#">
-						<i class="zmdi zmdi-trending-up"></i>
-					</a>
-				</li>
-				<li>
-					<a class="icon-pop" href="#">
-						<i class="zmdi zmdi-check-all"></i>
-					</a>
-				</li>
-				<li class="dropdown">
-					<a class="icon-pop" href="#" data-toggle="dropdown">
-						<i class="zmdi zmdi-more-vert"></i>
-					</a>
-
-					<ul class="dropdown-menu dropdown-menu-right">
-						<li>
-							<a href="#">Refresh</a>
-						</li>
-						<li>
-							<a href="#">Manage Widgets</a>
-						</li>
-						<li>
-							<a href="#">Widgets Settings</a>
-						</li>
-					</ul>
-				</li>
+					<label class="radio radio-inline m-r-20">
+						<input type="radio" name = "memotype" [(ngModel)] = "memotype" value="memoissue" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						Jangad Issue
+					</label>
+					
+					<label class="radio radio-inline m-r-20">
+						<input type="radio" name = "memotype" [(ngModel)] = "memotype" value="memoreturn" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						Jangad In
+					</label>
+				</li>			
 			</ul>
 		</div>
 		<div class="card">
 			<div class="card-header">
-				<h2>Basic Memo in Information</h2>
+				<h2>Basic Jangad in Information</h2>
 			</div>
 
 			<div class="card-body card-padding">
@@ -42,22 +30,37 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoout.memo_invoice_number" name = "memo_invoice_number" placeholder="Invoice Number">
+								<p class="form-label">Jangad Invoice Number</p>
+								<input type="text" class="form-control fg-input" formControlName = "memo_invoice_number" name = "memo_invoice_number">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoout.no_of_days" name = "no_of_days" placeholder="Days">	
+								<p class="form-label">Terms</p>
+								<input type="text" class="form-control fg-input" formControlName = "no_of_days" name = "no_of_days" (blur)="calcDay(newmemo.no_of_days)">	
 							</div>
 						</div>
 					</div>
           <div class="col-sm-4">
-						<ng2-datepicker [options]="options" [(ngModel)]="newmemoout.date" [ngModelOptions]="{standalone: true}"></ng2-datepicker>
+						<p class="form-label">Jangad in Date</p>
+						<material-datepicker [(date)]="newmemo.date" (onSelect)="calcDay($event)"></material-datepicker>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Due Date</p>
+								<input type="text" class="form-control fg-input" formControlName = "due_date" name = "due_date">	
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
+
+			
 		</div>
 		<div class="card">
 			<div class="card-header">
@@ -66,98 +69,62 @@
 			<div class="card-body card-padding">
 				<div class="row">
 					<div class="col-sm-12">
-						<p class="f-500 c-black m-b-15">Dealer Name</p>
+						<p class="form-label">Dealer Name</p>
 						<ng-select [allowClear]="true"
-							[items]="items"
+							[items]="names"
 							[disabled]="disabled"							
 							(selected)="selected($event)"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
-							[(ngModel)] = "newmemoout.account_name"
-							placeholder="No Dealer Name selected" name = "account_name">
+							[(ngModel)] = "newmemo.account_name"
+							placeholder="No Dealer Name selected" name = "account_name" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-4 m-t-15">
-						<p class="f-500 c-black m-b-15">Broker Name</p>
+						<p class="form-label">Broker Name</p>
 						<ng-select [allowClear]="true"
-							[items]="items"
-							[disabled]="disabled"							
+							[items]="brokers"
+							[disabled]="disabled"	
 							(selected)="selected($event)"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
-							[(ngModel)] = "newmemoout.broker"
-							placeholder="No Broker Name selected" name = "broker">
+							[(ngModel)] = "newmemo.broker"
+							placeholder="No Broker Name selected" name = "broker" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-					<div class="col-sm-4 m-t-45">
+					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemoout.reference" name = "reference" placeholder="Reference">
+								<p class="form-label">Reference</p>
+								<input type="text" class="form-control fg-input" formControlName = "reference" name = "reference">
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="card">
-			<div class="card-header">
-				<h2>Goods Details</h2>
+
+		<div formArrayName="memoDetails">
+			<div *ngFor="let memoDetails of myForm.controls.memoDetails.controls; let i=index">
+				<div class="card">
+				<div class="card-header">
+					<h2 style="display: inline-block">Memo Item {{i + 1}}</h2>
+					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.memoDetails.controls.length > 1" (click)="removePiece(i)"></span>
+				</div>
+				<div [formGroupName]="i">
+					<app-memo-details [mygroup]="myForm.controls.memoDetails.controls[i]"></app-memo-details>
+				<!--<address></address>-->
+				</div>
 			</div>
-
-			<div class="card-body card-padding">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="PCS ID" [(ngModel)] = "newmemoout.PCS_ID" name = "PCS_ID">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row m-t-25">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Diamond Carats" [(ngModel)] = "newmemoout.carats" name = "carats">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Number of peding pieces" [(ngModel)] = "newmemoout.pending_pcs" name = "pending_pcs">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Pending Carats" [(ngModel)] = "newmemoout.pending_carats" name = "pending_carats">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row m-t-20">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Stone Type" [(ngModel)] = "newmemoout.stone_type" name = "stone_type">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<input type="text" class="form-control fg-input" placeholder="Amount" [(ngModel)] = "newmemoout.amount" name = "amount">
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
+		<button (click)="memoAdd()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</button>
+
 		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
 	</form>
-</div></dashboard>
+</div>
+
+
+</dashboard>

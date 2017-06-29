@@ -105,82 +105,19 @@
 				</div>
 			</div>
 		</div>
-		<!--<div class="card">
-			<div class="card-header">
-				<h2>Goods Details</h2>
-			</div>
-
-			<div class="card-body card-padding">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">PCS ID</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.PCS_ID" name = "PCS_ID">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row m-t-25">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Diamond Carats</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.carats" name = "carats">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Number of peding pieces</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.pending_pcs" name = "pending_pcs">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Pending Carats</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.pending_carats" name = "pending_carats">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row m-t-20">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Stone Type</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.stone_type" name = "stone_type">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Amount</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newmemo.amount" name = "amount">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>-->
 
 		<div formArrayName="memoDetails">
 			<div *ngFor="let memoDetails of myForm.controls.memoDetails.controls; let i=index">
 				<div class="card">
-				<div class="card-header">
-					<h2 style="display: inline-block">Memo Item {{i + 1}}</h2>
-					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.memoDetails.controls.length > 1" (click)="removePiece(i)"></span>
+					<div class="card-header">
+						<h2 style="display: inline-block">Memo Item {{i + 1}}</h2>
+						<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.memoDetails.controls.length > 1" (click)="removePiece(i)"></span>
+					</div>
+					<div [formGroupName]="i">
+						<app-memo-details [mygroup]="myForm.controls.memoDetails.controls[i]"></app-memo-details>
+					<!--<address></address>-->
+					</div>
 				</div>
-				<div [formGroupName]="i">
-					<app-memo-details [mygroup]="myForm.controls.memoDetails.controls[i]"></app-memo-details>
-				<!--<address></address>-->
-				</div>
-			</div>
 			</div>
 		</div>
 		<button (click)="memoAdd()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</button>

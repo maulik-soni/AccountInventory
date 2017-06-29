@@ -9,11 +9,11 @@ import { newMemo } from '../memo.interface';
 
 @Component({
   selector: 'app-memo',
-  templateUrl: './memo.component.html',
-  styleUrls: ['./memo.component.css'],
+  templateUrl: './memoin.component.html',
+  styleUrls: ['./memoin.component.css'],
   providers: [WebServicesService,ConstantServiceService] 
 })
-export class MemoComponent implements OnInit {
+export class MemoInComponent implements OnInit {
 
   public myForm: FormGroup;
   

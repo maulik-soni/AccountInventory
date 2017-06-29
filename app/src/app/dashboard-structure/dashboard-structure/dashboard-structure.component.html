@@ -11,7 +11,7 @@
     </li>
 
     <li class="logo hidden-xs">
-      <a href="index-2.html">Material Admin</a>
+      <a [routerLink]="['/dashboard']">Account Inventory App</a>
     </li>
 
     <li class="pull-right">
@@ -118,11 +118,12 @@
         	</li>
           
           <li class="sub-menu">
-	            <a href="#"><i class="zmdi zmdi-file-text"></i>Memo</a>
+	            <a href="#"><i class="zmdi zmdi-file-text"></i>Jangad</a>
 	            <ul style="display: none;">
-	                <li><a [routerLink]="['/memo/memo-entry']">Memo Entry</a></li>
-	                <li><a [routerLink]="['/memo/memoin-report']">Memo In report</a></li>
-                  <li><a [routerLink]="['/memo/memoissue-report']">Memo Issue report</a></li>
+	                <li><a [routerLink]="['/jangad/jangad-in-entry']">Jangad In Entry</a></li>
+                  <li><a [routerLink]="['/jangad/jangad-issue-entry']">Jangad Issue Entry</a></li>
+	                <li><a [routerLink]="['/jangad/jangad-in-report']">Jangad In report</a></li>
+                  <li><a [routerLink]="['/jangad/jangad-issue-report']">Jangad Issue report</a></li>
 	            </ul>
         	</li>
 
