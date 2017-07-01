@@ -695,7 +695,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "currency_convrsion_rate" (blur)="dolarValueSer()">		
+								<input type="text" class="form-control fg-input" formControlName = "currency_convrsion_rate">		
 							</div>
 						</div>
 					</div>
@@ -787,7 +787,7 @@
 						<p class="form-label m-b-10">Broker Name</p>
 						<ng-select [allowClear]="true"
 							[items]="brokers"
-							[disabled] = "disable"
+							[disabled] = "disable == 'Direct'"
 							(data)="refreshValue($event)"
 							(selected)="selected($event,'brokerName')"
 							(removed)="removed($event)"
@@ -800,7 +800,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Brokerage in %</p>
-								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage" [disabled] = "disable">
+								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage" (disabled)="disable == 'Direct'">
 							</div>
 						</div>
 					</div>
@@ -853,7 +853,7 @@
           	</div>
         </div>
 
-		<button (click)="AddpiecesType()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Purchase Item</button>
+		<a (click)="AddpiecesType()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Purchase Item</a>
 
 
 		<div class="card">

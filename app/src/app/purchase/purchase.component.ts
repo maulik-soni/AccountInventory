@@ -65,8 +65,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             brokerType:[''],
             brokerName:[''],
             brokerage:[''],
-            comission1:[''],
-            comission2:[''],
+            comission1:0,
+            comission2:0,
             avg_INR:[''],
             avg_dolar:[''],
             amount_INR:[''],
@@ -95,9 +95,9 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             cost_rate_per_carat:[''],
             wd_rate:[''],
             wd_rate_carat:[''],
-            less1:[''],
-            less2:[''],
-            less3:[''],
+            less1:0,
+            less2:0,
+            less3:0,
             rate_INR:[''],
             rate_dolar:[''],
             diamond_lot_number:[''],
@@ -144,22 +144,32 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
         var purchaseData:any = [];
         for(var i = 0; i < piecesarray.length; i++){
           purchaseData.push(Object.assign({}, newpurchase, piecesarray[i]));
-          purchaseData[i].less = {
+          purchaseData[i].less = JSON.stringify({
             less1:piecesarray[i].less1,
             less2:piecesarray[i].less2,
             less3:piecesarray[i].less3
-          };
+          });
           delete purchaseData[i].less1;
           delete purchaseData[i].less2;
           delete purchaseData[i].less3;
-          purchaseData[i].comission = {
-            comission1:piecesarray[i].comission1,
-            comission2:piecesarray[i].comission2
-          };
+          purchaseData[i].comission = JSON.stringify({
+            comission1:purchaseData[i].comission1,
+            comission2:purchaseData[i].comission2
+          });
           delete purchaseData[i].comission1 
           delete purchaseData[i].comission2
+          purchaseData[i].broker_details = JSON.stringify({
+            brokerType : purchaseData[i].brokerType,
+            brokerName : purchaseData[i].brokerName,
+            brokerage : purchaseData[i].brokerage
+          });
+          delete purchaseData[i].brokerType;
+          delete purchaseData[i].brokerName;
+          delete purchaseData[i].brokerage;
+          delete purchaseData[i].taxes;
         }
         console.log(purchaseData);
+        this._webservice.postpurchasedata(purchaseData);
     }
 
   ngAfterViewInit(){}
@@ -185,7 +195,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   private _disabledV:string = '0';
   private disabled:boolean = false;
   private oldamountINR = 0;
-  private disable:any = false;
+  public disable:any = '';
   private comissionCheck:any = false;
   
 
@@ -201,11 +211,11 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public selected(value:any,id):void {
 
     console.log('Selected value is: ', value, value.text);
-    if(value.text == 'Direct'){
-      this.disable = true;
-    }else{
-      this.disable = false;
-    }
+    // if(value.text == 'Direct'){
+      this.disable = value.text;
+    // }else{
+      // this.disable = false;
+    // }
     this.myForm.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
     console.log(this.myForm);
   }
@@ -225,7 +235,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public calcDay():void{    
     this.myForm.controls['purchase_date'].patchValue(this.dateConversion(this.newpurchase.purchase_date));
-    if(this.newpurchase.purchase_date != undefined && this.myForm.value.payment_terms != undefined){
+    if(this.newpurchase.purchase_date != undefined && this.myForm.value.payment_terms != undefined && this.myForm.value.payment_terms != ''){
       var targetDate = new Date(this.newpurchase.purchase_date);
       this.myForm.controls['due_date'].patchValue( this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.myForm.value.payment_terms))));
     }
@@ -256,7 +266,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
   }
 
-  public WDRPCarat(){    
+  public WDRPCarat(){
     if(this.newpurchase.cost_rate_per_carat != undefined && this.newpurchase.wd_rate   != undefined){      
       var WDrateCarat = this.newpurchase.cost_rate_per_carat+(this.newpurchase.cost_rate_per_carat*this.newpurchase.wd_rate/100);
       this.CALrate();
@@ -281,6 +291,10 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   }
 
   public CALAmount(){
+    var amountINR = this.newpurchase.amount_INR;
+    var avgINR = this.newpurchase.avg_INR;
+    var totalCRT = this.newpurchase.total_diamond_carat;
+
     this.newpurchase.amount_INR =  this.newpurchase.avg_INR*this.newpurchase.total_diamond_carat;
     var lessDis = parseInt(this.less.less1)+parseInt(this.less.less2)+parseInt(this.less.less3);
     console.log(this.newpurchase.amount_INR,lessDis,(this.newpurchase.amount_INR*(lessDis/100)))

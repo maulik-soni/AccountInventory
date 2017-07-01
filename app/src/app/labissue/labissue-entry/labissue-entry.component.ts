@@ -25,6 +25,7 @@ export class LabissueEntryComponent implements OnInit {
   public invoice:any = this.ConstantService.INVOICE;
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public names:Array<string> = this.ConstantService.NAMES;
+  public piecetype;
 
   private value:any = {};
   private _disabledV:string = '0';
@@ -67,7 +68,7 @@ export class LabissueEntryComponent implements OnInit {
   newlabissue = new LabIssue();  
   newlabissuedata:any = {};
   search(){
-    this._webservice.fetchpurchase(this.searchPCS)
+    this._webservice.fetchpurchase(this.searchPCS,this.piecetype)
       .subscribe(
         resData => {
           console.log(resData);          

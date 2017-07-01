@@ -1,25 +1,25 @@
 <form [formGroup]="salesDetails">
 
   <div class="card-header">
-			<!--<h2>Goods Details</h2>-->
-			<ul class="actions">
-				<li>
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Single Stone
-					</label>
-					
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Parcel
-					</label>
-				</li>			
-			</ul>
-		</div>
+    <!--<h2>Goods Details</h2>-->
+    <ul class="actions">
+      <li>
+        <label class="radio radio-inline m-r-20">
+          <input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+          <i class="input-helper"></i>
+          Single Stone
+        </label>
+        
+        <label class="radio radio-inline m-r-20">
+          <input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+          <i class="input-helper"></i>
+          Parcel
+        </label>
+      </li>			
+    </ul>
+	</div>
 
-  <div class="card-body card-padding">    
+  <div class="card-body card-padding">
 
     <div class="row m-t-25" *ngIf="piecetype == 'singlestone'">
       <div class = "col-sm-4">

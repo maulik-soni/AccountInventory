@@ -83,9 +83,9 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     if(memotype == "memoissue"){
-      this._http.post(this.apis.postnewmemoin,data,options).subscribe();
-    }else{
       this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
+    }else{
+      this._http.post(this.apis.postnewmemoin,data,options).subscribe();
     }
     // 
   }
@@ -121,9 +121,14 @@ export class WebServicesService {
       .map((response:Response) => response.json());
   }
 
-  fetchpurchase(pcsid){
-    return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
-      .map((response:Response) => response.json()); 
+  fetchpurchase(pcsid,pcstype){
+    if(pcstype == "singlestone"){
+      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
+       .map((response:Response) => response.json());
+    }else{
+      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid)
+       .map((response:Response) => response.json());
+    }
   }
 
   memoinreport(){
@@ -163,7 +168,7 @@ export class WebServicesService {
   memoissuechangestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.get(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
+    return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
   }
 
   dateConversion(date){

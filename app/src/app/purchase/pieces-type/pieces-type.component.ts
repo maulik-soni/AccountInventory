@@ -84,9 +84,9 @@ export class PiecesTypeComponent implements OnInit {
     var WDRate = this.piecesTypeForm.value.wd_rate;
 
     if(costRatePC != undefined && WDRate != undefined){ 
-      var WDrateCarat = costRatePC+(costRatePC*WDRate/100);      
+      var WDrateCarat = costRatePC+(costRatePC*WDRate/100);
       this.piecesTypeForm.controls['wd_rate_carat'].patchValue(parseFloat(WDrateCarat.toFixed(2)));
-      // this.CALrate();
+      this.CALrate();
     }
   }
 
@@ -98,7 +98,7 @@ export class PiecesTypeComponent implements OnInit {
 
     if (costRatePC != undefined && totalDiamondC  != undefined && totalDiamondP != undefined && dolarRate != undefined){
       var rateINR = costRatePC*totalDiamondC*totalDiamondP;
-      var rateDOLAR = rateINR/dolarRate;
+      var rateDOLAR = rateINR/this.dolar;
       this.piecesTypeForm.controls['rate_INR'].patchValue(parseFloat(rateINR.toFixed(2)));
       this.piecesTypeForm.controls['rate_dolar'].patchValue(parseFloat(rateDOLAR.toFixed(2)));
       this.CALavg();
@@ -115,25 +115,31 @@ export class PiecesTypeComponent implements OnInit {
       var avgDOLAR = avgINR/this.piecesTypeForm.value.currency_convrsion_rate;
       this.piecesTypeForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
       this.piecesTypeForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
-      // this.CALAmount();
+      this.CALAmount();
     }
     
   }
 
   public CALAmount(){
     this.piecesTypeForm.value.amount_INR =  this.piecesTypeForm.value.avg_INR*this.piecesTypeForm.value.total_diamond_carat;
+
     var lessDis = parseInt(this.piecesTypeForm.value.less1)+parseInt(this.piecesTypeForm.value.less2)+parseInt(this.piecesTypeForm.value.less3);
-    console.log(this.piecesTypeForm.value.amount_INR,lessDis,(this.piecesTypeForm.value.amount_INR*(lessDis/100)))
-    var amountINR = this.piecesTypeForm.value.amount_INR-(this.piecesTypeForm.value.amount_INR*(lessDis/100));
-    var amountDOLAR = this.piecesTypeForm.value.amount_INR/this.piecesTypeForm.value.currency_convrsion_rate;
-    this.piecesTypeForm.value.amount_INR = parseInt(amountINR.toFixed(2));
-    this.piecesTypeForm.value.amount_dolar = parseInt(amountDOLAR.toFixed(2));
+    
+    console.log(this.piecesTypeForm.value.rate_INR,lessDis,(this.piecesTypeForm.value.rate_INR*(lessDis/100)))
+    var amountINR = this.piecesTypeForm.value.rate_INR-(this.piecesTypeForm.value.rate_INR*(this.piecesTypeForm.value.less1/100));
+    amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less2/100));
+    amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less3/100));
+    
+    var amountDOLAR = amountINR/this.dolar;
+    this.piecesTypeForm.controls['rate_INR'].patchValue(parseInt(amountINR.toFixed(2)));
+    this.piecesTypeForm.controls['rate_dolar'].patchValue(parseInt(amountDOLAR.toFixed(2)));
   }
 
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
   ) {
+    
     //console.log(this.newpurchase)
   }
 

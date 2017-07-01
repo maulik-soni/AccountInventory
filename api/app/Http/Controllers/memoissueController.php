@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use \App\MemoIssue;
 // use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 
 class memoissueController extends Controller
@@ -10,24 +11,9 @@ class memoissueController extends Controller
     
     public function memoissueEntry(){
         //print_r(Request::all());
-
         $new_memoissue = Request::all();
         $memoissue_table = new \App\MemoIssue;
-        $memoissue_table->PCS_ID = $new_memoissue['PCS_ID'];
-        $memoissue_table->memo_invoice_number = $new_memoissue['memo_invoice_number'];
-        $memoissue_table->date = $new_memoissue['date'];
-        $memoissue_table->account_name = $new_memoissue['account_name'];
-        $memoissue_table->broker = $new_memoissue['broker'];
-        $memoissue_table->reference = $new_memoissue['reference'];
-        $memoissue_table->carats = $new_memoissue['carats'];
-        $memoissue_table->pending_pcs = $new_memoissue['pending_pcs'];
-        $memoissue_table->pending_carats = $new_memoissue['pending_carats'];
-        $memoissue_table->amount = $new_memoissue['amount'];
-        $memoissue_table->stone_type = $new_memoissue['stone_type'];
-        $memoissue_table->no_of_days = $new_memoissue['no_of_days'];
-        $memoissue_table->status = "ISSUED";
-        $memoissue_table->save();
-
+        DB::table('memo_issue')->insert($new_memoissue);
     } 
 
     public function memoissueReport($PCS_ID=''){
@@ -59,9 +45,13 @@ class memoissueController extends Controller
 
     public function changeStatus(){
         $pcsid = Request::Input('pcsid');
-        $memoissue_table = \App\MemoIssue::find($pcsid);
+        // echo $pcsid;
+        $memoissue_table = \App\MemoIssue::where(function($query) use($pcsid){
+            $query->where('PCS_ID', '=', $pcsid)
+                  ->orWhere('Lot_Number', '=', $pcsid);
+        })->first();
         $memoissue_table->status = "RETURNED";
-        $memoissue_table->return_date = date("Y/m/d");
+        $memoissue_table->due_date = date("Y/m/d");
         $memoissue_table->save();
     }   
 }

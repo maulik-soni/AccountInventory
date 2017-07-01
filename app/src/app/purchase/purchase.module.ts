@@ -14,6 +14,10 @@ import { PurchaseReportComponent } from './purchase-report/purchase-report.compo
 import { PiecesTypeComponent } from './pieces-type/pieces-type.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { DataTableModule } from "angular2-datatable";
+
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -23,13 +27,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SelectModule,
     FormsModule,
     PurchaseRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTableModule
   ],
   declarations: [
     PurchaseComponent,
     PurchaseReportComponent,
     PurchaseReturnComponent,
-    PiecesTypeComponent
+    PiecesTypeComponent,
+    
   ],
   entryComponents: [PiecesTypeComponent],
   exports: [

@@ -19,21 +19,26 @@ export class PurchaseReportComponent implements OnInit {
     this._webservice.getpurchasereport()
       .subscribe( resData =>{
         this.mydata = resData;
-        for(var i=0; i<this.mydata.length; i++){
-          this.mydata[i].country = JSON.parse(this.mydata[i].country)[0].text ;
-          this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text ;
-        }
+        // for(var i=0; i<this.mydata.length; i++){
+        //   this.mydata[i].country = JSON.parse(this.mydata[i].country)[0].text ;
+        //   this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text ;
+        // }
       });
   }
 
   purchaseReturn(data){
-    console.log(data.PCS_ID);
+    
+    var dataID = data.PCS_ID;
+    if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+      dataID = data.diamond_lot_number;
+    }
     for(var i=0; i<this.mydata.length; i++){
-      if(this.mydata[i].PCS_ID == data.PCS_ID){
+      if(this.mydata[i].PCS_ID == dataID || this.mydata[i].Lot_Number == dataID){
         this.mydata.splice(i,1);
       }
     }
-    this._webservice.purchaseReturn(data.PCS_ID);
+    console.log(data);
+    this._webservice.purchaseReturn(dataID);
   }
 
 }

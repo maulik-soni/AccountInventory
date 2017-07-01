@@ -73,7 +73,7 @@
 						<ng-select [allowClear]="true"
 							[items]="names"
 							[disabled]="disabled"							
-							(selected)="selected($event)"
+							(selected)="selected($event,'account_name')"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
 							[(ngModel)] = "newmemo.account_name"
@@ -87,7 +87,7 @@
 						<ng-select [allowClear]="true"
 							[items]="brokers"
 							[disabled]="disabled"	
-							(selected)="selected($event)"
+							(selected)="selected($event,'broker')"
 							(removed)="removed($event)"
 							(typed)="typed($event)"
 							[(ngModel)] = "newmemo.broker"
@@ -120,7 +120,7 @@
 			</div>
 			</div>
 		</div>
-		<button (click)="memoAdd()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</button>
+		<a (click)="memoAdd()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</a>
 
 		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
 	</form>

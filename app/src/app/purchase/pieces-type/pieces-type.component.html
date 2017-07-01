@@ -219,7 +219,7 @@
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">LESS1</p>
-							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1">
+							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur)="CALAmount()"> 
 						</div>
 					</div>
 				</div>
@@ -227,7 +227,7 @@
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">LESS2</p>
-							<input type="text" class="form-control fg-input" formControlName = "less2"  name = "less2">
+							<input type="text" class="form-control fg-input" formControlName = "less2"  name = "less2" (blur)="CALAmount()">
 						</div>
 					</div>
 				</div>
@@ -235,7 +235,7 @@
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">LESS3</p>
-							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3">
+							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur)="CALAmount()">
 						</div>
 					</div>
 				</div>
@@ -247,7 +247,7 @@
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">Rate in INR(&#8377;)</p>
-							<input type="text" class="form-control fg-input" formControlName = "rate_INR" name = "rate_INR">
+							<input type="text" class="form-control fg-input" formControlName = "rate_INR" name = "rate_INR" disabled="true">
 						</div>
 					</div>
 				</div>
@@ -255,7 +255,7 @@
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">Rate in USD($)</p>
-							<input type="text" class="form-control fg-input" formControlName = "rate_dolar" name="rate_dolar">
+							<input type="text" class="form-control fg-input" formControlName = "rate_dolar" name="rate_dolar" disabled="true">
 						</div>
 					</div>
 				</div>

@@ -21,12 +21,16 @@ export class SalesReportComponent implements OnInit {
 
   salesReturn(data){
     console.log(data.PCS_ID);
+    var dataID = data.PCS_ID;
+    if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+      dataID = data.Lot_Number;
+    }
     for(var i=0; i<this.mydata.length; i++){
-      if(this.mydata[i].PCS_ID == data.PCS_ID){
+       if(this.mydata[i].PCS_ID == dataID || this.mydata[i].Lot_Number == dataID){
         this.mydata.splice(i,1);
       }
     }
-    this._webservice.salesReturn(data.PCS_ID);
+    this._webservice.salesReturn(dataID);
   }
 
 }

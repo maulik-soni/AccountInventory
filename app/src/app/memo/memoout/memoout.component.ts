@@ -47,8 +47,11 @@ export class MemooutComponent implements OnInit {
     this.disabled = this._disabledV === '1';
   }
  
-  public selected(value:any):void {
-    console.log('Selected value is: ', value);
+  public selected(value:any,id):void {
+
+    console.log('Selected value is: ', value, value.text);
+    this.myForm.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
+    console.log(this.myForm);
   }
  
   public removed(value:any):void {
@@ -142,9 +145,12 @@ export class MemooutComponent implements OnInit {
     delete newMemo.memoDetails;
     var memoData:any = [];
     for(var i = 0; i < memoPCDetails.length; i++){
+      memoPCDetails[i].status = "ISSUED";
       memoData.push(Object.assign({}, newMemo, memoPCDetails[i]));
     }
     console.log(memoData);
-    }
+    this._webservice.postmemo(memoData,"memoissue");
+  }
+    
 
 }

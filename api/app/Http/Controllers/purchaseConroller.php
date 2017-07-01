@@ -1,26 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Request;
 use \App\Purchase;
 use \App\PurchaseReturn;
+use Illuminate\Support\Facades\DB;
 
 class purchaseConroller extends Controller
 {
     public function newPurchaseEntry(){
         $new_purchase = Request::all();
-        //print_r($new_purchase);
         $purchase = new \App\Purchase;
-        foreach ($new_purchase as $fields=>$value) {
-            // var_dump($fields);
-            // echo "<br>";
-            // var_dump($value);
-            if($fields != "sr_no" && $fields != "brokerName" && $fields != "brokerType" && $fields != "brokerage" && $fields != "taxes"){            
-                $purchase->$fields = $new_purchase[$fields];                   
-            }
-        }
-        $purchase->save();
-    }   
+        DB::table('purchase')->insert($new_purchase);
+    }
 
     public function purchaseReport(Request $request){
         $params = Request::all();
@@ -33,6 +26,8 @@ class purchaseConroller extends Controller
             $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid']);
         }else if(!empty($params['pcsid'])){
             $purchase_data = Purchase::all()->where('PCS_ID','=',$params['pcsid']);
+        }else if(!empty($params['lot_number'])){
+            $purchase_data = Purchase::all()->where('diamond_lot_number','=',$params['lot_number']);
         }else{
             $purchase_data = Purchase::all();
         }
@@ -59,16 +54,23 @@ class purchaseConroller extends Controller
     }
 
     public function purchaseReturn(){
-        // print_r(Request::all()[0]);
+        print_r(Request::all());
         $PR_pcsid = Request::all()[0];
         $purchase = new \App\Purchase;
         $purchase_return = new \App\PurchaseReturn;
-        $PR_data = Purchase::where('PCS_ID','=',$PR_pcsid)->get()->toArray();
-        foreach ($PR_data[0] as $fields => $value) {
-            $purchase_return->$fields = $PR_data[0][$fields];
+        $PR_data = Purchase::where(function($query) use($PR_pcsid){
+            $query->where('PCS_ID', '=', $PR_pcsid)
+                  ->orWhere('diamond_lot_number', '=', $PR_pcsid);
+        })->first()->toArray();
+        
+        foreach ($PR_data as $fields => $value) {
+            $purchase_return->$fields = $PR_data[$fields];
         }
         $purchase_return->save();
-        Purchase::where('PCS_ID','=',$PR_pcsid)->delete();
+        Purchase::where(function($query) use($PR_pcsid){
+            $query->where('PCS_ID', '=', $PR_pcsid)
+                  ->orWhere('diamond_lot_number', '=', $PR_pcsid);
+        })->first()->delete();
     }
 
      public function purchaseReturnReport(){
