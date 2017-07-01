@@ -25,6 +25,7 @@ export class LabissueEntryComponent implements OnInit {
   public invoice:any = this.ConstantService.INVOICE;
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public names:Array<string> = this.ConstantService.NAMES;
+  public piecetype;
 
   private value:any = {};
   private _disabledV:string = '0';
@@ -64,10 +65,10 @@ export class LabissueEntryComponent implements OnInit {
   mypurchase:any = {};
   searchPCS:any;
   showPurchase = false;
-  newlabissue:any = {};  
+  newlabissue = new LabIssue();  
   newlabissuedata:any = {};
   search(){
-    this._webservice.fetchpurchase(this.searchPCS)
+    this._webservice.fetchpurchase(this.searchPCS,this.piecetype)
       .subscribe(
         resData => {
           console.log(resData);          
@@ -100,8 +101,19 @@ export class LabissueEntryComponent implements OnInit {
 
   onSubmit(){
     console.log(this.newlabissue);
-    this.newlabissue.date = this._webservice.dateConversion(this.newlabissue.date);
+    // this.newlabissue.date = this._webservice.dateConversion(this.newlabissue.date);
     this._webservice.createlabissue(this.newlabissue);
+  }
+
+  dateConversion(date){
+    console.log(date);
+    var date:any = new Date(date);
+    // console.log(date.getTime(),date.getMonth());
+    // var dd:any = date.getDate();
+    // var mm:any = date.getMonth() + 1;
+    // var yyyy:any = date.getFullYear();
+    var dateString = date.getFullYear() + "/" + date.getMonth() + 1 + "/" + date.getDate();
+    return dateString;
   }
 
 }

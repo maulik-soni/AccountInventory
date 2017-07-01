@@ -14,9 +14,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 // import { SalesModule } from './sales/sales.module';
 import { SigninModule } from './signin/signin.module';
 import { DashboardStructureModule } from './dashboard-structure/dashboard-structure.module';
-// import { ServicesModule } from './services/services.module';
-// import { BillModule } from './bills/bill.module';
 import { AccountModule } from './account/account.module';
+
 import { CashbookModule } from './cashbook/cashbook.module';
 import { UserModule } from './user/user.module';
 // import { DatepickerModule } from 'angular2-material-datepicker';

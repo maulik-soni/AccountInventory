@@ -1,0 +1,151 @@
+<form [formGroup]="salesDetails">
+
+  <div class="card-header">
+    <!--<h2>Goods Details</h2>-->
+    <ul class="actions">
+      <li>
+        <label class="radio radio-inline m-r-20">
+          <input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+          <i class="input-helper"></i>
+          Single Stone
+        </label>
+        
+        <label class="radio radio-inline m-r-20">
+          <input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+          <i class="input-helper"></i>
+          Parcel
+        </label>
+      </li>			
+    </ul>
+	</div>
+
+  <div class="card-body card-padding">
+
+    <div class="row m-t-25" *ngIf="piecetype == 'singlestone'">
+      <div class = "col-sm-4">
+      <div class="form-group">
+        <p class="form-label">Search Purchase by 'PCS ID'</p>
+        <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+      </div>
+      <button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+      </div>
+    </div>
+
+    <div class="row m-t-25" *ngIf="piecetype == 'parcel'">
+      <div class = "col-sm-4">
+      <div class="form-group">
+        <p class="form-label">Search Purchase by 'Lot Number'</p>
+        <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+      </div>
+      <button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+      </div>
+    </div>
+
+    <div *ngIf="searchResult">
+
+      <div class = "row m-t-25" *ngIf = "searchResult">
+          <div class="col-sm-12" style= "height:auto;color:#666;">
+              <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
+                  <div style="width:30%; float:left;padding:10px;">
+                      <span style="font-size:14px;float:left; width:100%;">
+                      <b>Client Name :</b> 
+                      </span>
+                      <span style="font-size:14px;float:left;width:100%;">
+                      <b>Currency Conversion :</b>
+                      </span>
+                      <span style="font-size:14px;float:left;width:100%;">
+                      <b>Country :</b> 
+                      </span>
+                      <span style="font-size:14px;float:left;width:100%;">
+                      <b>Notes :</b> 
+                      </span>
+                  </div>
+                  <div style="width:40%; float:right;padding:">
+                      <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                      <b>Date : </b>
+                      </span>
+                      <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                      <b>Invoice# : </b>
+                      </span>
+                  </div>
+              </div>
+              <div style="width:100%; padding:0px; float:left;">
+                  <div style="width:100%;float:left;background:#efefef;">
+                      <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
+                      Decription
+                      </span>
+                      <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                      Amount
+                      </span>
+                  </div>
+                  <div style="width:100%;float:left;">
+                      <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+                      Pcs ID : 
+                      <span style="font-size:10px; float:left; width:100%;">
+                      Total Carats : 
+                      Total Picies : 
+                      </span>
+                      </span>
+                      <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                      ₹ ($)
+                      </span>
+                  </div>
+                  <div style="width:100%;float:left; background:#fff;">
+                      <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
+                      Total : ₹ ($)
+                      </span>
+                  </div>
+              </div>
+          </div>
+        </div>
+
+      <div class="row">
+        <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
+        <div class="col-sm-4 m-t-15">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">LESS1</p>
+              <input type="text" class="form-control fg-input" formControlName = "less1" name = "less1">
+            </div>
+          </div>
+        </div>										
+        <div class="col-sm-4 m-t-15">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">LESS2</p>
+              <input type="text" class="form-control fg-input" formControlName = "less2" name = "less2" value="0">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 m-t-15">
+          <div class="form-group ">
+            <div class="fg-line">
+              <p class="form-label">LESS3</p>
+              <input type="text" class="form-control fg-input" formControlName = "less3" name = "less3">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Rate & Diescount</p>					
+        <div class="col-sm-4 m-t-15">
+          <div class="form-group ">
+            <div class="fg-line">
+              <p class="form-label">Sales Rate</p>
+              <input type="text" class="form-control fg-input" formControlName = "sale_rate"  name = "less2" (blur)="calAmount()">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 m-t-15">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Sales Discount</p>
+              <input type="text" class="form-control fg-input" formControlName = "sale_disc" name = "sale_disc">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

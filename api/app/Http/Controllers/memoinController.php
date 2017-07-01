@@ -4,28 +4,15 @@ namespace App\Http\Controllers;
 use \App\MemoIn;
 // use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\DB;
 
 class memoinController extends Controller
 {
     
     public function memoinEntry(){
-        // print_r(Request::all());
         $new_memoIn = Request::all();
         $memoIn_table = new \App\MemoIn;
-        $memoIn_table->PCS_ID = $new_memoIn['PCS_ID'];
-        $memoIn_table->memo_invoice_number = $new_memoIn['memo_invoice_number'];
-        $memoIn_table->date = $new_memoIn['date'];
-        $memoIn_table->account_name = $new_memoIn['account_name'];
-        $memoIn_table->broker = $new_memoIn['broker'];
-        $memoIn_table->reference = $new_memoIn['reference'];
-        $memoIn_table->carats = $new_memoIn['carats'];
-        $memoIn_table->pending_pcs = $new_memoIn['pending_pcs'];
-        $memoIn_table->pending_carats = $new_memoIn['pending_carats'];
-        $memoIn_table->amount = $new_memoIn['amount'];
-        $memoIn_table->stone_type = $new_memoIn['stone_type'];
-        $memoIn_table->no_of_days = $new_memoIn['no_of_days'];
-        $memoIn_table->status = "ISSUED";
-        $memoIn_table->save();
+        DB::table('memo_in')->insert($new_memoIn);
     } 
 
     public function memoinReport(){
@@ -56,9 +43,12 @@ class memoinController extends Controller
    
     public function changeStatus(){
         $pcsid = Request::Input('pcsid');
-        $memoIn_table = \App\MemoIn::find($pcsid);
+        $memoIn_table = \App\MemoIn::where(function($query) use($pcsid){
+            $query->where('PCS_ID', '=', $pcsid)
+                  ->orWhere('Lot_Number', '=', $pcsid);
+        })->first();
         $memoIn_table->status = "RETURNED";
-        $memoIn_table->return_date = date("Y/m/d");
+        $memoIn_table->due_date = date("Y/m/d");
         $memoIn_table->save();
     }
 

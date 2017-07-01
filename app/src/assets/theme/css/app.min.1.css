@@ -13668,7 +13668,7 @@ fieldset[disabled] .btn-inverse:active {
  */
 
 .m-btn {
-  z-index: 1;
+  z-index: 5;
   bottom: 40px;
   right: 40px;
   position: fixed !important;

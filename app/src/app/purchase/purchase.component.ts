@@ -7,6 +7,13 @@ import { Purchase } from './purchase';
 import { WebServicesService } from './../services/web-services.service';
 import { ConstantServiceService } from './../services/constant-services.service';
 // import { DatepickerModule } from 'angular2-material-datepicker';
+import { DatepickerModule } from 'angular2-material-datepicker';
+import { ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
+import { ComponentFactory } from '@angular/core';
+import { PiecesTypeComponent } from './pieces-type/pieces-type.component';
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { newPurchase } from './purchase.interface';
+
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
@@ -18,22 +25,154 @@ export abstract class AbstractViewInit {
   selector: 'app-purchase',
   templateUrl: './purchase.component.html',
   styleUrls: ['./purchase.component.css'],
-  providers: [WebServicesService,ConstantServiceService]
+  providers: [WebServicesService,ConstantServiceService],
 })
 export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   date: DateModel;
   options: DatePickerOptions;
 
+  @ViewChild('subContainer1', {read: ViewContainerRef}) subContainer1: ViewContainerRef;
+
+   public myForm: FormGroup;
 
   constructor(
     private _webservice : WebServicesService,
-    public ConstantService : ConstantServiceService
+    public ConstantService : ConstantServiceService,
+    private compFactoryResolver: ComponentFactoryResolver,
+    private _fb: FormBuilder
   ) {
     this.options = new DatePickerOptions();
   }
 
-  ngOnInit() {}
+  addComponents() {
+    console.log("add component",this.newpurchase);
+    let compFactory:any;
+    compFactory = this.compFactoryResolver.resolveComponentFactory(PiecesTypeComponent);
+    this.subContainer1.createComponent(compFactory);
+  }
+
+
+  ngOnInit() {
+
+    this.myForm = this._fb.group({
+            invoice_number: [''],
+            currency_convrsion_rate:[''],
+            payment_terms:[''],
+            purchase_date:[''],
+            due_date:[''],
+            country:[''],
+            notes:[''],
+            account_name:[''],
+            brokerType:[''],
+            brokerName:[''],
+            brokerage:[''],
+            comission1:0,
+            comission2:0,
+            avg_INR:[''],
+            avg_dolar:[''],
+            amount_INR:[''],
+            amount_dolar:[''],
+            mVAT:[''],
+            aginst_Hform:[''],            
+            piecesTypes: this._fb.array([])
+        });
+        
+        this.AddpiecesType();
+  }
+
+  initPiecesType() {
+        return this._fb.group({
+            PCS_ID: [''],
+            certificate_number: [''],
+            kapan:[''],
+            LAB_type:[''],
+            total_diamond_pcs:[''],
+            total_diamond_carat:[''],
+            bill_type:[''],
+            polishing_type:[''],
+            item:[''],
+            RAP_price:[''],
+            cost_discount:[''],
+            cost_rate_per_carat:[''],
+            wd_rate:[''],
+            wd_rate_carat:[''],
+            less1:0,
+            less2:0,
+            less3:0,
+            rate_INR:[''],
+            rate_dolar:[''],
+            diamond_lot_number:[''],
+            diamond_clarity:[''],
+            stock_status_group:[''],
+            diamond_shape:[''],
+            diamond_color:[''],
+            diamond_size:['']
+        });
+    }
+
+    AddpiecesType() {
+        const control = <FormArray>this.myForm.controls['piecesTypes'];
+        const addrCtrl = this.initPiecesType();
+        control.push(addrCtrl);
+        /* subscribe to individual address value changes */
+        // addrCtrl.valueChanges.subscribe(x => {
+        //   console.log(x);
+        // })
+    }
+
+    removePiece(i: number) {
+        const control = <FormArray>this.myForm.controls['piecesTypes'];
+        control.removeAt(i);
+    }
+
+    // save(model: newPurchase,data) {
+    //     // call API to save
+    //     // ...
+    //     var formData:any = model;
+    //     console.log(formData._value,data);
+    // }
+
+
+    save(formData,data) {
+        // call API to save
+        // ...
+        // var formData:any = model;
+        // var temp:any = formData._valu;
+        console.log(formData._value);
+        var newpurchase = JSON.parse(JSON.stringify(formData._value));
+        var piecesarray = JSON.parse(JSON.stringify(newpurchase.piecesTypes));
+        delete newpurchase.piecesTypes;
+        var purchaseData:any = [];
+        for(var i = 0; i < piecesarray.length; i++){
+          purchaseData.push(Object.assign({}, newpurchase, piecesarray[i]));
+          purchaseData[i].less = JSON.stringify({
+            less1:piecesarray[i].less1,
+            less2:piecesarray[i].less2,
+            less3:piecesarray[i].less3
+          });
+          delete purchaseData[i].less1;
+          delete purchaseData[i].less2;
+          delete purchaseData[i].less3;
+          purchaseData[i].comission = JSON.stringify({
+            comission1:purchaseData[i].comission1,
+            comission2:purchaseData[i].comission2
+          });
+          delete purchaseData[i].comission1 
+          delete purchaseData[i].comission2
+          purchaseData[i].broker_details = JSON.stringify({
+            brokerType : purchaseData[i].brokerType,
+            brokerName : purchaseData[i].brokerName,
+            brokerage : purchaseData[i].brokerage
+          });
+          delete purchaseData[i].brokerType;
+          delete purchaseData[i].brokerName;
+          delete purchaseData[i].brokerage;
+          delete purchaseData[i].taxes;
+        }
+        console.log(purchaseData);
+        this._webservice.postpurchasedata(purchaseData);
+    }
 
   ngAfterViewInit(){}
 
@@ -47,11 +186,10 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public clarity:Array<string> = this.ConstantService.CLARITY;
   public sizes:Array<string> = this.ConstantService.SIZES;
   public taxes:Array<string> = this.ConstantService.TAXES;
-  // newpurchase.concurrency_convrsion_ratev =
   public invoice:any = this.ConstantService.INVOICE;
   public dolar:any = this.ConstantService.DOLAR;
 
-  newpurchase = new Purchase(this.invoice,this.dolar,false);
+  newpurchase = new Purchase(this.invoice,this.dolar,false,"Bill To Bill");
 
   public less:any = {less1:0,less2:0,less3:0};
   public comission:any = {comission1:0,comission2:0};
@@ -59,18 +197,9 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   private _disabledV:string = '0';
   private disabled:boolean = false;
   private oldamountINR = 0;
-  private disable:any = false;
-
-  public items:Array<string> = ['Amsterdam', 'Antwerp', 'Athens', 'Barcelona',
-    'Berlin', 'Birmingham', 'Bradford', 'Bremen', 'Brussels', 'Bucharest',
-    'Budapest', 'Cologne', 'Copenhagen', 'Dortmund', 'Dresden', 'Dublin',
-    'Düsseldorf', 'Essen', 'Frankfurt', 'Genoa', 'Glasgow', 'Gothenburg',
-    'Hamburg', 'Hannover', 'Helsinki', 'Kraków', 'Leeds', 'Leipzig', 'Lisbon',
-    'London', 'Madrid', 'Manchester', 'Marseille', 'Milan', 'Munich', 'Málaga',
-    'Naples', 'Palermo', 'Paris', 'Poznań', 'Prague', 'Riga', 'Rome',
-    'Rotterdam', 'Seville', 'Sheffield', 'Sofia', 'Stockholm', 'Stuttgart',
-    'The Hague', 'Turin', 'Valencia', 'Vienna', 'Vilnius', 'Warsaw', 'Wrocław',
-    'Zagreb', 'Zaragoza', 'Łódź'];
+  public disable:any = '';
+  private comissionCheck:any = false;
+  
 
   private get disabledV():string {
     return this._disabledV;
@@ -81,13 +210,16 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this.disabled = this._disabledV === '1';
   }
 
-  public selected(value:any):void {
-    console.log('Selected value is: ', value.text);
-    if(value.text == 'Direct'){
-      this.disable = true;
-    }else{
-      this.disable = false;
-    }
+  public selected(value:any,id):void {
+
+    console.log('Selected value is: ', value, value.text);
+    // if(value.text == 'Direct'){
+      this.disable = value.text;
+    // }else{
+      // this.disable = false;
+    // }
+    this.myForm.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
+    console.log(this.myForm);
   }
 
   public removed(value:any):void {
@@ -103,17 +235,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this.value = value;
   }
 
-  public calcDay(value:any):void{
-    console.log(typeof value,this.newpurchase.purchase_date,this.newpurchase.payment_terms);
-    var date;
-    if(this.newpurchase.purchase_date != undefined && this.newpurchase.payment_terms != undefined){
-      var targetDate = new Date(this.newpurchase.purchase_date);      
-      this.newpurchase.due_date = this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.newpurchase.payment_terms)));
+  public calcDay():void{    
+    this.myForm.controls['purchase_date'].patchValue(this.dateConversion(this.newpurchase.purchase_date));
+    if(this.newpurchase.purchase_date != undefined && this.myForm.value.payment_terms != undefined && this.myForm.value.payment_terms != ''){
+      var targetDate = new Date(this.newpurchase.purchase_date);
+      this.myForm.controls['due_date'].patchValue( this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.myForm.value.payment_terms))));
     }
   }
 
   public dateConversion(date){
-    console.log(date);
     var dd = new Date(date).getDate();
     var mm = new Date(date).getMonth() + 1;
     var yyyy = new Date(date).getFullYear();
@@ -122,8 +252,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   }
 
+  dateToTimeStamp(str){
+	  var date = str.split("/");
+    var d = new Date(date[0], date[1] - 1, date[2]);
+    return  d;
+  }
+
+
   public RPCaratCost(){
-    console.log("afqw23r23");
+    
     if(this.newpurchase.RAP_price != undefined && this.newpurchase.cost_discount != undefined){
       console.log(this.newpurchase.RAP_price-(this.newpurchase.RAP_price*this.newpurchase.cost_discount/100));
 
@@ -131,7 +268,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
   }
 
-  public WDRPCarat(){    
+  public WDRPCarat(){
     if(this.newpurchase.cost_rate_per_carat != undefined && this.newpurchase.wd_rate   != undefined){      
       var WDrateCarat = this.newpurchase.cost_rate_per_carat+(this.newpurchase.cost_rate_per_carat*this.newpurchase.wd_rate/100);
       this.CALrate();
@@ -156,6 +293,10 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   }
 
   public CALAmount(){
+    var amountINR = this.newpurchase.amount_INR;
+    var avgINR = this.newpurchase.avg_INR;
+    var totalCRT = this.newpurchase.total_diamond_carat;
+
     this.newpurchase.amount_INR =  this.newpurchase.avg_INR*this.newpurchase.total_diamond_carat;
     var lessDis = parseInt(this.less.less1)+parseInt(this.less.less2)+parseInt(this.less.less3);
     console.log(this.newpurchase.amount_INR,lessDis,(this.newpurchase.amount_INR*(lessDis/100)))
@@ -178,9 +319,24 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     console.log(this.newpurchase.aginst_Hform);
     if(this.newpurchase.aginst_Hform){
       this.CALAmount();
-      this.newpurchase.mVAT = undefined;
+      this.newpurchase.mVAT = 0;
       this.newpurchase.taxes = undefined;
     }
+  }
+
+
+  public checkComission(){
+    console.log(this.comissionCheck);
+    if(!this.comissionCheck){
+      this.comission.comission1 = 0;
+      this.comission.comission2 = 0;
+    }
+  }
+
+  public parenFunction(dolarV):void{
+    console.log(dolarV);
+      // this.myForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
+      // this.myForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
   }
 
   newpurchasedata:any;

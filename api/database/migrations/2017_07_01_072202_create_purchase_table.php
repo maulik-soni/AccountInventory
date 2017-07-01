@@ -14,8 +14,13 @@ class CreatePurchaseTable extends Migration {
 	{
 		Schema::create('purchase', function(Blueprint $table)
 		{
+<<<<<<< HEAD:api/database/migrations/2017_06_25_074559_create_purchase_table.php
 			$table->integer('PCS_ID')->unique();
 			$table->increments('sr_no');
+=======
+			$table->integer('PCS_ID')->nullable()->unique('PCS_ID');
+			$table->integer('sr_no', true);
+>>>>>>> issue-11NEW:api/database/migrations/2017_07_01_072202_create_purchase_table.php
 			$table->string('invoice_number', 256)->nullable();
 			$table->string('purchase_date', 256)->nullable();
 			$table->string('due_date', 256)->nullable();
@@ -32,7 +37,7 @@ class CreatePurchaseTable extends Migration {
 			$table->string('item', 256)->nullable();
 			$table->string('kapan', 256)->nullable();
 			$table->string('diamond_shape', 256)->nullable();
-			$table->string('diamond_lot_number', 256)->nullable();
+			$table->string('diamond_lot_number', 256)->nullable()->unique('diamond_lot_number');
 			$table->string('diamond_size', 256)->nullable();
 			$table->string('diamond_color', 256)->nullable();
 			$table->string('diamond_clarity', 256)->nullable();

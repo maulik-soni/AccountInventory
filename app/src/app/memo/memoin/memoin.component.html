@@ -109,15 +109,15 @@
 		<div formArrayName="memoDetails">
 			<div *ngFor="let memoDetails of myForm.controls.memoDetails.controls; let i=index">
 				<div class="card">
-				<div class="card-header">
-					<h2 style="display: inline-block">Memo Item {{i + 1}}</h2>
-					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.memoDetails.controls.length > 1" (click)="removePiece(i)"></span>
+					<div class="card-header">
+						<h2 style="display: inline-block">Memo Item {{i + 1}}</h2>
+						<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.memoDetails.controls.length > 1" (click)="removePiece(i)"></span>
+					</div>
+					<div [formGroupName]="i">
+						<app-memo-details [mygroup]="myForm.controls.memoDetails.controls[i]"></app-memo-details>
+					<!--<address></address>-->
+					</div>
 				</div>
-				<div [formGroupName]="i">
-					<app-memo-details [mygroup]="myForm.controls.memoDetails.controls[i]"></app-memo-details>
-				<!--<address></address>-->
-				</div>
-			</div>
 			</div>
 		</div>
 		<a (click)="memoAdd()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</a>

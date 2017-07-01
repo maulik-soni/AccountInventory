@@ -23,8 +23,8 @@ export class MemoissueReportComponent implements OnInit {
         this.mydata = resData;
         console.log(this.mydata);
         for(var i = 0; i<this.mydata.length; i++){
-          this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text;
-          this.mydata[i].broker = JSON.parse(this.mydata[i].broker)[0].text; 
+          // this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text;
+          // this.mydata[i].broker = JSON.parse(this.mydata[i].broker)[0].text; 
           if(this.mydata[i].status =="ISSUED"){
             this.issued.push(this.mydata[i]);
           }else{
@@ -44,10 +44,15 @@ export class MemoissueReportComponent implements OnInit {
   }
 
    memoissueReturn(data){
+     console.log(data);
     for(var i=0; i<this.issued.length; i++){
       if(this.issued[i].PCS_ID == data.PCS_ID){
         var ival = i;
-        this._webservice.memoissuechangestatus(data.PCS_ID).subscribe(
+        var dataID = data.PCS_ID;
+        if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+          dataID = data.Lot_Number;
+        }
+        this._webservice.memoissuechangestatus(dataID).subscribe(
           response =>{
             this.issued[ival].return_date = this.dateConversion(new Date);
             this.received.push(this.issued[ival]);

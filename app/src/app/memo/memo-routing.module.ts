@@ -3,28 +3,33 @@ import { CommonModule } from '@angular/common';
 
 import { RouterModule, Routes,Router } from '@angular/router';
 
-import { MemoComponent } from './memo/memo.component';
+import { MemoInComponent } from './memoin/memoin.component';
 import { MemoinReportComponent } from './memoin-report/memoin-report.component';
 import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
+import { MemooutComponent } from './memoout/memoout.component';
 
 import { AuthGuard } from './../authorization/auth-guard.service';
 import { AdminGuard } from './../authorization/admin-role-guard.service';
 
 const memoRoutes:Routes=[
   {
-    path:'memo',
+    path:'jangad',
     canActivate:[AuthGuard,AdminGuard],
     children:[
       {
-        path:'memo-entry',
-        component: MemoComponent
+        path:'jangad-in-entry',
+        component: MemoInComponent
       },
       {
-        path:'memoin-report',
+        path:'jangad-issue-entry',
+        component: MemooutComponent
+      },
+      {
+        path:'jangad-in-report',
         component: MemoinReportComponent
       },
       {
-        path:'memoissue-report',
+        path:'jangad-issue-report',
         component: MemoissueReportComponent
       },
     ]

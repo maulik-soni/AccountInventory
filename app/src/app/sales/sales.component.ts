@@ -4,14 +4,15 @@ import { SelectModule } from 'ng2-select';
 import { Sales } from './sales';
 import { WebServicesService } from './../services/web-services.service';
 import { ConstantServiceService } from './../services/constant-services.service';
-
+import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { newSales } from './sales.interface';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
     console.log('after View init');
   }
 }
-
+  
 
 @Component({
   selector: 'app-salse',
@@ -21,19 +22,130 @@ export abstract class AbstractViewInit {
 })
 export class SalesComponent implements OnInit {
 
+  public myForm: FormGroup;
+  
   constructor(
     private _webservice : WebServicesService,
-    public ConstantService : ConstantServiceService
+    public ConstantService : ConstantServiceService,
+    private _fb: FormBuilder
   ) { 
     this.options = new DatePickerOptions();
   }
 
   ngOnInit() {
-    
+
+    this.myForm = this._fb.group({
+            invoice_number:[''],
+            currency_convrsion_rate:[''],
+            sales_date:[''],
+            due_date:[''],
+            country:[''],
+            notes:[''],
+            payment_terms:[''],
+            account_name:[''],
+            brokerName:[''],
+            brokerType:[''],
+            brokerage:[''],
+            comission1:[''],
+            comission2:[''],
+            purchase_amount_INR:[''],
+            purchase_amount_dolar:[''],
+            freight:[''],
+            sales_amount_INR:[''],
+            sales_amount_dolar:[''],
+            diff_amount_INR:[''],
+            diff_amount_dolar:[''],
+            salesDetails: this._fb.array([])
+        });
+    this.addSalesDetails();
   }
 
+  initSalesDetails() {
+    return this._fb.group({
+      PCS_ID: [''],
+      polishing_type: [''],
+      bill_type: [''],
+      stock_status_group: [''],
+      item: [''],
+      kapan: [''],
+      diamond_shape: [''],
+      diamond_lot_number: [''],
+      diamond_size: [''],
+      diamond_color: [''],
+      diamond_clarity: [''],
+      total_diamond_pcs: [''],
+      total_diamond_carat: [''],
+      cost_discount: [''],
+      cost_rate_per_carat:[''],
+      RAP_price: [''],
+      wd_rate: [''],
+      wd_rate_carat: [''],
+      rate_INR: [''],
+      amount_INR: [''],
+      rate_dolar: [''],
+      amount_dolar: [''],
+      LAB_type: [''],
+      certificate_number: [''],
+      avg_INR: [''],
+      avg_dolar: [''],
+      less1:[''],
+      less2:[''],
+      less3:[''],
+      sale_disc:[''],
+      sale_rate:[''],
+    });
+  }
+
+  addSalesDetails() {
+      const control = <FormArray>this.myForm.controls['salesDetails'];
+      const addrCtrl = this.initSalesDetails();
+      control.push(addrCtrl);
+  }
+
+  removeSalesDetails(i: number) {
+      const control = <FormArray>this.myForm.controls['salesDetails'];
+      control.removeAt(i);
+  }
+
+  save(formData) {
+      console.log(formData);
+      console.log(formData._value);
+      var newsales = JSON.parse(JSON.stringify(formData._value));
+      var salesdetails = JSON.parse(JSON.stringify(newsales.salesDetails));
+      delete newsales.salesDetails;
+      var salesData:any = [];
+      for(var i = 0; i < salesdetails.length; i++){
+        salesData.push(Object.assign({}, newsales, salesdetails[i]));
+        salesData[i].less = JSON.stringify({
+          less1:salesdetails[i].less1,
+          less2:salesdetails[i].less2,
+          less3:salesdetails[i].less3
+        });
+        delete salesData[i].less1;
+        delete salesData[i].less2;
+        delete salesData[i].less3;
+        salesData[i].comission = JSON.stringify({
+          comission1:salesData[i].comission1,
+          comission2:salesData[i].comission2
+        });
+        delete salesData[i].comission1 
+        delete salesData[i].comission2
+        salesData[i].broker_details = JSON.stringify({
+          brokerType : salesData[i].brokerType,
+          brokerName : salesData[i].brokerName,
+          brokerage : salesData[i].brokerage
+        });
+        delete salesData[i].brokerType;
+        delete salesData[i].brokerName;
+        delete salesData[i].brokerage;
+      }
+      console.log(salesData);
+      this._webservice.postsalesdata(salesData);
+  }
+
+
+
   ngAfterViewInit(){
-    
     console.log("view loaded");
   }
 
@@ -70,15 +182,14 @@ export class SalesComponent implements OnInit {
     this.disabled = this._disabledV === '1';
   }
  
-  public selected(value:any):void {
-    console.log('Selected value is: ', value.text);
-    if(value.text == 'Direct'){
-      this.disable = true;
-    }else{
-      this.disable = false;
-    }
+  public selected(value:any,id):void {
+
+    console.log('Selected value is: ', value, value.text);
+    this.disable = value.text;
+    this.myForm.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
+    console.log(this.myForm);
   }
- 
+
   public removed(value:any):void {
     console.log('Removed value is: ', value);
   }
@@ -90,14 +201,12 @@ export class SalesComponent implements OnInit {
   public refreshValue(value:any):void {
     this.value = value;
   }
-  
-  public calcDay(value:any):void{
-    console.log(typeof value,this.newsales.sales_date,this.newsales.payment_terms);
-    var date;
-    if(this.newsales.sales_date != undefined && this.newsales.payment_terms != undefined){
+
+  public calcDay():void{    
+    this.myForm.controls['sales_date'].patchValue(this.dateConversion(this.newsales.sales_date));
+    if(this.newsales.sales_date != undefined && this.myForm.value.payment_terms != undefined && this.myForm.value.payment_terms != ''){
       var targetDate = new Date(this.newsales.sales_date);
-      this.newsales.due_date = this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.newsales.payment_terms)));
-      console.log(this.newsales.due_date);
+      this.myForm.controls['due_date'].patchValue( this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.myForm.value.payment_terms))));
     }
   }
 
@@ -162,24 +271,24 @@ export class SalesComponent implements OnInit {
   }
   mypurchase:any = {};
   search(){
-    this._webservice.fetchpurchase(this.searchPCS)
-      .subscribe(
-        resData => {
-          console.log(resData);
+    // this._webservice.fetchpurchase(this.searchPCS)
+    //   .subscribe(
+    //     resData => {
+    //       console.log(resData);
           
-            console.log(Object.keys(resData)[0]);
+    //         console.log(Object.keys(resData)[0]);
           
-          this.mypurchase = resData[Object.keys(resData)[0]];
+    //       this.mypurchase = resData[Object.keys(resData)[0]];
 
-          this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
-          this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
-          this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text;
-          this.showPurchase = true;
-          this.newsales = new Sales(this.invoice,this.dollar,this.mypurchase.amount_INR,this.mypurchase.amount_dolar,0);
-          console.log(this.mypurchase,JSON.stringify(this.mypurchase));
-          console.log(this.newsalesdata,JSON.stringify(this.newsalesdata));
-        }
-      );
+    //       this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
+    //       this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
+    //       this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text;
+    //       this.showPurchase = true;
+    //       this.newsales = new Sales(this.invoice,this.dollar,this.mypurchase.amount_INR,this.mypurchase.amount_dolar,0);
+    //       console.log(this.mypurchase,JSON.stringify(this.mypurchase));
+    //       console.log(this.newsalesdata,JSON.stringify(this.newsalesdata));
+    //     }
+    //   );
     
   }
 

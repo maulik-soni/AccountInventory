@@ -14,8 +14,8 @@ class CreateSalesTable extends Migration {
 	{
 		Schema::create('sales', function(Blueprint $table)
 		{
-			$table->integer('PCS_ID')->unique();
-			$table->increments('sr_no');
+			$table->integer('PCS_ID')->nullable()->unique('PCS_ID');
+			$table->integer('sr_no', true);
 			$table->string('invoice_number', 256);
 			$table->string('sales_date', 256)->nullable();
 			$table->string('due_date', 256)->nullable();
@@ -32,7 +32,7 @@ class CreateSalesTable extends Migration {
 			$table->string('item', 256)->nullable();
 			$table->string('kapan', 256)->nullable();
 			$table->string('diamond_shape', 256)->nullable();
-			$table->string('diamond_lot_number', 256)->nullable();
+			$table->string('diamond_lot_number', 256)->nullable()->unique('diamond_lot_number');
 			$table->string('diamond_size', 256)->nullable();
 			$table->string('diamond_color', 256)->nullable();
 			$table->string('diamond_clarity', 256)->nullable();

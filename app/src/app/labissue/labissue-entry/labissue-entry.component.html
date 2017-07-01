@@ -2,14 +2,44 @@
 
   <div class="container">
 	<div class="card">
+		<div class="card-header">
+    	<h2>Lab issue Entry</h2>
+			<ul class="actions">
+				<li>
+					<label class="radio radio-inline m-r-20">
+						<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						Single Stone
+					</label>
+					
+					<label class="radio radio-inline m-r-20">
+						<input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						Parcel
+					</label>
+				</li>			
+			</ul>
+		</div>
 		<div class="card-body card-padding">
 			<div id="data-table-command-header" class="bootgrid-header container-fluid">
-				<div class="row">
-					<div class="search form-group">
-						<input type="text" class="search-field form-control"
-									placeholder="Search the Purchased Stone by 'PCS ID'" [(ngModel)]="searchPCS">
+				<div class="row m-t-25" *ngIf="piecetype == 'singlestone'">
+					<div class = "col-sm-4">
+					<div class="form-group">
+						<p class="form-label">Search Purchase by 'PCS ID'</p>
+						<input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
 					</div>
 					<button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+					</div>
+				</div>
+
+				<div class="row m-t-25" *ngIf="piecetype == 'parcel'">
+					<div class = "col-sm-4">
+					<div class="form-group">
+						<p class="form-label">Search Purchase by 'Lot Number'</p>
+						<input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+					</div>
+					<button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { BrowserModule } from '@angular/platform-browser';
 import { DatePickerModule } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
-import { MemoComponent } from './memo/memo.component';
+import { MemoInComponent } from './memoin/memoin.component';
 import { MemoRoutingModule } from './memo-routing.module';
-// import { DatepickerModule } from 'angular2-material-datepicker';
+import { DatepickerModule } from 'angular2-material-datepicker';
 import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
 import { MemoinReportComponent } from './memoin-report/memoin-report.component';
+import { MemoDetailsComponent } from './memo-details/memo-details.component';
+import { MemooutComponent } from './memoout/memoout.component';
+import { DataTableModule } from "angular2-datatable";
+import { DataFilterPipe }   from './../filters/data-filter.pipe';
 
 @NgModule({
   imports: [
@@ -20,12 +23,18 @@ import { MemoinReportComponent } from './memoin-report/memoin-report.component';
     SelectModule,
     FormsModule,
     MemoRoutingModule,
-    // DatepickerModule
+    DatepickerModule,
+    BrowserModule, 
+    ReactiveFormsModule,
+    DataTableModule
   ],
   declarations: [
-    MemoComponent,    
+    MemoInComponent,    
     MemoissueReportComponent,
-    MemoinReportComponent
+    MemoinReportComponent,
+    MemoDetailsComponent,
+    MemooutComponent,
+    DataFilterPipe
   ],
 
 })

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Request;
 use \App\Sales;
 use \App\Purchase;
 use \App\SalesReturn;
+use Illuminate\Support\Facades\DB;
 
 class salesConroller extends Controller
 {
@@ -13,13 +14,17 @@ class salesConroller extends Controller
         // print_r($new_sales);
         $sales = new \App\Sales;
         $purchase = new \App\Purchase;
-        foreach ($new_sales as $fields=>$value) {
-            if($fields != "sr_no" && $fields != "brokerName" && $fields != "brokerType" && $fields != "brokerage" && $fields != "taxes"){                 
-                $sales->$fields = $new_sales[$fields];
-            }
-        }        
-        $sales->save();
-        Purchase::where('PCS_ID','=',$new_sales['PCS_ID'])->delete();
+        // foreach ($new_sales as $fields=>$value) {
+        //     if($fields != "sr_no" && $fields != "brokerName" && $fields != "brokerType" && $fields != "brokerage" && $fields != "taxes"){                 
+        //         $sales->$fields = $new_sales[$fields];
+        //     }
+        // }        
+        // $sales->save();
+        DB::table('sales')->insert($new_sales);
+        for($i=0; $i<count($new_sales); $i++){
+            Purchase::where('PCS_ID','=',$new_sales[$i]['PCS_ID'])->delete();
+        }
+        
 
     }   
 
@@ -63,12 +68,18 @@ class salesConroller extends Controller
         $SR_pcsid = Request::all()[0];
         $sales = new \App\Sales;
         $sales_return = new \App\SalesReturn;
-        $SR_data = Sales::where('PCS_ID','=',$SR_pcsid)->get()->toArray();
+        $SR_data = Sales::where(function($query) use($PR_pcsid){
+            $query->where('PCS_ID', '=', $PR_pcsid)
+                  ->orWhere('Lot_Number', '=', $PR_pcsid);
+        })->first()->toArray();
         foreach ($SR_data[0] as $fields => $value) {
             $sales_return->$fields = $SR_data[0][$fields];
         }
         $sales_return->save();
-        Sales::where('PCS_ID','=',$SR_pcsid)->delete();
+        Sales::where(function($query) use($PR_pcsid){
+            $query->where('PCS_ID', '=', $PR_pcsid)
+                  ->orWhere('Lot_Number', '=', $PR_pcsid);
+        })->first()->delete();
     }
 
     public function salesReturnReport(){

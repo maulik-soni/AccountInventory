@@ -3,6 +3,7 @@ export class Purchase {
       public invoice_number?: string, 
       public currency_convrsion_rate?:number,
       public aginst_Hform?:boolean,
+      public bill_type?:string,
       public days?:number,
       public purchase_date?:string,
       public due_date?:string,

@@ -6,26 +6,23 @@ import { DatepickerModule } from 'angular2-material-datepicker';
 import { WebServicesService } from './../../services/web-services.service';
 import { ConstantServiceService } from './../../services/constant-services.service';
 import { newMemo } from '../memo.interface';
-// import { SelectModule } from 'ng2-select';
-// import { MemoOut } from './memoout';
-
 
 @Component({
-  selector: 'app-memoout',
-  templateUrl: './memoout.component.html',
-  styleUrls: ['./memoout.component.css'],
-  providers : [ WebServicesService,ConstantServiceService ]
+  selector: 'app-memo',
+  templateUrl: './memoin.component.html',
+  styleUrls: ['./memoin.component.css'],
+  providers: [WebServicesService,ConstantServiceService] 
 })
-export class MemooutComponent implements OnInit {
+export class MemoInComponent implements OnInit {
 
   public myForm: FormGroup;
-
+  
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
     private _fb: FormBuilder
   ) { }
-  
+
   public names:Array<string> = this.ConstantService.NAMES;
   public brokers:Array<string> = this.ConstantService.BROKERS;
   public invoice:any = this.ConstantService.INVOICE;
@@ -149,8 +146,7 @@ export class MemooutComponent implements OnInit {
       memoData.push(Object.assign({}, newMemo, memoPCDetails[i]));
     }
     console.log(memoData);
-    this._webservice.postmemo(memoData,"memoissue");
-  }
-    
+    this._webservice.postmemo(memoData,"memoin");
+    }
 
 }
