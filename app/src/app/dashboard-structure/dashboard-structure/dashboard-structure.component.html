@@ -135,15 +135,16 @@
         	</li>
 
           <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Bills</a>
+            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Accounts</a>
             <ul style="display: none;">
-                <li><a [routerLink]="['/bills/payable-bill']">Payable Bill</a></li>
-                <li><a [routerLink]="['/bills/recievable-bill']">Recievable Bill</a></li>
+                <li><a [routerLink]="['/accounts/payable']">Payable</a></li>
+                <li><a [routerLink]="['/accounts/recievable']">Recievable</a></li>
+                <li><a [routerLink]="['/accounts/ledger']">Ledger</a></li>
             </ul>
           </li>
 
           <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>CashBook</a>
+            <a href="#"><i class="zmdi zmdi-assignment"></i>CashBook</a>
             <ul style="display: none;">
                 <li><a [routerLink]="['/cashbook/new-cashbook']">New Cashbook Entry</a></li>
                 <li><a [routerLink]="['/cashbook/cashbook-report']">Cashbook Reports</a></li>
@@ -151,11 +152,10 @@
           </li>
 
           <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Users</a>
+            <a href="#"><i class="zmdi zmdi-account"></i>Users</a>
             <ul style="display: none;">
                 <li><a [routerLink]="['/users/add-new']">Add New User</a></li>
-                <li><a [routerLink]="['/cashbook/cashbook-report']">Roles and Permission</a></li>
-                <li><a [routerLink]="['/cashbook/cashbook-report']">User Report</a></li>
+                <li><a [routerLink]="['/users/manage-users']">Manage Users</a></li>
             </ul>
           </li>
 

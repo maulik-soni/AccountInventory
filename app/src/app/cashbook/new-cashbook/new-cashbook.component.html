@@ -8,12 +8,13 @@
         <h2>New Cashbook Entry</h2>
       </div>
       <div class="card-body card-padding">
-        <form #ac="ngForm" novalidate (ngSubmit)="onSubmit()">
+        <form #ac="ngForm" novalidate (ngSubmit)="onSubmit(ac)">
           <div class="row">
            <div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" name = "voucher" #voucher="ngModel" [(ngModel)]="cashbook.voucher" placeholder="Voucher Number">								
+                <p class="form-label">Voucher Number</p>
+								<input type="text" class="form-control fg-input" name = "voucher" #voucher="ngModel" [(ngModel)]="cashbook.voucher">								
 							</div>
 						</div>
 					</div>
@@ -21,7 +22,8 @@
           <div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" name = "vamount" #vamount="ngModel" [(ngModel)]="cashbook.amount" placeholder="Amount">								
+                <p class="form-label">Voucher Amount</p>
+								<input type="text" class="form-control fg-input" name = "vamount" #vamount="ngModel" [(ngModel)]="cashbook.amount">								
 							</div>
 						</div>
 					</div>
@@ -29,7 +31,29 @@
           <div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<input type="text" class="form-control fg-input" name = "vtype" #vtype="ngModel" [(ngModel)]="cashbook.type" placeholder="Type">								
+                <p class="form-label">Voucher Type</p>
+								<input type="text" class="form-control fg-input" name = "vtype" #vtype="ngModel" [(ngModel)]="cashbook.type">								
+							</div>
+						</div>
+					</div>
+          </div>
+          <div class="row">
+          <div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+                <p class="form-label">Voucher Date</p>
+                <input type="text" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" name="date" [max]="maxDate" [(ngModel)]="cashbook.date">
+                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="picker"></button>
+                <md-datepicker #picker></md-datepicker>							
+							</div>
+						</div>
+					</div>
+
+          <div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+                <p class="form-label">Voucher Description</p>
+								<input type="text" class="form-control fg-input" name = "vdesc" #vtype="ngModel" [(ngModel)]="cashbook.description">								
 							</div>
 						</div>
 					</div>
@@ -37,7 +61,6 @@
           <button class="btn btn-success btn-lg waves-effect"[disabled]="!ac.valid" type="submit">Add Entry</button>
           </div>
           
-
         </form>
       </div>
     </div>

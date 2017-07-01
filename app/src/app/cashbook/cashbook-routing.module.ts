@@ -18,7 +18,7 @@ const cashbookRoutes:Routes=[
         component: NewCashbookComponent
       },
       {
-        path:'cashbbok-report',
+        path:'cashbook-report',
         component: CashbookReportComponent
       },
     ]

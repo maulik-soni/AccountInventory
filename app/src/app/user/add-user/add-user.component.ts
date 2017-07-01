@@ -11,6 +11,7 @@ import { user } from './../user.model';
 export class AddUserComponent implements OnInit {
   usermodel=new user('','','');
   userdata;
+  response;
   constructor(
     private _userservice:WebServicesService
   ) { }
@@ -18,9 +19,11 @@ export class AddUserComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit(form:NgForm){
     this.userdata=JSON.stringify(this.usermodel);
-    this._userservice.postuserdata(this.userdata);
+    this._userservice.newuser(this.userdata)
+    .subscribe(response=>console.log(response));
+    form.reset();
   }
 
 }

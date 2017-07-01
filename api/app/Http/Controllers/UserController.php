@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
   
-    public function make(Request $request)
+    public function create(Request $request)
     {
         $this->validate($request,[
             'name'=>'required',
@@ -28,20 +28,49 @@ class UserController extends Controller
     }
 
   
-    public function show(User $user)
+    public function show(Request $request)
     {
-        //
+        if($request->has('staticdata')){
+            $data=User::getData();
+            $title=User::getColumns();
+            return response()->json(['titles'=>$title,'data'=>$data],201);
+        }
+
+    }
+
+    public function edit($id){
+        $data=User::all()->where('id',$id)->first();
+        return response()->json(['response'=>$data],201);
+    }
+
+    public function search(Request $request){
+        $query=$request->all();
+        if($query[key($query)]){
+        $store=User::select(key($query))->where(key($query),'like','%'.$query[key($query)].'%')->pluck(key($query));
+        return response()->json($store,201);
+        }
+        return response()->json([],201);
     }
 
    
-    public function update(Request $request, User $user)
+    public function update(Request $request,$id)
     {
-        //
+        $query=User::find($id);
+        $updatequery=$request->all();
+        foreach($updatequery as $update=>$newvalue){
+            if($update!='id'){
+                $query->$update=$newvalue;
+            }    
+        }
+        $query->update();
+        return response()->json('updated',201);
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
-        //
+        $user = User::find($id);    
+        $user->delete();
+        return response()->json('deleted',201);
     }
 
     public function authenticate(Request $request){

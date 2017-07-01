@@ -23,13 +23,133 @@ export class WebServicesService {
     createlabissue : this.base_url+'/api/createlabissue',
     reportlab:this.base_url+'/api/reportlab',
     changelabissuestatus:this.base_url+'/api/changestatus',
-    payablebill:this.base_url+'/api/payablebill',
-    recievablebill:this.base_url+'/api/recievablebill',
-    postnewuser:this.base_url+'/api/newuser',
-    postnewcashbook:this.base_url+'/api/newcashbbok'
+
+    showpayable:this.base_url+'/api/showpayable',
+    searchpayable:this.base_url+'/api/searchpayable',
+
+    showrecievable:this.base_url+'/api/showrecievable',
+    searchrecievable:this.base_url+'/api/searchrecievable',
+
+    showledger:this.base_url+'/api/showledger',
+    searchledger:this.base_url+'/api/searchledger',
+
+    newuser:this.base_url+'/api/newuser',
+    searchuser:this.base_url+'/api/searchuser',
+    showuser:this.base_url+'/api/showuser',
+    edituser:this.base_url+'/api/edituser',
+    updateuser:this.base_url+'/api/updateuser',
+    deleteuser:this.base_url+'/api/deleteuser',
+
+
+    newcashbook:this.base_url+'/api/newcashbook',
+    showcashbook:this.base_url+'/api/showcashbook',
+    searchcashbook:this.base_url+'/api/searchcashbook',
   };
   
   constructor(private _http:Http) { }
+  ///////////////
+  ///User
+  //////////////
+
+  newuser(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.newuser,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchuser(data){
+    return this._http.get(this.apis.searchuser+'?'+data.filterby+'='+data.searchterm)
+       .map((response:Response) => response.json());
+  }
+
+  showuser(data){
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showuser,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  edituser(data){
+    return this._http.get(this.apis.edituser+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+  updateuser(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let id=JSON.parse(data);
+    return this._http.put(this.apis.updateuser+'/'+id.id,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  deleteuser(data){
+    console.log(this.apis.deleteuser+'/'+data);
+      return this._http.delete(this.apis.deleteuser+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+  //Cashbook
+
+  newcashbook(data):any{
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.newcashbook,data,options)
+     .map((response:Response) => response.json());
+  }
+
+  showcashbook(data){
+     let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showcashbook,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchcashbook(data){
+    console.log(data);
+    return this._http.get(this.apis.searchcashbook+'?'+data.filterby+'='+data.searchterm)
+       .map((response:Response) => response.json());
+  }
+ ///////////
+ ///Acoounts
+ //////////
+  showpayable(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpayable,data,options)
+    .map((response:Response) => response.json());
+  }
+  searchpayable(data){
+    return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm)
+       .map((response:Response) => response.json());
+  }
+
+   showrecievable(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showrecievable,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchrecievable(data){
+    return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm)
+       .map((response:Response) => response.json());
+  }
+
+  showledger(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showledger,data,options)
+    .map((response:Response) => response.json());
+  }
+  searchledger(data){
+    return this._http.get(this.apis.searchledger+'?'+data.filterby+'='+data.searchterm)
+       .map((response:Response) => response.json());
+  }
+
+
+
+ 
   getsalesreport(){    
     return this._http.get(this.apis.salesreport)
       .map((response:Response) => response.json());
@@ -39,17 +159,13 @@ export class WebServicesService {
       .map((response:Response) => response.json());
   }
 
-  getpayablebill(data){
-    console.log(this.apis.payablebill+'?'+data);
-    return this._http.get(this.apis.payablebill+'?'+data)
-       .map((response:Response) => response.json());
-  }
+ 
 
-   getrecievablebill(data){
-    console.log(this.apis.recievablebill+'?'+data);
-    return this._http.get(this.apis.recievablebill+'?'+data)
-       .map((response:Response) => response.json());
-  }
+  // getcashbookdata(){
+  //   console.log(this.apis.getcashbookdata);
+  //   return this._http.get(this.apis.getcashbookdata)
+  //     .map((response:Response) => response.json());
+  // }
 
   postpurchasedata(data){
     console.log(data);
@@ -58,18 +174,8 @@ export class WebServicesService {
     this._http.post(this.apis.postnewpurchase,data,options).subscribe();
   }
 
-  postcashbook(data):any{
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.postnewcashbook,data,options).subscribe();
-  }
+  
 
-  postuserdata(data){
-    console.log(data);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.postnewuser,data,options).subscribe();
-  }
 
   postsalesdata(data){
     console.log(data);

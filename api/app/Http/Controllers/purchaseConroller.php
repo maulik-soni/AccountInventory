@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Request;
+
+use Illuminate\Http\Request;
 use \App\Purchase;
 use \App\PurchaseReturn;
 
@@ -23,20 +24,27 @@ class purchaseConroller extends Controller
     }   
 
     public function purchaseReport(Request $request){
-        $params = Request::all();
-        $purchase = new \App\Purchase;
-        if(!empty($params['limit']) && !empty($params['lastid'])){
-            $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid'])->take($params['limit']);
-        }else if(!empty($params['limit'])){
-            $purchase_data = Purchase::all()->take($params['limit']);
-        }else if(!empty($params['lastid'])){
-            $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid']);
-        }else if(!empty($params['pcsid'])){
-            $purchase_data = Purchase::all()->where('PCS_ID','=',$params['pcsid']);
-        }else{
-            $purchase_data = Purchase::all();
+        if($request->has('staticdata')){
+             $alldata=Purchase::getData();
+            $title=['PCS_ID','invoice_number','due_date','payment_terms'];
+            $data=Purchase::select($title)->get();
+            return response()->json(['titles'=>$title,'data'=>$data],201);
+
         }
-        return $purchase_data;
+        // $params = Request::all();
+        // $purchase = new \App\Purchase;
+        // if(!empty($params['limit']) && !empty($params['lastid'])){
+        //     $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid'])->take($params['limit']);
+        // }else if(!empty($params['limit'])){
+        //     $purchase_data = Purchase::all()->take($params['limit']);
+        // }else if(!empty($params['lastid'])){
+        //     $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid']);
+        // }else if(!empty($params['pcsid'])){
+        //     $purchase_data = Purchase::all()->where('PCS_ID','=',$params['pcsid']);
+        // }else{
+        //     $purchase_data = Purchase::all();
+        // }
+        // return $purchase_data;
         
     }
 

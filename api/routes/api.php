@@ -13,12 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
-Route::post('/login', 'UserController@authenticate');
-Route::post('/newuser','UserController@make');
+
 
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {*/
     /*return $request->user();*/
@@ -72,15 +71,30 @@ Route::get('/memoissuereport', "memoissueController@memoissueReport");
 Route::put('/editmemoissue', "memoissueController@editmemoissue");
 Route::delete('/deletememoissue', "memoissueController@deletememoissue");
 
-
-Route::get('/payablebill','purchaseConroller@purchaseReport');
-Route::get('/recievablebill','salesConroller@salesReport');
-
-Route::post('/newuser','UserController@make');
-Route::post('/newcashbbok','CashbookController@create');	
-
 Route::post('/createlabissue','LabIssueController@create');
 Route::put('/editlabissue','LabIssueController@editlab');
 Route::delete('/dellab','LabIssueController@delLabissue');
 Route::get('/reportlab','LabIssueController@repoLabissue');
-Route::get('/changestatus','LabIssueController@changestatus');	
+Route::get('/changestatus','LabIssueController@changestatus');
+
+Route::get('/searchuser','UserController@search');
+Route::get('/edituser/{id}','UserController@edit');
+Route::post('/showuser','UserController@show');
+Route::post('/login','UserController@authenticate');
+Route::post('/newuser','UserController@create');
+Route::put('/updateuser/{id}','UserController@update');
+Route::delete('/deleteuser/{id}','UserController@destroy');
+	
+
+Route::post('/showpayable','purchaseConroller@purchaseReport');
+Route::get('/searchpayable','purchaseController@purchaseReport');
+
+Route::post('/showrecievable','salesConroller@salesReport');
+Route::get('/searchrecievable','salesConroller@salesReport');
+
+Route::post('/showcashbook','CashbookController@show');	
+Route::get('/searchcashbook','CashbookController@search');
+Route::get('/editcashbook','CashbookController@edit');
+Route::post('/newcashbook','CashbookController@create');
+Route::put('/updatecashbook','CashbookController@update');
+Route::delete('/deletecashbook','CashbookController@delete');	
