@@ -14,7 +14,7 @@ class CreateServerLogTable extends Migration {
 	{
 		Schema::create('server_log', function(Blueprint $table)
 		{
-			$table->integer('id', true);
+			$table->increments('id');
 			$table->string('server_IP', 256);
 			$table->integer('user_id');
 			$table->text('log', 65535);

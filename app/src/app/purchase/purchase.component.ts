@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgForm } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { Purchase } from './purchase';
 import { WebServicesService } from './../services/web-services.service';
 import { ConstantServiceService } from './../services/constant-services.service';
-import { DatepickerModule } from 'angular2-material-datepicker';
+// import { DatepickerModule } from 'angular2-material-datepicker';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
@@ -184,7 +185,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   newpurchasedata:any;
   submitted = false;
-  onSubmit() {
+  onSubmit(form:NgForm) {
 
     this.submitted = true;
     this.newpurchase.less = JSON.stringify(this.less);
@@ -222,6 +223,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this.newpurchasedata.broker_details = JSON.stringify(this.newpurchasedata.broker_details);
     console.log(JSON.stringify(this.newpurchasedata));
     this._webservice.postpurchasedata(this.newpurchasedata);
+    form.reset();
   }
 
 }

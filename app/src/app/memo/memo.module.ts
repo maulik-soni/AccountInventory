@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
 import { MemoComponent } from './memo/memo.component';
 import { MemoRoutingModule } from './memo-routing.module';
-import { DatepickerModule } from 'angular2-material-datepicker';
+// import { DatepickerModule } from 'angular2-material-datepicker';
 import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
 import { MemoinReportComponent } from './memoin-report/memoin-report.component';
 
@@ -20,7 +20,7 @@ import { MemoinReportComponent } from './memoin-report/memoin-report.component';
     SelectModule,
     FormsModule,
     MemoRoutingModule,
-    DatepickerModule
+    // DatepickerModule
   ],
   declarations: [
     MemoComponent,    

@@ -14,8 +14,8 @@ class CreateSalesReturnTable extends Migration {
 	{
 		Schema::create('sales_return', function(Blueprint $table)
 		{
-			$table->integer('PCS_ID')->primary();
-			$table->integer('sr_no', true);
+			$table->integer('PCS_ID')->unique();
+			$table->increments('sr_no');
 			$table->string('invoice_number', 256);
 			$table->string('sales_date', 256)->nullable();
 			$table->string('due_date', 256)->nullable();

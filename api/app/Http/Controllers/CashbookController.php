@@ -12,10 +12,7 @@ class CashbookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -25,15 +22,18 @@ class CashbookController extends Controller
     public function create(Request $request)
     {
         $this->validate($request,[
-            'amount'=>'required',
+            'amount'=>'required|integer',
+            'type'=>'required',
             'voucher'=>'required',
-            'type'=>'required'
+            'date'=>'required|date'
         ]);
 
         $casbook=new CashBook([
             'amount'=>$request->input('amount'),
+            'type'=>$request->input('type'),
             'voucher'=>$request->input('voucher'),
-            'type'=>$request->input('type')
+            'date'=>$request->input('date'),
+            'description'=>$request->input('description')
         ]);
 
         $casbook->save();
@@ -42,59 +42,75 @@ class CashbookController extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function show(Request $request)
     {
-        //
+        $query=$request->all();
+        if($request->has('staticdata')){
+            $data=CashBook::getData();
+            $title=CashBook::getColumns();
+            return response()->json(['titles'=>$title,'data'=>$data],201);
+        }
+
+        if($request->has('filterby')){
+            if($request->has('search')){
+                if($query['filterby']=='type'){
+                    $response=Cashbook::where('type',$query['search'])->get();
+                     return response()->json(['data'=>$response],201);
+                }
+                if($query['filterby']=='voucher'){
+                    $response=Cashbook::where('voucher',$query['search'])->get();
+                   return response()->json(['data'=>$response],201);
+                }
+            }
+
+            if($request->has('fromdate') || $request->has('todate'))
+                {
+                    $response=Cashbook::whereBetween('date',[$query['fromdate'],$query['todate']])->get();
+                    return response()->json(['data'=>$response],201);
+                }
+            }
+            
+           
+           if($request->has('filter')){
+             if($query['filter']=='all'){
+                $response=CashBook::all();
+                return response()->json(['data'=>$response],201);
+             }
+            }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\cashbook  $cashbook
-     * @return \Illuminate\Http\Response
-     */
-    public function show(cashbook $cashbook)
-    {
-        //
+    public function edit($id){
+        $data=CashBook::all()->where('id',$id)->first();
+        return response()->json(['response'=>$data],201);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\cashbook  $cashbook
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(cashbook $cashbook)
-    {
-        //
+    public function search(Request $request){
+        $query=$request->all();
+        if($query[key($query)]){
+        $store=CashBook::select(key($query))->where(key($query),'like','%'.$query[key($query)].'%')->distinct()->pluck(key($query));
+        return response()->json($store,201);
+        }
+        return response()->json([],201);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\cashbook  $cashbook
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, cashbook $cashbook)
+   
+    public function update(Request $request,$id)
     {
-        //
+        $query=CashBook::find($id);
+        $updatequery=$request->all();
+        foreach($updatequery as $update=>$newvalue){
+            if($update!='id'){
+                $query->$update=$newvalue;
+            }    
+        }
+        return response()->json('updated',201);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\cashbook  $cashbook
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(cashbook $cashbook)
+    public function destroy($id)
     {
-        //
+        $CashBook = CashBook::find($id);    
+        $CashBook->delete();
+        return response()->json('deleted',201);
     }
 }

@@ -1,6 +1,6 @@
 <dashboard>
   <div class="container">
-    <form class="form-horizontal" #au="ngForm" novalidate (ngSubmit)="onSubmit()">
+    <form class="form-horizontal" #au="ngForm" novalidate (ngSubmit)="onSubmit(au)">
       <div class="block-header">
       <h2>Add New User</h2>
       </div>
@@ -48,7 +48,7 @@
           </div>
             </div>
           
-          <div class="col-sm-6">
+          <!--<div class="col-sm-6">
           <div class="form-group">
             <label for="cpassword" class="col-sm-3 control-label">Confirm Password</label>
             <div class="col-sm-9">
@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-          </div>
+          </div>-->
 
           </div>
         </div>

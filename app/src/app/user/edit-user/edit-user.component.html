@@ -1,0 +1,70 @@
+<dashboard>
+  <div class="container">
+    <form class="form-horizontal" #eu="ngForm" novalidate (ngSubmit)="onSubmit(eu)">
+      <div class="block-header">
+      <h2>Add New User</h2>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Basic Information</h2>
+        </div>
+
+        <div *ngIf="user" class="card-body card-padding">
+          <div class="row">
+          <div class="col-sm-6">
+          <div class="form-group">
+            <label for="fullname" class="col-sm-3 control-label">Full Name</label>
+            <div class="col-sm-9">
+              <div class="fg-line">
+                <input type="text" class="form-control input-sm" id="name" name="fullname" #fullname="ngModel" [(ngModel)]="user.name">
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div class="col-sm-6">
+          <div class="form-group">
+            <label for="email" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9">
+              <div class="fg-line">
+                <input type="email" class="form-control input-sm" id="email" name="email" #email="ngModel" [(ngModel)]="user.email">
+              </div>
+            </div>
+          </div>
+          </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+          <div class="form-group">
+            <label for="password" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-9">
+              <div class="fg-line">
+                <input type="passowrd" class="form-control input-sm" disabled id="uid" name="uid" #id="ngModel" [(ngModel)]="user.id">
+              </div>
+            </div>
+          </div>
+            </div>
+          
+          <!--<div class="col-sm-6">
+          <div class="form-group">
+            <label for="cpassword" class="col-sm-3 control-label">Confirm Password</label>
+            <div class="col-sm-9">
+              <div class="fg-line">
+                <input type="password" class="form-control input-sm" id="cpassword">
+              </div>
+            </div>
+          </div>
+          </div>-->
+
+          </div>
+        </div>
+          
+        <button  class="btn btn-login btn-danger"  [disabled]="!eu.valid" type="submit">Save</button>
+
+      </div>
+    </form>
+  </div>
+</dashboard>

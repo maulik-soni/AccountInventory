@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectModule } from 'ng2-select';
 import { Memo } from './memo';
-import { DatepickerModule } from 'angular2-material-datepicker';
+// import { DatepickerModule } from 'angular2-material-datepicker';
 import { WebServicesService } from './../../services/web-services.service';
 import { ConstantServiceService } from './../../services/constant-services.service';
 

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable
 {
@@ -27,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token','api_token','created_at','updated_at'
     ];
 
     /////////////////////////////////////////////////////////////
@@ -39,6 +40,14 @@ class User extends Authenticatable
     public function getRole(){
             return $this->roles->first()->name;
         }
+
+        public static function getData(){
+        return User::all();
+     }
+
+     public static function getColumns(){
+         return Schema::getColumnListing('users');
+     }
 
        /* return !! $role->intersect($this->roles)->count();*/
 

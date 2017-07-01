@@ -14,7 +14,7 @@ class CreateDealersTable extends Migration {
 	{
 		Schema::create('dealers', function(Blueprint $table)
 		{
-			$table->integer('id', true);
+			$table->increments('id');
 			$table->string('dealer_name', 256);
 			$table->string('dealer_status', 256);
 			$table->text('dealer_details', 65535);
