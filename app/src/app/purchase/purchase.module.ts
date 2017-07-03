@@ -14,7 +14,7 @@ import { PurchaseReportComponent } from './purchase-report/purchase-report.compo
 import { PiecesTypeComponent } from './pieces-type/pieces-type.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { DataTableModule } from "angular2-datatable";
+// import { DataTableModule } from "angular2-datatable";
 
 
 
@@ -28,7 +28,7 @@ import { DataTableModule } from "angular2-datatable";
     FormsModule,
     PurchaseRoutingModule,
     ReactiveFormsModule,
-    DataTableModule
+    // DataTableModule
   ],
   declarations: [
     PurchaseComponent,

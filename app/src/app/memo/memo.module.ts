@@ -7,12 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
 import { MemoInComponent } from './memoin/memoin.component';
 import { MemoRoutingModule } from './memo-routing.module';
-import { DatepickerModule } from 'angular2-material-datepicker';
+// import { DatepickerModule } from 'angular2-material-datepicker';
 import { MemoissueReportComponent } from './memoissue-report/memoissue-report.component';
 import { MemoinReportComponent } from './memoin-report/memoin-report.component';
 import { MemoDetailsComponent } from './memo-details/memo-details.component';
 import { MemooutComponent } from './memoout/memoout.component';
-import { DataTableModule } from "angular2-datatable";
+// import { DataTableModule } from "angular2-datatable";
 import { DataFilterPipe }   from './../filters/data-filter.pipe';
 
 @NgModule({
@@ -23,10 +23,10 @@ import { DataFilterPipe }   from './../filters/data-filter.pipe';
     SelectModule,
     FormsModule,
     MemoRoutingModule,
-    DatepickerModule,
+    // DatepickerModule,
     BrowserModule, 
     ReactiveFormsModule,
-    DataTableModule
+    // DataTableModule
   ],
   declarations: [
     MemoInComponent,    
