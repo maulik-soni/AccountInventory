@@ -111,7 +111,7 @@ export class MemoInComponent implements OnInit {
 
   public calcDay():void{    
     this.myForm.controls['date'].patchValue(this.dateConversion(this.newmemo.date));
-    if(this.newmemo.date != undefined && this.myForm.value.no_of_days != undefined){
+    if(this.newmemo.date != undefined && this.myForm.value.no_of_days != undefined && this.myForm.value.no_of_days != ''){
       var targetDate = new Date(this.newmemo.date);
       this.myForm.controls['due_date'].patchValue(this.dateConversion(targetDate.setDate(targetDate.getDate() + parseInt(this.myForm.value.no_of_days))));
     }

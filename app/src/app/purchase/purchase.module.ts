@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// import { DatepickerModule } from 'angular2-material-datepicker';
+import { DatepickerModule } from 'angular2-material-datepicker';
 // import { DatePickerModule } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 
@@ -22,8 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     DashboardStructureModule,
-    // DatePickerModule,
-    // DatepickerModule,
+    DatepickerModule,
     SelectModule,
     FormsModule,
     PurchaseRoutingModule,
