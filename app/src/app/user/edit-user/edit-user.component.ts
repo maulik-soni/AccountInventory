@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit,AfterViewInit }      from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Location }               from '@angular/common';
 import { WebServicesService } from './../../services/web-services.service';
@@ -19,8 +19,8 @@ user=EditUser;
      private route: ActivatedRoute) { }
 
   ngOnInit():void {
-        this.route.params
-      .switchMap((params: Params) => this.editservice.edituser(+params['id']))
+        this.route.paramMap
+      .switchMap((params: ParamMap) => this.editservice.edituser(+params.get('id')))
       .subscribe(user=> this.user=user.response);
   }
 

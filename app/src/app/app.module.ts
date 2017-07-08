@@ -3,23 +3,24 @@ import { NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthModule } from './authorization/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import { MemoModule } from './memo/memo.module';
-import { PurchaseModule } from './purchase/purchase.module';
-import { SalesModule } from './sales/sales.module';
+// import { MemoModule } from './memo/memo.module';
+// import { PurchaseModule } from './purchase/purchase.module';
+// import { SalesModule } from './sales/sales.module';
 import { SigninModule } from './signin/signin.module';
 import { DashboardStructureModule } from './dashboard-structure/dashboard-structure.module';
 import { AccountModule } from './account/account.module';
-
+import { InventoryModule } from './inventory/inventory.module';
 import { CashbookModule } from './cashbook/cashbook.module';
 import { UserModule } from './user/user.module';
-import { DatepickerModule } from 'angular2-material-datepicker';
-import {LabissueModule} from './labissue/labissue.module';
+
+// import { DatepickerModule } from 'angular2-material-datepicker';
+// import {LabissueModule} from './labissue/labissue.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,18 +30,20 @@ import {LabissueModule} from './labissue/labissue.module';
     DashboardStructureModule,
     DashboardModule,
     AccountModule,
-    MemoModule,
-    PurchaseModule,
+    SharedModule,
+    InventoryModule,
+    // MemoModule,
+    // PurchaseModule,
     // BillModule,
     CashbookModule,
-    SalesModule,
+    // SalesModule,
     SigninModule,
     UserModule,
     BrowserAnimationsModule,
-    DatepickerModule,
+    // DatepickerModule,
     // ServicesModule,   
     AppRoutingModule,
-    LabissueModule 
+    // LabissueModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

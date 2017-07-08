@@ -56,11 +56,12 @@ class UserController extends Controller
     public function update(Request $request,$id)
     {
         $query=User::find($id);
-        $updatequery=$request->all();
+        $updatequery=$request->except(['confirm','id']);
         foreach($updatequery as $update=>$newvalue){
-            if($update!='id'){
-                $query->$update=$newvalue;
-            }    
+             $query->$update=$newvalue;
+             if($update=='password'){
+                $query->$update=bcrypt($newvalue);
+            }
         }
         $query->update();
         return response()->json('updated',201);

@@ -138,6 +138,7 @@
           <li class="sub-menu">
             <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Accounts</a>
             <ul style="display: none;">
+                <li><a [routerLink]="['/accounts/payment-reciept']">Payment/Reciept</a></li>
                 <li><a [routerLink]="['/accounts/payable']">Payable</a></li>
                 <li><a [routerLink]="['/accounts/recievable']">Recievable</a></li>
                 <li><a [routerLink]="['/accounts/ledger']">Ledger</a></li>
@@ -158,6 +159,10 @@
                 <li><a [routerLink]="['/users/add-new']">Add New User</a></li>
                 <li><a [routerLink]="['/users/manage-users']">Manage Users</a></li>
             </ul>
+          </li>
+
+          <li class="sub-menu">
+            <a [routerLink]="['/inventory']"><i class="zmdi zmdi-account"></i>Inventory</a>
           </li>
 
         </ul>

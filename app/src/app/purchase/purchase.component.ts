@@ -6,10 +6,7 @@ import { SelectModule } from 'ng2-select';
 import { Purchase } from './purchase';
 import { WebServicesService } from './../services/web-services.service';
 import { ConstantServiceService } from './../services/constant-services.service';
-<<<<<<< HEAD
-=======
-import { DatepickerModule } from 'angular2-material-datepicker';
->>>>>>> dec0dd51a2347b648ef73b64be35899f16a8c0d0
+// import { DatepickerModule } from 'angular2-material-datepicker';
 import { ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFactory } from '@angular/core';
 import { PiecesTypeComponent } from './pieces-type/pieces-type.component';
