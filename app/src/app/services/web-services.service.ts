@@ -24,8 +24,13 @@ export class WebServicesService {
     reportlab:this.base_url+'/api/reportlab',
     changelabissuestatus:this.base_url+'/api/changestatus',
 
+    searchpaymentreciept:this.base_url+'/api/searchpaymentreciept',
+    showpaymentreciept:this.base_url+'/api/showpaymentreciept',
+
     showpayable:this.base_url+'/api/showpayable',
     searchpayable:this.base_url+'/api/searchpayable',
+
+    showinventory:this.base_url+'/api/showinventory',
 
     showrecievable:this.base_url+'/api/showrecievable',
     searchrecievable:this.base_url+'/api/searchrecievable',
@@ -110,6 +115,15 @@ export class WebServicesService {
     return this._http.get(this.apis.searchcashbook+'?'+data.filterby+'='+data.searchterm)
        .map((response:Response) => response.json());
   }
+
+  //Inventory
+showinventory(data){
+     let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showinventory,data,options)
+    .map((response:Response) => response.json());
+  }
+
  ///////////
  ///Acoounts
  //////////
@@ -146,6 +160,20 @@ export class WebServicesService {
     return this._http.get(this.apis.searchledger+'?'+data.filterby+'='+data.searchterm)
        .map((response:Response) => response.json());
   }
+
+  searchpaymentreciept(data){
+    return this._http.get(this.apis.searchpaymentreciept+'?'+data.filterby+'='+data.searchterm)
+    .map((response:Response) => response.json());
+  }
+
+  showpaymentreciept(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpaymentreciept,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  
 
 
 

@@ -1,0 +1,96 @@
+<dashboard>
+  <div class="container">
+    <div class="block-header">
+      <h2>Paybale Entry</h2>
+    </div>
+
+     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
+    <div class="card searchfilters">
+      <div class="card-header">Payment</div>
+      <div class="card-body card-padding">
+        <div class="row">
+          <div class="col-sm-2">
+						<div class="form-group">
+							<div class="fg-line">
+                <p class="form-label">Date</p>
+                <input type="text" class="form-control fg-input mdatepicker" [mdDatepicker]="datepicker" name="date" [max]="maxDate" [(ngModel)]="paymentvalues.date">
+                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="datepicker"></button>
+                <md-datepicker #datepicker></md-datepicker>							
+							</div>
+						</div>
+					</div>
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">By</p>
+                <ng-select [items]="options.by" (selected)="selectedby($event)"></ng-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Type</p>
+                <ng-select [items]="options.type" (selected)="selectedtype($event)"></ng-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+						<div class="form-group">
+							<div class="fg-line">
+                <p class="form-label">To</p>
+								<input type="text" class="form-control fg-input" name = "to" #searchBox (keyup)="search(searchBox.value)" [(ngModel)]="paymentvalues.to">
+                <div *ngIf="issearchempty()" class="search-suggestion">
+                  <p *ngFor="let result of  searchresult" (click)="setvalue(result)">{{result}}</p>
+              </div>								
+							</div>
+						</div>
+					</div>
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Bill No</p>
+                <ng-select [items]="options.bill"  (selected)="selectedbill($event)"></ng-select>
+              </div>
+            </div>
+          </div>
+
+           <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Currency</p>
+                <ng-select [items]="options.currency" (selected)="selectedcurrency($event)"></ng-select>
+              </div>
+            </div>
+          </div>
+      </div>
+          <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
+          
+    </div>
+    </div>
+    <p>{{ filters.value | json}}</p>
+    <hr>
+    <div>
+      <p>Credit</p>
+      <p><span>{{ data.credit }}</span></p>
+    </div>
+    <div>
+      <p>Debit</p>
+      <p><span>{{ data.debit }}</span></p>
+    </div>
+    <div>
+      <p>Recieved</p>
+      <p><span>{{ data.recieved }}</span></p>
+    </div>
+    <div>
+      <p>Balance</p>
+      <p><span>{{ data.balance }}</span></p>
+    </div>
+    </form>
+    
+  </div>
+</dashboard>

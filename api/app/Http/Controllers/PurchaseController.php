@@ -7,7 +7,7 @@ use \App\Purchase;
 use \App\PurchaseReturn;
 use Illuminate\Support\Facades\DB;
 
-class purchaseConroller extends Controller
+class PurchaseController extends Controller
 {
     public function newPurchaseEntry(){
         $new_purchase = Request::all();

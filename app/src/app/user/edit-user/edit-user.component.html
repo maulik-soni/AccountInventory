@@ -36,28 +36,34 @@
 
           </div>
 
-          <div class="row">
+          
+
+          <div class="btncontain">
+            <a class="passwordchange" data-toggle="collapse" href="#password">Change Password</a>
+          </div>
+
+          <div class="row collapse" id="password" >
             <div class="col-sm-6">
           <div class="form-group">
-            <label for="password" class="col-sm-3 control-label">Password</label>
+            <label for="password" class="col-sm-3 control-label">New Password</label>
             <div class="col-sm-9">
               <div class="fg-line">
-                <input type="passowrd" class="form-control input-sm" disabled id="uid" name="uid" #id="ngModel" [(ngModel)]="user.id">
+                <input type="passowrd" class="form-control input-sm" id="password" name="password" [(ngModel)]="user.password">
               </div>
             </div>
           </div>
             </div>
           
-          <!--<div class="col-sm-6">
+          <div class="col-sm-6">
           <div class="form-group">
-            <label for="cpassword" class="col-sm-3 control-label">Confirm Password</label>
+            <label for="cpassword" class="col-sm-3 control-label">Confirm New Password</label>
             <div class="col-sm-9">
               <div class="fg-line">
-                <input type="password" class="form-control input-sm" id="cpassword">
+                <input type="password" class="form-control input-sm" id="cpassword" name="confirm" [(ngModel)]="user.confirm">
               </div>
             </div>
           </div>
-          </div>-->
+          </div>
 
           </div>
         </div>

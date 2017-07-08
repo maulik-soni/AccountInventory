@@ -77,6 +77,9 @@ Route::delete('/dellab','LabIssueController@delLabissue');
 Route::get('/reportlab','LabIssueController@repoLabissue');
 Route::get('/changestatus','LabIssueController@changestatus');
 
+Route::get('/searchpurchase','PurchaseController@search');
+Route::post('/showpurchase','PurchaseController@show');
+
 Route::get('/searchuser','UserController@search');
 Route::get('/edituser/{id}','UserController@edit');
 Route::post('/showuser','UserController@show');
@@ -86,11 +89,15 @@ Route::put('/updateuser/{id}','UserController@update');
 Route::delete('/deleteuser/{id}','UserController@destroy');
 	
 
-Route::post('/showpayable','purchaseConroller@purchaseReport');
-Route::get('/searchpayable','purchaseController@purchaseReport');
+
+
+Route::get('/searchpaymentreciept','PaymentRecieptController@search');
+Route::post('/showpaymentreciept','PaymentRecieptController@show');
 
 Route::post('/showrecievable','salesConroller@salesReport');
 Route::get('/searchrecievable','salesConroller@salesReport');
+
+Route::post('/showinventory','InventoryController@show');
 
 Route::post('/showcashbook','CashbookController@show');	
 Route::get('/searchcashbook','CashbookController@search');

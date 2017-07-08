@@ -9,7 +9,7 @@ import { user } from './../user.model';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
-  usermodel=new user('','','');
+  usermodel=new user('','','','');
   userdata;
   response;
   constructor(

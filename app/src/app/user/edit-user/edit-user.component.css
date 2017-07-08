@@ -1,0 +1,11 @@
+.passwordchange{
+    display: inline-block;
+    border: 1px solid;
+    padding: 10px;
+}
+
+.btncontain{
+    text-align: center;
+    margin:15px 0;
+}
+
