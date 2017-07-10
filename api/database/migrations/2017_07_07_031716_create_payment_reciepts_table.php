@@ -22,11 +22,12 @@ class CreatePaymentRecieptsTable extends Migration
             $table->string('account_name');
             $table->string('currency');
             $table->enum('f/p',['full','part']);
-            $table->double('credit_INR');
-            $table->double('debit_INR');
-            $table->double('credit_dollar');
-            $table->double('debit_dollar');
+            $table->double('credit_INR')->nullable();
+            $table->double('debit_INR')->nullable();
+            $table->double('credit_dollar')->nullable();
+            $table->double('debit_dollar')->nullable();
             $table->double('balance');
+            $table->double('recieved');
             $table->timestamps();
         });
     }

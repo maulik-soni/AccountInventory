@@ -67,30 +67,51 @@
               </div>
             </div>
           </div>
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Full/Part</p>
+                <ng-select [items]="options.payment" (selected)="selectedpayment($event)"></ng-select>
+              </div>
+            </div>
+          </div>
       </div>
-          <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
+          <span (click)="getdata()" class="btn btn-info waves-effect">Get Result</span>
           
     </div>
     </div>
-    <p>{{ filters.value | json}}</p>
+   
     <hr>
     <div>
       <p>Credit</p>
-      <p><span>{{ data.credit }}</span></p>
+      <p><span>{{ paymentvalues.credit }}</span></p>
     </div>
     <div>
       <p>Debit</p>
-      <p><span>{{ data.debit }}</span></p>
+      <p><span>{{ paymentvalues.debit }}</span></p>
     </div>
     <div>
       <p>Recieved</p>
-      <p><span>{{ data.recieved }}</span></p>
+      <p><span>{{ paymentvalues.recieve }}</span></p>
     </div>
     <div>
       <p>Balance</p>
-      <p><span>{{ data.balance }}</span></p>
+      <p><span>{{ paymentvalues.balance }}</span></p>
     </div>
+
+    <div class="col-sm-2">
+						<div class="form-group">
+							<div class="fg-line">
+                <p class="form-label">Amount</p>
+								<input type="text" class="form-control fg-input" name = "amount" #amountBox [(ngModel)]="paymentvalues.amount">								
+							</div>
+						</div>
+					</div>
+
+          <button type="submit" class="btn btn-info waves-effect">save</button>
     </form>
+     <!--<p>{{ filters.value | json}}</p>-->
     
   </div>
 </dashboard>

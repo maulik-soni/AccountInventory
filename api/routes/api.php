@@ -93,6 +93,7 @@ Route::delete('/deleteuser/{id}','UserController@destroy');
 
 Route::get('/searchpaymentreciept','PaymentRecieptController@search');
 Route::post('/showpaymentreciept','PaymentRecieptController@show');
+Route::post('/newpaymentreciept','PaymentRecieptController@create');
 
 Route::post('/showrecievable','salesConroller@salesReport');
 Route::get('/searchrecievable','salesConroller@salesReport');

@@ -17,6 +17,7 @@ export class PaymentRecieptComponent implements OnInit {
   private searchterm=new Subject;
   searchresult=[];
   data=[];
+  formdata=[];
   options=new Options(
     ['cash','cheque'],
     ['Payment','Recieve'],
@@ -33,6 +34,10 @@ export class PaymentRecieptComponent implements OnInit {
     '',
     this.options.currency[0],
     this.options.payment[0],
+    0,
+    0,
+    0,
+    0,
     0
     );
 
@@ -72,6 +77,11 @@ export class PaymentRecieptComponent implements OnInit {
     console.log(this.paymentvalues.bill);
   }
 
+  selectedpayment($event){
+    this.paymentvalues.payment=$event.id;
+    console.log(this.paymentvalues.bill);
+  }
+
   search(searchvalue){
     this.searchterm.next(searchvalue);
   }
@@ -91,13 +101,30 @@ export class PaymentRecieptComponent implements OnInit {
     .subscribe(result=>this.options.bill=result.data);
   }
 
-  onSubmit(form:NgForm){
+  getdata(){
     let invoice;
     invoice={
-      invoice:'1589'
+      invoice_number: this.paymentvalues.bill,
     }
     this._payableentry.showpaymentreciept(JSON.stringify(invoice)).
-    subscribe(result=>console.log(result));
+    subscribe(result=>{
+    // this.paymentvalues.amount=result.data.amount;
+    this.paymentvalues.balance=result.data.balance;
+    this.paymentvalues.credit=result.data.credit;
+    this.paymentvalues.debit=result.data.debit;
+    this.paymentvalues.recieve=result.recieved;
+    console.log(result);
+  });
+  
+  
+  }
+
+  onSubmit(form:NgForm){
+     this.paymentvalues.date=new Date(this.paymentvalues.date.valueOf()).toLocaleDateString();
+     this._payableentry.newpaymentreciept(JSON.stringify(this.paymentvalues))
+     .subscribe(response=>{console.log(response);
+     this.getdata()});
+    console.log(JSON.stringify(this.paymentvalues));
   }
 
 }

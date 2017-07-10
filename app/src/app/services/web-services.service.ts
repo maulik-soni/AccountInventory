@@ -24,6 +24,7 @@ export class WebServicesService {
     reportlab:this.base_url+'/api/reportlab',
     changelabissuestatus:this.base_url+'/api/changestatus',
 
+    newpaymentreciept:this.base_url+'/api/newpaymentreciept',
     searchpaymentreciept:this.base_url+'/api/searchpaymentreciept',
     showpaymentreciept:this.base_url+'/api/showpaymentreciept',
 
@@ -170,6 +171,13 @@ showinventory(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.showpaymentreciept,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  newpaymentreciept(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.newpaymentreciept,data,options)
     .map((response:Response) => response.json());
   }
 

@@ -7,7 +7,11 @@ export class PaymentReciept{
         public bill:String,
         public currency:String,
         public payment:String,
-        public amount:number
+        public amount:number,
+        public debit:number,
+        public credit:number,
+        public balance:number,
+        public recieve:number
     ){}
 }
 
