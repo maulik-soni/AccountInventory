@@ -14,6 +14,9 @@ import { MemoDetailsComponent } from './memo-details/memo-details.component';
 import { MemooutComponent } from './memoout/memoout.component';
 // import { DataTableModule } from "angular2-datatable";
 import { DataFilterPipe }   from './../filters/data-filter.pipe';
+import {MaterialModule,MdDatepickerModule,MdNativeDateModule} from '@angular/material';
+import { MdInputModule } from '@angular/material';
+
 
 @NgModule({
   imports: [
@@ -26,6 +29,8 @@ import { DataFilterPipe }   from './../filters/data-filter.pipe';
     // DatepickerModule,
     BrowserModule, 
     ReactiveFormsModule,
+    MdDatepickerModule,
+    MdInputModule
     // DataTableModule
   ],
   declarations: [
@@ -36,6 +41,13 @@ import { DataFilterPipe }   from './../filters/data-filter.pipe';
     MemooutComponent,
     DataFilterPipe
   ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    MdDatepickerModule,
+    MdInputModule,
+    ReactiveFormsModule
+  ]
 
 })
 

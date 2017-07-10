@@ -17,6 +17,7 @@ class PurchaseController extends Controller
 
     public function purchaseReport(Request $request){
         $params = Request::all();
+        // print_r($params);exit;
         $purchase = new \App\Purchase;
         if(!empty($params['limit']) && !empty($params['lastid'])){
             $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid'])->take($params['limit']);
@@ -31,20 +32,7 @@ class PurchaseController extends Controller
         }else{
             $purchase_data = Purchase::all();
         }
-        // $params = Request::all();
-        // $purchase = new \App\Purchase;
-        // if(!empty($params['limit']) && !empty($params['lastid'])){
-        //     $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid'])->take($params['limit']);
-        // }else if(!empty($params['limit'])){
-        //     $purchase_data = Purchase::all()->take($params['limit']);
-        // }else if(!empty($params['lastid'])){
-        //     $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid']);
-        // }else if(!empty($params['pcsid'])){
-        //     $purchase_data = Purchase::all()->where('PCS_ID','=',$params['pcsid']);
-        // }else{
-        //     $purchase_data = Purchase::all();
-        // }
-        // return $purchase_data;
+        return $purchase_data;
         
     }
 

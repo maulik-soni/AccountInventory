@@ -8,6 +8,9 @@ import { ConstantServiceService } from './../../services/constant-services.servi
 import { newMemo } from '../memo.interface';
 // import { SelectModule } from 'ng2-select';
 // import { MemoOut } from './memoout';
+import { MdDatepickerModule} from '@angular/material';
+import { MdInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @Component({

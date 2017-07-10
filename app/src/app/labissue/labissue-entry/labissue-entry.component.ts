@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { LabIssue } from '../labissue';
 import { WebServicesService } from '../../services/web-services.service';
 import { ConstantServiceService } from '../../services/constant-services.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MdDatepickerModule} from '@angular/material';
+import { MdInputModule } from '@angular/material';
 
 @Component({
   selector: 'app-labissue-entry',

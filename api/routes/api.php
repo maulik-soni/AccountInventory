@@ -42,21 +42,21 @@ use Illuminate\Http\Request;
 
 
 
-Route::post('/newpurchase', 'purchaseConroller@newPurchaseEntry');
-Route::post('/purchasereturn', 'purchaseConroller@purchaseReturn');
+Route::post('/newpurchase', 'PurchaseController@newPurchaseEntry');
+Route::post('/purchasereturn', 'PurchaseController@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
 Route::post('/salesreturn', 'salesConroller@salesReturn');
-Route::get('/purchaseretrunreport','purchaseConroller@purchaseReturnReport');
+Route::get('/purchaseretrunreport','PurchaseController@purchaseReturnReport');
 Route::get('/salesretrunreport','salesConroller@salesReturnReport');
 
 
-Route::put('/editpurchase', 'purchaseConroller@editPurchase');
+Route::put('/editpurchase', 'PurchaseController@editPurchase');
 Route::put('/editsales', 'salesConroller@editSales');
 
 Route::delete('/delsales', 'salesConroller@delSales');
-Route::delete('/delpurchase', 'purchaseConroller@delPurchase');
+Route::delete('/delpurchase', 'PurchaseController@delPurchase');
 
-Route::get('/purchasereport', 'purchaseConroller@purchaseReport');
+Route::get('/purchasereport', 'PurchaseController@purchaseReport');
 Route::get('/salesreport', 'salesConroller@salesReport');
 
 Route::post('/memoinchangestatus','memoinController@changeStatus');

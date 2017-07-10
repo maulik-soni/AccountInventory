@@ -11,6 +11,8 @@ import { SalesRoutingModule } from './sales-routing.module';
 // import { DatepickerModule } from 'angular2-material-datepicker';
 import { SalesDetailsComponent } from './sales-details/sales-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MaterialModule,MdDatepickerModule,MdNativeDateModule} from '@angular/material';
+import {MdInputModule} from '@angular/material';
 
 
 @NgModule({
@@ -22,12 +24,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     SalesRoutingModule,
     // DatepickerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MdDatepickerModule,
+    MdInputModule
   ],
   declarations: [
     SalesComponent,
     SalesReportComponent,
     SalesReturnComponent, 
-    SalesDetailsComponent]
+    SalesDetailsComponent
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    MdDatepickerModule,
+    MdInputModule,
+    ReactiveFormsModule
+  ]
 })
 export class SalesModule { }

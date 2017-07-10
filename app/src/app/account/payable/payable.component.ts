@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MdDatepickerModule} from '@angular/material';
 import { Search,SearchValues } from './../search.model';
+import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-payable',

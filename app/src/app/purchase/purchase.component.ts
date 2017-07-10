@@ -6,13 +6,14 @@ import { SelectModule } from 'ng2-select';
 import { Purchase } from './purchase';
 import { WebServicesService } from './../services/web-services.service';
 import { ConstantServiceService } from './../services/constant-services.service';
-// import { DatepickerModule } from 'angular2-material-datepicker';
+import { DatepickerModule } from 'angular2-material-datepicker';
 import { ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFactory } from '@angular/core';
 import { PiecesTypeComponent } from './pieces-type/pieces-type.component';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { newPurchase } from './purchase.interface';
-
+import { MdDatepickerModule} from '@angular/material';
+import { MdInputModule } from '@angular/material';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
@@ -234,7 +235,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this.value = value;
   }
 
-  public calcDay():void{    
+  public calcDay():void{
+    console.log("calculate date");
     this.myForm.controls['purchase_date'].patchValue(this.dateConversion(this.newpurchase.purchase_date));
     if(this.newpurchase.purchase_date != undefined && this.myForm.value.payment_terms != undefined && this.myForm.value.payment_terms != ''){
       var targetDate = new Date(this.newpurchase.purchase_date);
