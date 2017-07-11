@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
@@ -17,7 +17,6 @@ import { MdInputModule } from '@angular/material';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
-    console.log('after View init');
   }
 }
 
@@ -52,12 +51,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this.subContainer1.createComponent(compFactory);
   }
 
+  setDolarRate(){
+    sessionStorage.setItem('dolarRate', this.myForm.value.currency_convrsion_rate);
+  }
 
   ngOnInit() {
 
     this.myForm = this._fb.group({
             invoice_number: [''],
-            currency_convrsion_rate:[''],
+            currency_convrsion_rate:0,
             payment_terms:[''],
             purchase_date:[''],
             due_date:[''],
@@ -69,11 +71,11 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             brokerage:[''],
             comission1:0,
             comission2:0,
-            avg_INR:[''],
-            avg_dolar:[''],
-            amount_INR:[''],
-            amount_dolar:[''],
-            mVAT:[''],
+            avg_INR:0,
+            avg_dolar:0,
+            amount_INR:0,
+            amount_dolar:0,
+            mVAT:0,
             aginst_Hform:[''],            
             piecesTypes: this._fb.array([])
         });
@@ -87,21 +89,21 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             certificate_number: [''],
             kapan:[''],
             LAB_type:[''],
-            total_diamond_pcs:[''],
-            total_diamond_carat:[''],
+            total_diamond_pcs:0,
+            total_diamond_carat:0,
             bill_type:[''],
             polishing_type:[''],
             item:[''],
-            RAP_price:[''],
-            cost_discount:[''],
-            cost_rate_per_carat:[''],
-            wd_rate:[''],
-            wd_rate_carat:[''],
+            RAP_price:0,
+            cost_discount:0,
+            cost_rate_per_carat:0,
+            wd_rate:0,
+            wd_rate_carat:0,
             less1:0,
             less2:0,
             less3:0,
-            rate_INR:[''],
-            rate_dolar:[''],
+            rate_INR:0,
+            rate_dolar:0,
             diamond_lot_number:[''],
             diamond_clarity:[''],
             stock_status_group:[''],
@@ -139,7 +141,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
         // ...
         // var formData:any = model;
         // var temp:any = formData._valu;
-        console.log(formData._value);
+        // console.log(formData._value);
         var newpurchase = JSON.parse(JSON.stringify(formData._value));
         var piecesarray = JSON.parse(JSON.stringify(newpurchase.piecesTypes));
         delete newpurchase.piecesTypes;
@@ -170,7 +172,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           delete purchaseData[i].brokerage;
           delete purchaseData[i].taxes;
         }
-        console.log(purchaseData);
+        // console.log(purchaseData);
         this._webservice.postpurchasedata(purchaseData);
     }
 
@@ -212,23 +214,23 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public selected(value:any,id):void {
 
-    console.log('Selected value is: ', value, value.text);
+    // console.log('Selected value is: ', value, value.text);
     // if(value.text == 'Direct'){
       this.disable = value.text;
     // }else{
       // this.disable = false;
     // }
     this.myForm.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
-    console.log(this.myForm);
+    // console.log(this.myForm);
   }
 
   public removed(value:any):void {
-    console.log('Removed value is: ', value);
+    // console.log('Removed value is: ', value);
     
   }
 
   public typed(value:any):void {
-    console.log('New search input: ', value);
+    // console.log('New search input: ', value);
   }
 
   public refreshValue(value:any):void {
@@ -236,7 +238,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   }
 
   public calcDay():void{
-    console.log("calculate date");
+    // console.log("calculate date");
     this.myForm.controls['purchase_date'].patchValue(this.dateConversion(this.newpurchase.purchase_date));
     if(this.newpurchase.purchase_date != undefined && this.myForm.value.payment_terms != undefined && this.myForm.value.payment_terms != ''){
       var targetDate = new Date(this.newpurchase.purchase_date);
@@ -263,7 +265,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public RPCaratCost(){
     
     if(this.newpurchase.RAP_price != undefined && this.newpurchase.cost_discount != undefined){
-      console.log(this.newpurchase.RAP_price-(this.newpurchase.RAP_price*this.newpurchase.cost_discount/100));
+      // console.log(this.newpurchase.RAP_price-(this.newpurchase.RAP_price*this.newpurchase.cost_discount/100));
 
       this.newpurchase.cost_rate_per_carat = this.newpurchase.RAP_price-(this.newpurchase.RAP_price*this.newpurchase.cost_discount/100);
     }
@@ -309,19 +311,19 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public addTax(){
     console.log(this.newpurchase.amount_INR,this.newpurchase.mVAT);
-    if(this.newpurchase.amount_INR!=undefined && this.newpurchase.mVAT!=undefined){
-      this.CALAmount();
-      this.newpurchase.amount_INR = this.newpurchase.amount_INR+(this.newpurchase.amount_INR*(this.newpurchase.mVAT/100));
-      this.newpurchase.amount_dolar = this.newpurchase.amount_INR/this.newpurchase.currency_convrsion_rate;
+    if(this.myForm.value.amount_INR!=undefined && this.myForm.value.mVAT!=undefined){
+      this.parenFunction();
+      this.myForm.controls['amount_INR'].patchValue(this.myForm.value.amount_INR+(this.myForm.value.amount_INR*(this.myForm.value.mVAT/100)));
+      this.myForm.controls['amount_dolar'].patchValue(this.myForm.value.amount_INR/this.myForm.value.currency_convrsion_rate);
     }
   }
 
   public checkAgianstHform(){
-    console.log(this.newpurchase.aginst_Hform);
-    if(this.newpurchase.aginst_Hform){
-      this.CALAmount();
-      this.newpurchase.mVAT = 0;
-      this.newpurchase.taxes = undefined;
+    console.log(this.myForm.value.aginst_Hform);
+    if(this.myForm.value.aginst_Hform){
+      this.parenFunction();
+      // this.newpurchase.mVAT = 0;
+      // this.newpurchase.taxes = undefined;
     }
   }
 
@@ -334,10 +336,39 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
   }
 
-  public parenFunction(dolarV):void{
-    console.log(dolarV);
-      // this.myForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
-      // this.myForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
+  public getDolarRate(){
+    var dolarR = this.dolar; 
+    if(sessionStorage.dolarRate != undefined){
+      dolarR = sessionStorage.dolarRate;
+    }
+    return dolarR;
+  }
+
+  public parenFunction():void{
+    
+    var piecesArr = this.myForm.value.piecesTypes;
+    var sumOfRates = 0;
+    var sumOfCarats = 0;
+    
+    for(var i=0; i<piecesArr.length; i++){
+      console.log(piecesArr[i].total_diamond_carat,piecesArr[i].rate_INR,piecesArr[i]);
+      sumOfCarats = sumOfCarats+parseFloat(piecesArr[i].total_diamond_carat);
+      sumOfRates = sumOfRates+parseFloat(piecesArr[i].rate_INR);
+    }
+    console.log(sumOfRates,sumOfCarats);
+    var avgINR = sumOfRates/sumOfCarats;
+    var avgDOLAR = avgINR/this.getDolarRate();
+    this.myForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
+    this.myForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
+
+    var amountINR = avgINR*sumOfCarats;
+    var amountDOLAR = amountINR/this.getDolarRate();
+
+    amountINR = amountINR+(amountINR*(this.myForm.value.comission1/100));
+    amountINR = amountINR+(amountINR*(this.myForm.value.comission1/100));
+
+    this.myForm.controls['amount_INR'].patchValue(parseFloat(amountINR.toFixed(2)));
+    this.myForm.controls['amount_dolar'].patchValue(parseFloat(amountDOLAR.toFixed(2)));
   }
 
   newpurchasedata:any;

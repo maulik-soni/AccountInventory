@@ -28,7 +28,7 @@ export class LabissueEntryComponent implements OnInit {
   public invoice:any = this.ConstantService.INVOICE;
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public names:Array<string> = this.ConstantService.NAMES;
-  public piecetype;
+  public piecetype =  'singlestone';
 
   private value:any = {};
   private _disabledV:string = '0';
@@ -77,12 +77,12 @@ export class LabissueEntryComponent implements OnInit {
           console.log(resData);          
           console.log(Object.keys(resData)[0]);        
           this.mypurchase = resData[Object.keys(resData)[0]];          
-          this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
-          this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text; 
-          this.mypurchase.diamond_shape = JSON.parse(this.mypurchase.diamond_shape)[0].text;
-          this.mypurchase.diamond_size = JSON.parse(this.mypurchase.diamond_size)[0].text;
-          this.mypurchase.diamond_color = JSON.parse(this.mypurchase.diamond_color)[0].text;
-          this.mypurchase.diamond_clarity = JSON.parse(this.mypurchase.diamond_clarity)[0].text;
+          // this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
+          // this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text; 
+          // this.mypurchase.diamond_shape = JSON.parse(this.mypurchase.diamond_shape)[0].text;
+          // this.mypurchase.diamond_size = JSON.parse(this.mypurchase.diamond_size)[0].text;
+          // this.mypurchase.diamond_color = JSON.parse(this.mypurchase.diamond_color)[0].text;
+          // this.mypurchase.diamond_clarity = JSON.parse(this.mypurchase.diamond_clarity)[0].text;
 
           console.log(this.mypurchase,JSON.stringify(this.mypurchase));
           this.showPurchase = true;

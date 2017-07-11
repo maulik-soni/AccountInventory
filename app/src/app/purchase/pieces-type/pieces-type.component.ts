@@ -29,6 +29,7 @@ export class PiecesTypeComponent implements OnInit {
   public taxes:Array<string> = this.ConstantService.TAXES;
   public invoice:any = this.ConstantService.INVOICE;
   public dolar:any = this.ConstantService.DOLAR;
+  
 
   @Output() childEvent: EventEmitter<any> = new EventEmitter();
   @Input('mygroup')
@@ -53,9 +54,9 @@ export class PiecesTypeComponent implements OnInit {
   }
 
   public selected(value:any, id):void {
-    console.log('Selected value is: ', value, id);
+    // console.log('Selected value is: ', value, id);
     this.piecesTypeForm.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
-    console.log(this.piecesTypeForm);
+    // console.log(this.piecesTypeForm);
   }
 
   public removed(value:any):void {
@@ -69,6 +70,14 @@ export class PiecesTypeComponent implements OnInit {
 
   public refreshValue(value:any):void {
     this.value = value;
+  }
+
+  public getDolarRate(){
+    var dolarR = this.dolar; 
+    if(sessionStorage.dolarRate != undefined){
+      dolarR = sessionStorage.dolarRate;
+    }
+    return dolarR;
   }
 
   public RPCaratCost(){
@@ -91,14 +100,15 @@ export class PiecesTypeComponent implements OnInit {
   }
 
   public CALrate(){
+    // console.log(this.getDolarRate());
     var costRatePC = parseFloat(this.piecesTypeForm.value.cost_rate_per_carat);
     var totalDiamondC = parseFloat(this.piecesTypeForm.value.total_diamond_carat);
     var totalDiamondP = parseFloat(this.piecesTypeForm.value.total_diamond_pcs);
-    var dolarRate = parseFloat(this.piecesTypeForm.value.currency_convrsion_rate);
+    var dolarRate = this.getDolarRate();
 
     if (costRatePC != undefined && totalDiamondC  != undefined && totalDiamondP != undefined && dolarRate != undefined){
       var rateINR = costRatePC*totalDiamondC*totalDiamondP;
-      var rateDOLAR = rateINR/this.dolar;
+      var rateDOLAR = rateINR/dolarRate;
       this.piecesTypeForm.controls['rate_INR'].patchValue(parseFloat(rateINR.toFixed(2)));
       this.piecesTypeForm.controls['rate_dolar'].patchValue(parseFloat(rateDOLAR.toFixed(2)));
       this.CALavg();
@@ -108,31 +118,33 @@ export class PiecesTypeComponent implements OnInit {
   public CALavg(){
     var rateINR = parseFloat(this.piecesTypeForm.value.rate_INR);
     var totalDiamondC = parseFloat(this.piecesTypeForm.value.total_diamond_carat);
-    var dolarRate = parseFloat(this.piecesTypeForm.value.currency_convrsion_rate);
-
+    var dolarRate = this.getDolarRate();
     if(rateINR != undefined && totalDiamondC != undefined && dolarRate != undefined){
       var avgINR = this.piecesTypeForm.value.rate_INR/this.piecesTypeForm.value.total_diamond_carat;
-      var avgDOLAR = avgINR/this.piecesTypeForm.value.currency_convrsion_rate;
-      this.piecesTypeForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
-      this.piecesTypeForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
+      var avgDOLAR = avgINR/dolarRate;
+      console.log("child : ",avgINR);
+      this.childEvent.emit();
       this.CALAmount();
+      // this.piecesTypeForm.controls['avg_INR'].patchValue(parseFloat(avgINR.toFixed(2)));
+      // this.piecesTypeForm.controls['avg_dolar'].patchValue(parseFloat(avgDOLAR.toFixed(2)));
     }
     
   }
 
   public CALAmount(){
-    this.piecesTypeForm.value.amount_INR =  this.piecesTypeForm.value.avg_INR*this.piecesTypeForm.value.total_diamond_carat;
+    // this.piecesTypeForm.value.amount_INR =  this.piecesTypeForm.value.avg_INR*this.piecesTypeForm.value.total_diamond_carat;
 
-    var lessDis = parseInt(this.piecesTypeForm.value.less1)+parseInt(this.piecesTypeForm.value.less2)+parseInt(this.piecesTypeForm.value.less3);
+    // var lessDis = parseInt(this.piecesTypeForm.value.less1)+parseInt(this.piecesTypeForm.value.less2)+parseInt(this.piecesTypeForm.value.less3);
     
-    console.log(this.piecesTypeForm.value.rate_INR,lessDis,(this.piecesTypeForm.value.rate_INR*(lessDis/100)))
+    // console.log(this.piecesTypeForm.value.rate_INR,lessDis,(this.piecesTypeForm.value.rate_INR*(lessDis/100)))
     var amountINR = this.piecesTypeForm.value.rate_INR-(this.piecesTypeForm.value.rate_INR*(this.piecesTypeForm.value.less1/100));
     amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less2/100));
     amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less3/100));
     
-    var amountDOLAR = amountINR/this.dolar;
+    var amountDOLAR = amountINR/this.getDolarRate();
     this.piecesTypeForm.controls['rate_INR'].patchValue(parseInt(amountINR.toFixed(2)));
     this.piecesTypeForm.controls['rate_dolar'].patchValue(parseInt(amountDOLAR.toFixed(2)));
+    this.childEvent.emit();
   }
 
   constructor(
