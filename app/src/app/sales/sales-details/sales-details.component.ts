@@ -26,6 +26,16 @@ export class SalesDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
+  public rateCALC(){
+    if(this.salesDetails.value.less1 == undefined && this.salesDetails.value.less2 == undefined && this.salesDetails.value.less3 == undefined && this.salesDetails.value.sale_rate == undefined){
+      var rateINR = this.salesDetails.value.rate_INR-(this.salesDetails.value.rate_INR*(this.salesDetails.value.less1/100));
+      rateINR = rateINR-(rateINR*(this.salesDetails.value.less2/100));
+      rateINR = rateINR-(rateINR*(this.salesDetails.value.less3/100));
+      this.salesDetails.controls['sale_rate'].patchValue(rateINR.toFixed(2));
+      this.salesDetails.controls['sale_rate'].patchValue(parseInt(rateINR.toFixed(2))-parseInt(this.salesDetails.value.sale_disc));
+    }
+  }
+
   search(){
     this._webservice.fetchpurchase(this.searchPCS,this.piecetype)
       .subscribe(
@@ -35,15 +45,15 @@ export class SalesDetailsComponent implements OnInit {
           console.log(Object.keys(resData)[0]);
           this.mypurchase = resData[Object.keys(resData)[0]];
           console.log(this.salesDetails);
-          delete this.mypurchase.purchase_date;
+          // delete this.mypurchase.purchase_date;
           delete this.mypurchase.due_date;
           delete this.mypurchase.aginst_Hform;
           delete this.mypurchase.mVAT;
           delete this.mypurchase.sr_no;
           delete this.mypurchase.invoice_number;
-          delete this.mypurchase.account_name;
+          // delete this.mypurchase.account_name;
           delete this.mypurchase.payment_terms;
-          delete this.mypurchase.currency_convrsion_rate;
+          // delete this.mypurchase.currency_convrsion_rate;
           delete this.mypurchase.notes;
           delete this.mypurchase.country;
           delete this.mypurchase.comission;
@@ -53,8 +63,10 @@ export class SalesDetailsComponent implements OnInit {
 
           for (var key in this.mypurchase) {
             if (this.mypurchase.hasOwnProperty(key)) {
-              console.log(key + " -> " + this.mypurchase[key]);
-              this.salesDetails.controls[key].patchValue(this.mypurchase[key]);
+              if(key != 'account_name' && key != "purchase_date" && key != "currency_convrsion_rate"){
+                console.log(key + " -> " + this.mypurchase[key]);
+                this.salesDetails.controls[key].patchValue(this.mypurchase[key]);
+              }
             }
           }
 

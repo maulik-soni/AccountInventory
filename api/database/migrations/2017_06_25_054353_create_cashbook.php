@@ -14,7 +14,7 @@ class CreateCashbook extends Migration
     public function up()
     {
         Schema::create('cashbook', function (Blueprint $table) {
-             $table->increments('id');
+            $table->increments('id');
             $table->integer('amount');
             $table->string('voucher');
             $table->date('date');

@@ -695,10 +695,25 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "currency_convrsion_rate">		
+								<input type="text" class="form-control fg-input" formControlName = "currency_convrsion_rate" (blur)="setDolarRate()">		
 							</div>
 						</div>
 					</div>
+					<div class="col-sm-4">						
+						<p class="form-label">Purchase Date</p>
+						<!--<material-datepicker [(date)]="newpurchase.purchase_date" (onSelect)="calcDay($event)"></material-datepicker>-->
+						<span class="dp-container">	
+							<md-input-container class="mdInputContainer">
+								<input mdInput type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" name="date" [(ngModel)]="newpurchase.purchase_date" [ngModelOptions]="{standalone: true}" disabled="true">
+								<button mdSuffix class="matDateickerToggle last"  [mdDatepickerToggle]="picker"></button>
+							</md-input-container>
+							<md-datepicker #picker></md-datepicker>	
+						</span>
+					</div> 
+				</div>
+				<br>
+				<div class="row">
+					
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
@@ -706,18 +721,6 @@
 								<input type="text" class="form-control fg-input" formControlName="payment_terms" (blur)="calcDay(newpurchase.payment_terms)">
 							</div>
 						</div>
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-sm-4">						
-						<p class="form-label">Purchase Date</p>
-						<!--<material-datepicker [(date)]="newpurchase.purchase_date" (onSelect)="calcDay($event)"></material-datepicker>-->
-						<span class="dp-container">
-							<button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="picker"></button>
-							<input type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" name="date" [(ngModel)]="newpurchase.purchase_date" [ngModelOptions]="{standalone: true}" disabled="true">
-							<md-datepicker #picker></md-datepicker>	
-						</span>
 					</div>				
 					<div class="col-sm-4">
 						<div class="form-group">
@@ -875,7 +878,7 @@
 						<div class="form-group ">
 							<div class="fg-line">
 								<p class="form-label">Average in INR(&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "avg_INR" name = "avg_INR">
+								<input type="text" class="form-control fg-input" formControlName = "avg_INR" name = "avg_INR" disabled = "true">
 							</div>
 						</div>
 					</div>
@@ -883,7 +886,7 @@
 						<div class="form-group ">
 							<div class="fg-line">
 								<p class="form-label">Average in USD($)</p>
-								<input type="text" class="form-control fg-input" formControlName = "avg_dolar" name = "avg_dolar">
+								<input type="text" class="form-control fg-input" formControlName = "avg_dolar" name = "avg_dolar" disabled = "true">
 								<label class="fg-label"></label>
 							</div>
 						</div>
@@ -897,7 +900,7 @@
 						<div class="form-group ">
 							<div class="fg-line">
 								<p class="form-label">Amount in INR(&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "amount_INR" name = "amount_INR">
+								<input type="text" class="form-control fg-input" formControlName = "amount_INR" name = "amount_INR" disabled = "true">
 							</div>
 						</div>
 					</div>
@@ -905,7 +908,7 @@
 						<div class="form-group ">
 							<div class="fg-line">
 								<p class="form-label">Amount in USD($)</p>
-								<input type="text" class="form-control fg-input" formControlName = "amount_dolar" name = "amount_dolar">
+								<input type="text" class="form-control fg-input" formControlName = "amount_dolar" name = "amount_dolar" disabled = "true">
 							</div>
 						</div>
 					</div>
@@ -930,11 +933,11 @@
 							<input type="text" class="form-control fg-input" formControlName = "mVAT" name = "mVAT" [disabled] = "newpurchase.aginst_Hform" (blur) = "addTax()"> 
 						</div>
 					</div>
-					<label class="checkbox checkbox-inline m-r-20">						
+					<!--<label class="checkbox checkbox-inline m-r-20">						
 						<input type="checkbox" value="againstHForm" formControlName = "aginst_Hform" name = "aginst_Hform" (change)="checkAgianstHform()">
 						<i class="input-helper"></i>
 						Against H-Form
-					</label>
+					</label>-->
 				</div>
 			</div>
 		</div>

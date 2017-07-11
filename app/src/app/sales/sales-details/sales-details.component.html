@@ -42,31 +42,30 @@
     </div>
 
     <div *ngIf="searchResult">
-
       <div class = "row m-t-25" *ngIf = "searchResult">
           <div class="col-sm-12" style= "height:auto;color:#666;">
               <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
                   <div style="width:30%; float:left;padding:10px;">
                       <span style="font-size:14px;float:left; width:100%;">
-                      <b>Client Name :</b> 
+                      <b>Client Name : {{mypurchase.account_name}}</b>
                       </span>
                       <span style="font-size:14px;float:left;width:100%;">
-                      <b>Currency Conversion :</b>
+                      <b>Currency Conversion Rate: $1 = ₹{{mypurchase.currency_convrsion_rate}}</b>
                       </span>
-                      <span style="font-size:14px;float:left;width:100%;">
-                      <b>Country :</b> 
-                      </span>
-                      <span style="font-size:14px;float:left;width:100%;">
-                      <b>Notes :</b> 
-                      </span>
+                      <!--<span style="font-size:14px;float:left;width:100%;">
+                      <b>Country : {{mypurchase.account_name}}</b> 
+                      </span>-->
+                      <!--<span style="font-size:14px;float:left;width:100%;">
+                      <b>Notes : {{mypurchase.account_name}}</b> 
+                      </span>-->
                   </div>
                   <div style="width:40%; float:right;padding:">
                       <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                      <b>Date : </b>
+                      <b>Date : {{mypurchase.purchase_date}}</b>
                       </span>
-                      <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                      <b>Invoice# : </b>
-                      </span>
+                      <!--<span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                      <b>Invoice# : {{mypurchase.account_name}}</b>
+                      </span>-->
                   </div>
               </div>
               <div style="width:100%; padding:0px; float:left;">
@@ -80,19 +79,19 @@
                   </div>
                   <div style="width:100%;float:left;">
                       <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                      Pcs ID : 
+                      Pcs ID : {{mypurchase.PCS_ID}}
                       <span style="font-size:10px; float:left; width:100%;">
-                      Total Carats : 
-                      Total Picies : 
+                      Total Carats : {{mypurchase.total_diamond_carat}}
+                      Total Picies : {{mypurchase.total_diamond_pcs}}
                       </span>
                       </span>
                       <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                      ₹ ($)
+                      ₹ {{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
                       </span>
                   </div>
                   <div style="width:100%;float:left; background:#fff;">
                       <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                      Total : ₹ ($)
+                      Total : ₹ {{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
                       </span>
                   </div>
               </div>
@@ -105,15 +104,15 @@
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">LESS1</p>
-              <input type="text" class="form-control fg-input" formControlName = "less1" name = "less1">
+              <input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur) = "rateCALC()">
             </div>
           </div>
-        </div>										
+        </div>
         <div class="col-sm-4 m-t-15">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">LESS2</p>
-              <input type="text" class="form-control fg-input" formControlName = "less2" name = "less2" value="0">
+              <input type="text" class="form-control fg-input" formControlName = "less2" name = "less2" (blur) = "rateCALC()">
             </div>
           </div>
         </div>
@@ -121,7 +120,7 @@
           <div class="form-group ">
             <div class="fg-line">
               <p class="form-label">LESS3</p>
-              <input type="text" class="form-control fg-input" formControlName = "less3" name = "less3">
+              <input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur) = "rateCALC()">
             </div>
           </div>
         </div>
@@ -133,7 +132,7 @@
           <div class="form-group ">
             <div class="fg-line">
               <p class="form-label">Sales Rate</p>
-              <input type="text" class="form-control fg-input" formControlName = "sale_rate"  name = "less2" (blur)="calAmount()">
+              <input type="text" class="form-control fg-input" formControlName = "sale_rate"  name = "sale_rate" (blur)="rateCALC()" (blur) = "rateCALC()">
             </div>
           </div>
         </div>
@@ -141,7 +140,7 @@
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Sales Discount</p>
-              <input type="text" class="form-control fg-input" formControlName = "sale_disc" name = "sale_disc">
+              <input type="text" class="form-control fg-input" formControlName = "sale_disc" name = "sale_disc" (blur) = "rateCALC()">
             </div>
           </div>
         </div>

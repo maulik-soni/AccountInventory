@@ -73,3 +73,20 @@
 .fg-line .form-control:disabled{
     color : #000;
 }
+
+.mdInputContainer{
+    width : 100%;
+}
+
+.matDateickerToggle{
+    width: 2em !important;
+    height: 2em !important;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff !important;
+}
+
+.mat-input-underline.mat-disabled{
+    border-bottom: 1px solid #e0e0e0;
+}
