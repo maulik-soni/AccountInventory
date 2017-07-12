@@ -1,116 +1,49 @@
-<dashboard><div class="container">
-    <div class="block-header">
-        <h2>Sales Report</h2>
-
-       
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <h2>Sales Report <small>Total Sales of your Company.</small></h2>
+<dashboard>
+    <div class="container">
+        <div class="block-header">
+            <h2>Sales Report</h2>
         </div>
-        <!--<div id="data-table-command-header" class="bootgrid-header container-fluid">
-            <div class="row">
-                <div class="col-sm-12 actionBar">
-                    <div class="search form-group">
-                        <div class="input-group"><span class="zmdi icon input-group-addon glyphicon-search"></span> <input type="text" class="search-field form-control"
-                                placeholder="Search"></div>
-                    </div>
-                </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Sales Report <small>Total Sales of your Company.</small></h2>
             </div>
-        </div>-->
-        <div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-collapse" *ngFor="let m of mydata">
-                <div role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                       <!--Pcs ID : {{m.PCS_ID}}<br>
-                       Dealer Name : {{m.account_name}}<br>
-                       Date of Purchase : {{m.purchase_date}}<br>
-                       Due Date : {{m.due_date}}<br>
-                       Total Carats : {{m.total_diamond_carat}}<br>
-                       Total Picies : {{m.total_diamond_pcs}}<br>
-                       Currency Conversion : {{m.currency_convrsion_rate}}<br>
-                       Country : {{m.country}}<br>
-                       Notes : {{m.notes}}<br>-->
-
-                        <div class="col-sm-12" style= "height:auto;color:#666;">
-                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                <div style="width:30%; float:left;padding:10px;">
-                                    <span style="font-size:14px;float:left; width:100%;">
-                                    <b>Client Name :</b> {{m.account_name}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
-                                    <b>Currency Conversion :</b> {{m.currency_convrsion_rate}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
-                                    <b>Country :</b> {{m.country}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
-                                    <b>Notes :</b> {{m.notes}}
-                                    </span>
-                                </div>
-                                <div style="width:40%; float:right;padding:">
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Date : </b>{{m.sales_date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Invoice# : </b>{{m.invoice_number}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="width:100%; padding:0px; float:left;">
-                                <div style="width:100%;float:left;background:#efefef;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                    Decription
-                                    </span>
-                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    Amount
-                                    </span>
-                                </div>
-                                <div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;" *ngIf="m.PCS_ID!=null">
-                                        Pcs ID : {{m.PCS_ID}}
-                                        <span style="font-size:10px; float:left; width:100%;">
-                                            Total Carats : {{m.total_diamond_carat}}
-                                            Total Picies : {{m.total_diamond_pcs}}
-                                        </span>
-                                    </span>
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;" *ngIf="m.diamond_lot_number!=null">
-                                        Lot Number : {{m.diamond_lot_number}}
-                                    </span>
-                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    ₹{{m.sales_amount_INR}} (${{m.sales_amount_dolar}})
-                                    </span>
-                                </div>
-                                <!--<div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                    Promotional Code            
-                                    <span style="font-size:10px; float:left; width:100%;">
-                                    (0%)
-                                    </span>
-                                    </span>
-                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    373 INR
-                                    </span>
-                                </div>-->
-                                <div style="width:100%;float:left; background:#fff;">
-                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                    Total : ₹{{m.sales_amount_INR}} (${{m.sales_amount_dolar}})
-                                    </span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-sm waves-effect" (click)="salesReturn(m)">Sales Retrun</button>
-                        </div>
-                    </div>
-                </div>
-        </div>
+            <div class="table-responsive">
+                <table id="data-table-selection" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th data-column-id="pcsid">Pcs ID</th>
+                        <th data-column-id="id" data-type="numeric" data-identifier="true">Invoice Number</th>
+                        <th data-column-id="date">Date</th>
+                        <th data-column-id="dealerName">Dealer Name</th>
+                        <th data-column-id="totalcarats">Total Carats</th>
+                        <th data-column-id="totalpcs">Total Picies</th>
+                        <th data-column-id="amountINR">Amount INR</th>
+                        <th data-column-id="amountDOLLAR">Amount DOLLAR</th>
+                        <th data-column-id="currencyConversion">Currency Conversion Rate</th>
+                        <th data-column-id="notes">Notes</th>
+                        <th data-column-id="country">Country</th>
+                        <th data-column-id="country">Sales Return</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let m of mydata">
+                        <td>{{m.PCS_ID}}</td>
+                        <td>{{m.invoice_number}}</td>
+                        <td>{{m.purchase_date}}</td>
+                        <td>{{m.account_name}}</td>
+                        <td>{{m.total_diamond_carat}}</td>
+                        <td>{{m.total_diamond_pcs}}</td>
+                        <td>{{m.sales_amount_INR}}</td>
+                        <td>{{m.sales_amount_dolar}}</td>
+                        <td>{{m.currency_convrsion_rate}}</td>
+                        <td>{{m.notes}}</td>
+                        <td>{{m.country}}</td>
+                        <td><button class="btn btn-primary btn-sm waves-effect" (click)="salesReturn(m)">Sales Retrun</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 </dashboard>

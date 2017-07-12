@@ -6,11 +6,11 @@
 
     <div class="card">
         <div class="card-header">
-            <h2>Purchase Report <small>Total Sales of your Company.</small></h2>
+            <h2>Purchase Report <small>Total Purchase of your Company.</small></h2>
         </div>
     
 
-    <div class="panel-group" role="tablist" aria-multiselectable="true">
+        <!--<div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-collapse" *ngFor="let m of mydata">
                 <div role="tab" id="headingOne">
                     <h4 class="panel-title">
@@ -76,7 +76,63 @@
                         </div>
                     </div>
                 </div>
-        </div></div>
+            </div>
+        </div>-->
+        <div class="table-responsive">
+            <table id="data-table-selection" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th data-column-id="pcsid">Pcs ID</th>
+                        <th data-column-id="id" data-type="numeric" data-identifier="true">Invoice Number</th>
+                        <th data-column-id="date">Date</th>
+                        <th data-column-id="dealerName">Dealer Name</th>
+                        <th data-column-id="totalcarats">Total Carats</th>
+                        <th data-column-id="totalpcs">Total Picies</th>
+                        <th data-column-id="amountINR">Amount INR</th>
+                        <th data-column-id="amountDOLLAR">Amount DOLLAR</th>
+                        <th data-column-id="currencyConversion">Currency Conversion Rate</th>
+                        <th data-column-id="notes">Notes</th>
+                        <th data-column-id="country">Country</th>
+                        <th data-column-id="country">Purchase Return</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let m of mydata">
+                        <td>{{m.PCS_ID}}</td>
+                        <td>{{m.invoice_number}}</td>
+                        <td>{{m.purchase_date}}</td>
+                        <td>{{m.account_name}}</td>
+                        <td>{{m.total_diamond_carat}}</td>
+                        <td>{{m.total_diamond_pcs}}</td>
+                        <td>{{m.amount_INR}}</td>
+                        <td>{{m.amount_dolar}}</td>
+                        <td>{{m.currency_convrsion_rate}}</td>
+                        <td>{{m.notes}}</td>
+                        <td>{{m.country}}</td>
+                        <td><button class="btn btn-primary btn-sm waves-effect" (click)="purchaseReturn(m)">Retrun This Purchase</button></td> 
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+<!--<a data-toggle="modal" href="#modalDefault" class="btn btn-sm btn-default">Modal - Default</a>  
+<div class="modal fade" id="modalDefault" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales orci ante, sed ornare eros vestibulum ut. Ut accumsan vitae eros sit amet tristique. Nullam scelerisque nunc enim, non dignissim nibh faucibus ullamcorper. Fusce pulvinar libero vel ligula iaculis ullamcorper. Integer dapibus, mi ac tempor varius, purus nibh mattis erat, vitae porta nunc nisi non tellus. Vivamus mollis ante non massa egestas fringilla. Vestibulum egestas consectetur nunc at ultricies. Morbi quis consectetur nunc.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link">Save changes</button>
+                <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
 </dashboard>

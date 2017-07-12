@@ -10,7 +10,7 @@
             <h2>Sales Return Report <small>Total Sales of your Company.</small></h2>
         </div>
         
-        <div class="panel-group" role="tablist" aria-multiselectable="true">
+        <!--<div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-collapse" *ngFor="let m of salesreturn">
                 <div role="tab" id="headingOne">
                     <h4 class="panel-title">
@@ -80,7 +80,42 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+
+        <div class="table-responsive">
+                <table id="data-table-selection" class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th data-column-id="pcsid">Pcs ID</th>
+                        <th data-column-id="id" data-type="numeric" data-identifier="true">Invoice Number</th>
+                        <th data-column-id="date">Date</th>
+                        <th data-column-id="dealerName">Dealer Name</th>
+                        <th data-column-id="totalcarats">Total Carats</th>
+                        <th data-column-id="totalpcs">Total Picies</th>
+                        <th data-column-id="amountINR">Amount INR</th>
+                        <th data-column-id="amountDOLLAR">Amount DOLLAR</th>
+                        <th data-column-id="currencyConversion">Currency Conversion Rate</th>
+                        <th data-column-id="notes">Notes</th>
+                        <th data-column-id="country">Country</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let m of salesreturn">
+                        <td>{{m.PCS_ID}}</td>
+                        <td>{{m.invoice_number}}</td>
+                        <td>{{m.purchase_date}}</td>
+                        <td>{{m.account_name}}</td>
+                        <td>{{m.total_diamond_carat}}</td>
+                        <td>{{m.total_diamond_pcs}}</td>
+                        <td>{{m.sales_amount_INR}}</td>
+                        <td>{{m.sales_amount_dolar}}</td>
+                        <td>{{m.currency_convrsion_rate}}</td>
+                        <td>{{m.notes}}</td>
+                        <td>{{m.country}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
     </div>
 </div>
