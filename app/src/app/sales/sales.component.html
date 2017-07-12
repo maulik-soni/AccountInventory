@@ -464,7 +464,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName="currency_convrsion_rate" name = "currency_convrsion_rate">								
+								<input type="text" class="form-control fg-input" formControlName="currency_convrsion_rate" name = "currency_convrsion_rate" (blur)="setDolarRate()">
 							</div>
 						</div>
 					</div>
@@ -615,12 +615,12 @@
 					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.salesDetails.controls.length > 1" (click)="removeSalesDetails(i)"></span>
 				</div>
 				<div class="panel-body" [formGroupName]="i">
-					<app-sales-details [group]="myForm.controls.salesDetails.controls[i]"></app-sales-details>
+					<app-sales-details [group]="myForm.controls.salesDetails.controls[i]" (childEvent) = "parenFunction($event)"></app-sales-details>
 				</div>
 			</div>
           </div>
         </div>
-		<button (click)="addSalesDetails()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</button>
+		<a (click)="addSalesDetails()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Sale More Item</a>
 		<div class="card">
 			<div class="card-header">
 				<h2>Sales Revenue Details</h2>
@@ -719,15 +719,15 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Sales amount in INR</p>
-								<input type="text" class="form-control fg-input" formControlName="sales_amount_INR" name = "sales_amount_INR">
+								<input type="text" class="form-control fg-input" formControlName="sales_amount_INR" name = "sales_amount_INR" disabled = "true">
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<p class="form-label">Sales amount in INR</p>
-								<input type="text" class="form-control fg-input" formControlName="sales_amount_dolar"  name = "sales_amount_dolar">
+								<p class="form-label">Sales amount in DOLLAR</p>
+								<input type="text" class="form-control fg-input" formControlName="sales_amount_dolar"  name = "sales_amount_dolar" disabled = "true">
 							</div>
 						</div>
 					</div>
@@ -738,7 +738,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Freight</p>
-								<input type="text" class="form-control fg-input" formControlName="freight" name = "freight">
+								<input type="text" class="form-control fg-input" formControlName="freight" name = "freight" (blur) = "freightCALC()">
 							</div>
 						</div>
 					</div>
@@ -750,7 +750,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Amount Difference in INR</p>
-								<input type="text" class="form-control fg-input" formControlName="diff_amount_INR" name = "diff_amount_INR">
+								<input type="text" class="form-control fg-input" formControlName="diff_amount_INR" name = "diff_amount_INR" disabled = "true">
 							</div>
 						</div>
 					</div>
@@ -758,7 +758,7 @@
 						<div class="form-group ">
 							<div class="fg-line">
 								<p class="form-label">Amount Difference in DOLLAR</p>
-								<input type="text" class="form-control fg-input" formControlName="diff_amount_dolar"  name = "diff_amount_dolar">
+								<input type="text" class="form-control fg-input" formControlName="diff_amount_dolar"  name = "diff_amount_dolar" disabled = "true">
 							</div>
 						</div>
 					</div>
@@ -770,7 +770,7 @@
 					<div class="form-group ">
 						<div class="fg-line">
 						<p class="form-label">Purchase amount in INR</p>
-						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_INR"  name = "purchase_amount_INR">
+						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_INR"  name = "purchase_amount_INR" disabled = "true">
 						</div>
 					</div>
 					</div>
@@ -778,7 +778,7 @@
 					<div class="form-group ">
 						<div class="fg-line">
 						<p class="form-label">Purchase amount in DOLLAR</p>
-						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_dolar" name = "purchase_amount_dolar">
+						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_dolar" name = "purchase_amount_dolar" disabled = "true">
 						</div>
 					</div>
 					</div>

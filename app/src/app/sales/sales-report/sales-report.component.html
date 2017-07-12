@@ -23,7 +23,7 @@
             <div class="panel panel-collapse" *ngFor="let m of mydata">
                 <div role="tab" id="headingOne">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}
                         </a>
                     </h4>
                 </div>
@@ -35,7 +35,7 @@
                        Due Date : {{m.due_date}}<br>
                        Total Carats : {{m.total_diamond_carat}}<br>
                        Total Picies : {{m.total_diamond_pcs}}<br>
-                       Currency Conversion : {{m.currency_convrsion_rate}}<br>                     
+                       Currency Conversion : {{m.currency_convrsion_rate}}<br>
                        Country : {{m.country}}<br>
                        Notes : {{m.notes}}<br>-->
 
@@ -74,12 +74,15 @@
                                     </span>
                                 </div>
                                 <div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                    Pcs ID : {{m.PCS_ID}}
-                                    <span style="font-size:10px; float:left; width:100%;">
-                                    Total Carats : {{m.total_diamond_carat}}
-                                    Total Picies : {{m.total_diamond_pcs}}
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;" *ngIf="m.PCS_ID!=null">
+                                        Pcs ID : {{m.PCS_ID}}
+                                        <span style="font-size:10px; float:left; width:100%;">
+                                            Total Carats : {{m.total_diamond_carat}}
+                                            Total Picies : {{m.total_diamond_pcs}}
+                                        </span>
                                     </span>
+                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;" *ngIf="m.diamond_lot_number!=null">
+                                        Lot Number : {{m.diamond_lot_number}}
                                     </span>
                                     <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
                                     ₹{{m.sales_amount_INR}} (${{m.sales_amount_dolar}})

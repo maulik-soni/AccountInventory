@@ -44,20 +44,20 @@ export class SalesComponent implements OnInit {
             due_date:[''],
             country:[''],
             notes:[''],
-            payment_terms:[''],
+            payment_terms:0,
             account_name:[''],
             brokerName:[''],
             brokerType:[''],
             brokerage:[''],
-            comission1:[''],
-            comission2:[''],
-            purchase_amount_INR:[''],
-            purchase_amount_dolar:[''],
-            freight:[''],
-            sales_amount_INR:[''],
-            sales_amount_dolar:[''],
-            diff_amount_INR:[''],
-            diff_amount_dolar:[''],
+            comission1:0,
+            comission2:0,
+            purchase_amount_INR:0,
+            purchase_amount_dolar:0,
+            freight:0,
+            sales_amount_INR:0,
+            sales_amount_dolar:0,
+            diff_amount_INR:0,
+            diff_amount_dolar:0,
             salesDetails: this._fb.array([])
         });
     this.addSalesDetails();
@@ -76,26 +76,26 @@ export class SalesComponent implements OnInit {
       diamond_size: [''],
       diamond_color: [''],
       diamond_clarity: [''],
-      total_diamond_pcs: [''],
-      total_diamond_carat: [''],
-      cost_discount: [''],
-      cost_rate_per_carat:[''],
-      RAP_price: [''],
-      wd_rate: [''],
-      wd_rate_carat: [''],
-      rate_INR: [''],
-      amount_INR: [''],
-      rate_dolar: [''],
-      amount_dolar: [''],
+      total_diamond_pcs: 0,
+      total_diamond_carat: 0,
+      cost_discount: 0,
+      cost_rate_per_carat:0,
+      RAP_price: 0,
+      wd_rate: 0,
+      wd_rate_carat: 0,
+      rate_INR: 0,
+      amount_INR: 0,
+      rate_dolar: 0,
+      amount_dolar: 0,
       LAB_type: [''],
       certificate_number: [''],
-      avg_INR: [''],
-      avg_dolar: [''],
-      less1:[''],
-      less2:[''],
-      less3:[''],
-      sale_disc:[''],
-      sale_rate:[''],
+      avg_INR: 0,
+      avg_dolar: 0,
+      less1:0,
+      less2:0,
+      less3:0,
+      sale_disc:0,
+      sale_rate:0,
     });
   }
 
@@ -171,11 +171,65 @@ export class SalesComponent implements OnInit {
   private _disabledV:string = '0';
   private disabled:boolean = false;
   private disable:any = false;
-  
+  public dolar:any = this.ConstantService.DOLAR;
+
+  public TotalSalesAmount:any;
 
   newsales:any = {};
   newsalesdata:any = {};
   
+  setDolarRate(){
+    console.log(this.myForm.value.currency_convrsion_rate);
+    sessionStorage.setItem('dolarRate', this.myForm.value.currency_convrsion_rate);
+  }
+
+  public getDolarRate(){
+    var dolarR = this.dolar; 
+    if(sessionStorage.dolarRate != undefined){
+      dolarR = sessionStorage.dolarRate;
+    }
+    return dolarR;
+  }
+
+  public parenFunction(){
+    
+    var detailsArr = this.myForm.value.salesDetails;
+    var sumOfPurchaseAmountINR = 0;
+    var sumOfPurchaseAmountDOLAR = 0;
+
+    var SalesAmmountINR = 0;
+
+    for(var i=0; i<detailsArr.length;i++){
+      sumOfPurchaseAmountINR = sumOfPurchaseAmountINR+detailsArr[i].amount_INR;
+      sumOfPurchaseAmountDOLAR = sumOfPurchaseAmountDOLAR+detailsArr[i].amount_dolar;
+      SalesAmmountINR = SalesAmmountINR+(detailsArr[i].sale_rate*detailsArr[i].total_diamond_pcs);
+      console.log(detailsArr[i]);
+    }
+    console.log(SalesAmmountINR);
+    this.myForm.controls['purchase_amount_INR'].patchValue(sumOfPurchaseAmountINR.toFixed(2));
+    this.myForm.controls['purchase_amount_dolar'].patchValue(sumOfPurchaseAmountDOLAR.toFixed(2));
+    this.myForm.controls['sales_amount_dolar'].patchValue((SalesAmmountINR/this.getDolarRate()).toFixed(2));
+    this.myForm.controls['sales_amount_INR'].patchValue(SalesAmmountINR.toFixed(2));
+    this.TotalSalesAmount = SalesAmmountINR.toFixed(2);
+    this.myForm.controls['diff_amount_INR'].patchValue((SalesAmmountINR-sumOfPurchaseAmountINR).toFixed(2));
+    this.myForm.controls['diff_amount_dolar'].patchValue(((SalesAmmountINR/this.getDolarRate())-sumOfPurchaseAmountDOLAR).toFixed(2));
+  }
+
+  public freightCALC(){
+    var freight = parseFloat(this.myForm.value.freight);
+    var SalesAmmountINR = parseFloat(this.TotalSalesAmount)+freight;
+    console.log(freight,SalesAmmountINR);
+    if(freight != undefined && SalesAmmountINR != undefined){       
+      this.myForm.controls['sales_amount_dolar'].patchValue((SalesAmmountINR/this.getDolarRate()).toFixed(2));
+      this.myForm.controls['sales_amount_INR'].patchValue(SalesAmmountINR);
+      console.log(this.myForm.value.sales_amount_INR);
+    }
+    var SalesAmmountINR = parseFloat(this.myForm.value.sales_amount_INR);
+    var PurchaseAmountINR = parseFloat(this.myForm.value.purchase_amount_INR);
+    this.myForm.controls['diff_amount_INR'].patchValue((SalesAmmountINR-PurchaseAmountINR).toFixed(2));
+    this.myForm.controls['diff_amount_dolar'].patchValue(((SalesAmmountINR/this.getDolarRate())-(PurchaseAmountINR/this.getDolarRate())).toFixed(2));
+  }
+
   private get disabledV():string {
     return this._disabledV;
   }

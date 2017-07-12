@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { WebServicesService } from '../../services/web-services.service';
 import { ConstantServiceService } from '../../services/constant-services.service';
@@ -11,29 +11,50 @@ import { ConstantServiceService } from '../../services/constant-services.service
 })
 export class SalesDetailsComponent implements OnInit {
 
+  @Output() childEvent: EventEmitter<any> = new EventEmitter();
   @Input('group')
   public salesDetails:any = FormGroup;
   public searchResult = false;
   public piecetype = "singlestone";
   public searchPCS;
   public mypurchase;
+  public dolar:any = this.ConstantService.DOLAR;
+  public salesRATE:any;
 
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  public salesRate(status){
+    this.salesRATE = this.salesDetails.value.sale_rate; 
+    this.rateCALC(status);
   }
 
-  public rateCALC(){
-    if(this.salesDetails.value.less1 == undefined && this.salesDetails.value.less2 == undefined && this.salesDetails.value.less3 == undefined && this.salesDetails.value.sale_rate == undefined){
-      var rateINR = this.salesDetails.value.rate_INR-(this.salesDetails.value.rate_INR*(this.salesDetails.value.less1/100));
-      rateINR = rateINR-(rateINR*(this.salesDetails.value.less2/100));
-      rateINR = rateINR-(rateINR*(this.salesDetails.value.less3/100));
-      this.salesDetails.controls['sale_rate'].patchValue(rateINR.toFixed(2));
-      this.salesDetails.controls['sale_rate'].patchValue(parseInt(rateINR.toFixed(2))-parseInt(this.salesDetails.value.sale_disc));
+  public rateCALC(status){
+    console.log(this.salesDetails.value);
+    var sale_rate = this.salesRATE;
+    if(this.salesDetails.value.less1 != undefined && this.salesDetails.value.less2 != undefined && this.salesDetails.value.less3 != undefined && sale_rate != undefined){
+      sale_rate = sale_rate-(sale_rate*(parseFloat(this.salesDetails.value.less1)/100));
+      sale_rate = sale_rate-(sale_rate*(parseFloat(this.salesDetails.value.less2)/100));
+      sale_rate = sale_rate-(sale_rate*(parseFloat(this.salesDetails.value.less3)/100));
+      this.salesDetails.controls['sale_rate'].patchValue(sale_rate.toFixed(2));
     }
+    if(this.salesDetails.value.sale_disc != undefined && this.salesDetails.value.sale_rate != undefined && sale_rate != undefined ){
+      var discountOnSale = parseFloat(sale_rate)-(parseFloat(sale_rate)*(this.salesDetails.value.sale_disc/100));
+      this.salesDetails.controls['sale_rate'].patchValue(discountOnSale.toFixed(2));
+    }
+    this.childEvent.emit();
+  }
+
+  public getDolarRate(){
+    var dolarR = this.dolar; 
+    if(sessionStorage.dolarRate != undefined){
+      dolarR = sessionStorage.dolarRate;
+    }
+    return dolarR;
   }
 
   search(){
@@ -59,6 +80,8 @@ export class SalesDetailsComponent implements OnInit {
           delete this.mypurchase.comission;
           delete this.mypurchase.broker_details;
           delete this.mypurchase.less;
+          delete this.mypurchase.rate_INR;
+          delete this.mypurchase.rate_dolar;
           console.log(JSON.stringify(this.mypurchase));
 
           for (var key in this.mypurchase) {
@@ -72,6 +95,7 @@ export class SalesDetailsComponent implements OnInit {
 
           this.salesDetails._value = Object.assign(this.salesDetails._value,this.mypurchase)
           console.log(this.salesDetails);
+          this.childEvent.emit();
           // this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
           // this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
           // this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text;

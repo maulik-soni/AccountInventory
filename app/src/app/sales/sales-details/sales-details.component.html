@@ -104,7 +104,7 @@
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">LESS1</p>
-              <input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur) = "rateCALC()">
+              <input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur) = "rateCALC('less')">
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">LESS2</p>
-              <input type="text" class="form-control fg-input" formControlName = "less2" name = "less2" (blur) = "rateCALC()">
+              <input type="text" class="form-control fg-input" formControlName = "less2" name = "less2" (blur) = "rateCALC('less')">
             </div>
           </div>
         </div>
@@ -120,7 +120,7 @@
           <div class="form-group ">
             <div class="fg-line">
               <p class="form-label">LESS3</p>
-              <input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur) = "rateCALC()">
+              <input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur) = "rateCALC('less')">
             </div>
           </div>
         </div>
@@ -132,7 +132,7 @@
           <div class="form-group ">
             <div class="fg-line">
               <p class="form-label">Sales Rate</p>
-              <input type="text" class="form-control fg-input" formControlName = "sale_rate"  name = "sale_rate" (blur)="rateCALC()" (blur) = "rateCALC()">
+              <input type="text" class="form-control fg-input" formControlName = "sale_rate"  name = "sale_rate" (blur) = "salesRate('rate')">
             </div>
           </div>
         </div>
@@ -140,7 +140,7 @@
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Sales Discount</p>
-              <input type="text" class="form-control fg-input" formControlName = "sale_disc" name = "sale_disc" (blur) = "rateCALC()">
+              <input type="text" class="form-control fg-input" formControlName = "sale_disc" name = "sale_disc" (blur) = "rateCALC('discount')">
             </div>
           </div>
         </div>
