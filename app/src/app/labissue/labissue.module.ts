@@ -11,6 +11,7 @@ import { LabissueReportComponent } from './labissue-report/labissue-report.compo
 import { LabissueRoutingModule } from './labissue-rounting.module';
 import { MaterialModule,MdDatepickerModule,MdNativeDateModule } from '@angular/material';
 import { MdInputModule } from '@angular/material';
+import { LabissueReceivedReportComponent } from './labissue-received-report/labissue-received-report.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { MdInputModule } from '@angular/material';
   ],
   declarations: [
     LabissueEntryComponent,
-    LabissueReportComponent
+    LabissueReportComponent,
+    LabissueReceivedReportComponent
   ],
   exports: [
     CommonModule,

@@ -11,6 +11,10 @@ import { MemooutComponent } from './memoout/memoout.component';
 import { AuthGuard } from './../authorization/auth-guard.service';
 import { AdminGuard } from './../authorization/admin-role-guard.service';
 
+import { MemoinReturnReportComponent } from './memoin-return-report/memoin-return-report.component';
+import { MemoissueReturnReportComponent } from './memoissue-return-report/memoissue-return-report.component';
+
+
 const memoRoutes:Routes=[
   {
     path:'jangad',
@@ -29,8 +33,16 @@ const memoRoutes:Routes=[
         component: MemoinReportComponent
       },
       {
+        path:'jangad-in-return-report',
+        component: MemoinReturnReportComponent
+      },
+      {
         path:'jangad-issue-report',
         component: MemoissueReportComponent
+      },
+      {
+        path:'jangad-issue-return-report',
+        component: MemoissueReturnReportComponent
       },
     ]
   }

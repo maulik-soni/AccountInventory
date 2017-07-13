@@ -16,6 +16,8 @@ import { MemooutComponent } from './memoout/memoout.component';
 import { DataFilterPipe }   from './../filters/data-filter.pipe';
 import {MaterialModule,MdDatepickerModule,MdNativeDateModule} from '@angular/material';
 import { MdInputModule } from '@angular/material';
+import { MemoinReturnReportComponent } from './memoin-return-report/memoin-return-report.component';
+import { MemoissueReturnReportComponent } from './memoissue-return-report/memoissue-return-report.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { MdInputModule } from '@angular/material';
     MemoinReportComponent,
     MemoDetailsComponent,
     MemooutComponent,
-    DataFilterPipe
+    DataFilterPipe,
+    MemoinReturnReportComponent,
+    MemoissueReturnReportComponent
   ],
   exports: [
     CommonModule,

@@ -7,6 +7,7 @@ import { AdminGuard } from './../authorization/admin-role-guard.service';
 
 import { LabissueEntryComponent } from './labissue-entry/labissue-entry.component';
 import { LabissueReportComponent } from './labissue-report/labissue-report.component';
+import { LabissueReceivedReportComponent } from './labissue-received-report/labissue-received-report.component';
 
 const labissueRoutes:Routes=[
   {
@@ -20,6 +21,10 @@ const labissueRoutes:Routes=[
       {
         path:'labissue-report',
         component: LabissueReportComponent
+      },
+      {
+        path:'labissue-return-report',
+        component: LabissueReceivedReportComponent
       },      
     ]
   }

@@ -2,12 +2,12 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h2>Jangad Issue Reports</h2>
+            <h2>Jangad Issue Return Reports</h2>
         </div>
         
         <div class="card-body card-padding">
             
-            <div class="container-fluid">
+            <!--<div class="container-fluid">
                 <div class="col-xs-12">
                     
                     <div class="panel panel-default">
@@ -52,7 +52,7 @@
                                 <td>{{item.carats}}</td>
                                 <td>{{item.stone_type}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm waves-effect" (click)="memoissueReturn(item)">Retrun This Memo</button>
+                                    <button class="btn btn-primary btn-sm waves-effect" (click)="memoinReturn(item)">Retrun This Memo</button>
                                 </td>
                             </tr>
                             </tbody>
@@ -62,9 +62,9 @@
                     </div>
                 </div>
             </div>
+        -->
         
-        
-            <!--<div class="container-fluid">
+            <div class="container-fluid">
                 <div class="col-xs-12">
                     
                     <div class="panel panel-default">
@@ -73,38 +73,31 @@
                             <thead>
                             <tr>
                                 
-                                <th style="width: 20%">
+                                <th>
                                     Invoice Number
                                 </th>
-                                <th style="width: 20%">
+                                <th>
                                     Issue Date
                                 </th>
-                                <th style="width: 20%">
+                                <th>
                                     Due Date
                                 </th>
-                                <th style="width: 50%">
+                                <th>
                                     Client Name
                                 </th>
-                                <th style="width: 10%">
+                                <th>
                                     Pcs ID
                                 </th>
-                                <th style="width: 10%">
+                                <th>
                                     Carats
                                 </th>
-                                <th style="width: 20%">
+                                <th>
                                     Stone Type
-                                </th>
-
-                            </tr>
-                            <tr>
-                                <th colspan="5">
-                                    Filter by name:
-                                    <input class="form-control" [(ngModel)]="filterQuery"/>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let item of returned">
+                            <tr *ngFor="let item of received">
                                 
                                 <td>{{item.memo_invoice_number}}</td>
                                 <td>{{item.date}}</td>
@@ -120,7 +113,7 @@
                         </table>
                     </div>
                 </div>
-            </div>-->
+            </div>
 
         </div>
     </div>

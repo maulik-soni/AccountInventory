@@ -68,17 +68,17 @@ class salesConroller extends Controller
         $SR_pcsid = Request::all()[0];
         $sales = new \App\Sales;
         $sales_return = new \App\SalesReturn;
-        $SR_data = Sales::where(function($query) use($PR_pcsid){
-            $query->where('PCS_ID', '=', $PR_pcsid)
-                  ->orWhere('Lot_Number', '=', $PR_pcsid);
+        $SR_data = Sales::where(function($query) use($SR_pcsid){
+            $query->where('PCS_ID', '=', $SR_pcsid)
+                  ->orWhere('diamond_lot_number', '=', $SR_pcsid);
         })->first()->toArray();
-        foreach ($SR_data[0] as $fields => $value) {
-            $sales_return->$fields = $SR_data[0][$fields];
+        foreach ($SR_data as $fields => $value) {
+            $sales_return->$fields = $SR_data[$fields];
         }
         $sales_return->save();
-        Sales::where(function($query) use($PR_pcsid){
-            $query->where('PCS_ID', '=', $PR_pcsid)
-                  ->orWhere('Lot_Number', '=', $PR_pcsid);
+        Sales::where(function($query) use($SR_pcsid){
+            $query->where('PCS_ID', '=', $SR_pcsid)
+                  ->orWhere('diamond_lot_number', '=', $SR_pcsid);
         })->first()->delete();
     }
 

@@ -3,20 +3,18 @@
   <div class="container">
     <div class="block-header">
         <h2>Lab Issue Report</h2>
-
-       
     </div>
 
-    <div class="card">
+    <!--<div class="card">
         <div class="card-header">
             <h2>Lab Issue <small>Total Lab issue by your Company.</small></h2>
         </div>
         
-        <!--<div class="panel-group" role="tablist" aria-multiselectable="true">
+        <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-collapse" *ngFor="let m of issued">
                 <div role="tab" id="headingOne">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
                         </a>
                     </h4>
                 </div>
@@ -77,8 +75,15 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
+    </div>-->
+
+     <div class="card">
+        <div class="card-header">
+            <h2>Lab Issue Received<small>Total Lab Issue Received by your Company.</small></h2>
+        </div>
+        
         <div class="table-responsive">
             <table id="data-table-selection" class="table table-striped">
                 <thead>
@@ -88,36 +93,27 @@
                         <th data-column-id="date">Date</th>
                         <th data-column-id="totalpcs">Carat</th>
                         <th data-column-id="color">Color</th>
-                        <th data-column-id="shape">Shape</th>
+                        <th data-column-id="shape">Shape</th>                        
                         <th data-column-id="clarity">Clarity</th>
-                        <th data-column-id="amount">Amount</th>
-                        <th data-column-id="Lab issue Recieved">Lab isssue Received</th>
+                        <th data-column-id="amount">Amount</th>                        
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let m of issued">
+                    <tr *ngFor="let m of received">
                         <td>{{m.PCS_ID}}</td>
                         <td>{{m.invoice_number}}</td>
                         <td>{{m.date}}</td>
                         <td>{{m.carat}}</td>
                         <td>{{m.color}}</td>
-                        <td>{{m.shape}}</td>                        
+                        <td>{{m.shape}}</td>
                         <td>{{m.clarity}}</td>
-                        <td>{{m.amount}}</td>
-                        <td><button class="btn btn-primary btn-sm waves-effect" (click)="labissuereceived(m)">Lab issue Received</button></td> 
+                        <td>{{m.amount}}</td>                        
                     </tr>
                 </tbody>
             </table>
         </div>
 
-    </div>
-
-     <!--<div class="card">
-        <div class="card-header">
-            <h2>Lab Issue Received<small>Total Lab Issue Received by your Company.</small></h2>
-        </div>
-        
-        <div class="panel-group" role="tablist" aria-multiselectable="true">
+        <!--<div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-collapse" *ngFor="let m of received">
                 <div role="tab" id="headingOne">
                     <h4 class="panel-title">
@@ -187,9 +183,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
-    </div>    -->
+    </div>    
     
 </div>
 
