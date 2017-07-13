@@ -1,0 +1,121 @@
+<dashboard>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Jangad Issue Return Reports</h2>
+        </div>
+        
+        <div class="card-body card-padding">
+            
+            <!--<div class="container-fluid">
+                <div class="col-xs-12">
+                    
+                    <div class="panel panel-default">
+                        
+                        <table class="table table-striped" >
+                            <thead>
+                            <tr>
+                                <th>
+                                    Invoice Number
+                                </th>
+                                <th>
+                                    Issue Date
+                                </th>
+                                <th>
+                                    Due Date
+                                </th>
+                                <th>
+                                    Client Name
+                                </th>
+                                <th>
+                                    Pcs ID
+                                </th>
+                                <th>
+                                    Carats
+                                </th>
+                                <th>
+                                    Stone Type
+                                </th>
+                                <th>
+                                    Jangad Issue return
+                                </th>
+                            </tr>                                        
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of issued">
+                                
+                                <td>{{item.memo_invoice_number}}</td>
+                                <td>{{item.date}}</td>
+                                <td>{{item.due_date}}</td>
+                                <td>{{item.account_name}}</td>
+                                <td>{{item.PCS_ID}}</td>
+                                <td>{{item.carats}}</td>
+                                <td>{{item.stone_type}}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm waves-effect" (click)="memoinReturn(item)">Retrun This Memo</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        -->
+        
+            <div class="container-fluid">
+                <div class="col-xs-12">
+                    
+                    <div class="panel panel-default">
+
+                        <table class="table table-striped" >
+                            <thead>
+                            <tr>
+                                
+                                <th>
+                                    Invoice Number
+                                </th>
+                                <th>
+                                    Issue Date
+                                </th>
+                                <th>
+                                    Due Date
+                                </th>
+                                <th>
+                                    Client Name
+                                </th>
+                                <th>
+                                    Pcs ID
+                                </th>
+                                <th>
+                                    Carats
+                                </th>
+                                <th>
+                                    Stone Type
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of received">
+                                
+                                <td>{{item.memo_invoice_number}}</td>
+                                <td>{{item.date}}</td>
+                                <td>{{item.due_date}}</td>
+                                <td>{{item.account_name}}</td>
+                                <td>{{item.PCS_ID}}</td>
+                                <td>{{item.carats}}</td>
+                                <td>{{item.stone_type}}</td>
+                            </tr>
+                            </tbody>
+                            <tfoot>                                        
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</dashboard>

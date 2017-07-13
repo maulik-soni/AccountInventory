@@ -1,0 +1,123 @@
+<dashboard>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h2>Jangad In Return Reports</h2>
+        </div>
+        
+        <div class="card-body card-padding">            
+                    <!--<h2>Memo In <small>Total Memo issued by your Company.</small></h2>
+                        <div class="container-fluid">
+                            <div class="col-xs-12">
+                                
+                                <div class="panel panel-default">
+                                    
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th style="width: 10%"></th>
+                                            <th style="width: 20%">
+                                                Invoice Number
+                                            </th>
+                                            <th style="width: 20%">
+                                                Issue Date
+                                            </th>
+                                            <th style="width: 20%">
+                                                Due Date
+                                            </th>
+                                            <th style="width: 50%">
+                                                Client Name
+                                            </th>
+                                            <th style="width: 10%">
+                                                Pcs ID
+                                            </th>
+                                            <th style="width: 10%">
+                                                Carats
+                                            </th>
+                                            <th style="width: 20%">
+                                                Stone Type
+                                            </th>
+                                            <th style="width: 10%"></th>
+                                        </tr>                                        
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let item of issued">
+                                            
+                                            <td>{{item.memo_invoice_number}}</td>
+                                            <td>{{item.date}}</td>
+                                            <td>{{item.due_date}}</td>
+                                            <td>{{item.account_name}}</td>
+                                            <td>{{item.PCS_ID}}</td>
+                                            <td>{{item.carats}}</td>
+                                            <td>{{item.stone_type}}</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm waves-effect" (click)="memoinReturn(item)">Retrun This Memo</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>                                        
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>-->                        
+                        <div class="container-fluid">
+                            <div class="col-xs-12">
+                                
+                                <div class="panel panel-default">
+
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            
+                                            <th style="width: 20%">
+                                                Invoice Number
+                                            </th>
+                                            <th style="width: 20%">
+                                                Issue Date
+                                            </th>
+                                            <th style="width: 20%">
+                                                Due Date
+                                            </th>
+                                            <th style="width: 50%">
+                                                Client Name
+                                            </th>
+                                            <th style="width: 10%">
+                                                Pcs ID
+                                            </th>
+                                            <th style="width: 10%">
+                                                Carats
+                                            </th>
+                                            <th style="width: 20%">
+                                                Stone Type
+                                            </th>
+
+                                        </tr>                                        
+                                        </thead>
+                                        <tbody>
+                                        <tr *ngFor="let item of returned">
+                                            
+                                            <td>{{item.memo_invoice_number}}</td>
+                                            <td>{{item.date}}</td>
+                                            <td>{{item.due_date}}</td>
+                                            <td>{{item.account_name}}</td>
+                                            <td>{{item.PCS_ID}}</td>
+                                            <td>{{item.carats}}</td>
+                                            <td>{{item.stone_type}}</td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="5">                                                
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    
+        </div>
+    </div>
+</div>
+</dashboard>
