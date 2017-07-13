@@ -1,276 +1,98 @@
-<!--<dashboard>
-
-  <div class="container">
-    <div class="block-header">
-        <h2>Memo Issue Report</h2>       
-    </div>
-
+<dashboard>
+<div class="container">
     <div class="card">
         <div class="card-header">
-            <h2>Memo Issue <small>Total Memo issued by your Company.</small></h2>
-        </div>
-       
-        <div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-collapse" *ngFor="let m of issued">
-                <div role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.memo_invoice_number}}                            
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                       
-
-                        <div class="col-sm-12" style= "height:auto;color:#666;">
-                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                <div style="width:30%; float:left;padding:10px;">
-                                    <span style="font-size:14px;float:left; width:100%;">
-                                    <b>Client Name :</b> {{m.account_name}}
-                                    </span>
-                                    <span style="font-size:14px;float:left; width:100%;">
-                                    <b>Broker Name :</b> {{m.broker}}
-                                    </span>
-                                   
-                                </div>
-                                <div style="width:40%; float:right;padding:">
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Issue Date : </b>{{m.date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Invoice# : </b>{{m.memo_invoice_number}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="width:100%; padding:0px; float:left;">
-                                <div style="width:100%;float:left;background:#efefef;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                    Decription
-                                    </span>
-                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    Amount
-                                    </span>
-                                </div>
-                                <div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                    Pcs ID : {{m.PCS_ID}}
-                                    <span style="font-size:10px; float:left; width:100%;">
-                                    Carats : {{m.carats}}
-                                    <br>
-                                    Picies : {{m.pending_pcs}}
-                                    <br>
-                                    Stone Type : {{m.stone_type}}
-                                    </span>
-                                    </span>
-                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    ₹{{m.amount}}
-                                    </span>
-                                </div>
-                                
-                                <div style="width:100%;float:left; background:#fff;">
-                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                    Total : ₹{{m.amount}}
-                                    </span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-sm waves-effect" (click)="memoissueReturn(m)">Memo Received</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-     <div class="card">
-        <div class="card-header">
-            <h2>Memo Received <small>Total Memo Received by your Company.</small></h2>
+            <h2>Jangad Issue Reports</h2>
         </div>
         
-        <div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-collapse" *ngFor="let m of received">
-                <div role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.memo_invoice_number}}                            
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                      
-
-                        <div class="col-sm-12" style= "height:auto;color:#666;">
-                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                <div style="width:30%; float:left;padding:10px;">
-                                    <span style="font-size:14px;float:left; width:100%;">
-                                    <b>Client Name :</b> {{m.account_name}}
-                                    </span>
-                                    <span style="font-size:14px;float:left; width:100%;">
-                                    <b>Broker Name :</b> {{m.broker}}
-                                    </span>
-                                    
-                                </div>
-                                <div style="width:40%; float:right;padding:">
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Return Date : </b>{{m.return_date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Issue Date : </b>{{m.date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Invoice# : </b>{{m.memo_invoice_number}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="width:100%; padding:0px; float:left;">
-                                <div style="width:100%;float:left;background:#efefef;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                    Decription
-                                    </span>
-                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    Amount
-                                    </span>
-                                </div>
-                                <div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                    Pcs ID : {{m.PCS_ID}}
-                                    <span style="font-size:10px; float:left; width:100%;">
-                                    Carats : {{m.carats}}
-                                    <br>
-                                    Picies : {{m.pending_pcs}}
-                                    <br>
-                                    Stone Type : {{m.stone_type}}
-                                    </span>
-                                    </span>
-                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    ₹{{m.amount}}
-                                    </span>
-                                </div>
-                                
-                                <div style="width:100%;float:left; background:#fff;">
-                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                    Total : ₹{{m.amount}}
-                                    </span>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-</dashboard>-->
-
-<dashboard>
-
-    <!--<div class="container">
-        <div class="block-header"><h2>Memo in Report</h2></div>
-
-        <div class="card">
-            <div class="card-header">
-                <h2>Memo In <small>Total Memo issued by your Company.</small></h2>
-            </div>
-            <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-collapse" *ngFor="let m of issued">
-                    <div role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.memo_invoice_number}}
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <div class="col-sm-12" style= "height:auto;color:#666;">
-                                <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                    <div style="width:30%; float:left;padding:10px;">
-                                        <span style="font-size:14px;float:left; width:100%;">
-                                        <b>Client Name :</b> {{m.account_name}}
-                                        </span>
-                                        <span style="font-size:14px;float:left; width:100%;">
-                                        <b>Broker Name :</b> {{m.broker}}
-                                        </span>
-                                    </div>
-                                    <div style="width:40%; float:right;padding:">
-                                        <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                        <b>Issue Date : </b>{{m.date}}
-                                        </span>
-                                        <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                        <b>Invoice# : </b>{{m.memo_invoice_number}}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div style="width:100%; padding:0px; float:left;">
-                                    <div style="width:100%;float:left;background:#efefef;">
-                                        <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                        Decription
-                                        </span>
-                                        <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                        Amount
-                                        </span>
-                                    </div>
-                                    <div style="width:100%;float:left;">
-                                        <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                        Pcs ID : {{m.PCS_ID}}
-                                        <span style="font-size:10px; float:left; width:100%;">
-                                        Carats : {{m.carats}}
-                                        <br>
-                                        Picies : {{m.pending_pcs}}
-                                        <br>
-                                        Stone Type : {{m.stone_type}}
-                                        </span>
-                                        </span>
-                                        <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                        ₹{{m.amount}}
-                                        </span>
-                                    </div>                            
-                                    <div style="width:100%;float:left; background:#fff;">
-                                        <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                        Total : ₹{{m.amount}}
-                                        </span>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary btn-sm waves-effect" (click)="memoinReturn(m)">Retrun This Memo</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="card-body card-padding">
+            
             <div class="container-fluid">
                 <div class="col-xs-12">
                     
                     <div class="panel panel-default">
-                        <div class="panel-heading">User information</div>
-
-                        <table class="table table-striped" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
-                            [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                        
+                        <table class="table table-striped" >
                             <thead>
                             <tr>
-                                <th style="width: 10%"></th>
+                                <th>
+                                    Invoice Number
+                                </th>
+                                <th>
+                                    Issue Date
+                                </th>
+                                <th>
+                                    Due Date
+                                </th>
+                                <th>
+                                    Client Name
+                                </th>
+                                <th>
+                                    Pcs ID
+                                </th>
+                                <th>
+                                    Carats
+                                </th>
+                                <th>
+                                    Stone Type
+                                </th>
+                                <th>
+                                    Jangad Issue return
+                                </th>
+                            </tr>                                        
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of issued">
+                                
+                                <td>{{item.memo_invoice_number}}</td>
+                                <td>{{item.date}}</td>
+                                <td>{{item.due_date}}</td>
+                                <td>{{item.account_name}}</td>
+                                <td>{{item.PCS_ID}}</td>
+                                <td>{{item.carats}}</td>
+                                <td>{{item.stone_type}}</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm waves-effect" (click)="memoissueReturn(item)">Retrun This Memo</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        
+        
+            <!--<div class="container-fluid">
+                <div class="col-xs-12">
+                    
+                    <div class="panel panel-default">
+
+                        <table class="table table-striped" >
+                            <thead>
+                            <tr>
+                                
                                 <th style="width: 20%">
-                                    <mfDefaultSorter by="name">Invoice Number</mfDefaultSorter>
+                                    Invoice Number
                                 </th>
                                 <th style="width: 20%">
-                                    <mfDefaultSorter by="email">Issue Date</mfDefaultSorter>
+                                    Issue Date
                                 </th>
                                 <th style="width: 20%">
-                                    <mfDefaultSorter by="email">Due Date</mfDefaultSorter>
+                                    Due Date
                                 </th>
                                 <th style="width: 50%">
-                                    <mfDefaultSorter by="age">Client Name</mfDefaultSorter>
+                                    Client Name
                                 </th>
                                 <th style="width: 10%">
-                                    <mfDefaultSorter by="age">Pcs ID</mfDefaultSorter>
+                                    Pcs ID
                                 </th>
                                 <th style="width: 10%">
-                                    <mfDefaultSorter by="age">Carats</mfDefaultSorter>
+                                    Carats
                                 </th>
-                            
                                 <th style="width: 20%">
-                                    <mfDefaultSorter [by]="sortByWordLength">Stone Type</mfDefaultSorter>
+                                    Stone Type
                                 </th>
 
                             </tr>
@@ -282,10 +104,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let item of issued">
-                                <td>
-                                    <button (click)="remove(item)" class="btn btn-danger">x</button>
-                                </td>
+                            <tr *ngFor="let item of returned">
+                                
                                 <td>{{item.memo_invoice_number}}</td>
                                 <td>{{item.date}}</td>
                                 <td>{{item.due_date}}</td>
@@ -295,255 +115,13 @@
                                 <td>{{item.stone_type}}</td>
                             </tr>
                             </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="5">
-                                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>
-                                </td>
-                            </tr>
+                            <tfoot>                                        
                             </tfoot>
                         </table>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header">
-                <h2>Memo Return <small>Total Memo returned by your Company.</small></h2>
-            </div>
-            <div id="data-table-command-header" class="bootgrid-header container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 actionBar">
-                        <div class="search form-group">
-                            <div class="input-group"><span class="zmdi icon input-group-addon glyphicon-search"></span> <input type="text" class="search-field form-control"
-                                    placeholder="Search"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-group" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-collapse" *ngFor="let m of returned">
-                    <div role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.memo_invoice_number}}                            
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <div class="col-sm-12" style= "height:auto;color:#666;">
-                                <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                    <div style="width:30%; float:left;padding:10px;">
-                                        <span style="font-size:14px;float:left; width:100%;">
-                                        <b>Client Name :</b> {{m.account_name}}
-                                        </span>
-                                        <span style="font-size:14px;float:left; width:100%;">
-                                        <b>Broker Name :</b> {{m.broker}}
-                                        </span>                                
-                                    </div>
-                                    <div style="width:40%; float:right;padding:">
-                                        <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                        <b>Return Date : </b>{{m.return_date}}
-                                        </span>
-                                        <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                        <b>Issue Date : </b>{{m.date}}
-                                        </span>
-                                        <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                        <b>Invoice# : </b>{{m.memo_invoice_number}}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div style="width:100%; padding:0px; float:left;">
-                                    <div style="width:100%;float:left;background:#efefef;">
-                                        <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                        Decription
-                                        </span>
-                                        <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                        Amount
-                                        </span>
-                                    </div>
-                                    <div style="width:100%;float:left;">
-                                        <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                        Pcs ID : {{m.PCS_ID}}
-                                        <span style="font-size:10px; float:left; width:100%;">
-                                        Carats : {{m.carats}}
-                                        <br>
-                                        Picies : {{m.pending_pcs}}
-                                        <br>
-                                        Stone Type : {{m.stone_type}}
-                                        </span>
-                                        </span>
-                                        <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                        ₹{{m.amount}}
-                                        </span>
-                                    </div>
-                                    <div style="width:100%;float:left; background:#fff;">
-                                        <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                        Total : ₹{{m.amount}}
-                                        </span>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div>-->
 
-    
-        </div>
-    </div>-->
-<div class="container">
-    <div class="card">
-        <div class="card-header">
-            <h2>Memo Reports</h2>
-        </div>
-        
-        <div class="card-body card-padding">
-            <div class="form-wizard-basic fw-container">
-                <ul class="tab-nav text-center">
-                    <li><a href="#tab1" data-toggle="tab" class="active">Memo In Report</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Memo In Return Report</a></li>
-                </ul>
-                
-                <div class="tab-content">
-                    <div class="tab-pane fade active in" id="tab1">                                        
-                        <h2>Memo In <small>Total Memo issued by your Company.</small></h2>
-                        <div class="container-fluid">
-                            <div class="col-xs-12">
-                                
-                                <div class="panel panel-default">
-                                    
-                                    <table class="table table-striped" >
-                                        <thead>
-                                        <tr>
-                                            <!--<th style="width: 10%"></th>-->
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter by="name">Invoice Number</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter by="email">Issue Date</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter by="email">Due Date</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 50%">
-                                                <!--<mfDefaultSorter by="age">Client Name</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 10%">
-                                                <!--<mfDefaultSorter by="age">Pcs ID</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 10%">
-                                                <!--<mfDefaultSorter by="age">Carats</mfDefaultSorter>-->
-                                            </th>                                    
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter [by]="sortByWordLength">Stone Type</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 10%"></th>
-                                        </tr>
-                                        <tr>
-                                            <th colspan="5">
-                                                <!--Filter by name:
-                                                <input class="form-control" [(ngModel)]="filterQuery"/>-->
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr *ngFor="let item of issued">
-                                            
-                                            <td>{{item.memo_invoice_number}}</td>
-                                            <td>{{item.date}}</td>
-                                            <td>{{item.due_date}}</td>
-                                            <td>{{item.account_name}}</td>
-                                            <td>{{item.PCS_ID}}</td>
-                                            <td>{{item.carats}}</td>
-                                            <td>{{item.stone_type}}</td>
-                                            <td>
-                                                <button class="btn btn-primary btn-sm waves-effect" (click)="memoinReturn(item)">Retrun This Memo</button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="5">
-                                                <!--<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>-->
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-pane fade" id="tab2">
-                        <h2>Memo In Return <small>Total Memo In returned by your Company.</small></h2>
-                        <div class="container-fluid">
-                            <div class="col-xs-12">
-                                
-                                <div class="panel panel-default">
-
-                                    <table class="table table-striped" >
-                                        <thead>
-                                        <tr>
-                                            
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter by="name">Invoice Number</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter by="email">Issue Date</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter by="email">Due Date</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 50%">
-                                                <!--<mfDefaultSorter by="age">Client Name</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 10%">
-                                                <!--<mfDefaultSorter by="age">Pcs ID</mfDefaultSorter>-->
-                                            </th>
-                                            <th style="width: 10%">
-                                                <!--<mfDefaultSorter by="age">Carats</mfDefaultSorter>-->
-                                            </th>
-                                        
-                                            <th style="width: 20%">
-                                                <!--<mfDefaultSorter [by]="sortByWordLength">Stone Type</mfDefaultSorter>-->
-                                            </th>
-
-                                        </tr>
-                                        <tr>
-                                            <th colspan="5">
-                                                Filter by name:
-                                                <input class="form-control" [(ngModel)]="filterQuery"/>
-                                            </th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr *ngFor="let item of returned">
-                                            
-                                            <td>{{item.memo_invoice_number}}</td>
-                                            <td>{{item.date}}</td>
-                                            <td>{{item.due_date}}</td>
-                                            <td>{{item.account_name}}</td>
-                                            <td>{{item.PCS_ID}}</td>
-                                            <td>{{item.carats}}</td>
-                                            <td>{{item.stone_type}}</td>
-                                        </tr>
-                                        </tbody>
-                                        <tfoot>
-                                        <tr>
-                                            <td colspan="5">
-                                                <!--<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>-->
-                                            </td>
-                                        </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
         </div>
     </div>
 </div>
