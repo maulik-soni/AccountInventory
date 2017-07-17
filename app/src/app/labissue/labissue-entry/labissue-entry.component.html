@@ -135,15 +135,7 @@
 			</div>
 
 			<div class="card-body card-padding">
-				<div class="row">
-					<div class="col-sm-4">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Invoice Number</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.invoice_number" name = "invoice_number" >
-							</div>
-						</div>
-					</div>
+				<div class="row">					
           <div class="col-sm-4">
             <p class="form-label">Lab Issue Date</p>
             <!--<material-datepicker ></material-datepicker>-->					
@@ -154,33 +146,43 @@
 							</md-input-container>
 							<md-datepicker #picker></md-datepicker>	
 						</span>
-          </div>
+					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
-								<p class="form-label">Client's Reference Number</p>
-								<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.client_ref_num" name="client_ref_num">
+								<p class="form-label">Service</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.service" name = "service" >
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Diamond's Height</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.height" name = "height" >
 							</div>
 						</div>
 					</div>
 				</div>
         <div class="row">
-          <div class="col-sm-4">
-              <div class="form-group">
-                <div class="fg-line">
-                  <p class="form-label">Service</p>
-                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.service" name = "service" >
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="fg-line">
-                  <p class="form-label">Diamond's Height</p>
-                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.height" name = "height" >
-                </div>
-              </div>
-            </div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<div class="fg-line">
+									<p class="form-label">Lab Type</p>
+									<!-- <input type="text" class="form-control fg-input" formControlName = "LAB_type" name="LAB_type"> -->							
+									<ng-select [allowClear]="true"
+										[items]="lab_type"
+										[disabled]="disabled"
+										(data)="refreshValue($event)"
+										(selected)="selected($event,'LAB_type')"
+										(removed)="removed($event)"
+										(typed)="typed($event)"
+										[(ngModel)] = "newlabissue.LAB_type"
+										placeholder="No Lab Type selected" name = "stock_status_group"  [ngModelOptions]="{standalone: true}">
+									</ng-select>
+								</div>
+							</div>
+						</div>
             <div class="col-sm-4">
               <div class="form-group">
                 <div class="fg-line">
@@ -188,19 +190,8 @@
                   <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.diameter" name = "diameter" >
                 </div>
               </div>
-            </div>
-          </div>
-          <div class = "row">
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="fg-line">
-                  <p class="form-label">Rate</p>
-                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.rate" name = "Rate" >
-                </div>
-              </div>
-            </div>
-
-            <div class = "col-sm-4">
+						</div>
+						<div class = "col-sm-4">
               <div class="form-group">
                 <div class="fg-line">
                   <p class="form-label">Amount</p>
@@ -209,6 +200,7 @@
               </div>
             </div>
           </div>
+
           <button class="btn btn-success btn-lg waves-effect" type="submit" (click) = "onSubmit()"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
 			</div>
 		</div>

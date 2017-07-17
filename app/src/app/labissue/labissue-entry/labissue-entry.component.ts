@@ -28,6 +28,7 @@ export class LabissueEntryComponent implements OnInit {
   public invoice:any = this.ConstantService.INVOICE;
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public names:Array<string> = this.ConstantService.NAMES;
+  public lab_type:any = this.ConstantService.LAB_TYPE;
   public piecetype =  'singlestone';
 
   private value:any = {};
@@ -103,9 +104,12 @@ export class LabissueEntryComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.newlabissue);
-    // this.newlabissue.date = this._webservice.dateConversion(this.newlabissue.date);
-    this._webservice.createlabissue(this.newlabissue);
+    console.log(JSON.parse(JSON.stringify(this.newlabissue.LAB_type))[0].text);
+    this.newlabissue.date = this.dateConversion(this.newlabissue.date);
+    var newLabissueData = JSON.parse(JSON.stringify(this.newlabissue));
+    newLabissueData.LAB_type = JSON.parse(JSON.stringify(this.newlabissue.LAB_type))[0].text;
+    
+    this._webservice.createlabissue(newLabissueData);
   }
 
   dateConversion(date){
