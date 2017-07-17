@@ -15,6 +15,7 @@ export class ConstantServiceService {
   TAXES:any;
   DOLAR:any;
   INVOICE:any;
+  LAB_TYPE:any;
 
   constructor() {
     this.BROKERTYPES = ["Flat","Direct","Slab"];
@@ -35,12 +36,13 @@ export class ConstantServiceService {
 
     this.SIZES = ["S","L","ES","EL","M"];
 
-    this.TAXES = ["mVAT","CST"];
+    this.TAXES = ["GST"];
 
     this.DOLAR = 65;
 
     this.INVOICE = "INVOICE-"+Math.ceil(Math.random()*10000);
 
+    this.LAB_TYPE = ["GIA","IGI","HRDA"];
 
   }
 

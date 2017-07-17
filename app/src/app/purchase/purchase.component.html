@@ -726,7 +726,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Due Date</p>
-								<input type="text" class="form-control fg-input"  formControlName ="due_date" disabled="true">
+								<input type="text" class="form-control fg-input"  formControlName ="due_date" [readonly]="true">
 							</div>
 						</div>
 					</div>
@@ -759,12 +759,12 @@
 		</div>
 		<div class="card">
 			<div class="card-header">
-				<h2>Dealer and Broker Details</h2>
+				<h2>Party Details</h2>
 			</div>
 			<div class="card-body card-padding">
 				<div class="row">
 					<div class="col-sm-12">
-						<p class="form-label m-b-10">Dealer Name</p>
+						<p class="form-label m-b-10">Party Name</p>
 						<ng-select [allowClear]="true"
 							[items]="names"
 							[disabled]="disabled"
@@ -773,12 +773,87 @@
 							(removed)="removed($event)"
 							(typed)="typed($event)"
 							[(ngModel)] = "newpurchase.account_name"
-							placeholder="Select Dealer's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
+							placeholder="Select Party's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm-4 m-t-15">
+			</div>
+		</div>
+        <!--addresses-->
+		
+        <div formArrayName="piecesTypes">
+          	<div *ngFor="let piecesType of myForm.controls.piecesTypes.controls; let i=index">
+            
+			<div class="card">
+				<div class="card-header ch-alt">
+					<h2 style="display: inline-block">Purchase Item {{i + 1}}</h2>
+					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.piecesTypes.controls.length > 1" (click)="removePiece(i)"></span>
+				</div>
+				<div [formGroupName]="i">
+					<app-pieces-type [mygroup]="myForm.controls.piecesTypes.controls[i]" (childEvent) = "parenFunction($event)"></app-pieces-type>
+				<!--<address></address>-->
+				</div>
+			</div>
+
+          	</div>
+        </div>
+
+		<a (click)="AddpiecesType()" class="btn btn-success btn-md m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add New Purchase Item</a>
+
+
+		<div class="card">
+			<div class="card-header">
+				<h2>Purchase Revenue Details</h2>
+			</div>
+
+			<div class="card-body card-padding">
+				
+
+				<div class="row m-t-15">
+					<p class="col-sm-12 c-black f-500">Average</p>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Average in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName = "avg_INR" name = "avg_INR" disabled = "true">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Average in USD($)</p>
+								<input type="text" class="form-control fg-input" formControlName = "avg_dolar" name = "avg_dolar" disabled = "true">
+								<label class="fg-label"></label>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row m-t-15">
+					<p class="col-sm-12 c-black f-500">Amount</p>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Amount in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName = "amount_INR" name = "amount_INR" disabled = "true">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-5">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Amount in USD($)</p>
+								<input type="text" class="form-control fg-input" formControlName = "amount_dolar" name = "amount_dolar" disabled = "true">
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="row m-t-15">
+					<div class="col-sm-4">
 						<p class="form-label m-b-10">Broker Type</p>
 						<ng-select [allowClear]="true"
 							[items]="brokertypes"
@@ -808,14 +883,14 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Brokerage in %</p>
-								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage" (disabled)="disable == 'Direct'">
+								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage" [readonly]="disable == 'Direct'">
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-4 m-t-15">
-						<label class="checkbox checkbox-inline m-r-20">						
+					<div class="col-sm-4 m-t-20">
+						<label class="checkbox checkbox-inline m-r-20">
 							<input type="checkbox" value="comissionCheck" [(ngModel)] = "comissionCheck" name = "comissionCheck" (change)="checkComission()" [ngModelOptions]="{standalone: true}">
 							<i class="input-helper"></i>
 							<b>Comission</b>
@@ -823,99 +898,26 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-4 m-t-20">
 						<div class="form-group">
 							<div class="fg-line">
-								<p class="form-label">Aggent Comission1 in %</p>
-								<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2" [disabled] = "!comissionCheck">
+								<p class="form-label">Aggent Comission 1 in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2" [readonly] = "!comissionCheck">
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-4 m-t-20">
 						<div class="form-group">
 							<div class="fg-line">
-								<p class="form-label">Aggent Comission2 in %</p>
-								<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2" [disabled] = "!comissionCheck">
+								<p class="form-label">Aggent Comission 2 in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2" [readonly] = "!comissionCheck">
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-        <!--addresses-->
-		
-        <div formArrayName="piecesTypes">
-          	<div *ngFor="let piecesType of myForm.controls.piecesTypes.controls; let i=index">
-            
-			<div class="card">
-				<div class="card-header">
-					<h2 style="display: inline-block">Purchase Item {{i + 1}}</h2>
-					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.piecesTypes.controls.length > 1" (click)="removePiece(i)"></span>
-				</div>
-				<div [formGroupName]="i">
-					<app-pieces-type [mygroup]="myForm.controls.piecesTypes.controls[i]" (childEvent) = "parenFunction($event)"></app-pieces-type>
-				<!--<address></address>-->
-				</div>
-			</div>
-
-          	</div>
-        </div>
-
-		<a (click)="AddpiecesType()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Purchase Item</a>
-
-
-		<div class="card">
-			<div class="card-header">
-				<h2>Purchase Revenue Details</h2>
-			</div>
-
-			<div class="card-body card-padding">
-				
-
-				<div class="row m-t-25">
-					<p class="col-sm-12 c-black f-500">Average</p>
-					<div class="col-sm-4 m-t-5">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">Average in INR(&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "avg_INR" name = "avg_INR" disabled = "true">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 m-t-5">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">Average in USD($)</p>
-								<input type="text" class="form-control fg-input" formControlName = "avg_dolar" name = "avg_dolar" disabled = "true">
-								<label class="fg-label"></label>
-							</div>
-						</div>
-					</div>
-
 				</div>
 
 				<div class="row m-t-25">
-					<p class="col-sm-12 c-black f-500">Amount</p>
-					<div class="col-sm-4 m-t-5">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">Amount in INR(&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "amount_INR" name = "amount_INR" disabled = "true">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 m-t-5">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">Amount in USD($)</p>
-								<input type="text" class="form-control fg-input" formControlName = "amount_dolar" name = "amount_dolar" disabled = "true">
-							</div>
-						</div>
-					</div>
-
-				</div>
-				<div class="row m-t-25">
-					<div class="col-sm-4 m-t-15">						
+					<div class="col-sm-4 m-t-15">
 						<ng-select [allowClear]="true"
 						[items]="taxes"
 						[disabled]="newpurchase.aginst_Hform"
@@ -945,7 +947,7 @@
 
 
         <div class="margin-20">
-          <button type="submit" class="btn btn-lg btn-primary pull-right">Submit</button>
+          <button type="submit" class="btn btn-lg btn-primary">Submit</button>
         </div>
         <!--<div class="margin-20">
           <div>myForm details:-</div>

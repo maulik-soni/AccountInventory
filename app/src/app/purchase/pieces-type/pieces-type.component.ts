@@ -29,10 +29,11 @@ export class PiecesTypeComponent implements OnInit {
   public taxes:Array<string> = this.ConstantService.TAXES;
   public invoice:any = this.ConstantService.INVOICE;
   public dolar:any = this.ConstantService.DOLAR;
-  
+  public lab_type:any = this.ConstantService.LAB_TYPE;  
 
   @Output() childEvent: EventEmitter<any> = new EventEmitter();
   @Input('mygroup')
+  
   
   // @Input('dolarValue') dolarvalue:number;
   
@@ -43,6 +44,7 @@ export class PiecesTypeComponent implements OnInit {
   private _disabledV:string = '0';
   private disabled:boolean = false;
   private piecetype:any = "singlestone";
+  public lessCheck:boolean = false;
 
   private get disabledV():string {
     return this._disabledV;
@@ -70,6 +72,10 @@ export class PiecesTypeComponent implements OnInit {
 
   public refreshValue(value:any):void {
     this.value = value;
+  }
+
+  public checkLess(){
+
   }
 
   public getDolarRate(){
@@ -156,6 +162,7 @@ export class PiecesTypeComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     //console.log(this.newpurchase)
   }
 
