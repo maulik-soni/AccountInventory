@@ -17,6 +17,44 @@ export class MemoDetailsComponent implements OnInit {
   public mypurchase;
   public piecetype:any = "singlestone";
   public searchResult = false;
+  public countries:Array<string> = this.ConstantService.COUNRTIES;
+  public country:string;
+
+  private value:any = {};
+  private _disabledV:string = '0';
+  private disabled:boolean = false;
+  private oldamountINR = 0;
+  public disable:any = '';
+  private comissionCheck:any = false;
+  
+
+  private get disabledV():string {
+    return this._disabledV;
+  }
+
+  private set disabledV(value:string) {
+    this._disabledV = value;
+    this.disabled = this._disabledV === '1';
+  }
+
+  public selected(value:any,id):void {
+    
+    this.disable = value.text;
+    this.memoDetails.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
+  }
+
+  public removed(value:any):void {
+    // console.log('Removed value is: ', value);
+    
+  }
+
+  public typed(value:any):void {
+    // console.log('New search input: ', value);
+  }
+
+  public refreshValue(value:any):void {
+    this.value = value;
+  }
 
   constructor(
     private _router: Router,

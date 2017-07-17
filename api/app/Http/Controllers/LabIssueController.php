@@ -11,20 +11,20 @@ class LabIssueController extends Controller
     }
     public function create(Request $request)
     {
-        $this->validate($request,[
-            'client_ref_num'=>'required',
-            'shape'=>'required',
-            'carat'=>'required',
-            'diameter'=>'required',
-            'height'=>'required',
-            'color'=>'required',
-             ]);
+        // $this->validate($request,[
+        //     'LAB_type'=>'required',
+        //     'shape'=>'required',
+        //     'carat'=>'required',
+        //     'diameter'=>'required',
+        //     'height'=>'required',
+        //     'color'=>'required',
+        //      ]);
         
         $lab= new LabIssue;
 		$lab->PCS_ID = Input::get("PCS_ID");
-        $lab->invoice_number = Input::get("invoice_number");
+        // $lab->invoice_number = Input::get("invoice_number");
         $lab->date = Input::get("date");
-        $lab->client_ref_num = Input::get("client_ref_num");
+        $lab->LAB_type = Input::get("LAB_type");
 		$lab->shape = Input::get("shape");
 		$lab->service = Input::get("service");
 		$lab->carat = Input::get("carat");
@@ -32,7 +32,7 @@ class LabIssueController extends Controller
         $lab->height = Input::get("height");
         $lab->color = Input::get("color");
         $lab->clarity = Input::get("clarity");
-        $lab->rate = Input::get("rate");
+        // $lab->rate = Input::get("rate");
         $lab->amount = Input::get("amount");
         $lab->return_date = Input::get("return_date");
         $lab->status = "ISSUED";

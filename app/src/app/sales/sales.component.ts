@@ -172,7 +172,7 @@ export class SalesComponent implements OnInit {
   private disabled:boolean = false;
   private disable:any = false;
   public dolar:any = this.ConstantService.DOLAR;
-
+  private comissionCheck:any = false;
   public TotalSalesAmount:any;
 
   newsales:any = {};
@@ -213,6 +213,14 @@ export class SalesComponent implements OnInit {
     this.TotalSalesAmount = SalesAmmountINR.toFixed(2);
     this.myForm.controls['diff_amount_INR'].patchValue((SalesAmmountINR-sumOfPurchaseAmountINR).toFixed(2));
     this.myForm.controls['diff_amount_dolar'].patchValue(((SalesAmmountINR/this.getDolarRate())-sumOfPurchaseAmountDOLAR).toFixed(2));
+  }
+
+  public checkComission(){
+    console.log(this.comissionCheck);
+    if(!this.comissionCheck){
+      this.comission.comission1 = 0;
+      this.comission.comission2 = 0;
+    }
   }
 
   public freightCALC(){

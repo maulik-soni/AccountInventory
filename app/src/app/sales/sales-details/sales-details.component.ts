@@ -18,8 +18,9 @@ export class SalesDetailsComponent implements OnInit {
   public piecetype = "singlestone";
   public searchPCS;
   public mypurchase;
-  public dolar:any = this.ConstantService.DOLAR;
-  public salesRATE:any;
+  public dolar:number = this.ConstantService.DOLAR;
+  public salesRATE:number;
+  public acctual_sale_rate:number;
 
   constructor(
     private _webservice : WebServicesService,
@@ -28,14 +29,14 @@ export class SalesDetailsComponent implements OnInit {
 
   ngOnInit() {}
 
-  public salesRate(status){
-    this.salesRATE = this.salesDetails.value.sale_rate; 
-    this.rateCALC(status);
-  }
+  // public salesRate(status){
+  //   this.salesRATE = this.salesDetails.value.sale_rate; 
+  //   this.rateCALC(status);
+  // }
 
   public rateCALC(status){
     console.log(this.salesDetails.value);
-    var sale_rate = this.salesRATE;
+    var sale_rate = this.acctual_sale_rate;
     if(this.salesDetails.value.less1 != undefined && this.salesDetails.value.less2 != undefined && this.salesDetails.value.less3 != undefined && sale_rate != undefined){
       sale_rate = sale_rate-(sale_rate*(parseFloat(this.salesDetails.value.less1)/100));
       sale_rate = sale_rate-(sale_rate*(parseFloat(this.salesDetails.value.less2)/100));
@@ -43,7 +44,7 @@ export class SalesDetailsComponent implements OnInit {
       this.salesDetails.controls['sale_rate'].patchValue(sale_rate.toFixed(2));
     }
     if(this.salesDetails.value.sale_disc != undefined && this.salesDetails.value.sale_rate != undefined && sale_rate != undefined ){
-      var discountOnSale = parseFloat(sale_rate)-(parseFloat(sale_rate)*(this.salesDetails.value.sale_disc/100));
+      var discountOnSale = sale_rate-(sale_rate*(this.salesDetails.value.sale_disc/100));
       this.salesDetails.controls['sale_rate'].patchValue(discountOnSale.toFixed(2));
     }
     this.childEvent.emit();

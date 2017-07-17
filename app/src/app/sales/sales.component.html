@@ -531,7 +531,7 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h2>Client's and Broker Details</h2>
+				<h2>Party's Details</h2>
 			</div>
 			<div class="card-body card-padding">
 				<div class="row">
@@ -548,62 +548,7 @@
 							placeholder="Select Dealer's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4 m-t-15">
-						<p class="form-label">Broker Type</p>
-						<ng-select [allowClear]="true"
-							[items]="brokertypes"
-							[disabled]="disabled"
-							(data)="refreshValue($event)"
-							(selected)="selected($event,'brokerType')"
-							(removed)="removed($event)"
-							(typed)="typed($event)"
-							[(ngModel)] = "newsales.brokerType"
-							placeholder="No Broker Type selected" name = "brokerType" [ngModelOptions]="{standalone: true}">
-						</ng-select>
-					</div>
-					<div class="col-sm-4 m-t-15">
-						<p class="form-label">Broker Name</p>
-						<ng-select [allowClear]="true"
-							[items]="brokers"
-							[disabled] = "disable"
-							(data)="refreshValue($event)"
-							(selected)="selected($event,'brokerName')"
-							(removed)="removed($event)"
-							(typed)="typed($event)"
-							[(ngModel)] = "newsales.brokerName"
-							placeholder="No Broker Name selected" name = "brokerName" [ngModelOptions]="{standalone: true}">
-						</ng-select>
-					</div>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group">
-							<div class="fg-line">
-								<p class="form-label">Brokerage in %</p>
-								<input type="text" class="form-control fg-input" formControlName="brokerage" name = "brokerage" placeholder="Brokerage in %" [disabled] = "disable">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Comission</p>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Comission1</p>
-							<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2">
-						</div>
-						</div>
-					</div>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Comission2</p>
-							<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2">
-						</div>
-						</div>
-					</div>
-				</div>
+				</div>								
 			</div>
 		</div>
 		<div formArrayName="salesDetails">
@@ -713,12 +658,12 @@
 						</div>
 					</div>
 				</div>-->
-				<div class="row">
-					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Amount in INR & DOLLAR</p>
+				<!-- <div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Amount in INR & USD($)</p>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<p class="form-label">Sales amount in INR</p>
+								<p class="form-label">Sales amount in INR(&#8377;)</p>
 								<input type="text" class="form-control fg-input" formControlName="sales_amount_INR" name = "sales_amount_INR" disabled = "true">
 							</div>
 						</div>
@@ -726,12 +671,114 @@
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group ">
 							<div class="fg-line">
-								<p class="form-label">Sales amount in DOLLAR</p>
+								<p class="form-label">Sales amount in USD($)</p>
 								<input type="text" class="form-control fg-input" formControlName="sales_amount_dolar"  name = "sales_amount_dolar" disabled = "true">
 							</div>
 						</div>
 					</div>
-				</div>			
+				</div> -->
+
+				<!-- <div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Amount Difference in INR & USD($)</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Amount Difference in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName="diff_amount_INR" name = "diff_amount_INR" disabled = "true">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Amount Difference in USD($)</p>
+								<input type="text" class="form-control fg-input" formControlName="diff_amount_dolar"  name = "diff_amount_dolar" disabled = "true">
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+				<!-- <div class="row">
+					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Purchase Amount in INR and USD($)</p>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+							<p class="form-label">Purchase amount in INR(&#8377;)</p>
+							<input type="text" class="form-control fg-input" formControlName = "purchase_amount_INR"  name = "purchase_amount_INR" disabled = "true">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<div class="form-group ">
+							<div class="fg-line">
+							<p class="form-label">Purchase amount in USD($)</p>
+							<input type="text" class="form-control fg-input" formControlName = "purchase_amount_dolar" name = "purchase_amount_dolar" disabled = "true">
+							</div>
+						</div>
+					</div>
+				</div> -->
+
+				<div class="row">
+					<div class="col-sm-4 m-t-15">
+						<p class="c-black f-500 m-b-5 m-t-20">Sales Amount in INR & USD($)</p>
+						<div>
+							<div class="form-group">
+								<div class="fg-line">
+									<p class="form-label">Sales amount in INR(&#8377;)</p>
+									<input type="text" class="form-control fg-input" formControlName="sales_amount_INR" name = "sales_amount_INR" disabled = "true">
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="form-group">
+								<div class="fg-line">
+									<p class="form-label">Sales amount in USD($)</p>
+									<input type="text" class="form-control fg-input" formControlName="sales_amount_dolar"  name = "sales_amount_dolar" disabled = "true">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4 m-t-15">
+						<p class="c-black f-500 m-b-5 m-t-20">Purchase Amount in INR and USD($)</p>
+						<div>
+							<div class="form-group ">
+								<div class="fg-line">
+								<p class="form-label">Purchase amount in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName = "purchase_amount_INR"  name = "purchase_amount_INR" disabled = "true">
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="form-group ">
+								<div class="fg-line">
+								<p class="form-label">Purchase amount in USD($)</p>
+								<input type="text" class="form-control fg-input" formControlName = "purchase_amount_dolar" name = "purchase_amount_dolar" disabled = "true">
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-4 m-t-15">
+						<p class="c-black f-500 m-b-5 m-t-20">Sales Amount Difference in INR & USD($)</p>
+						<div>
+							<div class="form-group">
+								<div class="fg-line">
+									<p class="form-label">Amount Difference in INR(&#8377;)</p>
+									<input type="text" class="form-control fg-input" formControlName="diff_amount_INR" name = "diff_amount_INR" disabled = "true">
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="form-group ">
+								<div class="fg-line">
+									<p class="form-label">Amount Difference in USD($)</p>
+									<input type="text" class="form-control fg-input" formControlName="diff_amount_dolar"  name = "diff_amount_dolar" disabled = "true">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="row">
 					<div class="col-sm-4 m-t-15">
@@ -742,48 +789,75 @@
 							</div>
 						</div>
 					</div>
-				</div>				
+				</div>								
 
 				<div class="row">
-					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Amount Difference in INR & DOLLAR</p>
+					<div class="col-sm-4 m-t-15">
+						<p class="form-label">Broker Type</p>
+						<ng-select [allowClear]="true"
+							[items]="brokertypes"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'brokerType')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newsales.brokerType"
+							placeholder="No Broker Type selected" name = "brokerType" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-4 m-t-15">
+						<p class="form-label">Broker Name</p>
+						<ng-select [allowClear]="true"
+							[items]="brokers"
+							[disabled] = "disable"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'brokerName')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newsales.brokerName"
+							placeholder="No Broker Name selected" name = "brokerName" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
 					<div class="col-sm-4 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
-								<p class="form-label">Amount Difference in INR</p>
-								<input type="text" class="form-control fg-input" formControlName="diff_amount_INR" name = "diff_amount_INR" disabled = "true">
-							</div>
-						</div>
-					</div>
-					<div class="col-sm-4 m-t-15">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">Amount Difference in DOLLAR</p>
-								<input type="text" class="form-control fg-input" formControlName="diff_amount_dolar"  name = "diff_amount_dolar" disabled = "true">
+								<p class="form-label">Brokerage in %</p>
+								<input type="text" class="form-control fg-input" formControlName="brokerage" name = "brokerage" placeholder="Brokerage in %" [disabled] = "disable">
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
-					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Purchase Amount in INR and DOLLAR</p>
-					<div class="col-sm-4 m-t-15">
-					<div class="form-group ">
-						<div class="fg-line">
-						<p class="form-label">Purchase amount in INR</p>
-						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_INR"  name = "purchase_amount_INR" disabled = "true">
+					<div class="col-sm-4 m-t-20">
+						<label class="checkbox checkbox-inline m-r-20">
+							<input type="checkbox" value="comissionCheck" [(ngModel)] = "comissionCheck" name = "comissionCheck" (change)="checkComission()" [ngModelOptions]="{standalone: true}">
+							<i class="input-helper"></i>
+							<b>Comission</b>
+						</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 m-t-20">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Aggent Comission 1 in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2" [readonly] = "!comissionCheck">
+							</div>
 						</div>
 					</div>
-					</div>
-					<div class="col-sm-4 m-t-15">
-					<div class="form-group ">
-						<div class="fg-line">
-						<p class="form-label">Purchase amount in DOLLAR</p>
-						<input type="text" class="form-control fg-input" formControlName = "purchase_amount_dolar" name = "purchase_amount_dolar" disabled = "true">
+					<div class="col-sm-4 m-t-20">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Aggent Comission 2 in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2" [readonly] = "!comissionCheck">
+							</div>
 						</div>
-					</div>
 					</div>
 				</div>
 				
+				
+
 			</div>
 			
 		</div>

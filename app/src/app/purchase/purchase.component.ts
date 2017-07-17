@@ -59,7 +59,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
     this.myForm = this._fb.group({
             invoice_number: [''],
-            currency_convrsion_rate:0,
+            currency_convrsion_rate: this.dolar,
             payment_terms:[''],
             purchase_date:[''],
             due_date:[''],
@@ -68,7 +68,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             account_name:[''],
             brokerType:[''],
             brokerName:[''],
-            brokerage:[''],
+            brokerage:[0],
             comission1:0,
             comission2:0,
             avg_INR:0,
@@ -81,6 +81,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
         });
         
         this.AddpiecesType();
+        this.setDolarRate();
   }
 
   initPiecesType() {
@@ -190,6 +191,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public taxes:Array<string> = this.ConstantService.TAXES;
   public invoice:any = this.ConstantService.INVOICE;
   public dolar:any = this.ConstantService.DOLAR;
+  public lab_type:any = this.ConstantService.LAB_TYPE;
 
   newpurchase = new Purchase(this.invoice,this.dolar,false,"Bill To Bill");
 

@@ -1,21 +1,17 @@
 <div [formGroup]="piecesTypeForm">
-    <!--<div class="form-group col-xs-6">
-        <label>street</label>
-        <input type="text" class="form-control" formControlName="street">
-    </div>
-    <div class="form-group col-xs-6">
-        <label>postcode</label>
-        <input type="text" class="form-control" formControlName="postcode">
-    </div>-->
     <div class="card">
-		<div class="card-header">
-			<!--<h2>Goods Details</h2>-->
-			<ul class="actions">
+		<!-- <div class="card-header ch-alt" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+			<span>PCS ID : </span>{{piecesTypeForm.value.PCS_ID}}
+		</div> -->
+		
+		<!-- <div class="collapse in"  id="collapseExample"> -->
+		<div style="overflow : hidden">
+			<ul class="actions pull-right m-t-20 m-b-20">
 				<li>
 					<label class="radio radio-inline m-r-20">
 						<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
 						<i class="input-helper"></i>
-						Single Stone
+						Certified Stone
 					</label>
 					
 					<label class="radio radio-inline m-r-20">
@@ -26,10 +22,29 @@
 				</li>			
 			</ul>
 		</div>
-	
+
 		<!--<app-pieces-type #subContainer1 [newpurchase] = "newpurchase"></app-pieces-type>-->
+		
 		<div class="card-body card-padding" *ngIf="piecetype == 'singlestone'">
 			<div class="row">
+				<div class="col-sm-4">
+					<div class="form-group">
+						<div class="fg-line">
+							<p class="form-label">Lab Type</p>
+							<!-- <input type="text" class="form-control fg-input" formControlName = "LAB_type" name="LAB_type"> -->							
+							<ng-select [allowClear]="true"
+								[items]="lab_type"
+								[disabled]="disabled"
+								(data)="refreshValue($event)"
+								(selected)="selected($event,'LAB_type')"
+								(removed)="removed($event)"
+								(typed)="typed($event)"
+								[(ngModel)] = "newpurchase.LAB_type"
+								placeholder="No Lab Type selected" name = "stock_status_group"  [ngModelOptions]="{standalone: true}">
+							</ng-select>
+						</div>
+					</div>
+				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
 						<div class="fg-line">
@@ -102,26 +117,19 @@
 						[(ngModel)] = "newpurchase.diamond_clarity"
 						placeholder="No Clarity of Diamond selected" name = "diamond_clarity"  [ngModelOptions]="{standalone: true}">
 					</ng-select>
-				</div>										
-				<div class="col-sm-4 m-t-10">
+				</div>	
+				<div class="col-sm-4">
 					<div class="form-group">
 						<div class="fg-line">
-							<p class="form-label">Kapan</p>
-							<input type="text" class="form-control fg-input" formControlName = "kapan" name = "kapan">
+							<p class="form-label">Polish Type</p>
+							<input type="text" class="form-control fg-input m-t-10" formControlName = "polishing_type" name = "polishing_type">
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="row m-t-20">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Lab Type</p>
-							<input type="text" class="form-control fg-input" formControlName = "LAB_type" name="LAB_type">
-						</div>
-					</div>
-				</div>
+				
 				<div class="col-sm-4">
 					<div class="form-group">
 						<div class="fg-line">
@@ -135,33 +143,6 @@
 						<div class="fg-line">
 							<p class="form-label">Total Number of Carats</p>
 							<input type="text" class="form-control fg-input" formControlName = "total_diamond_carat" name = "total_diamond_carat" >
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="row m-t-20">
-				<div class="col-sm-4">
-					<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Bill Type</p>
-							<input type="text" class="form-control fg-input" formControlName = "bill_type" name = "bill_type">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Polish Type</p>
-							<input type="text" class="form-control fg-input" formControlName = "polishing_type" name = "polishing_type">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Item</p>
-							<input type="text" class="form-control fg-input" formControlName = "item" name = "item">
 						</div>
 					</div>
 				</div>
@@ -213,29 +194,37 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
+			<div class="row m-t-25">
+				<label class="checkbox checkbox-inline m-l-10">						
+					<input type="checkbox" value="lessCheck" [(ngModel)] = "lessCheck" name = "lessCheck" (change)="checkLess()" [ngModelOptions]="{standalone: true}">
+					<i class="input-helper"></i>
+					<b>Less Discount</b>
+				</label>
+			</div>
+
+			<div class="row">				
+				<!-- <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p> -->
 				<div class="col-sm-4 m-t-15">
 					<div class="form-group">
 						<div class="fg-line">
-							<p class="form-label">LESS1</p>
-							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur)="CALAmount()"> 
+							<p class="form-label">LESS 1</p>
+							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-4 m-t-15">
 					<div class="form-group ">
 						<div class="fg-line">
-							<p class="form-label">LESS2</p>
-							<input type="text" class="form-control fg-input" formControlName = "less2"  name = "less2" (blur)="CALAmount()">
+							<p class="form-label">LESS 2</p>
+							<input type="text" class="form-control fg-input" formControlName = "less2"  name = "less2" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-4 m-t-15">
 					<div class="form-group ">
 						<div class="fg-line">
-							<p class="form-label">LESS3</p>
-							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur)="CALAmount()"> 
+							<p class="form-label">LESS 3</p>
+							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
@@ -370,41 +359,39 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row m-t-20">										
-				<div class="col-sm-4">
-					<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Item</p>
-							<input type="text" class="form-control fg-input" formControlName = "item" name = "item">
-						</div>
-					</div>
-				</div>
+			</div>			
+
+			<div class="row m-t-25">
+				<label class="checkbox checkbox-inline m-l-10">						
+					<input type="checkbox" value="lessCheck" [(ngModel)] = "lessCheck" name = "lessCheck" (change)="checkLess()" [ngModelOptions]="{standalone: true}">
+					<i class="input-helper"></i>
+					<b>Less Discount</b>
+				</label>
 			</div>
 
-			<div class="row">
-				<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
+			<div class="row">				
+				<!-- <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p> -->
 				<div class="col-sm-4 m-t-15">
 					<div class="form-group">
 						<div class="fg-line">
-							<p class="form-label">LESS1</p>
-							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur)="CALAmount()">
+							<p class="form-label">LESS 1</p>
+							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-4 m-t-15">
 					<div class="form-group ">
 						<div class="fg-line">
-							<p class="form-label">LESS2</p>
-							<input type="text" class="form-control fg-input" formControlName = "less2"  name = "less2" (blur)="CALAmount()">
+							<p class="form-label">LESS 2</p>
+							<input type="text" class="form-control fg-input" formControlName = "less2"  name = "less2" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
 				<div class="col-sm-4 m-t-15">
 					<div class="form-group ">
 						<div class="fg-line">
-							<p class="form-label">LESS3</p>
-							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur)="CALAmount()">
+							<p class="form-label">LESS 3</p>
+							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
@@ -432,5 +419,6 @@
 			</div>
 
 		</div>
+		<!-- </div> -->
 	</div>
 </div>

@@ -6,13 +6,11 @@ export class LabIssue {
         public carat?:number,
         public color?:string,
         public clarity?:string,
-        public rate?:number,
-        public invoice_number?: number, 
-        public client_ref_num?:string,
         public date?:string,
         public service?:string,
         public diameter?:number,
         public height?:number,
         public amount?:number,
+        public LAB_type?:string
     ) {} 
 }

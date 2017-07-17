@@ -57,9 +57,8 @@
 }
 
 .form-label{
-    font-size: 11px;
+    font-size: 15px;
     margin: 0px;
-    font-weight: bold;
 }
 
 .mCustomScrollBox{
@@ -89,4 +88,9 @@
 
 .mat-input-underline.mat-disabled{
     border-bottom: 1px solid #e0e0e0;
+}
+
+.form-control[readonly]{
+    opacity: 0.6;
+    cursor: not-allowed;
 }
