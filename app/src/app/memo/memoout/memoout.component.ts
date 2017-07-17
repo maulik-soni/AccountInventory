@@ -110,8 +110,9 @@ export class MemooutComponent implements OnInit {
     return this._fb.group({
       PCS_ID: [''],
       Lot_Number:[''],
-      carats: [''],
-      stone_type:['']
+      carats: [0],
+      rate:[0],
+      country:['']
     });
   }
 

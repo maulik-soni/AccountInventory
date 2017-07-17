@@ -3,22 +3,7 @@
 	<div class="container">
 	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 		<div class="block-header">
-			<h2>New Jangad Entry</h2>
-			<ul class="actions">
-				<li>
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" name = "memotype" [(ngModel)] = "memotype" value="memoissue" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Jangad Issue
-					</label>
-					
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" name = "memotype" [(ngModel)] = "memotype" value="memoreturn" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Jangad In
-					</label>
-				</li>			
-			</ul>
+			<h2>New Jangad Entry</h2>			
 		</div>
 		<div class="card">
 			<div class="card-header">

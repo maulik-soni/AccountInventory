@@ -13,5 +13,6 @@ export interface memoDetails{
     PCS_ID: number;
     Lot_Number: number;
     carats: number;
-    stone_type:string
+    rate:number;
+    country:string;
 }
