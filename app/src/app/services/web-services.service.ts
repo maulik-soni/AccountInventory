@@ -49,6 +49,12 @@ export class WebServicesService {
     newcashbook:this.base_url+'/api/newcashbook',
     showcashbook:this.base_url+'/api/showcashbook',
     searchcashbook:this.base_url+'/api/searchcashbook',
+
+    showpurchase:this.base_url+'/api/showpurchase',
+    searchpurchase:this.base_url+'/api/searchpurchase',
+
+    showsales:this.base_url+'/api/showsales',
+    searchsales:this.base_url+'/api/searchsales'
   };
   
   constructor(private _http:Http) { }
@@ -104,7 +110,7 @@ export class WebServicesService {
   }
 
   showcashbook(data){
-     let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.showcashbook,data,options)
     .map((response:Response) => response.json());
@@ -303,6 +309,62 @@ showinventory(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
+  }
+
+  showpurchase(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpurchase,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchpurchase(data){
+    console.log(data);
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+
+  showpurchaseretrun(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpurchase,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchpurchasereturn(data){
+    console.log(data);
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+    ////Sales search and filter
+
+  showsales(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpurchase,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchsales(data){
+    console.log(data);
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+
+  showsalesretrun(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpurchase,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchsalesreturn(data){
+    console.log(data);
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
   }
 
   dateConversion(date){

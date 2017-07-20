@@ -104,4 +104,10 @@ Route::get('/searchcashbook','CashbookController@search');
 Route::get('/editcashbook','CashbookController@edit');
 Route::post('/newcashbook','CashbookController@create');
 Route::put('/updatecashbook','CashbookController@update');
-Route::delete('/deletecashbook','CashbookController@delete');	
+Route::delete('/deletecashbook','CashbookController@delete');
+
+Route::post('/showpurchase','PurchaseController@show');
+Route::get('/searchpurchase','PurchaseController@search');
+
+Route::post('/showsales','salesConroller@show');
+Route::get('/searchsales','salesConroller@search');

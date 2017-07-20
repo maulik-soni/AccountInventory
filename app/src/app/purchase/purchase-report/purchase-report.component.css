@@ -21,3 +21,86 @@
 .mat-header-cell .mat-sort-header-sorted {
   color: black;
 }
+
+.filter-container{
+    padding: 12px;
+}
+.filter-container span{
+    display: inline-block;
+    margin-right: 25px;
+}
+
+.card-body{
+    text-transform: capitalize;
+}
+
+.radio-button{
+    margin-right: 10px !important;
+}
+
+/* .main-filter{
+    padding-bottom:15px;
+    display: inline-block;
+    vertical-align: top;
+} */
+
+.search-box{
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    
+}
+
+.search-box .search-field{
+    padding: 10px;
+}
+
+.filter-date{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mdatepicker{
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    float: none;
+}
+
+.dp-container{
+    background: #fff;
+    display: inline-block;
+    margin-right: 0!important;
+}
+
+.input-group{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.mat-radio-group{
+    vertical-align: middle;
+}
+
+.input-group-addon{
+    min-width: auto;
+    vertical-align: middle;
+}
+
+.search-suggestion{
+    position: absolute;
+    width:100%;
+    top: 34px;
+    background: rgba(255,255,255,.6);
+}
+
+.search-suggestion p{
+    padding: 10px;
+    margin: 0;
+}
+
+.search-suggestion p:hover{
+    background: #00bcd4;
+    color:#fff;
+}
+

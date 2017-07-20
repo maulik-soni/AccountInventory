@@ -89,4 +89,74 @@ class salesConroller extends Controller
         return $purchase_data;
     }
 
+    public function show(){
+        $params = Request::all();
+        $sales = new \App\Sales;
+        if(!empty($params['staticdata'])){
+            if($params['reportType'] == "report"){
+                $sales_data = Sales::all();
+            }else
+                $sales_data = SalesReturn::all();
+            return response()->json($sales_data,200);
+        }
+        if(!empty($params['filterby'])){
+
+            if(!empty($params['search'])){
+                if($params['filterby']=='PCS ID'){
+                    if($params['reportType'] == "report"){
+                        $response=Sales::where('PCS_ID',$params['search'])->get();
+                    }else
+                        $response=SalesReturn::where('PCS_ID',$params['search'])->get();
+                    return response()->json($response,200);
+                }
+                if($params['filterby']=='Invoice Number'){
+                    if($params['reportType'] == "report"){
+                        $response=Sales::where('invoice_number',$params['search'])->get();
+                    }else
+                        $response=SalesReturn::where('invoice_number',$params['search'])->get();
+                   return response()->json($response,200);
+                }
+                if($params['filterby']=='Party Name'){
+                    if($params['reportType'] == "report"){
+                        $response=Sales::where('account_name',$params['search'])->get();
+                    }else
+                        $response=SalesReturn::where('account_name',$params['search'])->get();
+                   return response()->json($response,200);
+                }
+            }
+
+            if($params['fromdate'] || $params['todate']){
+                if($params['reportType'] == "report"){
+                    $response=Sales::whereBetween('purchase_date',[$params['fromdate'],$params['todate']])->get();
+                }else
+                    $response=SalesReturn::whereBetween('purchase_date',[$params['fromdate'],$params['todate']])->get();
+                    return response()->json($response,200);
+            }
+            
+        }
+        if(!empty($params['filter'])){
+            if($params['filter']=='all'){
+                if($params['reportType'] == "report"){
+                    $sales_data = Sales::all();
+                }else
+                    $sales_data = SalesReturn::all();
+                return response()->json($sales_data,200);
+            }
+        }
+        
+    }
+
+    public function search(Request $request){
+        $query=Request::all();
+        $sales = new \App\Sales;
+        if($query[key($query)]){
+            if($query['reportType'] == "report"){
+                $store=Sales::select(key($query))->where(key($query),'like','%'.$query[key($query)].'%')->distinct()->pluck(key($query));
+            }else
+                $store=SalesReturn::select(key($query))->where(key($query),'like','%'.$query[key($query)].'%')->distinct()->pluck(key($query));
+            return response()->json($store,200);
+        }
+        return response()->json([],200);
+    }
+
 }
