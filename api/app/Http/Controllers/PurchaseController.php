@@ -139,12 +139,18 @@ class PurchaseController extends Controller
 
     public function search(Request $request){
         $query=Request::all();
-        $purchase = new \App\Purchase;
-        if($query[key($query)]){
+        
+        foreach($query as $key=>$value){            
+            if($key != 'reportType'){
+                $q = $key; 
+            }
+        }
+        
+        if(!empty($q)){
             if($query['reportType'] == "report"){
-                $store=Purchase::select(key($query))->where(key($query),'like','%'.$query[key($query)].'%')->distinct()->pluck(key($query));
+                $store=Purchase::select($q)->where($q,'like','%'.$query[$q].'%')->distinct()->pluck($q);
             }else
-                $store=PurchaseReturn::select(key($query))->where(key($query),'like','%'.$query[key($query)].'%')->distinct()->pluck(key($query));
+                $store=Purchase::select($q)->where($q,'like','%'.$query[$q].'%')->distinct()->pluck($q);
             return response()->json($store,200);
         }
         return response()->json([],200);

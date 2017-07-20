@@ -54,7 +54,10 @@ export class WebServicesService {
     searchpurchase:this.base_url+'/api/searchpurchase',
 
     showsales:this.base_url+'/api/showsales',
-    searchsales:this.base_url+'/api/searchsales'
+    searchsales:this.base_url+'/api/searchsales',
+
+    showlabissue:this.base_url+'/api/showlabissue',
+    searchlabissue:this.base_url+'/api/searchlabissue'
   };
   
   constructor(private _http:Http) { }
@@ -193,7 +196,9 @@ showinventory(data){
   //     .map((response:Response) => response.json());
   // }
 
-  
+ /**************************
+  *Memo Module Web services*
+  **************************/  
 
   postmemo(data,memotype){
     console.log(data,memotype);
@@ -213,8 +218,6 @@ showinventory(data){
     let options = new RequestOptions({ headers: headers });
     this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
   }
-
- 
 
   memoinreport(){
     return this._http.get(this.apis.memoinreport)
@@ -238,6 +241,10 @@ showinventory(data){
     return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
   }
 
+ /******************************
+  *Lab Issue Module Web services*
+  ******************************/
+
   changelabissuestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -254,6 +261,19 @@ showinventory(data){
     console.log("GET");
     return this._http.get(this.apis.reportlab)
       .map((response:Response) => response.json());
+  }
+
+  showlabissue(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showlabissue,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchlabissue(data){
+    console.log(data);
+    return this._http.get(this.apis.searchlabissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
   }
 
 
@@ -322,7 +342,7 @@ showinventory(data){
   }
 
 
-
+  
 /***************************
 *Sales Module Web services *
 ****************************/
