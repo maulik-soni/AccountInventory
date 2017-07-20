@@ -184,15 +184,7 @@ showinventory(data){
 
 
  
-  getsalesreport(){    
-    return this._http.get(this.apis.salesreport)
-      .map((response:Response) => response.json());
-  }
-  getpurchasereport(){    
-    return this._http.get(this.apis.purchasereport)
-      .map((response:Response) => response.json());
-  }
-
+  
  
 
   // getcashbookdata(){
@@ -201,22 +193,7 @@ showinventory(data){
   //     .map((response:Response) => response.json());
   // }
 
-  postpurchasedata(data){
-    console.log(data);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewpurchase,data,options).subscribe();
-  }
-
   
-
-
-  postsalesdata(data){
-    console.log(data);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewsales,data,options).subscribe();
-  }
 
   postmemo(data,memotype){
     console.log(data,memotype);
@@ -237,39 +214,7 @@ showinventory(data){
     this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
   }
 
-  purchaseReturn(PCS_ID){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.purchaseretrun,PCS_ID,options).subscribe();
-  }
-
-  salesReturn(PCS_ID){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.salesreturn,PCS_ID,options).subscribe();
-  }
-
-  purchaseretrunreport(){
-    console.log(this.apis.purchaseretrunreport);
-    return this._http.get(this.apis.purchaseretrunreport)
-      .map((response:Response) => response.json());
-  }
-  
-  salesretrunreport(){
-    console.log(this.apis.salesretrunreport)
-    return this._http.get(this.apis.salesretrunreport)
-      .map((response:Response) => response.json());
-  }
-
-  fetchpurchase(pcsid,pcstype){
-    if(pcstype == "singlestone"){
-      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
-       .map((response:Response) => response.json());
-    }else{
-      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid)
-       .map((response:Response) => response.json());
-    }
-  }
+ 
 
   memoinreport(){
     return this._http.get(this.apis.memoinreport)
@@ -285,6 +230,12 @@ showinventory(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.memoinchangestatus+"?pcsid="+pcsid,options);
+  }
+
+  memoissuechangestatus(pcsid){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
   }
 
   changelabissuestatus(pcsid){
@@ -305,11 +256,10 @@ showinventory(data){
       .map((response:Response) => response.json());
   }
 
-  memoissuechangestatus(pcsid){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
-  }
+
+/******************************
+*Purchase Module Web services *
+*******************************/
 
   showpurchase(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -324,7 +274,6 @@ showinventory(data){
        .map((response:Response) => response.json());
   }
 
-
   showpurchaseretrun(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -338,7 +287,45 @@ showinventory(data){
        .map((response:Response) => response.json());
   }
 
-    ////Sales search and filter
+  postpurchasedata(data){
+    console.log(data);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.postnewpurchase,data,options).subscribe();
+  }
+
+  purchaseReturn(PCS_ID){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.purchaseretrun,PCS_ID,options).subscribe();
+  }
+
+  purchaseretrunreport(){
+    console.log(this.apis.purchaseretrunreport);
+    return this._http.get(this.apis.purchaseretrunreport)
+      .map((response:Response) => response.json());
+  }
+
+  getpurchasereport(){    
+    return this._http.get(this.apis.purchasereport)
+      .map((response:Response) => response.json());
+  }
+
+  fetchpurchase(pcsid,pcstype){
+    if(pcstype == "singlestone"){
+      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
+       .map((response:Response) => response.json());
+    }else{
+      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid)
+       .map((response:Response) => response.json());
+    }
+  }
+
+
+
+/***************************
+*Sales Module Web services *
+****************************/
 
   showsales(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -353,7 +340,6 @@ showinventory(data){
        .map((response:Response) => response.json());
   }
 
-
   showsalesretrun(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -366,6 +352,33 @@ showinventory(data){
     return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
        .map((response:Response) => response.json());
   }
+
+  getsalesreport(){    
+    return this._http.get(this.apis.salesreport)
+      .map((response:Response) => response.json());
+  }
+
+  postsalesdata(data){
+    console.log(data);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.postnewsales,data,options).subscribe();
+  }
+
+  salesReturn(PCS_ID){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.salesreturn,PCS_ID,options).subscribe();
+  }
+
+  salesretrunreport(){
+    console.log(this.apis.salesretrunreport)
+    return this._http.get(this.apis.salesretrunreport)
+      .map((response:Response) => response.json());
+  }
+
+
+  
 
   dateConversion(date){
     console.log(date);

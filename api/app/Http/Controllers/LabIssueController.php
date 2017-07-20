@@ -22,7 +22,6 @@ class LabIssueController extends Controller
         
         $lab= new LabIssue;
 		$lab->PCS_ID = Input::get("PCS_ID");
-        // $lab->invoice_number = Input::get("invoice_number");
         $lab->date = Input::get("date");
         $lab->LAB_type = Input::get("LAB_type");
 		$lab->shape = Input::get("shape");
@@ -32,7 +31,6 @@ class LabIssueController extends Controller
         $lab->height = Input::get("height");
         $lab->color = Input::get("color");
         $lab->clarity = Input::get("clarity");
-        // $lab->rate = Input::get("rate");
         $lab->amount = Input::get("amount");
         $lab->return_date = Input::get("return_date");
         $lab->status = "ISSUED";
