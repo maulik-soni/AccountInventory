@@ -57,7 +57,13 @@ export class WebServicesService {
     searchsales:this.base_url+'/api/searchsales',
 
     showlabissue:this.base_url+'/api/showlabissue',
-    searchlabissue:this.base_url+'/api/searchlabissue'
+    searchlabissue:this.base_url+'/api/searchlabissue',
+
+    showmemoin:this.base_url+'/api/showmemoin',
+    searchmemoin:this.base_url+'/api/searchmemoin',
+
+    showmemoissue:this.base_url+'/api/showmemoissue',
+    searchmemoissue:this.base_url+'/api/searchmemoissue'
   };
   
   constructor(private _http:Http) { }

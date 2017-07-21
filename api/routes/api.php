@@ -114,3 +114,9 @@ Route::get('/searchsales','salesConroller@search');
 
 Route::post('/showlabissue','LabIssueController@show');
 Route::get('/searchlabissue','LabIssueController@search');
+
+Route::post('/showmemoin','memoinController@show');
+Route::get('/searchmemoin','memoinController@search');
+
+Route::post('/showmemoissue','memoissueController@show');
+Route::get('/searchmemoissue','memoissueController@search');

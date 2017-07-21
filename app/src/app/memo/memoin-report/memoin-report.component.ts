@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WebServicesService } from './../../services/web-services.service';
-
+import { Search,SearchValues } from '../search.model';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-memoin-report',

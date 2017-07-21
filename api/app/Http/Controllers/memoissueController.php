@@ -53,5 +53,82 @@ class memoissueController extends Controller
         $memoissue_table->status = "RETURNED";
         $memoissue_table->due_date = date("Y/m/d");
         $memoissue_table->save();
-    }   
+    }
+
+    public function show(Request $request){
+        $params = Request::all();
+        // print_r($params);exit;
+        if(!empty($params['staticdata'])){
+            if($params['reportType'] == "report"){
+                $labissue_data = \App\MemoIssue::where('status','ISSUED')->get();
+            }else
+                $labissue_data = \App\MemoIssue::where('status','RECEIVED')->get();
+            return response()->json($labissue_data,200);
+        }
+        if(!empty($params['filterby'])){
+
+            if(!empty($params['search'])){
+                if($params['filterby']=='PCS ID'){
+                    if($params['reportType'] == "report"){
+                        $response=\App\MemoIssue::where('PCS_ID',$params['search'])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIssue::where('PCS_ID',$params['search'])->where('status','RECEIVED')->get();
+                    return response()->json($response,200);
+                }
+                if($params['filterby']=='Invoice Number'){
+                    if($params['reportType'] == "report"){
+                        $response=\App\MemoIssue::where('memo_invoice_number',$params['search'])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIssue::where('memo_invoice_number',$params['search'])->where('status','RECEIVED')->get();
+                   return response()->json($response,200);
+                }
+                if($params['filterby']=='Invoice Number'){
+                    if($params['reportType'] == "report"){
+                        $response=\App\MemoIssue::where('account_name',$params['search'])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIssue::where('account_name',$params['search'])->where('status','RECEIVED')->get();
+                   return response()->json($response,200);
+                }
+                
+            }
+
+            if(!empty($params['fromdate']) && !empty($params['todate'])){
+                if($params['fromdate'] || $params['todate']){
+                    if($params['reportType'] == "report"){
+                            $response=\App\MemoIssue::whereBetween('date',[$params['fromdate'],$params['todate']])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIssue::whereBetween('date',[$params['fromdate'],$params['todate']])->where('status','RECEIVED')->get();
+                    return response()->json($response,200);
+                }
+            }
+            
+        }
+        if(!empty($params['filter'])){
+            if($params['filter']=='all'){
+                if($params['reportType'] == "report"){
+                    $labissue_data = \App\MemoIssue::where('status','ISSUED')->get();
+                }else
+                    $labissue_data = \App\MemoIssue::where('status','RECEIVED')->get();
+                return response()->json($labissue_data,200);
+            }
+        }        
+    }
+
+    public function search(Request $request){
+        $query = Request::all();
+        foreach($query as $key=>$value){
+            if($key != 'reportType'){
+                $q = $key; 
+            }
+        }
+        
+        if(!empty($q)){
+            if($query['reportType'] == "report"){
+                $store=\App\MemoIssue::select($q)->where($q,'like','%'.$query[$q].'%')->distinct()->pluck($q);
+            }else
+                $store=\App\MemoIssue::select($q)->where($q,'like','%'.$query[$q].'%')->distinct()->pluck($q);
+            return response()->json($store,200);
+        }
+        return response()->json([],200);
+    }  
 }
