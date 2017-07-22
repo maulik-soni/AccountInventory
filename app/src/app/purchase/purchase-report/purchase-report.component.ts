@@ -6,7 +6,6 @@ import { Subject } from 'rxjs/Subject';
 import { NgForm } from '@angular/forms';
 
 
-
 @Component({
   selector: 'app-purchase-report',
   templateUrl: './purchase-report.component.html',
@@ -15,7 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 export class PurchaseReportComponent implements OnInit {
 
-  mydata =  [];
+  mydata:any =  [];
   private searchterm=new Subject;
   searchatts=new Search(['all','filter'],['PCS ID','Invoice Number','Party Name','date']);
   searchvalues=new SearchValues(
@@ -30,6 +29,9 @@ export class PurchaseReportComponent implements OnInit {
   data=[];
   searchresult=[];
   query:any;
+
+  purchaseReturnData:any = [];
+
   constructor(
     private _webservice : WebServicesService
   ) { }
@@ -42,7 +44,14 @@ export class PurchaseReportComponent implements OnInit {
     
     this._webservice.showpurchase({reportType:"report",staticdata:'data'}).subscribe(
       resData=>{
-        this.mydata=resData;
+        // this.mydata=resData;
+        this.mydata = resData.map(function(el) {
+          var o = Object.assign({}, el);
+          o.purchaseretrun = false;
+          return o;
+        });
+
+        console.log(this.mydata);
       });
 
       this.searchterm
@@ -94,19 +103,38 @@ export class PurchaseReportComponent implements OnInit {
     
   }
 
-  purchaseReturn(data){
+  purchaseReturn(){
+    console.log(this.purchaseReturnData);
+    for(let j=0; j<this.purchaseReturnData.length; j++){
+      for(var i=0; i<this.mydata.length; i++){
+        if(this.mydata[i].PCS_ID == this.purchaseReturnData[j] || this.mydata[i].Lot_Number == this.purchaseReturnData[j]){
+          this.mydata.splice(i,1);
+        }
+      }  
+    }
     
+    this._webservice.purchaseReturn(this.purchaseReturnData);
+  }
+
+  returnPurcahse(purchaseretrun,data){
     var dataID = data.PCS_ID;
     if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
       dataID = data.diamond_lot_number;
     }
-    for(var i=0; i<this.mydata.length; i++){
-      if(this.mydata[i].PCS_ID == dataID || this.mydata[i].Lot_Number == dataID){
-        this.mydata.splice(i,1);
+    console.log(purchaseretrun,dataID);
+    if(purchaseretrun == true){
+      console.log(this.purchaseReturnData.indexOf(dataID))
+      if(this.purchaseReturnData.indexOf(dataID) == -1){
+        this.purchaseReturnData.push(dataID);
+      }
+    }else{
+      console.log(this.purchaseReturnData.indexOf(dataID))
+      if(this.purchaseReturnData.indexOf(dataID) != -1){
+        var index = this.purchaseReturnData.indexOf(dataID);
+        this.purchaseReturnData.splice(index,1);
       }
     }
-    console.log(data);
-    this._webservice.purchaseReturn(dataID);
+    console.log(this.purchaseReturnData);
   }
 
 }

@@ -53,9 +53,10 @@ class PurchaseController extends Controller
         Purchase::where('PCS_ID', '=', $data['PCS_ID'])->delete();
     }
 
-    public function purchaseReturn(){
-        print_r(Request::all());
-        $PR_pcsid = Request::all()[0];
+    public function purchaseReturnFromDB($pcsID){
+        
+        $PR_pcsid = $pcsID;
+        
         $purchase = new \App\Purchase;
         $purchase_return = new \App\PurchaseReturn;
         $PR_data = Purchase::where(function($query) use($PR_pcsid){
@@ -64,7 +65,8 @@ class PurchaseController extends Controller
         })->first()->toArray();
         
         foreach ($PR_data as $fields => $value) {
-            $purchase_return->$fields = $PR_data[$fields];
+            if($fields != "sr_no")
+                $purchase_return->$fields = $PR_data[$fields];
         }
         $purchase_return->save();
         Purchase::where(function($query) use($PR_pcsid){
@@ -73,7 +75,7 @@ class PurchaseController extends Controller
         })->first()->delete();
     }
 
-     public function purchaseReturnReport(){
+    public function purchaseReturnReport(){
         $params = Request::all();
         $purchase_return = new \App\PurchaseReturn;
         $purchase_data = PurchaseReturn::all();
@@ -154,6 +156,14 @@ class PurchaseController extends Controller
             return response()->json($store,200);
         }
         return response()->json([],200);
+    }
+
+    public function purchaseReturn(){
+        $PR_pcsid = Request::all();
+        // print_r($PR_pcsid);
+        for($i = 0; $i<count($PR_pcsid); $i++){
+            $this->purchaseReturnFromDB($PR_pcsid[$i]);
+        }
     }
 
 }

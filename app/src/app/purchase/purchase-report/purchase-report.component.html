@@ -56,82 +56,12 @@
     </form>
 
     <div class="card">
-        <!-- <div class="card-header">
-            <h2>Purchase Report <small>Total Purchase of your Company.</small></h2>
-        </div> -->
-
-        <!--<div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-collapse" *ngFor="let m of mydata">
-                <div role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        <div class="col-sm-12" style= "height:auto;color:#666;">
-                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                <div style="width:30%; float:left;padding:10px;">
-                                    <span style="font-size:14px;float:left; width:100%;">
-                                    <b>Dealer Name :</b> {{m.account_name}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
-                                    <b>Currency Conversion :</b> {{m.currency_convrsion_rate}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
-                                    <b>Country :</b> {{m.country}}
-                                    </span>
-                                    <span style="font-size:14px;float:left;width:100%;">
-                                    <b>Notes :</b> {{m.notes}}
-                                    </span>
-                                </div>
-                                <div style="width:40%; float:right;padding:">
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Date : </b>{{m.purchase_date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Invoice# : </b>{{m.invoice_number}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="width:100%; padding:0px; float:left;">
-                                <div style="width:100%;float:left;background:#efefef;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                    Decription
-                                    </span>
-                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    Amount
-                                    </span>
-                                </div>
-                                <div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                    Pcs ID : {{m.PCS_ID}}
-                                    <span style="font-size:10px; float:left; width:100%;">
-                                    Total Carats : {{m.total_diamond_carat}}
-                                    Total Picies : {{m.total_diamond_pcs}}
-                                    </span>
-                                    </span>
-                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    ₹{{m.amount_INR}}(${{m.amount_dolar}})
-                                    </span>
-                                </div>                                
-                                <div style="width:100%;float:left; background:#fff;">
-                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                    Total : ₹{{m.amount_INR}}(${{m.amount_dolar}})
-                                    </span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-sm waves-effect" (click)="purchaseReturn(m)">Retrun This Purchase</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
         <div class="table-responsive">
+            <button class="btn btn-danger btn-md m-btn waves-effect" (click)="purchaseReturn()" [disabled] ="purchaseReturnData.length == 0">Retrun This Purchase</button>
             <table id="data-table-selection" class="table table-striped">
                 <thead>
                     <tr>
+                        <th ></th>
                         <th data-column-id="pcsid">Pcs ID</th>
                         <th data-column-id="id" data-type="numeric" data-identifier="true">Invoice Number</th>
                         <th data-column-id="date">Date</th>
@@ -142,12 +72,18 @@
                         <th data-column-id="amountDOLLAR">Amount DOLLAR</th>
                         <th data-column-id="currencyConversion">Currency Conversion Rate</th>
                         <th data-column-id="notes">Notes</th>
-                        <th data-column-id="country">Country</th>
-                        <th data-column-id="country">Purchase Return</th>
+                        <th data-column-id="country">Country</th>                        
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let m of mydata">
+                        
+                        <td>
+                            <label class="checkbox checkbox-inline">
+                                <input type="checkbox"  [(ngModel)]="m.purchaseretrun" name = "purchaseretrun" (change)="returnPurcahse(m.purchaseretrun,m)">
+                                <i class="input-helper"></i>
+                            </label>
+                        </td>
                         <td>{{m.PCS_ID}}</td>
                         <td>{{m.invoice_number}}</td>
                         <td>{{m.purchase_date}}</td>
@@ -158,8 +94,7 @@
                         <td>{{m.amount_dolar}}</td>
                         <td>{{m.currency_convrsion_rate}}</td>
                         <td>{{m.notes}}</td>
-                        <td>{{m.country}}</td>
-                        <td><button class="btn btn-primary btn-sm waves-effect" (click)="purchaseReturn(m)">Retrun This Purchase</button></td> 
+                        <td>{{m.country}}</td>                        
                     </tr>
                 </tbody>
             </table>
