@@ -29,6 +29,9 @@ export class SalesReportComponent implements OnInit {
   data=[];
   searchresult=[];
   query:any;
+
+  salesReturnData:any = [];
+
   constructor( 
     private _webservice : WebServicesService 
   ) { }
@@ -39,7 +42,11 @@ export class SalesReportComponent implements OnInit {
     
     this._webservice.showsales({reportType:"report",staticdata:'data'}).subscribe(
       resData=>{
-        this.mydata=resData;
+        this.mydata = resData.map(function(el) {
+          var o = Object.assign({}, el);
+          o.salesretrun = false;
+          return o;
+        });
       });
 
       this.searchterm
@@ -91,18 +98,38 @@ export class SalesReportComponent implements OnInit {
     
   }
 
-  salesReturn(data){
-    console.log(data.PCS_ID);
+  salesReturn(){
+    console.log(this.salesReturnData);
+    for(let j=0; j<this.salesReturnData.length; j++){
+      for(var i=0; i<this.mydata.length; i++){
+        if(this.mydata[i].PCS_ID == this.salesReturnData[j] || this.mydata[i].Lot_Number == this.salesReturnData[j]){
+          this.mydata.splice(i,1);
+        }
+      }  
+    }
+    
+    this._webservice.salesReturn(this.salesReturnData);
+  }
+
+  returnSales(salesretrun,data){
     var dataID = data.PCS_ID;
     if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
-      dataID = data.Lot_Number;
+      dataID = data.diamond_lot_number;
     }
-    for(var i=0; i<this.mydata.length; i++){
-       if(this.mydata[i].PCS_ID == dataID || this.mydata[i].Lot_Number == dataID){
-        this.mydata.splice(i,1);
+    console.log(salesretrun,dataID);
+    if(salesretrun == true){
+      console.log(this.salesReturnData.indexOf(dataID))
+      if(this.salesReturnData.indexOf(dataID) == -1){
+        this.salesReturnData.push(dataID);
+      }
+    }else{
+      console.log(this.salesReturnData.indexOf(dataID))
+      if(this.salesReturnData.indexOf(dataID) != -1){
+        var index = this.salesReturnData.indexOf(dataID);
+        this.salesReturnData.splice(index,1);
       }
     }
-    this._webservice.salesReturn(dataID);
+    console.log(this.salesReturnData);
   }
 
 }

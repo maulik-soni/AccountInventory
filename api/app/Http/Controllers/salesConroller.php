@@ -63,9 +63,10 @@ class salesConroller extends Controller
         Sales::where('PCS_ID', '=', $data['PCS_ID'])->delete();
     }
 
-    public function salesReturn(){
-        print_r(Request::all()[0]);
-        $SR_pcsid = Request::all()[0];
+    public function salesReturnFromDB($pcsID){
+        
+        $SR_pcsid = $pcsID;
+
         $sales = new \App\Sales;
         $sales_return = new \App\SalesReturn;
         $SR_data = Sales::where(function($query) use($SR_pcsid){
@@ -73,7 +74,8 @@ class salesConroller extends Controller
                   ->orWhere('diamond_lot_number', '=', $SR_pcsid);
         })->first()->toArray();
         foreach ($SR_data as $fields => $value) {
-            $sales_return->$fields = $SR_data[$fields];
+            if($fields != "sr_no")
+                    $sales_return->$fields = $SR_data[$fields];
         }
         $sales_return->save();
         Sales::where(function($query) use($SR_pcsid){
@@ -157,6 +159,14 @@ class salesConroller extends Controller
             return response()->json($store,200);
         }
         return response()->json([],200);
+    }
+
+    public function salesReturn(){
+        $PR_pcsid = Request::all();
+        
+        for($i = 0; $i<count($PR_pcsid); $i++){
+            $this->salesReturnFromDB($PR_pcsid[$i]);
+        }
     }
 
 }

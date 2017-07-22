@@ -382,26 +382,26 @@ showinventory(data){
   showsales(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showpurchase,data,options)
+    return this._http.post(this.apis.showsales,data,options)
     .map((response:Response) => response.json());
   }
 
   searchsales(data){
     console.log(data);
-    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
        .map((response:Response) => response.json());
   }
 
   showsalesretrun(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showpurchase,data,options)
+    return this._http.post(this.apis.showsales,data,options)
     .map((response:Response) => response.json());
   }
 
   searchsalesreturn(data){
     console.log(data);
-    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
        .map((response:Response) => response.json());
   }
 
