@@ -82,7 +82,7 @@ class memoissueController extends Controller
                         $response=\App\MemoIssue::where('memo_invoice_number',$params['search'])->where('status','RECEIVED')->get();
                    return response()->json($response,200);
                 }
-                if($params['filterby']=='Invoice Number'){
+                if($params['filterby']=='Party Name'){
                     if($params['reportType'] == "report"){
                         $response=\App\MemoIssue::where('account_name',$params['search'])->where('status','ISSUED')->get();
                     }else
@@ -116,9 +116,13 @@ class memoissueController extends Controller
 
     public function search(Request $request){
         $query = Request::all();
+        
         foreach($query as $key=>$value){
             if($key != 'reportType'){
-                $q = $key; 
+                if($key == 'Party Name' || $key == 'Party_Name'){
+                    $q = 'account_name';
+                    $query['account_name'] = $value;
+                }
             }
         }
         

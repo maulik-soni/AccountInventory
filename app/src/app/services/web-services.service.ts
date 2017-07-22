@@ -247,9 +247,35 @@ showinventory(data){
     return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
   }
 
- /******************************
+  showmemoin(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showmemoin,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchmemoin(data){
+    console.log(data);
+    return this._http.get(this.apis.searchmemoin+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+  showmemoissue(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showmemoissue,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchmemoissue(data){
+    console.log(data);
+    return this._http.get(this.apis.searchmemoissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+ /*******************************
   *Lab Issue Module Web services*
-  ******************************/
+  *******************************/
 
   changelabissuestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -283,9 +309,9 @@ showinventory(data){
   }
 
 
-/******************************
-*Purchase Module Web services *
-*******************************/
+ /******************************
+  *Purchase Module Web services*
+  ******************************/
 
   showpurchase(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -349,9 +375,9 @@ showinventory(data){
 
 
   
-/***************************
-*Sales Module Web services *
-****************************/
+ /**************************
+  *Sales Module Web services*
+  ***************************/
 
   showsales(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });

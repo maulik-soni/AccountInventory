@@ -5,12 +5,7 @@
         <h2>Sales Return</h2>
     </div>
 
-    <div class="card">
-        <div class="card-header">
-            <h2>Sales Return Report <small>Total Sales of your Company.</small></h2>
-        </div>
-
-        <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
+     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
         <div class="card searchfilters">
             <div class="card-header">Filter</div>
             <div class="card-body card-padding">
@@ -60,6 +55,8 @@
         </div>
         <!-- <p>{{ filters.value | json}}</p> -->
     </form>
+
+    <div class="card">
         
         <!--<div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-collapse" *ngFor="let m of salesreturn">
