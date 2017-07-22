@@ -13,6 +13,8 @@ import { SalesDetailsComponent } from './sales-details/sales-details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MaterialModule,MdDatepickerModule,MdNativeDateModule} from '@angular/material';
 import {MdInputModule} from '@angular/material';
+import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
+
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import {MdInputModule} from '@angular/material';
     SalesRoutingModule,
     // DatepickerModule,
     ReactiveFormsModule,
+    MdRadioModule,
     MdDatepickerModule,
     MdInputModule
   ],
@@ -39,6 +42,7 @@ import {MdInputModule} from '@angular/material';
     FormsModule,
     MdDatepickerModule,
     MdInputModule,
+    MdRadioModule,
     ReactiveFormsModule
   ]
 })

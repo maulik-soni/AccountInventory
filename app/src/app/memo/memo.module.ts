@@ -18,6 +18,7 @@ import {MaterialModule,MdDatepickerModule,MdNativeDateModule} from '@angular/mat
 import { MdInputModule } from '@angular/material';
 import { MemoinReturnReportComponent } from './memoin-return-report/memoin-return-report.component';
 import { MemoissueReturnReportComponent } from './memoissue-return-report/memoissue-return-report.component';
+import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { MemoissueReturnReportComponent } from './memoissue-return-report/memois
     BrowserModule, 
     ReactiveFormsModule,
     MdDatepickerModule,
+    MdRadioModule,
     MdInputModule
     // DataTableModule
   ],
@@ -50,6 +52,7 @@ import { MemoissueReturnReportComponent } from './memoissue-return-report/memois
     FormsModule,
     MdDatepickerModule,
     MdInputModule,
+    MdRadioModule,
     ReactiveFormsModule
   ]
 

@@ -17,7 +17,7 @@ import { MaterialModule,MdDatepickerModule,MdNativeDateModule } from '@angular/m
 // import { DataTableModule } from "angular2-datatable";
 import { MdInputModule } from '@angular/material';
 
-
+import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
 
 
 @NgModule({
@@ -30,6 +30,7 @@ import { MdInputModule } from '@angular/material';
     PurchaseRoutingModule,
     ReactiveFormsModule,
     MdDatepickerModule,
+    MdRadioModule,
     MdInputModule
     // DataTableModule
   ],
@@ -41,11 +42,13 @@ import { MdInputModule } from '@angular/material';
     
   ],
   entryComponents: [PiecesTypeComponent],
+  providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},],
   exports: [
     CommonModule,
     FormsModule,
     MdDatepickerModule,
     MdInputModule,
+    MdRadioModule,
     ReactiveFormsModule
   ]
 })

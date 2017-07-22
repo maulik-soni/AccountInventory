@@ -12,6 +12,7 @@ import { LabissueRoutingModule } from './labissue-rounting.module';
 import { MaterialModule,MdDatepickerModule,MdNativeDateModule } from '@angular/material';
 import { MdInputModule } from '@angular/material';
 import { LabissueReceivedReportComponent } from './labissue-received-report/labissue-received-report.component';
+import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { LabissueReceivedReportComponent } from './labissue-received-report/labi
     FormsModule,
     LabissueRoutingModule,
     MdDatepickerModule,
+    MdRadioModule,
     MdInputModule
     // DatepickerModule
   ],
@@ -34,6 +36,7 @@ import { LabissueReceivedReportComponent } from './labissue-received-report/labi
     CommonModule,
     FormsModule,
     MdDatepickerModule,
+    MdRadioModule,
     MdInputModule,
   ]
 })

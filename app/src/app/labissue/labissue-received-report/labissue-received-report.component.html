@@ -5,188 +5,85 @@
         <h2>Lab Issue Report</h2>
     </div>
 
-    <!--<div class="card">
-        <div class="card-header">
-            <h2>Lab Issue <small>Total Lab issue by your Company.</small></h2>
-        </div>
-        
-        <div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-collapse" *ngFor="let m of issued">
-                <div role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                       
+    <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
+        <div class="card searchfilters">
+            <div class="card-header">Filter</div>
+            <div class="card-body card-padding">
 
-                        <div class="col-sm-12" style= "height:auto;color:#666;">
-                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                
-                                <div style="width:40%; float:right;padding:">
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Issue Date : </b>{{m.date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Invoice# : </b>{{m.invoice_number}}
-                                    </span>
-                                </div>
+                <md-radio-group [(ngModel)]="searchvalues.filter" class="main-filter" name="filter">
+                <md-radio-button  class="radio-button" *ngFor="let option of searchatts.filter" [value]="option" >{{option}}</md-radio-button>
+                </md-radio-group>
+                <button *ngIf="searchvalues.filter=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
+                <div class="filter-container" *ngIf="searchvalues.filter=='filter'">
+                    <span>Filter By : </span>
+                    <md-radio-group [(ngModel)]="searchvalues.filterby"  name="filterby">
+                        <md-radio-button  class="radio-button" (click)="resetsearch()" *ngFor="let option of  searchatts.filterby" [value]="option">{{option}}</md-radio-button>
+                    </md-radio-group>
+                    <div *ngIf="searchvalues.filterby!='date'" class="search search-box">
+                        <div class="input-group">
+                            <input type="text" class="search-field form-control" #searchBox (keyup)="search(searchBox.value)" name="search" [(ngModel)]="searchvalues.search" [placeholder]="searchvalues.filterby | uppercase">
+                            <div *ngIf="issearchempty()" class="search-suggestion">
+                                <p *ngFor="let result of  searchresult" (click)="setvalue(result)">{{result}}</p>
                             </div>
-                            <div style="width:100%; padding:0px; float:left;">
-                                <div style="width:100%;float:left;background:#efefef;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                    Decription
-                                    </span>
-                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    Amount
-                                    </span>
-                                </div>
-                                <div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                    Pcs ID : {{m.PCS_ID}}
-                                    <span style="font-size:11px; float:left; width:100%;">
-                                    Total Carats : {{m.carat}}
-                                    
-                                    <br>
-                                    Color : {{m.color}}
-                                    <br>
-                                    Shape : {{m.shape}}
-                                    <br>
-                                    Size : {{m.size}}
-                                    <br>
-                                    Clarity : {{m.clarity}}
-                                    </span>
-                                    </span>
-                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    ₹{{m.amount}}
-                                    </span>
-                                </div>
-                               
-                                <div style="width:100%;float:left; background:#fff;">
-                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                    Total : ₹{{m.amount}}
-                                    </span>
-                                </div>
-                            </div>
-                            <button class="btn btn-primary btn-sm waves-effect" (click)="labissuereceived(m)">Lab issue Received</button>
                         </div>
                     </div>
+                    <div *ngIf="searchvalues.filterby=='date'" class="filter-date">
+                        <div class="input-group">
+                            <div class="fg-line">
+                                <label for="from">From</label>
+                                <span class="dp-container">
+                                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="frompicker"></button>
+                                <input type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="frompicker" [min]="fromminDate" [max]="frommaxDate" name="fromdate" [(ngModel)]="searchvalues.from">
+                                <md-datepicker #frompicker></md-datepicker>	
+                                </span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="fg-line">
+                                <label for="from">To</label>
+                                <span class="dp-container">
+                                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="topicker"></button>
+                                <input type="text" id="to" class="form-control fg-input mdatepicker" [mdDatepicker]="topicker" [min]="tominDate" [max]="maxDate" name="todate" [(ngModel)]="searchvalues.to">
+                                <md-datepicker #topicker></md-datepicker>	
+                                </span>					
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
                 </div>
             </div>
         </div>
-
-    </div>-->
+        <!-- <p>{{ filters.value | json}}</p> -->
+    </form>
 
      <div class="card">
-        <div class="card-header">
-            <h2>Lab Issue Received<small>Total Lab Issue Received by your Company.</small></h2>
-        </div>
-        
         <div class="table-responsive">
             <table id="data-table-selection" class="table table-striped">
                 <thead>
                     <tr>
                         <th data-column-id="pcsid">Pcs ID</th>
-                        <th data-column-id="id" data-type="numeric" data-identifier="true">Invoice Number</th>
                         <th data-column-id="date">Date</th>
                         <th data-column-id="totalpcs">Carat</th>
                         <th data-column-id="color">Color</th>
-                        <th data-column-id="shape">Shape</th>                        
+                        <th data-column-id="shape">Shape</th>
                         <th data-column-id="clarity">Clarity</th>
-                        <th data-column-id="amount">Amount</th>                        
+                        <th data-column-id="amount">Amount</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let m of received">
                         <td>{{m.PCS_ID}}</td>
-                        <td>{{m.invoice_number}}</td>
                         <td>{{m.date}}</td>
                         <td>{{m.carat}}</td>
                         <td>{{m.color}}</td>
                         <td>{{m.shape}}</td>
                         <td>{{m.clarity}}</td>
-                        <td>{{m.amount}}</td>                        
+                        <td>{{m.amount}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-
-        <!--<div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-collapse" *ngFor="let m of received">
-                <div role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne{{m.PCS_ID}}" aria-controls="collapseOne">Invoice Number : {{m.invoice_number}}                            
-                        </a>
-                    </h4>
-                </div>
-                <div id="collapseOne{{m.PCS_ID}}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                       
-
-                        <div class="col-sm-12" style= "height:auto;color:#666;">
-                            <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                                <div style="width:30%; float:left;padding:10px;">
-                                    
-                                </div>
-                                <div style="width:40%; float:right;padding:">
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Return Date : </b>{{m.return_date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Issue Date : </b>{{m.date}}
-                                    </span>
-                                    <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                                    <b>Invoice# : </b>{{m.invoice_number}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div style="width:100%; padding:0px; float:left;">
-                                <div style="width:100%;float:left;background:#efefef;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                                    Decription
-                                    </span>
-                                    <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    Amount
-                                    </span>
-                                </div>
-                                <div style="width:100%;float:left;">
-                                    <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                                    Pcs ID : {{m.PCS_ID}}
-                                    <span style="font-size:11px; float:left; width:100%;">
-                                    Total Carats : {{m.carat}}
-                                    
-                                    <br>
-                                    Color : {{m.color}}
-                                    <br>
-                                    Shape : {{m.shape}}
-                                    <br>
-                                    Size : {{m.size}}
-                                    <br>
-                                    Clarity : {{m.clarity}}
-                                    </span>
-                                    </span>
-                                    <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                                    ₹{{m.amount}}
-                                    </span>
-                                </div>
-                                
-                                <div style="width:100%;float:left; background:#fff;">
-                                    <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                                    Total : ₹{{m.amount}}
-                                    </span>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-
-    </div>    
-    
+    </div>
 </div>
 
 </dashboard>
