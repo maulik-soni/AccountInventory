@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 22, 2017 at 05:09 PM
+-- Generation Time: Jul 29, 2017 at 09:47 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -270,8 +270,8 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 --
 
 CREATE TABLE `purchase` (
-  `PCS_ID` int(11) DEFAULT NULL,
   `sr_no` int(11) NOT NULL,
+  `PCS_ID` int(11) DEFAULT NULL,
   `invoice_number` varchar(256) DEFAULT NULL,
   `purchase_date` date DEFAULT NULL,
   `due_date` date DEFAULT NULL,
@@ -311,14 +311,6 @@ CREATE TABLE `purchase` (
   `mVAT` float DEFAULT NULL,
   `broker_details` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `purchase`
---
-
-INSERT INTO `purchase` (`PCS_ID`, `sr_no`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`) VALUES
-(898235, 2, '100001', '2017-07-13', '2017-07-23', 'S. R. DIAMONDS HK LTD.', '10', 'wenkflwe', 100, 'wnlfnwnegio', '{"less1":"1","less2":"1","less3":"1"}', 'Argentina', 'Bill to Bill', '{"comission1":"1","comission2":"2"}', 'GENERAL STOCK', 'wjkgjlw', 'lwelgwle', 'ROUND BRILLIANT CUT', NULL, NULL, 'GRAY', 'IF', 50, 100, 2, 1960, 2000, 2, 1999.2, 9226500, 701842000, 92265, 7018420, 'lwjeljwelg', '1235', 3585270, 35852.7, NULL, 1, '{"brokerType":"Flat","brokerName":"Tiffany Case","brokerage":"1"}'),
-(NULL, 4, '23532623', NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, '23623623', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}');
 
 -- --------------------------------------------------------
 
@@ -327,8 +319,8 @@ INSERT INTO `purchase` (`PCS_ID`, `sr_no`, `invoice_number`, `purchase_date`, `d
 --
 
 CREATE TABLE `purchase_return` (
-  `PCS_ID` int(11) DEFAULT NULL,
   `sr_no` int(11) NOT NULL,
+  `PCS_ID` int(11) DEFAULT NULL,
   `invoice_number` varchar(256) DEFAULT NULL,
   `purchase_date` date DEFAULT NULL,
   `due_date` date DEFAULT NULL,
@@ -368,14 +360,6 @@ CREATE TABLE `purchase_return` (
   `mVAT` float DEFAULT NULL,
   `broker_details` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `purchase_return`
---
-
-INSERT INTO `purchase_return` (`PCS_ID`, `sr_no`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`) VALUES
-(452332, 6, '3532525533', NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}'),
-(NULL, 8, '3532525533', NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, '235235', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}');
 
 -- --------------------------------------------------------
 
@@ -422,8 +406,8 @@ INSERT INTO `role_user` (`role_id`, `user_id`) VALUES
 --
 
 CREATE TABLE `sales` (
-  `PCS_ID` int(11) DEFAULT NULL,
   `sr_no` int(11) NOT NULL,
+  `PCS_ID` int(11) DEFAULT NULL,
   `invoice_number` varchar(256) NOT NULL,
   `sales_date` varchar(256) DEFAULT NULL,
   `due_date` varchar(256) DEFAULT NULL,
@@ -470,13 +454,6 @@ CREATE TABLE `sales` (
   `diff_amount_dolar` float DEFAULT NULL,
   `broker_details` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `sales`
---
-
-INSERT INTO `sales` (`PCS_ID`, `sr_no`, `invoice_number`, `sales_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `sale_disc`, `sale_rate`, `freight`, `purchase_amount_INR`, `purchase_amount_dolar`, `sales_amount_INR`, `sales_amount_dolar`, `diff_amount_INR`, `diff_amount_dolar`, `broker_details`) VALUES
-(4623235, 1, '23592', '2017/7/14', '2017/7/24', 'RATNAKALA EXPORT', '10', 'ewklnleng', 100, 'innslnfwe', '{"less1":"1","less2":"0","less3":"1"}', 'Angola', 'Bill to Bill', '{"comission1":"2","comission2":"1"}', 'GENERAL STOCK', 'wgklwne', 'gwgwegw', 'MARQUISE CUT', NULL, NULL, 'RED', 'VVS2', 100, 90, 1, 99000, 100000, 10, 108900, 0, 701842000, 0, 7018420, 'gwgwegew', '223523236', 3585270, 35852.7, 1, 94207200, 100, 701842000, 7018420, 9420720000, 94207200, 8718880000, 87188800, '{"brokerType":"Flat","brokerName":"Jenny Flex","brokerage":"10"}');
 
 -- --------------------------------------------------------
 
@@ -485,8 +462,8 @@ INSERT INTO `sales` (`PCS_ID`, `sr_no`, `invoice_number`, `sales_date`, `due_dat
 --
 
 CREATE TABLE `sales_return` (
-  `PCS_ID` int(11) NOT NULL,
   `sr_no` int(11) NOT NULL,
+  `PCS_ID` int(11) NOT NULL,
   `invoice_number` varchar(256) NOT NULL,
   `sales_date` varchar(256) DEFAULT NULL,
   `due_date` varchar(256) DEFAULT NULL,
@@ -533,14 +510,6 @@ CREATE TABLE `sales_return` (
   `diff_amount_dolar` float DEFAULT NULL,
   `broker_details` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `sales_return`
---
-
-INSERT INTO `sales_return` (`PCS_ID`, `sr_no`, `invoice_number`, `sales_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `sale_disc`, `sale_rate`, `freight`, `purchase_amount_INR`, `purchase_amount_dolar`, `sales_amount_INR`, `sales_amount_dolar`, `diff_amount_INR`, `diff_amount_dolar`, `broker_details`) VALUES
-(32535, 2, '34634634', NULL, NULL, 'RATNAKALA EXPORT', '0', NULL, 43, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '{"brokerType":"","brokerName":"","brokerage":""}'),
-(263, 3, '246246', NULL, NULL, NULL, '0', NULL, NULL, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '{"brokerType":"","brokerName":"","brokerage":""}');
 
 -- --------------------------------------------------------
 
@@ -749,12 +718,12 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `purchase_return`
 --
 ALTER TABLE `purchase_return`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -764,7 +733,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `sales_return`
 --
