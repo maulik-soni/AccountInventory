@@ -14,10 +14,23 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { newPurchase } from './purchase.interface';
 import { MdDatepickerModule} from '@angular/material';
 import { MdInputModule } from '@angular/material';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
   }
+}
+
+type AOA = Array<Array<any> >;
+var importedData:any = []; 
+function s2ab(s:string):ArrayBuffer {
+	const buf = new ArrayBuffer(s.length);
+	const view = new Uint8Array(buf);
+	for (let i = 0; i !== s.length; ++i) {
+		view[i] = s.charCodeAt(i) & 0xFF;
+	};
+	return buf;
 }
 
 @Component({
@@ -28,6 +41,10 @@ export abstract class AbstractViewInit {
 })
 export class PurchaseComponent implements OnInit, AbstractViewInit {
 
+   data:AOA = [];
+	wopts:XLSX.WritingOptions = { bookType:'xlsx', type:'binary' };
+	fileName:string = "SheetJS.xlsx";
+  
   date: DateModel;
   options: DatePickerOptions;
 
@@ -415,5 +432,137 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     this._webservice.postpurchasedata(this.newpurchasedata);
     form.reset();
   }
+
+  public onFileChange(evt:any) {
+    var jsonMap = {
+          "sr_no": "Sr No.",
+          "PCS_ID": "PCS ID",
+          "invoice_number": "Invoice Number",
+          "purchase_date": "Purchase Date",
+          "due_date": "Due Date",
+          "account_name": "Party's Name",
+          "payment_terms": "Terms of Payment",
+          "polishing_type": "Polish Type",
+          "currency_convrsion_rate": "Currency Conversion rate",
+          "notes": "Notes",
+          "country": "Country",
+          "bill_type": "Bill Type",
+          "stock_status_group": "Stock Group",
+          "item": "Item",
+          "kapan": "Kapan",
+          "diamond_shape": "Diamont Shape",
+          "diamond_lot_number": "Lot Number",
+          "diamond_size": "Diamond Size",
+          "diamond_color": "Diamond Color",
+          "diamond_clarity": "Diamond Clarity",
+          "total_diamond_pcs": "Total Diamond Pcs",
+          "total_diamond_carat": "Total Diamond Carat",
+          "cost_discount": "Cost Discount",
+          "cost_rate_per_carat": "Cost Rate/Carat",
+          "RAP_price": "RAP price",
+          "wd_rate": "WD rate",
+          "wd_rate_carat": "WD rate carat",
+          "rate_INR": "Rate in INR",
+          "amount_INR": "Amount INR",
+          "rate_dolar": "Rate in USD",
+          "amount_dolar": "Amount in USD",
+          "LAB_type": "Lab Type",
+          "certificate_number": "Certificate No.",
+          "avg_INR": "Average in INR",
+          "avg_dolar": "Average in USD",
+          "aginst_Hform": "Against Hform",
+          "mVAT": "mVAT",
+          "less1": "Less 1",
+          "less2": "Less 2",
+          "less3": "Less 3",
+          "comission1": "Comission 1",
+          "comission2": "Comission 2",
+          "brokerType": "Broker Type",
+          "brokerName": "Broker Name",
+          "brokerage": "Brokerage"
+        };
+		const scope = this;
+		/* wire up file reader */
+		const target:DataTransfer = (<DataTransfer>(evt.target));
+		if(target.files.length != 1) throw new Error("Cannot upload multiple files on the entry");
+		const reader = new FileReader();
+		reader.onload = function (e:any) {
+			/* read workbook */
+			const bstr = e.target.result;
+			const wb = XLSX.read(bstr, {type:'binary'});
+			/* grab first sheet */
+			const wsname = wb.SheetNames[0];
+			const ws = wb.Sheets[wsname];
+			/* save data to scope */
+      scope.data = (<AOA>(XLSX.utils.sheet_to_json(ws, {header:1})));
+      var index = [];
+      for (let x in jsonMap) {
+        index.push(x);
+      }
+      for(let i=1; i<scope.data.length; i++){
+        for(let j=0; j<index.length; j++){
+          jsonMap[index[j]] = scope.data[i][j];
+        }
+        importedData.push(JSON.parse(JSON.stringify(jsonMap)));
+      }
+      for(var i = 0; i<importedData.length; i++){
+        console.log(importedData[i]);
+        importedData[i].comission = {
+          comission1 : importedData[i].comission1,
+          comission2 : importedData[i].comission2
+        };
+        importedData[i].comission = JSON.stringify(importedData[i].comission);
+
+        importedData[i].less = {
+          less1 : importedData[i].less1,
+          less2 : importedData[i].less2,
+          less3 : importedData[i].less3
+        };
+        importedData[i].less = JSON.stringify(importedData[i].less);
+        
+        importedData[i].broker_details = {
+          brokerName : importedData[i].brokerName,
+          brokerType : importedData[i].brokerType,
+          brokerage : importedData[i].brokerage
+        };
+        importedData[i].broker_details = JSON.stringify(importedData[i].broker_details);
+        
+    }
+      // console.log(importedData);
+    };
+
+		reader.readAsBinaryString(target.files[0]);
+  }
+  submitData(){
+    console.log(importedData);
+    for(var i = 0; i<importedData.length; i++){
+        for(var key in importedData[i]){
+          if(importedData[i][key] == '-'){
+            importedData[i][key] = ''; 
+          }
+        }
+        delete importedData[i].sr_no;
+        delete importedData[i].less1;
+        delete importedData[i].less2;
+        delete importedData[i].less3;
+        delete importedData[i].comission1;
+        delete importedData[i].comission2;
+        delete importedData[i].brokerName;
+        delete importedData[i].brokerType;
+        delete importedData[i].brokerage;
+    }
+      
+      this._webservice.postpurchasedata(importedData);
+  }  
+//   function getObjectKeyIndex(obj, keyToFind) {
+//     var i = 0, key;
+//     for (key in obj) {
+//         if (key == keyToFind) {
+//             return i;
+//         }
+//         i++;
+//     }
+//     return null;
+// }
 
 }

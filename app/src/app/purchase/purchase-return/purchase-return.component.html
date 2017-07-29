@@ -1,9 +1,12 @@
 <dashboard>
   
   <div class="container">
-    <div class="block-header">
-        <h2>Purchase Return</h2>
+    
+      <div class="block-header" style="overflow: hidden">
+        <h2 style="display : inline-block">Purchase Return</h2>
+        <a class="btn btn-info waves-effect pull-right" (click) = "export()">Export as Excel</a>
     </div>
+
     
     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
         <div class="card searchfilters">
