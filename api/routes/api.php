@@ -91,12 +91,17 @@ Route::delete('/deleteuser/{id}','UserController@destroy');
 
 
 
-Route::get('/searchpaymentreciept','PaymentRecieptController@search');
-Route::post('/showpaymentreciept','PaymentRecieptController@show');
-Route::post('/newpaymentreciept','PaymentRecieptController@create');
+Route::get('/searchbill','BillsController@search');
+Route::post('/showbills','BillsController@show');
+Route::post('/newbill','BillsController@create');
 
-Route::post('/showrecievable','salesConroller@salesReport');
-Route::get('/searchrecievable','salesConroller@salesReport');
+Route::post('/showledger','LedgerController@show');
+
+Route::get('/searchpayable','PayableController@search');
+Route::post('/showpayable','PayableController@show');
+
+Route::get('/searchreceivable','ReceivableController@search');
+Route::post('/showreceivable','ReceivableController@show');
 
 Route::post('/showinventory','InventoryController@show');
 

@@ -16,18 +16,20 @@ class CreatePaymentRecieptsTable extends Migration
         Schema::create('payment_reciepts', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('invoice_number');
-            $table->date('date');
-            $table->string('mod');
-            $table->string('type');
+            $table->double('invoice_value');
+            $table->date('transaction_date');
+            $table->string('transaction_mode');
+            $table->json('transaction_details')->nullable();
             $table->string('account_name');
-            $table->string('currency');
-            $table->enum('f/p',['full','part']);
+            $table->string('transaction_currency');
+            $table->enum('transaction_status',['full','part']);
             $table->double('credit_INR')->nullable();
             $table->double('debit_INR')->nullable();
-            $table->double('credit_dollar')->nullable();
-            $table->double('debit_dollar')->nullable();
+            $table->double('transaction_conversion_rate')->nullable();
             $table->double('balance');
-            $table->double('recieved');
+            $table->double('received');
+            $table->date('date');
+            $table->date('due_date');
             $table->timestamps();
         });
     }

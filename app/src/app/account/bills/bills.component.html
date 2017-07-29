@@ -1,0 +1,169 @@
+<dashboard>
+  <div class="container">
+    <div class="block-header">
+      <h2>Bills</h2>
+    </div>
+
+     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
+    <div class="card searchfilters">
+      <div class="card-header"></div>
+      <div class="card-body card-padding">
+        <div class="row">
+          
+
+          <div class="col-sm-3">
+            <md-radio-group [(ngModel)]="paymentvalues.transaction_type" class="main-filter" name="billtype">
+          <md-radio-button  class="radio-button" *ngFor="let option of options.transaction_type" (change)="gettype(option)" [value]="option" >{{option}}</md-radio-button>
+        </md-radio-group>
+          </div>
+
+          <div class="col-sm-2">
+						
+                <p class="form-label">Party Name</p>
+                <ng-select [items]="options.account_name" (selected)="selectedparty($event)"  (removed)="removed($event)" placeholder="No Party Selected"></ng-select>
+					</div>
+
+          
+      </div>
+          <span (click)="getdata()" class="btn btn-info waves-effect">Get Result</span>
+          
+    </div>
+    </div>
+   
+      
+     <p>{{ filters.value | json}}</p>
+
+     <div class="card" *ngIf="accountdata.accounts">
+      <!--<div class="card-header">Reports</div>-->
+    <div class="card-header  table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngFor="let title of titles">{{title}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let datas of accountdata.accounts">
+            <td colspan="2">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>{{datas.account_name}}</th>
+                    <th>{{datas.account_sum}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+            <td colspan="2">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th  *ngFor="let title of innertitles" >
+                          {{title}}
+                          </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of datas.account_invoices" class="invoice-data">
+                        <td>{{data.invoice_number}}</td>
+                        <td>{{data.date | date:"dd-MM-yy"}}</td>
+                        <td>{{data.invoice_value | currency:'INR':true}}</td>
+                        <td>{{data.received | currency:'INR':true}}</td>
+                        <td>{{data.balance | currency:'INR':true}}</td>
+                        <td>{{data.due_date | date:"dd-MM-yy"}}</td>
+                        <td (click)="getinvoice(data)" class="cta-pay-receive"> <span class="btn btn-info waves-effect">pay</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                </tr>
+                </tbody>
+              </table>
+            </td> 
+          </tr>
+              </tbody>
+            </table>
+    </div>
+
+    <div *ngIf="this.showpaymentoptions">
+      <div class="container">
+
+        <div ngModelGroup="transaction">
+          <div *ngFor="let data of invoicedatakeys">
+          <span [(ngModel)]="invoicedata.invoice_number" name="data">{{invoicedata.invoice_number}}</span>
+          <!--<label > {{invoicedata.invoice_number}}</label>
+          <span> {{invoicedata.date}}</span>
+          <span> {{invoicedata.credit_INR}}{{invoicedata.debit_INR}}</span>
+          <span>{{invoicedata.received}}</span>
+          <span>{{invoicedata.balance}}</span>
+          <span>{{invoicedata.due_date}}</span>-->
+          <!--<span>{{invoicedata.data}}</span>
+          <span>{{invoicedata | json}}</span>
+          <span>{{ invoicedata[data] }}</span>-->
+          <!--<span>{{ invoicedata.data }}</span>
+          <span>{{ invoicedata(data) }}</span>-->
+        </div>
+        </div>
+      <div class="col-sm-2">
+						<div class="form-group">
+							<div class="fg-line">
+                <p class="form-label">Date</p>
+                <input type="text" class="form-control fg-input mdatepicker" [mdDatepicker]="datepicker" name="date" [max]="maxDate" [(ngModel)]="paymentvalues.transaction_date">
+                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="datepicker"></button>
+                <md-datepicker #datepicker></md-datepicker>							
+							</div>
+						</div>
+					</div>
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">By</p>
+                <ng-select [items]="options.transaction_mode" (selected)="selectedby($event)"></ng-select>
+              </div>
+            </div>
+          </div>
+
+           <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Currency</p>
+                <ng-select [items]="options.transaction_currency" (selected)="selectedcurrency($event)"></ng-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Full/Part</p>
+                <ng-select [items]="options.transaction_status" (selected)="selectedpayment($event)"></ng-select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+						<div class="form-group">
+							<div class="fg-line">
+                <p class="form-label">Amount</p>
+								<input type="text" class="form-control fg-input" name = "amount" #amountBox [(ngModel)]="paymentvalues.amount">								
+							</div>
+						</div>
+					</div>
+
+          <button type="submit" class="btn btn-info waves-effect">save</button>
+      </div>
+    <hr>
+    
+
+          
+    </div>
+  
+
+    </div>
+
+
+    </form>
+    
+  </div>
+</dashboard>

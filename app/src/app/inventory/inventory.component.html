@@ -9,26 +9,46 @@
       <div class="card-header">Filter</div>
       <div class="card-body card-padding">
 
-        <md-radio-group [(ngModel)]="searchvalues.filter" class="main-filter" name="filter">
-          <md-radio-button  class="radio-button" *ngFor="let option of searchatts.filter" [value]="option" >{{option}}</md-radio-button>
+        <md-radio-group [(ngModel)]="searchvalues.inventory" class="main-filter" name="inventory">
+          <md-radio-button  class="radio-button" *ngFor="let option of searchatts.inventory" (change)="getoption(option)"[value]="option" >{{option}}</md-radio-button>
         </md-radio-group>
-  
-        <button *ngIf="searchvalues.filter=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
 
-        <div class="filter-container" *ngIf="searchvalues.filter=='filter'">
-          <md-radio-group [(ngModel)]="searchvalues.filterby"  name="filterby">
+        
+  
+        <button *ngIf="searchvalues.inventory=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
+
+        <div class="filter-container" ngModelGroup="filter" *ngIf="searchvalues.inventory=='filter'">
+
+          <!--<md-checkbox
+          class="example-margin"
+          [checked]="checked"
+          [indeterminate]="indeterminate"
+          [align]="align"
+          [disabled]="disabled"> 
+        I'm a checkbox
+      </md-checkbox>-->
+          <!--<md-radio-group [(ngModel)]="searchvalues.filterby"  name="filterby">
             <md-radio-button  class="radio-button" *ngFor="let option of  searchatts.filterby" [value]="option">{{option}}</md-radio-button>
-          </md-radio-group>
+          </md-radio-group>-->
+
+          <div *ngFor="let datas of filterkeys; index as i">
+            <div  ngModelGroup={{datas}}>
+              <h1>{{filtertitles[i]}}</h1>
+              <div *ngFor="let data of filterdata[i][datas]">
+                <md-checkbox *ngIf="data" ngModel name={{data}}>{{data}}</md-checkbox>
+              </div>
+            </div>  
+          </div>
 
           <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
           
         </div>
       </div>
     </div>
-    <!--<p>{{ filters.value | json}}</p>-->
+    <p>{{ filters.value | json}}</p>
     </form>
 
-    <div class="card">
+    <!--<div class="card">
       <div class="card-header">Reports</div>
     <div class="card-body  table-responsive">
       <table class="table">
@@ -39,12 +59,12 @@
         </thead>
         <tbody>
           <tr *ngFor="let data of data">
-            <td *ngFor="let title of titles">{{data[title]}}</td>
           </tr>
+            <td *ngFor="let title of titles">{{data[title]}}</td>
         </tbody>
       </table>
     </div>
-    </div>
+    </div>-->
 
   </div>
 </dashboard>

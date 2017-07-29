@@ -1,7 +1,7 @@
 export class Search{
     constructor(
         public filter:Array<string>,
-        public filterby:Array<string>
+        public filterby:Array<Array<string>>
         
         
     ){}

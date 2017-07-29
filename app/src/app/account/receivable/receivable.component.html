@@ -1,14 +1,14 @@
 <dashboard>
   <div class="container">
     <div class="block-header">
-      <h2>Payables</h2>
+      <h2>Receivables</h2>
     </div>
     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
     <div class="card searchfilters">
       <div class="card-header">Filter</div>
       <div class="card-body card-padding">
 
-        <md-radio-group [(ngModel)]="searchvalues.filter" class="main-filter" name="payable">
+        <md-radio-group [(ngModel)]="searchvalues.filter" class="main-filter" name="receivable">
           <md-radio-button  class="radio-button" *ngFor="let option of searchatts.filter" [value]="option" >{{option}}</md-radio-button>
         </md-radio-group>
   

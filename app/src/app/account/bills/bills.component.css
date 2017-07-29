@@ -88,3 +88,11 @@ span.ui-select-match-text{
     color:#fff;
 }
 
+.cta-pay-receive{
+    opacity: 0;
+}
+
+.invoice-data:hover .cta-pay-receive{
+    opacity: 1;
+}
+

@@ -24,20 +24,19 @@ export class WebServicesService {
     reportlab:this.base_url+'/api/reportlab',
     changelabissuestatus:this.base_url+'/api/changestatus',
 
-    newpaymentreciept:this.base_url+'/api/newpaymentreciept',
-    searchpaymentreciept:this.base_url+'/api/searchpaymentreciept',
-    showpaymentreciept:this.base_url+'/api/showpaymentreciept',
+    newbill:this.base_url+'/api/newbill',
+    searchbills:this.base_url+'/api/searchbills',
+    showbills:this.base_url+'/api/showbills',
+
+    showledger:this.base_url+'/api/showledger',
 
     showpayable:this.base_url+'/api/showpayable',
     searchpayable:this.base_url+'/api/searchpayable',
 
     showinventory:this.base_url+'/api/showinventory',
 
-    showrecievable:this.base_url+'/api/showrecievable',
-    searchrecievable:this.base_url+'/api/searchrecievable',
-
-    showledger:this.base_url+'/api/showledger',
-    searchledger:this.base_url+'/api/searchledger',
+    showreceivable:this.base_url+'/api/showreceivable',
+    searchreceivable:this.base_url+'/api/searchreceivable',
 
     newuser:this.base_url+'/api/newuser',
     searchuser:this.base_url+'/api/searchuser',
@@ -139,15 +138,15 @@ showinventory(data){
        .map((response:Response) => response.json());
   }
 
-   showrecievable(data){
+   showreceivable(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showrecievable,data,options)
+    return this._http.post(this.apis.showreceivable,data,options)
     .map((response:Response) => response.json());
   }
 
-  searchrecievable(data){
-    return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm)
+  searchreceivable(data){
+    return this._http.get(this.apis.searchreceivable+'?'+data.filterby+'='+data.searchterm)
        .map((response:Response) => response.json());
   }
 
@@ -157,27 +156,23 @@ showinventory(data){
     return this._http.post(this.apis.showledger,data,options)
     .map((response:Response) => response.json());
   }
-  searchledger(data){
-    return this._http.get(this.apis.searchledger+'?'+data.filterby+'='+data.searchterm)
-       .map((response:Response) => response.json());
-  }
 
-  searchpaymentreciept(data){
-    return this._http.get(this.apis.searchpaymentreciept+'?'+data.filterby+'='+data.searchterm)
+  searchbills(data){
+    return this._http.get(this.apis.searchbills+'?'+data.filterby+'='+data.searchterm)
     .map((response:Response) => response.json());
   }
 
-  showpaymentreciept(data){
+  showbills(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showpaymentreciept,data,options)
+    return this._http.post(this.apis.showbills,data,options)
     .map((response:Response) => response.json());
   }
 
-  newpaymentreciept(data){
+  newbill(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newpaymentreciept,data,options)
+    return this._http.post(this.apis.newbill,data,options)
     .map((response:Response) => response.json());
   }
 
