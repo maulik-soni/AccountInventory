@@ -150,7 +150,7 @@ export class PurchaseReportComponent implements OnInit {
 }
 
   export(){
-    var exportCSVdata:any = this.mydata;
+    var exportCSVdata:any = JSON.parse(JSON.stringify(this.mydata));
     for(var i = 0; i<exportCSVdata.length; i++){
       for(var key in exportCSVdata[i]){
         if(exportCSVdata[i][key] == null){
