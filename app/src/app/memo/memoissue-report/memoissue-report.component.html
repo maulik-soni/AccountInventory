@@ -58,6 +58,7 @@
 
     <div class="card">    
         <div class="table-responsive">
+            <button class="btn btn-danger btn-md m-btn waves-effect" (click)="memoissueReturn()" [disabled] ="memoIssueReturn.length == 0">Retrun This Memo</button>
             <table class="table table-striped" >
                 <thead>
                 <tr>
@@ -82,14 +83,19 @@
                     <th>
                         Stone Type
                     </th>
-                    <th>
+                    <!-- <th>
                         Jangad Issue return
-                    </th>
-                </tr>                                        
+                    </th> -->
+                </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of issued">
-                    
+                    <td>
+                        <label class="checkbox checkbox-inline">
+                            <input type="checkbox"  [(ngModel)]="item.memoIssueReturn" name = "memoIssueReturn" (change)="returnMemoissue(item.memoIssueReturn,item)">
+                            <i class="input-helper"></i>
+                        </label>
+                    </td>
                     <td>{{item.memo_invoice_number}}</td>
                     <td>{{item.date}}</td>
                     <td>{{item.due_date}}</td>
@@ -97,9 +103,9 @@
                     <td>{{item.PCS_ID}}</td>
                     <td>{{item.carats}}</td>
                     <td>{{item.stone_type}}</td>
-                    <td>
+                    <!-- <td>
                         <button class="btn btn-primary btn-sm waves-effect" (click)="memoissueReturn(item)">Retrun This Memo</button>
-                    </td>
+                    </td> -->
                 </tr>
                 </tbody>
                 <tfoot>

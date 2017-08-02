@@ -188,23 +188,10 @@ showinventory(data){
     .map((response:Response) => response.json());
   }
 
-  
-
-
-
- 
-  
- 
-
-  // getcashbookdata(){
-  //   console.log(this.apis.getcashbookdata);
-  //   return this._http.get(this.apis.getcashbookdata)
-  //     .map((response:Response) => response.json());
-  // }
 
  /**************************
   *Memo Module Web services*
-  **************************/  
+  **************************/
 
   postmemo(data,memotype){
     console.log(data,memotype);
@@ -215,7 +202,6 @@ showinventory(data){
     }else{
       this._http.post(this.apis.postnewmemoin,data,options).subscribe();
     }
-    // 
   }
 
   postmemoissue(data){
@@ -238,13 +224,13 @@ showinventory(data){
   memoinchangestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoinchangestatus+"?pcsid="+pcsid,options);
+    return this._http.post(this.apis.memoinchangestatus,pcsid,options);
   }
 
   memoissuechangestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
+    return this._http.post(this.apis.memoissuechangestatus,pcsid,options);
   }
 
   showmemoin(data){
@@ -280,7 +266,7 @@ showinventory(data){
   changelabissuestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.get(this.apis.changelabissuestatus+"?PCS_ID="+pcsid,options);
+    return this._http.post(this.apis.changelabissuestatus,pcsid,options);
   }
 
   createlabissue(data){
@@ -434,11 +420,7 @@ showinventory(data){
 
   dateConversion(date){
     console.log(date);
-    var date:any = new Date(date);
-    // console.log(date.getTime(),date.getMonth());
-    // var dd:any = date.getDate();
-    // var mm:any = date.getMonth() + 1;
-    // var yyyy:any = date.getFullYear();
+    var date:any = new Date(date);    
     var dateString = date.getFullYear() + "/" + date.getMonth() + 1 + "/" + date.getDate();
     return dateString;
   }

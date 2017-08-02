@@ -33,45 +33,24 @@ export class LabissueReportComponent implements OnInit {
   data=[];
   searchresult=[];
   query:any;
+  labissueRecieved:any = [];
 
   ngOnInit() {
-    console.log("LOAD");
-    // this._webservice.reportlab()
-    // .subscribe(resData=>{
-    //     this.mydata = JSON.parse(JSON.stringify(resData));
-    //     console.log(this.mydata);
-    //     for(var i = 0; i<this.mydata.length; i++){
-           
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
-
-    //     for(var i = 0; i<this.mydata.lenght; i++){
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
-    //     console.log(this.issued);
-    //     console.log(this.received);
-    //   });
 
     this._webservice.showlabissue({reportType:"report",staticdata:'data'}).subscribe(
       resData=>{
-        this.issued=resData;
+        this.issued=resData.map(function(el) {
+          var o = Object.assign({}, el);
+          o.labissueRec = false;
+          return o;
+        });
       });
 
       this.searchterm
       .debounceTime(100)
       .switchMap(search=>this._webservice.searchlabissue({reportType:"report",filterby:this.searchvalues.filterby,searchterm:search}))
       .subscribe(result=>{
-          
-          // this.issued=result;
-          
+
       });
   }
 
@@ -114,19 +93,36 @@ export class LabissueReportComponent implements OnInit {
     
   }
 
-  labissuereceived(data){
-    for(var i=0; i<this.issued.length; i++){
-      if(this.issued[i].PCS_ID == data.PCS_ID){
-        var ival = i;
-        this._webservice.changelabissuestatus(data.PCS_ID).subscribe(
-          response =>{
-            this.issued[ival].return_date = this._webservice.dateConversion(new Date);
-            this.received.push(this.issued[ival]);
-            this.issued.splice(ival,1);
-        });
-        
+  labissueReceived(){
+    this._webservice.changelabissuestatus(this.labissueRecieved).subscribe((response)=>{
+      for(let j=0; j<this.labissueRecieved.length; j++){
+        for(var i=0; i<this.issued.length; i++){
+          if(this.issued[i].PCS_ID == this.labissueRecieved[j]){
+            this.issued.splice(i,1);
+          }
+        }
+      }
+      this.labissueRecieved = [];
+    });
+  }
+
+  receiveLabissue(labissueRec,data){
+    var dataID = data.PCS_ID;
+   
+    console.log(labissueRec,dataID);
+    if(labissueRec == true){
+      console.log(this.labissueRecieved.indexOf(dataID))
+      if(this.labissueRecieved.indexOf(dataID) == -1){
+        this.labissueRecieved.push(dataID);
+      }
+    }else{
+      console.log(this.labissueRecieved.indexOf(dataID))
+      if(this.labissueRecieved.indexOf(dataID) != -1){
+        var index = this.labissueRecieved.indexOf(dataID);
+        this.labissueRecieved.splice(index,1);
       }
     }
+    console.log(this.labissueRecieved);
   }
 
 }

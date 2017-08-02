@@ -43,9 +43,8 @@ class memoissueController extends Controller
         MemoIssue::where('PCS_ID','=',$data['PCS_ID'])->delete();
     }
 
-    public function changeStatus(){
-        $pcsid = Request::Input('pcsid');
-        // echo $pcsid;
+    public function changeStatusDB($pcsID){
+        $pcsid = $pcsID;
         $memoissue_table = \App\MemoIssue::where(function($query) use($pcsid){
             $query->where('PCS_ID', '=', $pcsid)
                   ->orWhere('Lot_Number', '=', $pcsid);
@@ -134,5 +133,12 @@ class memoissueController extends Controller
             return response()->json($store,200);
         }
         return response()->json([],200);
-    }  
+    }
+
+    public function changestatus(){
+        $MIssue_data = Request::all();
+        for($i = 0; $i<count($MIssue_data); $i++){
+            $this->changestatusDB($MIssue_data[$i]);
+        }
+    }
 }

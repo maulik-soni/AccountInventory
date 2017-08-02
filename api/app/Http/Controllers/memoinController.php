@@ -41,8 +41,8 @@ class memoinController extends Controller
         MemoIn::where('PCS_ID','=',$data['PCS_ID'])->delete();
     }
    
-    public function changeStatus(){
-        $pcsid = Request::Input('pcsid');
+    public function changeStatusDB($pcsID){
+        $pcsid = $pcsID;
         $memoIn_table = \App\MemoIn::where(function($query) use($pcsid){
             $query->where('PCS_ID', '=', $pcsid)
                   ->orWhere('Lot_Number', '=', $pcsid);
@@ -127,5 +127,12 @@ class memoinController extends Controller
             return response()->json($store,200);
         }
         return response()->json([],200);
+    }
+
+    public function changestatus(){
+        $MIn_data = Request::all();
+        for($i = 0; $i<count($MIn_data); $i++){
+            $this->changestatusDB($MIn_data[$i]);
+        }
     }
 }
