@@ -56,9 +56,7 @@ export class PurchaseReportComponent implements OnInit {
       .debounceTime(100)
       .switchMap(search=>this._webservice.searchpurchase({reportType:"report",filterby:this.searchvalues.filterby,searchterm:search}))
       .subscribe(result=>{
-          
-          // this.mydata=result;
-          
+
       });
   }
 
@@ -136,13 +134,13 @@ export class PurchaseReportComponent implements OnInit {
   }
 
   s2ab(s:string):ArrayBuffer {
-	const buf = new ArrayBuffer(s.length);
-	const view = new Uint8Array(buf);
-	for (let i = 0; i !== s.length; ++i) {
-		view[i] = s.charCodeAt(i) & 0xFF;
-	};
-	return buf;
-}
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    };
+    return buf;
+  }
 
   export(){
     var exportCSVdata:any = JSON.parse(JSON.stringify(this.mydata));
@@ -238,7 +236,5 @@ export class PurchaseReportComponent implements OnInit {
 		const wbout = XLSX.write(wb, { bookType:'xlsx', type:'binary' });
 		saveAs(new Blob([this.s2ab(wbout)]), "PurchaseReport"+new Date().getTime()+".xlsx");
   }
-
-  
 
 }

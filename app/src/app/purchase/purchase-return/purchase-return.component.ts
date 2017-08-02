@@ -75,17 +75,6 @@ export class PurchaseReturnComponent implements OnInit {
 
   ngOnInit() {
 
-    // this._webservice.showpurchase({staticdata:'data'}).subscribe(
-    //   resData=>{
-    //     this.purchasereturn=resData;
-    // });
-    // this.searchterm
-    //   .debounceTime(100)
-    //   .switchMap(search=>this._webservice.searchpurchase({filterby:this.searchvalues.filterby,searchterm:search}))
-    //   .subscribe(result=>{
-    //        this.purchasereturn=result;
-    // });
-
     this._webservice.showpurchaseretrun({reportType:"return",staticdata:'data'}).subscribe(
       resData=>{
         this.purchasereturn=resData;
@@ -99,19 +88,9 @@ export class PurchaseReturnComponent implements OnInit {
            //this.purchasereturn=result;
           
       });
-
-    // this._webservice.purchaseretrunreport()
-    //   .subscribe(resData => {
-    //     this.purchasereturn = resData;
-    //     for(var i=0; i<this.purchasereturn.length; i++){
-    //       console.log(this.purchasereturn[i].country);
-    //       //this.purchasereturn[i].country = JSON.parse(this.purchasereturn[i].country)[0].text ;
-    //       //this.purchasereturn[i].account_name = JSON.parse(this.purchasereturn[i].account_name)[0].text ;
-    //     }
-    //   });
   }
 
-   export(){
+  export(){
     var exportCSVdata:any = JSON.parse(JSON.stringify(this.purchasereturn));
     for(var i = 0; i<exportCSVdata.length; i++){
       for(var key in exportCSVdata[i]){
@@ -201,16 +180,16 @@ export class PurchaseReturnComponent implements OnInit {
 		const wb = XLSX.utils.book_new();
 		XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 		const wbout = XLSX.write(wb, { bookType:'xlsx', type:'binary' });
-		saveAs(new Blob([this.s2ab(wbout)]), "PurchaseReport"+new Date().getTime()+".xlsx");
+		saveAs(new Blob([this.s2ab(wbout)]), "PurchaseReturnReport"+new Date().getTime()+".xlsx");
   }
-   s2ab(s:string):ArrayBuffer {
-	const buf = new ArrayBuffer(s.length);
-	const view = new Uint8Array(buf);
-	for (let i = 0; i !== s.length; ++i) {
-		view[i] = s.charCodeAt(i) & 0xFF;
-	};
-	return buf;
-}
+  s2ab(s:string):ArrayBuffer {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    };
+    return buf;
+  }
 
 
 }
