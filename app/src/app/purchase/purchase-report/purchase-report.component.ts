@@ -37,14 +37,9 @@ export class PurchaseReportComponent implements OnInit {
   ) { }
   searching: any = { PCS_ID: '' };
   ngOnInit() {
-    // this._webservice.getpurchasereport()
-    //   .subscribe( resData =>{
-    //     this.mydata = resData;
-    //   });
     
     this._webservice.showpurchase({reportType:"report",staticdata:'data'}).subscribe(
       resData=>{
-        // this.mydata=resData;
         this.mydata = resData.map(function(el) {
           var o = Object.assign({}, el);
           o.purchaseretrun = false;

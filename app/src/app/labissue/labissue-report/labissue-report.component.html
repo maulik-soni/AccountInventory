@@ -60,9 +60,11 @@
 
     <div class="card">
         <div class="table-responsive">
+            <button class="btn btn-danger btn-md m-btn waves-effect" (click)="labissueReceived()" [disabled] ="labissueRecieved.length == 0">Lab isssue Received</button>
             <table id="data-table-selection" class="table table-striped">
                 <thead>
                     <tr>
+                        <th ></th>
                         <th data-column-id="pcsid">Pcs ID</th>
                         <th data-column-id="date">Date</th>
                         <th data-column-id="totalpcs">Carat</th>
@@ -70,11 +72,17 @@
                         <th data-column-id="shape">Shape</th>
                         <th data-column-id="clarity">Clarity</th>
                         <th data-column-id="amount">Amount</th>
-                        <th data-column-id="Lab issue Recieved">Lab isssue Received</th>
+                        <!-- <th data-column-id="Lab issue Recieved">Lab isssue Received</th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let m of issued">
+                        <td>
+                            <label class="checkbox checkbox-inline">
+                                <input type="checkbox"  [(ngModel)]="m.labissueRec" name = "labissueRec" (change)="receiveLabissue(m.labissueRec,m)">
+                                <i class="input-helper"></i>
+                            </label>
+                        </td>
                         <td>{{m.PCS_ID}}</td>
                         <td>{{m.date}}</td>
                         <td>{{m.carat}}</td>
@@ -82,7 +90,7 @@
                         <td>{{m.shape}}</td>
                         <td>{{m.clarity}}</td>
                         <td>{{m.amount}}</td>
-                        <td><button class="btn btn-primary btn-sm waves-effect" (click)="labissuereceived(m)">Lab issue Received</button></td> 
+                        <!-- <td><button class="btn btn-primary btn-sm waves-effect" (click)="labissuereceived(m)">Lab issue Received</button></td>  -->
                     </tr>
                 </tbody>
             </table>

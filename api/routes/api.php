@@ -75,7 +75,7 @@ Route::post('/createlabissue','LabIssueController@create');
 Route::put('/editlabissue','LabIssueController@editlab');
 Route::delete('/dellab','LabIssueController@delLabissue');
 Route::get('/reportlab','LabIssueController@repoLabissue');
-Route::get('/changestatus','LabIssueController@changestatus');
+Route::post('/changestatus','LabIssueController@changestatus');
 
 Route::get('/searchpurchase','PurchaseController@search');
 Route::post('/showpurchase','PurchaseController@show');

@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\LabIssue;
 
-
 class LabIssueController extends Controller
 {
     public function index()
@@ -60,12 +59,12 @@ class LabIssueController extends Controller
         $repo = LabIssue::all();
         return $repo;
     }
-    public function changestatus(Request $request)
-    {   
-        $data = $request->all();
+    public function changestatusDB($pcsID){   
+        $data = $pcsID;
+        // var_dump($data);
         $lab = new \App\LabIssue;
-        $mon=LabIssue::select('status')->where('PCS_ID', '=', $data['PCS_ID'])->update(['status'=>'RECEIVED']);
-        $ton=LabIssue::select('return_date')->where('PCS_ID', '=', $data['PCS_ID'])->update(['return_date'=>date('y/m/d')]);
+        $mon=LabIssue::select('status')->where('PCS_ID', '=', $data)->update(['status'=>'RECEIVED']);
+        $ton=LabIssue::select('return_date')->where('PCS_ID', '=', $data)->update(['return_date'=>date('y/m/d')]);
         return 'Done';
     }
 
@@ -133,6 +132,13 @@ class LabIssueController extends Controller
             return response()->json($store,200);
         }
         return response()->json([],200);
+    }
+
+    public function changestatus(Request $request){
+        $LI_data= $request->all();
+        for($i = 0; $i<count($LI_data); $i++){
+            $this->changestatusDB($LI_data[$i]);
+        }
     }
 
 }
