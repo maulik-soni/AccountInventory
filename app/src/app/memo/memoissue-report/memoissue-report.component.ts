@@ -36,34 +36,16 @@ export class MemoissueReportComponent implements OnInit {
     private _webservice : WebServicesService 
   ) { }
 
-  ngOnInit() {
-    // this._webservice.memoissuereport()
-    //   .subscribe( resData => {
-    //     this.mydata = resData;
-    //     console.log(this.mydata);
-    //     for(var i = 0; i<this.mydata.length; i++){
-    //       // this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text;
-    //       // this.mydata[i].broker = JSON.parse(this.mydata[i].broker)[0].text; 
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
+  memoIssueReturn:any = [];
 
-    //     for(var i = 0; i<this.mydata.lenght; i++){
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
-    //     // this.mydata.broker.text
-    //   });
-    
+  ngOnInit() {
     this._webservice.showmemoissue({reportType:"report",staticdata:'data'}).subscribe(
       resData=>{
-        this.issued=resData;
+        this.issued=resData.map(function(el) {
+          var o = Object.assign({}, el);
+          o.memoissueReturn = false;
+          return o;
+        });
       });
 
       this.searchterm
@@ -94,24 +76,38 @@ export class MemoissueReportComponent implements OnInit {
     this.searchvalues.search=null;
   }
 
-   memoissueReturn(data){
-     console.log(data);
-    for(var i=0; i<this.issued.length; i++){
-      if(this.issued[i].PCS_ID == data.PCS_ID){
-        var ival = i;
-        var dataID = data.PCS_ID;
-        if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
-          dataID = data.Lot_Number;
+  memoissueReturn(){
+    this._webservice.memoissuechangestatus(this.memoIssueReturn).subscribe((response)=>{
+      for(let j=0; j<this.memoIssueReturn.length; j++){
+        for(var i=0; i<this.issued.length; i++){
+          if(this.issued[i].PCS_ID == this.memoIssueReturn[j]){
+            this.issued.splice(i,1);
+          }
         }
-        this._webservice.memoissuechangestatus(dataID).subscribe(
-          response =>{
-            this.issued[ival].return_date = this.dateConversion(new Date);
-            this.received.push(this.issued[ival]);
-            this.issued.splice(ival,1);
-        });
-        
+      }
+      this.memoIssueReturn = [];
+    });
+  }
+
+  returnMemoissue(labissueRec,data){
+    var dataID = data.PCS_ID;
+    if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+        dataID = data.Lot_Number;
+      }
+    console.log(labissueRec,dataID);
+    if(labissueRec == true){
+      console.log(this.memoIssueReturn.indexOf(dataID))
+      if(this.memoIssueReturn.indexOf(dataID) == -1){
+        this.memoIssueReturn.push(dataID);
+      }
+    }else{
+      console.log(this.memoIssueReturn.indexOf(dataID))
+      if(this.memoIssueReturn.indexOf(dataID) != -1){
+        var index = this.memoIssueReturn.indexOf(dataID);
+        this.memoIssueReturn.splice(index,1);
       }
     }
+    console.log(this.memoIssueReturn);
   }
 
   onSubmit(form:NgForm){

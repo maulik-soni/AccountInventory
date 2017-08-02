@@ -93,8 +93,7 @@ export class LabissueReportComponent implements OnInit {
     
   }
 
-   labissueReceived(){
-    
+  labissueReceived(){
     this._webservice.changelabissuestatus(this.labissueRecieved).subscribe((response)=>{
       for(let j=0; j<this.labissueRecieved.length; j++){
         for(var i=0; i<this.issued.length; i++){

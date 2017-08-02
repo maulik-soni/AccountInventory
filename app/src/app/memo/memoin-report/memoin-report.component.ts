@@ -40,33 +40,17 @@ export class MemoinReportComponent implements OnInit {
     private _webservice : WebServicesService 
   ) { }
 
-  ngOnInit() {
-    // this._webservice.memoinreport()
-    //   .subscribe( resData => {
-    //     this.mydata = JSON.parse(JSON.stringify(resData));
-    //     console.log(this.mydata);
-    //     for(var i = 0; i<this.mydata.length; i++){
-    //       // this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text;
-    //       // this.mydata[i].broker = JSON.parse(this.mydata[i].broker)[0].text; 
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.returned.push(this.mydata[i]);
-    //       }
-    //     }
+  memoInReturn:any = [];
 
-    //     for(var i = 0; i<this.mydata.lenght; i++){
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.returned.push(this.mydata[i]);
-    //       }
-    //     }
-    //   });
+  ngOnInit() {
 
     this._webservice.showmemoin({reportType:"report",staticdata:'data'}).subscribe(
       resData=>{
-        this.issued=resData;
+        this.issued=resData.map(function(el) {
+          var o = Object.assign({}, el);
+          o.memoinReturn = false;
+          return o;
+        });
       });
 
       this.searchterm
@@ -96,23 +80,38 @@ export class MemoinReportComponent implements OnInit {
     this.searchvalues.search=null;
   }
 
-  memoinReturn(data){
-    for(var i=0; i<this.issued.length; i++){
-      if(this.issued[i].PCS_ID == data.PCS_ID){
-        var ival = i;
-        var dataID = data.PCS_ID;
-        if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
-          dataID = data.Lot_Number;
+  memoinReturn(){
+    this._webservice.memoinchangestatus(this.memoInReturn).subscribe((response)=>{
+      for(let j=0; j<this.memoInReturn.length; j++){
+        for(var i=0; i<this.issued.length; i++){
+          if(this.issued[i].PCS_ID == this.memoInReturn[j]){
+            this.issued.splice(i,1);
+          }
         }
-        this._webservice.memoinchangestatus(dataID).subscribe(
-          response =>{
-            this.issued[ival].return_date = this.dateConversion(new Date);
-            this.returned.push(this.issued[ival]);
-            this.issued.splice(ival,1);
-        });
-        
+      }
+      this.memoInReturn = [];
+    });
+  }
+
+  returnMemoin(memoinReturn,data){
+    var dataID = data.PCS_ID;
+    if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+        dataID = data.Lot_Number;
+      }
+    console.log(memoinReturn,dataID);
+    if(memoinReturn == true){
+      console.log(this.memoInReturn.indexOf(dataID))
+      if(this.memoInReturn.indexOf(dataID) == -1){
+        this.memoInReturn.push(dataID);
+      }
+    }else{
+      console.log(this.memoInReturn.indexOf(dataID))
+      if(this.memoInReturn.indexOf(dataID) != -1){
+        var index = this.memoInReturn.indexOf(dataID);
+        this.memoInReturn.splice(index,1);
       }
     }
+    console.log(this.memoInReturn);
   }
 
   onSubmit(form:NgForm){

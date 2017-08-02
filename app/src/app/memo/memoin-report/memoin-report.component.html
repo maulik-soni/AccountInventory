@@ -56,10 +56,11 @@
     </form>
     <div class="card">
         <div class="table-responsive">
+             <button class="btn btn-danger btn-md m-btn waves-effect" (click)="memoinReturn()" [disabled] ="memoInReturn.length == 0">Retrun This Memo</button>
             <table id="data-table-selection" class="table table-striped">
                 <thead>
                 <tr>
-                    <!--<th style="width: 10%"></th>-->
+                    <th style="width: 10%"></th>
                     <th style="width: 20%">
                         Invoice Number
                     </th>
@@ -81,7 +82,7 @@
                     <th style="width: 20%">
                         Stone Type
                     </th>
-                    <th style="width: 10%">Jangad In return</th>
+                    <!-- <th style="width: 10%">Jangad In return</th> -->
                 </tr>
                 <tr>
                     <th colspan="5">
@@ -92,7 +93,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let item of issued">
-                    
+                    <td>
+                        <label class="checkbox checkbox-inline">
+                            <input type="checkbox"  [(ngModel)]="item.memoinReturn" name = "memoinReturn" (change)="returnMemoin(item.memoinReturn,item)">
+                            <i class="input-helper"></i>
+                        </label>
+                    </td>
                     <td>{{item.memo_invoice_number}}</td>
                     <td>{{item.date}}</td>
                     <td>{{item.due_date}}</td>
@@ -100,15 +106,14 @@
                     <td>{{item.PCS_ID}}</td>
                     <td>{{item.carats}}</td>
                     <td>{{item.stone_type}}</td>
-                    <td>
+                    <!-- <td>
                         <button class="btn btn-primary btn-sm waves-effect" (click)="memoinReturn(item)">Retrun This Memo</button>
-                    </td>
+                    </td> -->
                 </tr>
                 </tbody>
                 <tfoot>
                 <tr>
                     <td colspan="5">
-                        <!--<mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"></mfBootstrapPaginator>-->
                     </td>
                 </tr>
                 </tfoot>
