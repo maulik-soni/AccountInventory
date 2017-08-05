@@ -1,7 +1,9 @@
 <dashboard>
 <div class="container">
-    <div class="block-header">
-        <h2>Jangad In Return Reports</h2>
+
+    <div class="block-header" style="overflow: hidden">
+        <h2 style="display : inline-block">Jangad In Return Reports</h2>
+        <button class="btn btn-info waves-effect pull-right" (click) = "export()" [disabled] = "returned.length == 0">Export as Excel</button>
     </div>
 
     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">

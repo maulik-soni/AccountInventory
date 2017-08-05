@@ -4,6 +4,8 @@ import { Search,SearchValues } from '../search.model';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { NgForm } from '@angular/forms';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-memoissue-report',
@@ -37,29 +39,6 @@ export class MemoissueReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this._webservice.memoissuereport()
-    //   .subscribe( resData => {
-    //     this.mydata = resData;
-    //     console.log(this.mydata);
-    //     for(var i = 0; i<this.mydata.length; i++){
-    //       // this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text;
-    //       // this.mydata[i].broker = JSON.parse(this.mydata[i].broker)[0].text; 
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
-
-    //     for(var i = 0; i<this.mydata.lenght; i++){
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
-    //     // this.mydata.broker.text
-    //   });
     
     this._webservice.showmemoissue({reportType:"report",staticdata:'data'}).subscribe(
       resData=>{
@@ -144,6 +123,63 @@ export class MemoissueReportComponent implements OnInit {
     var dateString = yyyy + "/" + mm + "/" + dd;
     return dateString;
 
+  }
+
+   s2ab(s:string):ArrayBuffer {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    };
+    return buf;
+  }
+
+  export(){
+    var exportCSVdata:any = JSON.parse(JSON.stringify(this.issued));
+    for(var i = 0; i<exportCSVdata.length; i++){
+      for(var key in exportCSVdata[i]){
+        if(exportCSVdata[i][key] == null){
+          exportCSVdata[i][key] = '-'; 
+        }
+        if(key == "memoinReturn"){
+          delete exportCSVdata[i][key];
+        }
+        
+        if(key == "status"){
+          delete exportCSVdata[i][key];
+        } 
+      }
+    }
+    if(exportCSVdata[0].sr_no != "Sr No."){
+      exportCSVdata.unshift(
+        {
+          "PCS_ID": "PCS ID",
+          "Lot_Number": "Lot Number",
+          "memo_invoice_number": "Memo Invoice Number",
+          "date": "Date",
+          "account_name": "Party Name",
+          "broker": "Broker Name",
+          "reference": "Reference",
+          "carats": "Carat",
+          "rate": "Rate",
+          "no_of_days": "No of Days",
+          "due_date": "Due Date",
+          "country": "Country"
+        }
+      );
+    }
+
+
+    for(var i = 0; i<exportCSVdata.length; i++){
+        exportCSVdata[i] = Object.keys(exportCSVdata[i]).map(function(k) { 
+          return exportCSVdata[i][k]; 
+        });
+    }
+    const ws = XLSX.utils.aoa_to_sheet(exportCSVdata);
+		const wb = XLSX.utils.book_new();
+		XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+		const wbout = XLSX.write(wb, { bookType:'xlsx', type:'binary' });
+		saveAs(new Blob([this.s2ab(wbout)]), "LabIssueReport"+new Date().getTime()+".xlsx");
   }
 
 }
