@@ -38,32 +38,10 @@ export class MemoissueReturnReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this._webservice.memoissuereport()
-    //   .subscribe( resData => {
-    //     this.mydata = resData;
-    //     console.log(this.mydata);
-    //     for(var i = 0; i<this.mydata.length; i++){
-    //       // this.mydata[i].account_name = JSON.parse(this.mydata[i].account_name)[0].text;
-    //       // this.mydata[i].broker = JSON.parse(this.mydata[i].broker)[0].text; 
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
-
-    //     for(var i = 0; i<this.mydata.lenght; i++){
-    //       if(this.mydata[i].status =="ISSUED"){
-    //         this.issued.push(this.mydata[i]);
-    //       }else{
-    //         this.received.push(this.mydata[i]);
-    //       }
-    //     }
-    //     // this.mydata.broker.text
-    //   });
-    this._webservice.showmemoin({reportType:"return",staticdata:'data'}).subscribe(
+    
+    this._webservice.showmemoissue({reportType:"return",staticdata:'data'}).subscribe(
       resData=>{
-        this.issued=resData;
+        this.received=resData;
       });
 
       this.searchterm
@@ -93,7 +71,7 @@ export class MemoissueReturnReportComponent implements OnInit {
     this.query.reportType = "return";
     this.query = JSON.stringify(this.query);
     if(this.query){
-      this._webservice.showmemoin(this.query).subscribe(response=>this.issued=response);
+      this._webservice.showmemoissue(this.query).subscribe(response=>this.received=response);
     }
     
   }
@@ -155,7 +133,7 @@ export class MemoissueReturnReportComponent implements OnInit {
   }
 
   export(){
-    var exportCSVdata:any = JSON.parse(JSON.stringify(this.issued));
+    var exportCSVdata:any = JSON.parse(JSON.stringify(this.received));
     for(var i = 0; i<exportCSVdata.length; i++){
       for(var key in exportCSVdata[i]){
         if(exportCSVdata[i][key] == null){

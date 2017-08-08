@@ -3,7 +3,7 @@
 
     <div class="block-header" style="overflow: hidden">
         <h2 style="display : inline-block">Jangad Issue Return Reports</h2>
-        <button class="btn btn-info waves-effect pull-right" (click) = "export()" [disabled] = "returned.length == 0">Export as Excel</button>
+            <button class="btn btn-info waves-effect pull-right" (click) = "export()" [disabled] = "received.length == 0">Export as Excel</button>
     </div>
         
     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
