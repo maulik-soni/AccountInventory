@@ -49,14 +49,14 @@ class memoissueController extends Controller
             $query->where('PCS_ID', '=', $pcsid)
                   ->orWhere('Lot_Number', '=', $pcsid);
         })->first();
-        $memoissue_table->status = "RETURNED";
+        $memoissue_table->status = "RECEIVED";
         $memoissue_table->due_date = date("Y/m/d");
         $memoissue_table->save();
     }
 
     public function show(Request $request){
         $params = Request::all();
-        // print_r($params);exit;
+        //print_r($params);exit;
         if(!empty($params['staticdata'])){
             if($params['reportType'] == "report"){
                 $labissue_data = \App\MemoIssue::where('status','ISSUED')->get();

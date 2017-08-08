@@ -46,7 +46,7 @@ export class MemoissueReturnReportComponent implements OnInit {
 
       this.searchterm
       .debounceTime(100)
-      .switchMap(search=>this._webservice.searchmemoin({reportType:"return",filterby:this.searchvalues.filterby,searchterm:search}))
+      .switchMap(search=>this._webservice.searchmemoissue({reportType:"return",filterby:this.searchvalues.filterby,searchterm:search}))
       .subscribe(result=>{
           
           // this.issued=result;
@@ -144,6 +144,10 @@ export class MemoissueReturnReportComponent implements OnInit {
         }
         
         if(key == "status"){
+          delete exportCSVdata[i][key];
+        }
+
+        if(key == "return_date"){
           delete exportCSVdata[i][key];
         } 
       }
