@@ -67,7 +67,7 @@ export class MemoinReturnReportComponent implements OnInit {
 
     this._webservice.showmemoin({reportType:"return",staticdata:'data'}).subscribe(
       resData=>{
-        this.issued=resData;
+        this.returned=resData;
       });
 
       this.searchterm
@@ -97,7 +97,7 @@ export class MemoinReturnReportComponent implements OnInit {
     this.query.reportType = "return";
     this.query = JSON.stringify(this.query);
     if(this.query){
-      this._webservice.showmemoin(this.query).subscribe(response=>this.issued=response);
+      this._webservice.showmemoin(this.query).subscribe(response=>this.returned=response);
     }
     
   }

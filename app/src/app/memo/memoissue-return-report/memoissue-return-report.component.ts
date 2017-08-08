@@ -59,14 +59,14 @@ export class MemoissueReturnReportComponent implements OnInit {
     //     }
     //     // this.mydata.broker.text
     //   });
-    this._webservice.showmemoin({reportType:"return",staticdata:'data'}).subscribe(
+    this._webservice.showmemoissue({reportType:"return",staticdata:'data'}).subscribe(
       resData=>{
-        this.issued=resData;
+        this.received=resData;
       });
 
       this.searchterm
       .debounceTime(100)
-      .switchMap(search=>this._webservice.searchmemoin({reportType:"return",filterby:this.searchvalues.filterby,searchterm:search}))
+      .switchMap(search=>this._webservice.searchmemoissue({reportType:"return",filterby:this.searchvalues.filterby,searchterm:search}))
       .subscribe(result=>{
           
           // this.issued=result;
@@ -91,7 +91,7 @@ export class MemoissueReturnReportComponent implements OnInit {
     this.query.reportType = "return";
     this.query = JSON.stringify(this.query);
     if(this.query){
-      this._webservice.showmemoin(this.query).subscribe(response=>this.issued=response);
+      this._webservice.showmemoissue(this.query).subscribe(response=>this.received=response);
     }
     
   }

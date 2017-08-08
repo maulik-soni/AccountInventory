@@ -54,11 +54,12 @@ class memoinController extends Controller
 
     public function show(Request $request){
         $params = Request::all();
+        //  print_r($params);exit;
         if(!empty($params['staticdata'])){
             if($params['reportType'] == "report"){
                 $labissue_data = \App\MemoIn::where('status','ISSUED')->get();
             }else
-                $labissue_data = \App\MemoIn::where('status','RECEIVED')->get();
+                $labissue_data = \App\MemoIn::where('status','RETURNED')->get();
             return response()->json($labissue_data,200);
         }
         if(!empty($params['filterby'])){
@@ -68,21 +69,21 @@ class memoinController extends Controller
                     if($params['reportType'] == "report"){
                         $response=\App\MemoIn::where('PCS_ID',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIn::where('PCS_ID',$params['search'])->where('status','RECEIVED')->get();
+                        $response=\App\MemoIn::where('PCS_ID',$params['search'])->where('status','RETURNED')->get();
                     return response()->json($response,200);
                 }
                 if($params['filterby']=='Invoice Number'){
                     if($params['reportType'] == "report"){
                         $response=\App\MemoIn::where('memo_invoice_number',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIn::where('memo_invoice_number',$params['search'])->where('status','RECEIVED')->get();
+                        $response=\App\MemoIn::where('memo_invoice_number',$params['search'])->where('status','RETURNED')->get();
                    return response()->json($response,200);
                 }
                 if($params['filterby']=='Party Name'){
                     if($params['reportType'] == "report"){
                         $response=\App\MemoIn::where('account_name',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIn::where('account_name',$params['search'])->where('status','RECEIVED')->get();
+                        $response=\App\MemoIn::where('account_name',$params['search'])->where('status','RETURNED')->get();
                    return response()->json($response,200);
                 }
                 
@@ -92,7 +93,7 @@ class memoinController extends Controller
                     if($params['reportType'] == "report"){
                         $response=\App\MemoIn::whereBetween('date',[$params['fromdate'],$params['todate']])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIn::whereBetween('date',[$params['fromdate'],$params['todate']])->where('status','RECEIVED')->get();
+                        $response=\App\MemoIn::whereBetween('date',[$params['fromdate'],$params['todate']])->where('status','RETURNED')->get();
                         return response()->json($response,200);
                 }
             }
@@ -103,7 +104,7 @@ class memoinController extends Controller
                 if($params['reportType'] == "report"){
                     $labissue_data = \App\MemoIn::where('status','ISSUED')->get();
                 }else
-                    $labissue_data = \App\MemoIn::where('status','RECEIVED')->get();
+                    $labissue_data = \App\MemoIn::where('status','RETURNED')->get();
                 return response()->json($labissue_data,200);
             }
         }        
