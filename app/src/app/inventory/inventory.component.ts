@@ -39,9 +39,11 @@ query;
       }
       this.inventoryservice.showinventory(JSON.stringify(getfilters))
       .subscribe(response=>{this.filterdata=response.response.filters;
-        this.filterkeys=this.filterdata.map(e=>{return Object.keys(e)[0]});
-      console.log(this.filterdata)});
+      console.log(this.filterdata);});
     }
+  }
+  isda(elem){
+    return (elem.length > 0);
   }
 
   onSubmit(form:NgForm){
@@ -49,15 +51,27 @@ query;
     //   this.query=JSON.stringify(form.value);
     //   console.log(this.query);
     // }
+var all=form.value.filter;
+//    var queries=Object.keys(all);
 
+//   for (let query of queries) {
+//  var a=(Object.keys(all[query]).map(key=>{return key}));
+//  var b=a.map(e=>{
+//    if(all[query][e]=== true){
+//      return {property:e,asas:query,}
+//    }
+// });
+//  console.log(b);
     
-     this.query=JSON.stringify(form.value);
-     console.log(this.query);
+//  }
+
     
 
     // if(this.query){
     //   // this.inventoryservice.showinventory(this.query).subscribe(response=>console.log(response));
     // }
+     this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>console.log(response));
+     console.log(JSON.stringify(all));
     
   }
 

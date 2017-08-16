@@ -38,13 +38,34 @@ export class WebServicesService {
     showreceivable:this.base_url+'/api/showreceivable',
     searchreceivable:this.base_url+'/api/searchreceivable',
 
+    editcompanyprofile:this.base_url+'/api/editcompanyprofile',
+    showcompanyprofile:this.base_url+'/api/showcompanyprofile',
+    updatecompanyprofile:this.base_url+'/api/updatecompanyprofile',
+
+    newcompanybank:this.base_url+'/api/newcompanybank',
+    editcompanybank:this.base_url+'/api/editcompanybank',
+    showcompanybank:this.base_url+'/api/showcompanybank',
+    updatecompanybank:this.base_url+'/api/updatecompanybank',
+    deletecompanybank:this.base_url+'/api/deletecompanybank',
+
+    newvendorbank:this.base_url+'/api/newvendorbank',
+    editvendorbank:this.base_url+'/api/editvendorbank',
+    showvendorbank:this.base_url+'/api/showvendorbank',
+    updatevendorbank:this.base_url+'/api/updatevendorbank',
+    deletevendorbank:this.base_url+'/api/deletevendorbank',
+
+    newvendor:this.base_url+'/api/newvendor',
+    editvendor:this.base_url+'/api/editvendor',
+    updatevendor:this.base_url+'/api/updatevendor',
+    showvendor:this.base_url+'/api/showvendor',
+    deletevendor:this.base_url+'/api/deletevndor',
+  
     newuser:this.base_url+'/api/newuser',
     searchuser:this.base_url+'/api/searchuser',
     showuser:this.base_url+'/api/showuser',
     edituser:this.base_url+'/api/edituser',
     updateuser:this.base_url+'/api/updateuser',
     deleteuser:this.base_url+'/api/deleteuser',
-
 
     newcashbook:this.base_url+'/api/newcashbook',
     showcashbook:this.base_url+'/api/showcashbook',
@@ -94,6 +115,152 @@ export class WebServicesService {
     .map((response:Response) => response.json());
   }
 
+
+
+
+
+
+
+  //////Company Profile
+  editcompanyprofile(data){
+    return this._http.get(this.apis.editcompanyprofile+'/'+data)
+    .map((response:Response)=>response.json());
+  }
+
+  updatecompanyprofile(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let id=JSON.parse(data);
+    return this._http.put(this.apis.updatecompanyprofile+'/'+id.id,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  showcompanyprofile(data){
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showcompanyprofile,data,options)
+    .map((response:Response) => response.json());
+  }
+
+
+
+
+///////////Company Bank Details
+
+ newcompanybank(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.newcompanybank,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  showcompanybank(data){
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showcompanybank,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  editcompanybank(data){
+    return this._http.get(this.apis.editcompanybank+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+  updatecompanybank(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let id=JSON.parse(data);
+    return this._http.put(this.apis.updatecompanybank+'/'+id.id,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  deletecompanybank(data){
+      return this._http.delete(this.apis.deletecompanybank+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+
+
+
+
+
+  ///////Vendor Profile
+ newvendor(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.newvendor,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  // searchvendor(data){
+  //   return this._http.get(this.apis.search+'?'+data.filterby+'='+data.searchterm)
+  //      .map((response:Response) => response.json());
+  // }
+
+  showvendor(data){
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showvendor,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  editvendor(data){
+    return this._http.get(this.apis.editvendor+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+  updatevendor(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let id=JSON.parse(data);
+    return this._http.put(this.apis.updatevendor+'/'+id.id,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  deletevendor(data){
+      return this._http.delete(this.apis.deletevendor+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+
+
+
+///////////Vendor Bank Details
+
+ newvendorbank(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.newvendorbank,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  showvendorbank(data){
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showvendorbank,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  editvendorbank(data){
+    return this._http.get(this.apis.editvendorbank+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+  updatevendorbank(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let id=JSON.parse(data);
+    return this._http.put(this.apis.updatevendorbank+'/'+id.id,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  deletevendorbank(data){
+      return this._http.delete(this.apis.deletevendorbank+'/'+data)
+    .map((response:Response) => response.json());
+  }
+
+
+
   //Cashbook
 
   newcashbook(data):any{
@@ -116,6 +283,12 @@ export class WebServicesService {
        .map((response:Response) => response.json());
   }
 
+
+
+
+
+
+
   //Inventory
 showinventory(data){
      let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -124,19 +297,32 @@ showinventory(data){
     .map((response:Response) => response.json());
   }
 
+
+
+
  ///////////
  ///Acoounts
  //////////
+
+
   showpayable(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.showpayable,data,options)
     .map((response:Response) => response.json());
   }
+
+
   searchpayable(data){
     return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm)
        .map((response:Response) => response.json());
   }
+
+
+
+
+
+
 
    showreceivable(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -150,12 +336,18 @@ showinventory(data){
        .map((response:Response) => response.json());
   }
 
+
+
+
   showledger(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.showledger,data,options)
     .map((response:Response) => response.json());
   }
+
+
+
 
   searchbills(data){
     return this._http.get(this.apis.searchbills+'?'+data.filterby+'='+data.searchterm)

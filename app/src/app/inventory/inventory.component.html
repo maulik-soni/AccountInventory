@@ -31,10 +31,10 @@
             <md-radio-button  class="radio-button" *ngFor="let option of  searchatts.filterby" [value]="option">{{option}}</md-radio-button>
           </md-radio-group>-->
 
-          <div *ngFor="let datas of filterkeys; index as i">
-            <div  ngModelGroup={{datas}}>
+          <div *ngFor="let datas of filterdata; index as i">
+            <div class="vikas" ngModelGroup={{filterdata[i].item}}>
               <h1>{{filtertitles[i]}}</h1>
-              <div *ngFor="let data of filterdata[i][datas]">
+              <div *ngFor="let data of filterdata[i].items">
                 <md-checkbox *ngIf="data" ngModel name={{data}}>{{data}}</md-checkbox>
               </div>
             </div>  

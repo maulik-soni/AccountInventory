@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
+use Config;
 
 class UserController extends Controller
 {
@@ -75,11 +77,23 @@ class UserController extends Controller
     }
 
     public function authenticate(Request $request){
+        $query=$request->all();
         $this->validate($request,[
             'email'=>'required|email',
             'password'=>'required']);
 
         $credentials= $request->only('email','password');
+
+        // Config::set('database.default', 'testing1');
+
+//         Config::set("database.connections.mysql", [
+//     "driver" => "mysql",
+//     "host"=> env('DB_HOST', '127.0.0.1'),
+//     "database" => $query['db'],
+//     'username' => env('DB_USERNAME', 'forge'),
+//     'password' => env('DB_PASSWORD', ''),
+// ]);
+        
 
          if (Auth::attempt($credentials)){
             $token=$request->user()->api_token;

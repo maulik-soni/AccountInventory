@@ -18,6 +18,7 @@ import { AccountModule } from './account/account.module';
 import { InventoryModule } from './inventory/inventory.module';
 import { CashbookModule } from './cashbook/cashbook.module';
 import { UserModule } from './user/user.module';
+import { SettingsModule } from './settings/settings.module';
 
 // import { DatepickerModule } from 'angular2-material-datepicker';
 // import {LabissueModule} from './labissue/labissue.module';
@@ -32,6 +33,7 @@ import { UserModule } from './user/user.module';
     AccountModule,
     SharedModule,
     InventoryModule,
+    SettingsModule,
     // MemoModule,
     // PurchaseModule,
     // BillModule,

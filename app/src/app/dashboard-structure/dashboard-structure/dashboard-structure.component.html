@@ -165,6 +165,16 @@
             <a [routerLink]="['/inventory']"><i class="zmdi zmdi-account"></i>Inventory</a>
           </li>
 
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-account"></i>Settings</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/settings/company-profile']">Company Profile</a></li>
+                <li><a [routerLink]="['/settings/vendors-profile']">Vendors Profile</a></li>
+                <li><a [routerLink]="['/settings/company-bank-details']">Company Bank Details</a></li>
+                <li><a [routerLink]="['/settings/vendors-bank-detail']">Vendors Bank Detail</a></li>
+            </ul>
+          </li>
+
         </ul>
       </div>
     </div>

@@ -28,6 +28,7 @@ import { DashboardStructureModule } from './../dashboard-structure/dashboard-str
   providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},],
   exports:[
     FormsModule,
+    CommonModule,
     MdDatepickerModule,
     MdCheckboxModule,
     DashboardStructureModule,
