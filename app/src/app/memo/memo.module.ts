@@ -18,6 +18,7 @@ import {MaterialModule,MdDatepickerModule,MdNativeDateModule} from '@angular/mat
 import { MdInputModule } from '@angular/material';
 import { MemoinReturnReportComponent } from './memoin-return-report/memoin-return-report.component';
 import { MemoissueReturnReportComponent } from './memoissue-return-report/memoissue-return-report.component';
+import { MemoInvoiceComponent } from './memo-invoice/memo-invoice.component';
 import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
 
 
@@ -45,6 +46,7 @@ import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '
     MemooutComponent,
     DataFilterPipe,
     MemoinReturnReportComponent,
+    MemoInvoiceComponent,
     MemoissueReturnReportComponent
   ],
   exports: [

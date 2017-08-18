@@ -11,6 +11,7 @@ import { newMemo } from '../memo.interface';
 import { MdDatepickerModule} from '@angular/material';
 import { MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MemoInvoiceComponent } from '../memo-invoice/memo-invoice.component';
 
 
 @Component({

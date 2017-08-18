@@ -9,6 +9,7 @@ import { newSales } from './sales.interface';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdDatepickerModule} from '@angular/material';
 import { MdInputModule } from '@angular/material';
+import { SalesInvoiceComponent } from './sales-invoice/sales-invoice.component';
 
 export abstract class AbstractViewInit {
   ngAfterViewInit() {
