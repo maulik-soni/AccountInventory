@@ -14,6 +14,8 @@ class VendorsController extends Controller
             'account_code'=>'required',
             'opening_bal'=>'nullable',
             'opening_bal_USD'=>'nullable',
+            'remarks'=>'nullable',
+            'contact_person'=>;
             'GST'=>'required',
             'PAN'=>'required',
             ]);
