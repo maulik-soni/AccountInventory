@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-memo-invoice',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MemoInvoiceComponent implements OnInit {
 
-  constructor() { }
+  @Input() memoIssueData;
+  memoIssueRawData : any;
+
+  constructor() {
+    
+   }
 
   ngOnInit() {
+    this.memoIssueRawData = this.memoIssueData;
+    console.log(this.memoIssueRawData);
   }
 
 }

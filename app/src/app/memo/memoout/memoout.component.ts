@@ -13,7 +13,6 @@ import { MdInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MemoInvoiceComponent } from '../memo-invoice/memo-invoice.component';
 
-
 @Component({
   selector: 'app-memoout',
   templateUrl: './memoout.component.html',
@@ -23,7 +22,7 @@ import { MemoInvoiceComponent } from '../memo-invoice/memo-invoice.component';
 export class MemooutComponent implements OnInit {
 
   public myForm: FormGroup;
-
+  loadComponent:boolean = false;
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
@@ -154,7 +153,8 @@ export class MemooutComponent implements OnInit {
       memoData.push(Object.assign({}, newMemo, memoPCDetails[i]));
     }
     console.log(memoData);
-    this._webservice.postmemo(memoData,"memoissue");
+    this.loadComponent = true;
+    //this._webservice.postmemo(memoData,"memoissue");
   }
     
 
