@@ -1,6 +1,6 @@
 <dashboard>
 
-	<div class="container">
+	<div class="container" *ngIf="!loadComponent">
 	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 		<div class="block-header">
 			<h2>New Jangad Issue Entry</h2>			
@@ -118,5 +118,5 @@
 	</form>
 </div>
 
-<app-memo-invoice></app-memo-invoice>
+<app-memo-invoice [memoIssueData] = "memoData" *ngIf="loadComponent"></app-memo-invoice>
 </dashboard>
