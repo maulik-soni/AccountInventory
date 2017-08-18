@@ -57,8 +57,9 @@
 }
 
 .form-label{
-    font-size: 15px;
+    font-size: 12px;
     margin: 0px;
+    font-weight: bolder;
 }
 
 .mCustomScrollBox{
