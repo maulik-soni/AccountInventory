@@ -1,6 +1,6 @@
 <dashboard>
 
-	<div class="container" *ngIf="!loadComponent">
+	<div class="container" *ngIf="!loadInvoiceComponent">
 	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 		<div class="block-header">
 			<h2>New Jangad Issue Entry</h2>			
@@ -114,9 +114,10 @@
 		</div>
 		<a (click)="memoAdd()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</a>
 
-		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
+		<button class="btn btn-success btn-sm waves-effect" type="submit">Generate Invoice</button>
+		<a (click) = "save(myForm, true)">Only Submit Data</a>
 	</form>
 </div>
 
-<app-memo-invoice [memoIssueData] = "memoData" *ngIf="loadComponent"></app-memo-invoice>
+<app-memo-invoice (childData)='handleEvent($event)' [memoIssueData] = "finalMemoData" *ngIf="loadInvoiceComponent"></app-memo-invoice>
 </dashboard>

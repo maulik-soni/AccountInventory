@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  Input,EventEmitter,Output } from '@angular/core';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { Sales } from './sales';
@@ -27,7 +27,8 @@ export abstract class AbstractViewInit {
 export class SalesComponent implements OnInit {
 
   public myForm: FormGroup;
-  
+  loadInvoiceComponent:boolean = false;
+  finalSalesData : any;
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
@@ -35,6 +36,10 @@ export class SalesComponent implements OnInit {
   ) { 
     this.options = new DatePickerOptions();
   }
+
+  public handleEvent(childData:any){
+		this.loadInvoiceComponent = false;
+	}
 
   ngOnInit() {
 
@@ -97,6 +102,35 @@ export class SalesComponent implements OnInit {
       less3:0,
       sale_disc:0,
       sale_rate:0,
+      length: [''],
+      width: [''],
+      depth: [''],
+      message: [''],
+      weight: [''],
+      reportNo: [''],
+      colorDesc: [''],
+      finalCut: [''],
+      depthPct: [''],
+      tablePct: [''],
+      crnAg: [''],
+      crnHt: [''],
+      pavAg: [''],
+      pavDp: [''],
+      starLn: [''],
+      lrHalf: [''],
+      girdle: [''],
+      girdleCondition: [''],
+      girdlePct: [''],
+      culetSize: [''],
+      symmetry: [''],
+      fluorescenceIntensity:[''],
+      fluorescenceColor: [''],
+      keyToSymbols: [''],
+      reportType: [''],
+      reportDt: [''],
+      inscription: [''],
+      infoMsg:[''],
+      fullShapeDescription:['']
     });
   }
 
@@ -111,7 +145,7 @@ export class SalesComponent implements OnInit {
       control.removeAt(i);
   }
 
-  save(formData) {
+  save(formData,submit) {
       console.log(formData);
       console.log(formData._value);
       var newsales = JSON.parse(JSON.stringify(formData._value));
@@ -144,7 +178,15 @@ export class SalesComponent implements OnInit {
         delete salesData[i].brokerage;
       }
       console.log(salesData);
-      this._webservice.postsalesdata(salesData);
+      this.finalSalesData = salesData;
+      
+      if(submit){
+        this._webservice.postsalesdata(salesData);
+      }else{
+        console.log(this.finalSalesData);
+        this.loadInvoiceComponent = true;
+      }
+      
   }
 
 
@@ -199,7 +241,7 @@ export class SalesComponent implements OnInit {
     var sumOfPurchaseAmountDOLAR = 0;
 
     var SalesAmmountINR = 0;
-
+    console.log(detailsArr);
     for(var i=0; i<detailsArr.length;i++){
       sumOfPurchaseAmountINR = sumOfPurchaseAmountINR+detailsArr[i].amount_INR;
       sumOfPurchaseAmountDOLAR = sumOfPurchaseAmountDOLAR+detailsArr[i].amount_dolar;
