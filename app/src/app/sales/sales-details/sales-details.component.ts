@@ -63,10 +63,10 @@ export class SalesDetailsComponent implements OnInit {
       .subscribe(
         resData => {
           this.searchResult = true;
-          console.log(resData);
-          console.log(Object.keys(resData)[0]);
+          // console.log(resData);
+          // console.log(Object.keys(resData)[0]);
           this.mypurchase = resData[Object.keys(resData)[0]];
-          console.log(this.salesDetails);
+          // console.log(this.salesDetails);
           // delete this.mypurchase.purchase_date;
           delete this.mypurchase.due_date;
           delete this.mypurchase.aginst_Hform;
@@ -95,7 +95,7 @@ export class SalesDetailsComponent implements OnInit {
           }
 
           this.salesDetails._value = Object.assign(this.salesDetails._value,this.mypurchase)
-          console.log(this.salesDetails);
+          // console.log(this.salesDetails);
           this.childEvent.emit();
           // this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
           // this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
