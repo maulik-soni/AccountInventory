@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,EventEmitter,Output } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { SelectModule } from 'ng2-select';
 import { Memo } from '../memo';
@@ -28,7 +28,11 @@ export class MemooutComponent implements OnInit {
     public ConstantService : ConstantServiceService,
     private _fb: FormBuilder
   ) { }
-  
+
+
+  public handleEvent(childData:any){
+		this.loadInvoiceComponent = false;
+	}
   public names:Array<string> = this.ConstantService.NAMES;
   public brokers:Array<string> = this.ConstantService.BROKERS;
   public invoice:any = this.ConstantService.INVOICE;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  Input,EventEmitter,Output } from '@angular/core';
 import { DatePickerOptions, DateModel } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 import { Sales } from './sales';
@@ -36,6 +36,10 @@ export class SalesComponent implements OnInit {
   ) { 
     this.options = new DatePickerOptions();
   }
+
+  public handleEvent(childData:any){
+		this.loadInvoiceComponent = false;
+	}
 
   ngOnInit() {
 

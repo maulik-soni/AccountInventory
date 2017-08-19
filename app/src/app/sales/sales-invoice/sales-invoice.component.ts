@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,  Input,EventEmitter,Output } from '@angular/core';
 
 @Component({
   selector: 'app-sales-invoice',
@@ -8,6 +8,13 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SalesInvoiceComponent implements OnInit {
 
   @Input('salesData') salesData : any;
+
+  @Output('childData') outgoingData = new EventEmitter<any>();
+
+  public sendData(data:any){
+    this.outgoingData.emit(data);
+	}
+
   constructor() { }
 
   ngOnInit() {

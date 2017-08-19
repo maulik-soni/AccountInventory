@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,Input,EventEmitter,Output} from '@angular/core';
 
 @Component({
   selector: 'app-memo-invoice',
@@ -8,6 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class MemoInvoiceComponent implements OnInit {
 
   @Input('memoIssueData') memoIssueRawData : any;
+
+  @Output('childData') outgoingData = new EventEmitter<any>();
+
+  public sendData(data:any){
+    this.outgoingData.emit(data);
+	}
   
   constructor() {
     
@@ -20,5 +26,7 @@ export class MemoInvoiceComponent implements OnInit {
   printInvoice() {
     window.print();
   }
+
+
 
 }

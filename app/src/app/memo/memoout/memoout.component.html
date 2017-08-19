@@ -118,5 +118,5 @@
 	</form>
 </div>
 
-<app-memo-invoice [memoIssueData] = "finalMemoData" *ngIf="loadInvoiceComponent"></app-memo-invoice>
+<app-memo-invoice (childData)='handleEvent($event)' [memoIssueData] = "finalMemoData" *ngIf="loadInvoiceComponent"></app-memo-invoice>
 </dashboard>
