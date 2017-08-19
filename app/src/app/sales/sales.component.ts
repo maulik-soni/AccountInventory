@@ -102,6 +102,35 @@ export class SalesComponent implements OnInit {
       less3:0,
       sale_disc:0,
       sale_rate:0,
+      length: [''],
+      width: [''],
+      depth: [''],
+      message: [''],
+      weight: [''],
+      reportNo: [''],
+      colorDesc: [''],
+      finalCut: [''],
+      depthPct: [''],
+      tablePct: [''],
+      crnAg: [''],
+      crnHt: [''],
+      pavAg: [''],
+      pavDp: [''],
+      starLn: [''],
+      lrHalf: [''],
+      girdle: [''],
+      girdleCondition: [''],
+      girdlePct: [''],
+      culetSize: [''],
+      symmetry: [''],
+      fluorescenceIntensity:[''],
+      fluorescenceColor: [''],
+      keyToSymbols: [''],
+      reportType: [''],
+      reportDt: [''],
+      inscription: [''],
+      infoMsg:[''],
+      fullShapeDescription:['']
     });
   }
 
@@ -212,7 +241,7 @@ export class SalesComponent implements OnInit {
     var sumOfPurchaseAmountDOLAR = 0;
 
     var SalesAmmountINR = 0;
-
+    console.log(detailsArr);
     for(var i=0; i<detailsArr.length;i++){
       sumOfPurchaseAmountINR = sumOfPurchaseAmountINR+detailsArr[i].amount_INR;
       sumOfPurchaseAmountDOLAR = sumOfPurchaseAmountDOLAR+detailsArr[i].amount_dolar;
