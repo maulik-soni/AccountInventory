@@ -1,4 +1,5 @@
 import { Component, OnInit,  Input,EventEmitter,Output } from '@angular/core';
+import { WebServicesService } from './../../services/web-services.service';
 
 @Component({
   selector: 'app-sales-invoice',
@@ -8,20 +9,23 @@ import { Component, OnInit,  Input,EventEmitter,Output } from '@angular/core';
 export class SalesInvoiceComponent implements OnInit {
 
   @Input('salesData') salesData : any;
-
   @Output('childData') outgoingData = new EventEmitter<any>();
 
   public sendData(data:any){
     this.outgoingData.emit(data);
 	}
 
-  constructor() { }
+  constructor(
+    private _webservice : WebServicesService
+  ) { }
 
   ngOnInit() {
-    console.log(this.salesData);
+    console.log("Sales data : ",this.salesData);
   }
 
   printInvoice() {
+    console.log("Sales data : ",this.salesData);
+    this._webservice.postsalesdata(this.salesData);
     window.print();
   }
 

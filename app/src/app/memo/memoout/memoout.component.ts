@@ -145,7 +145,7 @@ export class MemooutComponent implements OnInit {
     control.removeAt(i);
   }
 
-  save(formData) {
+  save(formData,submit) {
     console.log(formData._value,JSON.parse(JSON.stringify(formData._value)));
     var newMemo = JSON.parse(JSON.stringify(formData._value));
     console.log(newMemo); 
@@ -158,9 +158,14 @@ export class MemooutComponent implements OnInit {
     }
     this.finalMemoData = memoData;
     console.log(memoData);
-    this.loadInvoiceComponent = true;
-    //this._webservice.postmemo(memoData,"memoissue");
-  }
     
+    if(submit){
+      this._webservice.postmemo(memoData,"memoissue");
+    }else{
+      this.loadInvoiceComponent = true;
+    }
+  }
+
+  
 
 }

@@ -418,7 +418,8 @@
 			</div>
 			
 		</div>
-		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
+		<button class="btn btn-success btn-sm waves-effect" type="submit">Generate Invoice</button>
+		<a (click) = "save(myForm, true)">Only Submit Data</a>
 	</form>
 </div>
 <app-sales-invoice (childData)='handleEvent($event)' [salesData] = "finalSalesData" *ngIf = "loadInvoiceComponent"></app-sales-invoice>

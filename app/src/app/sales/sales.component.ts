@@ -116,7 +116,7 @@ export class SalesComponent implements OnInit {
       control.removeAt(i);
   }
 
-  save(formData) {
+  save(formData,submit) {
       console.log(formData);
       console.log(formData._value);
       var newsales = JSON.parse(JSON.stringify(formData._value));
@@ -150,8 +150,14 @@ export class SalesComponent implements OnInit {
       }
       console.log(salesData);
       this.finalSalesData = salesData;
-      this.loadInvoiceComponent = true;
-      // this._webservice.postsa  lesdata(salesData);
+      
+      if(submit){
+        this._webservice.postsalesdata(salesData);
+      }else{
+        console.log(this.finalSalesData);
+        this.loadInvoiceComponent = true;
+      }
+      
   }
 
 
