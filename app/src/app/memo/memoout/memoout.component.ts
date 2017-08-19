@@ -22,7 +22,7 @@ import { MemoInvoiceComponent } from '../memo-invoice/memo-invoice.component';
 export class MemooutComponent implements OnInit {
 
   public myForm: FormGroup;
-  loadComponent:boolean = false;
+  loadInvoiceComponent:boolean = false;
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
@@ -40,7 +40,7 @@ export class MemooutComponent implements OnInit {
   private value:any = {}; 
   private _disabledV:string = '0';
   private disabled:boolean = false;
- 
+  finalMemoData : any;
   private get disabledV():string {
     return this._disabledV;
   }
@@ -152,8 +152,9 @@ export class MemooutComponent implements OnInit {
       memoPCDetails[i].status = "ISSUED";
       memoData.push(Object.assign({}, newMemo, memoPCDetails[i]));
     }
+    this.finalMemoData = memoData;
     console.log(memoData);
-    this.loadComponent = true;
+    this.loadInvoiceComponent = true;
     //this._webservice.postmemo(memoData,"memoissue");
   }
     

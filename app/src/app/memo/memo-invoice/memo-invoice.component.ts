@@ -7,16 +7,18 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MemoInvoiceComponent implements OnInit {
 
-  @Input() memoIssueData;
-  memoIssueRawData : any;
-
+  @Input('memoIssueData') memoIssueRawData : any;
+  
   constructor() {
     
    }
 
   ngOnInit() {
-    this.memoIssueRawData = this.memoIssueData;
     console.log(this.memoIssueRawData);
+  }
+
+  printInvoice() {
+    window.print();
   }
 
 }

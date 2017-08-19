@@ -27,7 +27,8 @@ export abstract class AbstractViewInit {
 export class SalesComponent implements OnInit {
 
   public myForm: FormGroup;
-  
+  loadInvoiceComponent:boolean = false;
+  finalSalesData : any;
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
@@ -144,7 +145,9 @@ export class SalesComponent implements OnInit {
         delete salesData[i].brokerage;
       }
       console.log(salesData);
-      this._webservice.postsalesdata(salesData);
+      this.finalSalesData = salesData;
+      this.loadInvoiceComponent = true;
+      // this._webservice.postsa  lesdata(salesData);
   }
 
 
