@@ -14,6 +14,13 @@ import { MemoDetailsComponent } from './memo-details/memo-details.component';
 import { MemooutComponent } from './memoout/memoout.component';
 // import { DataTableModule } from "angular2-datatable";
 import { DataFilterPipe }   from './../filters/data-filter.pipe';
+import {MaterialModule,MdDatepickerModule,MdNativeDateModule} from '@angular/material';
+import { MdInputModule } from '@angular/material';
+import { MemoinReturnReportComponent } from './memoin-return-report/memoin-return-report.component';
+import { MemoissueReturnReportComponent } from './memoissue-return-report/memoissue-return-report.component';
+import { MemoInvoiceComponent } from './memo-invoice/memo-invoice.component';
+import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
+
 
 @NgModule({
   imports: [
@@ -26,6 +33,9 @@ import { DataFilterPipe }   from './../filters/data-filter.pipe';
     // DatepickerModule,
     BrowserModule, 
     ReactiveFormsModule,
+    MdDatepickerModule,
+    MdRadioModule,
+    MdInputModule
     // DataTableModule
   ],
   declarations: [
@@ -34,8 +44,19 @@ import { DataFilterPipe }   from './../filters/data-filter.pipe';
     MemoinReportComponent,
     MemoDetailsComponent,
     MemooutComponent,
-    DataFilterPipe
+    DataFilterPipe,
+    MemoinReturnReportComponent,
+    MemoInvoiceComponent,
+    MemoissueReturnReportComponent
   ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    MdDatepickerModule,
+    MdInputModule,
+    MdRadioModule,
+    ReactiveFormsModule
+  ]
 
 })
 

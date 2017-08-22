@@ -42,21 +42,21 @@ use Illuminate\Http\Request;
 
 
 
-Route::post('/newpurchase', 'purchaseConroller@newPurchaseEntry');
-Route::post('/purchasereturn', 'purchaseConroller@purchaseReturn');
+Route::post('/newpurchase', 'PurchaseController@newPurchaseEntry');
+Route::post('/purchasereturn', 'PurchaseController@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
 Route::post('/salesreturn', 'salesConroller@salesReturn');
-Route::get('/purchaseretrunreport','purchaseConroller@purchaseReturnReport');
+Route::get('/purchaseretrunreport','PurchaseController@purchaseReturnReport');
 Route::get('/salesretrunreport','salesConroller@salesReturnReport');
 
 
-Route::put('/editpurchase', 'purchaseConroller@editPurchase');
+Route::put('/editpurchase', 'PurchaseController@editPurchase');
 Route::put('/editsales', 'salesConroller@editSales');
 
 Route::delete('/delsales', 'salesConroller@delSales');
-Route::delete('/delpurchase', 'purchaseConroller@delPurchase');
+Route::delete('/delpurchase', 'PurchaseController@delPurchase');
 
-Route::get('/purchasereport', 'purchaseConroller@purchaseReport');
+Route::get('/purchasereport', 'PurchaseController@purchaseReport');
 Route::get('/salesreport', 'salesConroller@salesReport');
 
 Route::post('/memoinchangestatus','memoinController@changeStatus');
@@ -75,7 +75,7 @@ Route::post('/createlabissue','LabIssueController@create');
 Route::put('/editlabissue','LabIssueController@editlab');
 Route::delete('/dellab','LabIssueController@delLabissue');
 Route::get('/reportlab','LabIssueController@repoLabissue');
-Route::get('/changestatus','LabIssueController@changestatus');
+Route::post('/changestatus','LabIssueController@changestatus');
 
 Route::get('/searchpurchase','PurchaseController@search');
 Route::post('/showpurchase','PurchaseController@show');
@@ -134,4 +134,19 @@ Route::get('/searchcashbook','CashbookController@search');
 Route::get('/editcashbook','CashbookController@edit');
 Route::post('/newcashbook','CashbookController@create');
 Route::put('/updatecashbook','CashbookController@update');
-Route::delete('/deletecashbook','CashbookController@delete');	
+Route::delete('/deletecashbook','CashbookController@delete');
+
+Route::post('/showpurchase','PurchaseController@show');
+Route::get('/searchpurchase','PurchaseController@search');
+
+Route::post('/showsales','salesConroller@show');
+Route::get('/searchsales','salesConroller@search');
+
+Route::post('/showlabissue','LabIssueController@show');
+Route::get('/searchlabissue','LabIssueController@search');
+
+Route::post('/showmemoin','memoinController@show');
+Route::get('/searchmemoin','memoinController@search');
+
+Route::post('/showmemoissue','memoissueController@show');
+Route::get('/searchmemoissue','memoissueController@search');

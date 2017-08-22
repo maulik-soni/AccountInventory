@@ -1,24 +1,9 @@
 <dashboard>
 
-	<div class="container">
+	<div class="container" *ngIf="!loadInvoiceComponent">
 	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 		<div class="block-header">
-			<h2>New Jangad Entry</h2>
-			<ul class="actions">
-				<li>
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" name = "memotype" [(ngModel)] = "memotype" value="memoissue" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Jangad Issue
-					</label>
-					
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" name = "memotype" [(ngModel)] = "memotype" value="memoreturn" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Jangad In
-					</label>
-				</li>			
-			</ul>
+			<h2>New Jangad Issue Entry</h2>			
 		</div>
 		<div class="card">
 			<div class="card-header">
@@ -34,6 +19,17 @@
 								<input type="text" class="form-control fg-input" formControlName = "memo_invoice_number" name = "memo_invoice_number">
 							</div>
 						</div>
+					</div>					
+					<div class="col-sm-4">
+						<p class="form-label">Jangad in Date</p>						
+						<span class="dp-container">	
+							<md-input-container class="mdInputContainer">
+								<input mdInput type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" name="date" [(ngModel)]="newmemo.date" [ngModelOptions]="{standalone: true}" disabled="true">
+								<button mdSuffix class="matDateickerToggle last"  [mdDatepickerToggle]="picker"></button>
+							</md-input-container>
+							<md-datepicker #picker></md-datepicker>	
+						</span>
+						<!--<material-datepicker [(date)]="newmemo.date" (onSelect)="calcDay($event)"></material-datepicker>-->
 					</div>
 					<div class="col-sm-4">
 						<div class="form-group">
@@ -42,10 +38,6 @@
 								<input type="text" class="form-control fg-input" formControlName = "no_of_days" name = "no_of_days" (blur)="calcDay(newmemo.no_of_days)">	
 							</div>
 						</div>
-					</div>
-          <div class="col-sm-4">
-						<p class="form-label">Jangad in Date</p>
-						<material-datepicker [(date)]="newmemo.date" (onSelect)="calcDay($event)"></material-datepicker>
 					</div>
 				</div>
 				<div class="row">
@@ -122,9 +114,10 @@
 		</div>
 		<a (click)="memoAdd()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add Memo Item</a>
 
-		<button class="btn btn-success btn-lg waves-effect" type="submit"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
+		<button class="btn btn-success btn-sm waves-effect" type="submit">Generate Invoice</button>
+		<a (click) = "save(myForm, true)">Only Submit Data</a>
 	</form>
 </div>
 
-
+<app-memo-invoice (childData)='handleEvent($event)' [memoIssueData] = "finalMemoData" *ngIf="loadInvoiceComponent"></app-memo-invoice>
 </dashboard>

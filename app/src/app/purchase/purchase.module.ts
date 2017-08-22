@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-// import { DatepickerModule } from 'angular2-material-datepicker';
+import { DatepickerModule } from 'angular2-material-datepicker';
 // import { DatePickerModule } from 'ng2-datepicker';
 import { SelectModule } from 'ng2-select';
 
@@ -13,20 +13,25 @@ import { PurchaseReturnComponent } from './purchase-return/purchase-return.compo
 import { PurchaseReportComponent } from './purchase-report/purchase-report.component';
 import { PiecesTypeComponent } from './pieces-type/pieces-type.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { MaterialModule,MdDatepickerModule,MdNativeDateModule } from '@angular/material';
 // import { DataTableModule } from "angular2-datatable";
+import { MdInputModule } from '@angular/material';
 
+import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
 
 
 @NgModule({
   imports: [
     CommonModule,
     DashboardStructureModule,
-    // DatepickerModule,
+    DatepickerModule,
     SelectModule,
     FormsModule,
     PurchaseRoutingModule,
     ReactiveFormsModule,
+    MdDatepickerModule,
+    MdRadioModule,
+    MdInputModule
     // DataTableModule
   ],
   declarations: [
@@ -37,9 +42,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     
   ],
   entryComponents: [PiecesTypeComponent],
+  providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},],
   exports: [
     CommonModule,
     FormsModule,
+    MdDatepickerModule,
+    MdInputModule,
+    MdRadioModule,
     ReactiveFormsModule
   ]
 })

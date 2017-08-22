@@ -6,6 +6,8 @@ import { Memo } from '../memo';
 import { WebServicesService } from './../../services/web-services.service';
 import { ConstantServiceService } from './../../services/constant-services.service';
 import { newMemo } from '../memo.interface';
+import { MdInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-memo',
@@ -104,8 +106,9 @@ export class MemoInComponent implements OnInit {
     return this._fb.group({
       PCS_ID: [''],
       Lot_Number:[''],
-      carats: [''],
-      stone_type:['']
+      carats: [0],
+      rate:[0],
+      country:['']
     });
   }
 

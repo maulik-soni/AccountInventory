@@ -70,6 +70,21 @@ export class WebServicesService {
     newcashbook:this.base_url+'/api/newcashbook',
     showcashbook:this.base_url+'/api/showcashbook',
     searchcashbook:this.base_url+'/api/searchcashbook',
+
+    showpurchase:this.base_url+'/api/showpurchase',
+    searchpurchase:this.base_url+'/api/searchpurchase',
+
+    showsales:this.base_url+'/api/showsales',
+    searchsales:this.base_url+'/api/searchsales',
+
+    showlabissue:this.base_url+'/api/showlabissue',
+    searchlabissue:this.base_url+'/api/searchlabissue',
+
+    showmemoin:this.base_url+'/api/showmemoin',
+    searchmemoin:this.base_url+'/api/searchmemoin',
+
+    showmemoissue:this.base_url+'/api/showmemoissue',
+    searchmemoissue:this.base_url+'/api/searchmemoissue'
   };
   
   constructor(private _http:Http) { }
@@ -271,7 +286,7 @@ export class WebServicesService {
   }
 
   showcashbook(data){
-     let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.showcashbook,data,options)
     .map((response:Response) => response.json());
@@ -368,44 +383,10 @@ showinventory(data){
     .map((response:Response) => response.json());
   }
 
-  
 
-
-
- 
-  getsalesreport(){    
-    return this._http.get(this.apis.salesreport)
-      .map((response:Response) => response.json());
-  }
-  getpurchasereport(){    
-    return this._http.get(this.apis.purchasereport)
-      .map((response:Response) => response.json());
-  }
-
- 
-
-  // getcashbookdata(){
-  //   console.log(this.apis.getcashbookdata);
-  //   return this._http.get(this.apis.getcashbookdata)
-  //     .map((response:Response) => response.json());
-  // }
-
-  postpurchasedata(data){
-    console.log(data);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewpurchase,data,options).subscribe();
-  }
-
-  
-
-
-  postsalesdata(data){
-    console.log(data);
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewsales,data,options).subscribe();
-  }
+ /**************************
+  *Memo Module Web services*
+  **************************/
 
   postmemo(data,memotype){
     console.log(data,memotype);
@@ -416,7 +397,6 @@ showinventory(data){
     }else{
       this._http.post(this.apis.postnewmemoin,data,options).subscribe();
     }
-    // 
   }
 
   postmemoissue(data){
@@ -424,40 +404,6 @@ showinventory(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
-  }
-
-  purchaseReturn(PCS_ID){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.purchaseretrun,PCS_ID,options).subscribe();
-  }
-
-  salesReturn(PCS_ID){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.salesreturn,PCS_ID,options).subscribe();
-  }
-
-  purchaseretrunreport(){
-    console.log(this.apis.purchaseretrunreport);
-    return this._http.get(this.apis.purchaseretrunreport)
-      .map((response:Response) => response.json());
-  }
-  
-  salesretrunreport(){
-    console.log(this.apis.salesretrunreport)
-    return this._http.get(this.apis.salesretrunreport)
-      .map((response:Response) => response.json());
-  }
-
-  fetchpurchase(pcsid,pcstype){
-    if(pcstype == "singlestone"){
-      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
-       .map((response:Response) => response.json());
-    }else{
-      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid)
-       .map((response:Response) => response.json());
-    }
   }
 
   memoinreport(){
@@ -473,13 +419,49 @@ showinventory(data){
   memoinchangestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoinchangestatus+"?pcsid="+pcsid,options);
+    return this._http.post(this.apis.memoinchangestatus,pcsid,options);
   }
+
+  memoissuechangestatus(pcsid){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.memoissuechangestatus,pcsid,options);
+  }
+
+  showmemoin(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showmemoin,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchmemoin(data){
+    console.log(data);
+    return this._http.get(this.apis.searchmemoin+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+  showmemoissue(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showmemoissue,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchmemoissue(data){
+    console.log(data);
+    return this._http.get(this.apis.searchmemoissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+ /*******************************
+  *Lab Issue Module Web services*
+  *******************************/
 
   changelabissuestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.get(this.apis.changelabissuestatus+"?PCS_ID="+pcsid,options);
+    return this._http.post(this.apis.changelabissuestatus,pcsid,options);
   }
 
   createlabissue(data){
@@ -494,19 +476,146 @@ showinventory(data){
       .map((response:Response) => response.json());
   }
 
-  memoissuechangestatus(pcsid){
+  showlabissue(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoissuechangestatus+"?pcsid="+pcsid,options);
+    return this._http.post(this.apis.showlabissue,data,options)
+    .map((response:Response) => response.json());
   }
+
+  searchlabissue(data){
+    console.log(data);
+    return this._http.get(this.apis.searchlabissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+
+ /******************************
+  *Purchase Module Web services*
+  ******************************/
+
+  showpurchase(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpurchase,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchpurchase(data){
+    console.log(data);
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+  showpurchaseretrun(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showpurchase,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchpurchasereturn(data){
+    console.log(data);
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+  postpurchasedata(data){
+    console.log(data);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.postnewpurchase,data,options).subscribe();
+  }
+
+  purchaseReturn(PCS_ID){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.purchaseretrun,PCS_ID,options).subscribe();
+  }
+
+  purchaseretrunreport(){
+    console.log(this.apis.purchaseretrunreport);
+    return this._http.get(this.apis.purchaseretrunreport)
+      .map((response:Response) => response.json());
+  }
+
+  getpurchasereport(){    
+    return this._http.get(this.apis.purchasereport)
+      .map((response:Response) => response.json());
+  }
+
+  fetchpurchase(pcsid,pcstype){
+    if(pcstype == "singlestone"){
+      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
+       .map((response:Response) => response.json());
+    }else{
+      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid)
+       .map((response:Response) => response.json());
+    }
+  }
+
+
+  
+ /**************************
+  *Sales Module Web services*
+  ***************************/
+
+  showsales(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showsales,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchsales(data){
+    console.log(data);
+    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+  showsalesretrun(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.showsales,data,options)
+    .map((response:Response) => response.json());
+  }
+
+  searchsalesreturn(data){
+    console.log(data);
+    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+       .map((response:Response) => response.json());
+  }
+
+  getsalesreport(){    
+    return this._http.get(this.apis.salesreport)
+      .map((response:Response) => response.json());
+  }
+
+  postsalesdata(data){
+    console.log(data);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.postnewsales,data,options).subscribe();
+  }
+
+  salesReturn(PCS_ID){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    this._http.post(this.apis.salesreturn,PCS_ID,options).subscribe();
+  }
+
+  salesretrunreport(){
+    console.log(this.apis.salesretrunreport)
+    return this._http.get(this.apis.salesretrunreport)
+      .map((response:Response) => response.json());
+  }
+
+
+  
 
   dateConversion(date){
     console.log(date);
-    var date:any = new Date(date);
-    // console.log(date.getTime(),date.getMonth());
-    // var dd:any = date.getDate();
-    // var mm:any = date.getMonth() + 1;
-    // var yyyy:any = date.getFullYear();
+    var date:any = new Date(date);    
     var dateString = date.getFullYear() + "/" + date.getMonth() + 1 + "/" + date.getDate();
     return dateString;
   }

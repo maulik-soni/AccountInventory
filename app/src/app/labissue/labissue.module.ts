@@ -9,6 +9,10 @@ import { DashboardStructureModule } from './../dashboard-structure/dashboard-str
 import { LabissueEntryComponent } from './labissue-entry/labissue-entry.component';
 import { LabissueReportComponent } from './labissue-report/labissue-report.component';
 import { LabissueRoutingModule } from './labissue-rounting.module';
+import { MaterialModule,MdDatepickerModule,MdNativeDateModule } from '@angular/material';
+import { MdInputModule } from '@angular/material';
+import { LabissueReceivedReportComponent } from './labissue-received-report/labissue-received-report.component';
+import { MdRadioModule, DateAdapter, NativeDateAdapter, MD_DATE_FORMATS } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -18,11 +22,22 @@ import { LabissueRoutingModule } from './labissue-rounting.module';
     SelectModule,
     FormsModule,
     LabissueRoutingModule,
+    MdDatepickerModule,
+    MdRadioModule,
+    MdInputModule
     // DatepickerModule
   ],
   declarations: [
     LabissueEntryComponent,
-    LabissueReportComponent
+    LabissueReportComponent,
+    LabissueReceivedReportComponent
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    MdDatepickerModule,
+    MdRadioModule,
+    MdInputModule,
   ]
 })
 export class LabissueModule { }

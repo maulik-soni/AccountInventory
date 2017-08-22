@@ -41,8 +41,8 @@ class memoinController extends Controller
         MemoIn::where('PCS_ID','=',$data['PCS_ID'])->delete();
     }
    
-    public function changeStatus(){
-        $pcsid = Request::Input('pcsid');
+    public function changeStatusDB($pcsID){
+        $pcsid = $pcsID;
         $memoIn_table = \App\MemoIn::where(function($query) use($pcsid){
             $query->where('PCS_ID', '=', $pcsid)
                   ->orWhere('Lot_Number', '=', $pcsid);
@@ -52,4 +52,88 @@ class memoinController extends Controller
         $memoIn_table->save();
     }
 
+    public function show(Request $request){
+        $params = Request::all();
+        //  print_r($params);exit;
+        if(!empty($params['staticdata'])){
+            if($params['reportType'] == "report"){
+                $labissue_data = \App\MemoIn::where('status','ISSUED')->get();
+            }else
+                $labissue_data = \App\MemoIn::where('status','RETURNED')->get();
+            return response()->json($labissue_data,200);
+        }
+        if(!empty($params['filterby'])){
+
+            if(!empty($params['search'])){
+                if($params['filterby']=='PCS ID'){
+                    if($params['reportType'] == "report"){
+                        $response=\App\MemoIn::where('PCS_ID',$params['search'])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIn::where('PCS_ID',$params['search'])->where('status','RETURNED')->get();
+                    return response()->json($response,200);
+                }
+                if($params['filterby']=='Invoice Number'){
+                    if($params['reportType'] == "report"){
+                        $response=\App\MemoIn::where('memo_invoice_number',$params['search'])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIn::where('memo_invoice_number',$params['search'])->where('status','RETURNED')->get();
+                   return response()->json($response,200);
+                }
+                if($params['filterby']=='Party Name'){
+                    if($params['reportType'] == "report"){
+                        $response=\App\MemoIn::where('account_name',$params['search'])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIn::where('account_name',$params['search'])->where('status','RETURNED')->get();
+                   return response()->json($response,200);
+                }
+                
+            }
+            if(!empty($params['fromdate']) && !empty($params['todate'])){
+                if($params['fromdate'] || $params['todate']){
+                    if($params['reportType'] == "report"){
+                        $response=\App\MemoIn::whereBetween('date',[$params['fromdate'],$params['todate']])->where('status','ISSUED')->get();
+                    }else
+                        $response=\App\MemoIn::whereBetween('date',[$params['fromdate'],$params['todate']])->where('status','RETURNED')->get();
+                        return response()->json($response,200);
+                }
+            }
+            
+        }
+        if(!empty($params['filter'])){
+            if($params['filter']=='all'){
+                if($params['reportType'] == "report"){
+                    $labissue_data = \App\MemoIn::where('status','ISSUED')->get();
+                }else
+                    $labissue_data = \App\MemoIn::where('status','RETURNED')->get();
+                return response()->json($labissue_data,200);
+            }
+        }        
+    }
+
+    public function search(Request $request){
+        $query = Request::all();
+        foreach($query as $key=>$value){
+            if($key != 'reportType'){
+                if($key == 'Party Name' || $key == 'Party_Name'){
+                    $q = 'account_name';
+                    $query['account_name'] = $value;
+                }
+            }
+        }        
+        if(!empty($q)){
+            if($query['reportType'] == "report"){
+                $store=\App\MemoIn::select($q)->where($q,'like','%'.$query[$q].'%')->distinct()->pluck($q);
+            }else
+                $store=\App\MemoIn::select($q)->where($q,'like','%'.$query[$q].'%')->distinct()->pluck($q);
+            return response()->json($store,200);
+        }
+        return response()->json([],200);
+    }
+
+    public function changestatus(){
+        $MIn_data = Request::all();
+        for($i = 0; $i<count($MIn_data); $i++){
+            $this->changestatusDB($MIn_data[$i]);
+        }
+    }
 }

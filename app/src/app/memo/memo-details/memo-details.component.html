@@ -128,8 +128,25 @@
         <div class="col-sm-4">
           <div class="form-group">
             <div class="fg-line">
-              <p class="form-label">Stone Type</p>
-              <input type="text" class="form-control fg-input" formControlName = "stone_type" name = "stone_type">
+              <p class="form-label">Rate</p>
+              <input type="text" class="form-control fg-input" formControlName = "rate" name = "rate">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Country</p>
+              <ng-select [allowClear]="true"
+							[items]="countries"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'country')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)]="country"
+							placeholder="Select The Country" name="country" [ngModelOptions]="{standalone: true}">
+						</ng-select> 
             </div>
           </div>
         </div>
@@ -246,8 +263,25 @@
         <div class="col-sm-4">
           <div class="form-group">
             <div class="fg-line">
-              <p class="form-label">Stone Type</p>
-              <input type="text" class="form-control fg-input" formControlName = "stone_type" name = "stone_type">
+              <p class="form-label">Rate</p>
+              <input type="text" class="form-control fg-input" formControlName = "rate" name = "rate">
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="fg-line">
+              <p class="form-label">Country</p>
+              <ng-select [allowClear]="true"
+							[items]="countries"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'country')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)]="country"
+							placeholder="Select The Country" name="country" [ngModelOptions]="{standalone: true}">
+						</ng-select> 
             </div>
           </div>
         </div>

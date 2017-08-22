@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input,EventEmitter,Output } from '@angular/core';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { SelectModule } from 'ng2-select';
 import { Memo } from '../memo';
@@ -8,7 +8,10 @@ import { ConstantServiceService } from './../../services/constant-services.servi
 import { newMemo } from '../memo.interface';
 // import { SelectModule } from 'ng2-select';
 // import { MemoOut } from './memoout';
-
+import { MdDatepickerModule} from '@angular/material';
+import { MdInputModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MemoInvoiceComponent } from '../memo-invoice/memo-invoice.component';
 
 @Component({
   selector: 'app-memoout',
@@ -19,13 +22,17 @@ import { newMemo } from '../memo.interface';
 export class MemooutComponent implements OnInit {
 
   public myForm: FormGroup;
-
+  loadInvoiceComponent:boolean = false;
   constructor(
     private _webservice : WebServicesService,
     public ConstantService : ConstantServiceService,
     private _fb: FormBuilder
   ) { }
-  
+
+
+  public handleEvent(childData:any){
+		this.loadInvoiceComponent = false;
+	}
   public names:Array<string> = this.ConstantService.NAMES;
   public brokers:Array<string> = this.ConstantService.BROKERS;
   public invoice:any = this.ConstantService.INVOICE;
@@ -37,7 +44,7 @@ export class MemooutComponent implements OnInit {
   private value:any = {}; 
   private _disabledV:string = '0';
   private disabled:boolean = false;
- 
+  finalMemoData : any;
   private get disabledV():string {
     return this._disabledV;
   }
@@ -107,8 +114,9 @@ export class MemooutComponent implements OnInit {
     return this._fb.group({
       PCS_ID: [''],
       Lot_Number:[''],
-      carats: [''],
-      stone_type:['']
+      carats: [0],
+      rate:[0],
+      country:['']
     });
   }
 
@@ -137,7 +145,7 @@ export class MemooutComponent implements OnInit {
     control.removeAt(i);
   }
 
-  save(formData) {
+  save(formData,submit) {
     console.log(formData._value,JSON.parse(JSON.stringify(formData._value)));
     var newMemo = JSON.parse(JSON.stringify(formData._value));
     console.log(newMemo); 
@@ -148,9 +156,16 @@ export class MemooutComponent implements OnInit {
       memoPCDetails[i].status = "ISSUED";
       memoData.push(Object.assign({}, newMemo, memoPCDetails[i]));
     }
+    this.finalMemoData = memoData;
     console.log(memoData);
-    this._webservice.postmemo(memoData,"memoissue");
-  }
     
+    if(submit){
+      this._webservice.postmemo(memoData,"memoissue");
+    }else{
+      this.loadInvoiceComponent = true;
+    }
+  }
+
+  
 
 }

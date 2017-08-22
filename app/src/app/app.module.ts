@@ -9,9 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AuthModule } from './authorization/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-// import { MemoModule } from './memo/memo.module';
-// import { PurchaseModule } from './purchase/purchase.module';
-// import { SalesModule } from './sales/sales.module';
+import { MemoModule } from './memo/memo.module';
+import { PurchaseModule } from './purchase/purchase.module';
+import { SalesModule } from './sales/sales.module';
 import { SigninModule } from './signin/signin.module';
 import { DashboardStructureModule } from './dashboard-structure/dashboard-structure.module';
 import { AccountModule } from './account/account.module';
@@ -20,8 +20,8 @@ import { CashbookModule } from './cashbook/cashbook.module';
 import { UserModule } from './user/user.module';
 import { SettingsModule } from './settings/settings.module';
 
-// import { DatepickerModule } from 'angular2-material-datepicker';
-// import {LabissueModule} from './labissue/labissue.module';
+import { DatepickerModule } from 'angular2-material-datepicker';
+import { LabissueModule } from './labissue/labissue.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,19 +33,22 @@ import { SettingsModule } from './settings/settings.module';
     AccountModule,
     SharedModule,
     InventoryModule,
+
     SettingsModule,
-    // MemoModule,
-    // PurchaseModule,
+
+    MemoModule,
+    PurchaseModule,
+
     // BillModule,
     CashbookModule,
-    // SalesModule,
+    SalesModule,
     SigninModule,
     UserModule,
     BrowserAnimationsModule,
-    // DatepickerModule,
+    DatepickerModule,
     // ServicesModule,   
     AppRoutingModule,
-    // LabissueModule 
+    LabissueModule 
   ],
   providers: [],
   bootstrap: [AppComponent]
