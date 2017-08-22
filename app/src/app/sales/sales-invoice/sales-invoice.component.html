@@ -1,3 +1,4 @@
+<div style="padding : 0px 50px">
 <table cellspacing="0" border="0">
 	<colgroup span="16" width="64"></colgroup>
 	<tr>
@@ -36,11 +37,11 @@
 	<tr>
 		</tr>
 	<tr>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=8 height="20" align="left" valign=top><b><font color="#000000">Invoice No:  XX/2017-18</font></b></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=8 height="20" align="left" valign=top><b><font color="#000000">Invoice No:  {{salesData[0].invoice_number}}</font></b></td>
 		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=8 align="left" valign=bottom><b><font color="#000000">Transport Mode:  N.A.</font></b></td>
 		</tr>
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=8 height="20" align="left" valign=top><b><font color="#000000">Invoice date:  XX.07.2017</font></b></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 2px solid #000000" colspan=8 height="20" align="left" valign=top><b><font color="#000000">Invoice date:  {{salesData[0].sales_date}}</font></b></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=8 align="left" valign=bottom><b><font color="#000000">TERMS  OF  PAYMENT  :  C O D</font></b></td>
 		</tr>
 	<tr>
@@ -62,8 +63,8 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=8 align="center" valign=bottom bgcolor="#B9CDE5"><b><font color="#000000">Ship to Party</font></b></td>
 		</tr>
 	<tr>
-		<td style="border-left: 1px solid #000000" height="20" align="left" colspan = "8" valign=bottom><b><font face="Arial">NAVKAR GEMS</font></b></td>
-		<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" colspan="8" valign=bottom><b><font face="Arial">NAVKAR GEMS</font></b></td>
+		<td style="border-left: 1px solid #000000" height="20" align="left" colspan = "8" valign=bottom><b><font face="Arial">{{salesData[0].account_name}}</font></b></td>
+		<td style="border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" colspan="8" valign=bottom><b><font face="Arial">{{salesData[0].account_name}}</font></b></td>
 	</tr>
 	<tr>
 		<td style="border-left: 1px solid #000000" height="20" align="left" colspan = "8" valign=bottom><font face="Arial">AW-4070, BHARAT DIAMOND BOURSE</font></td> 
@@ -112,145 +113,96 @@
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#B9CDE5"><b><font size=1 color="#000000">Rate</font></b></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom bgcolor="#B9CDE5"><b><font size=1 color="#000000">Amount</font></b></td>
 		</tr>
+
+
+	<tr *ngFor="let item of salesData; let i=index">
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=bottom sdval="1" sdnum="1033;"><font color="#000000">{{i+1}}</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom>
+			<font color="#000000">
+				<span *ngIf = "item.PCS_ID">PCS_ID : {{item.PCS_ID}}</span>
+				<span *ngIf = "item.Lot_Number">Lot Number : {{item.Lot_Number}}</span>
+			</font>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="71023910" sdnum="1033;">
+			<b>
+				<font color="#000000">
+				</font>
+			</b>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom>
+			<font color="#000000">
+				<br>
+			</font>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="29.68" sdnum="1033;">
+			<font color="#000000">
+				{{item.total_diamond_pcs}}
+			</font>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="32720" sdnum="1033;">
+			<font color="#000000">
+				{{item.rate_INR}}
+			</font>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="971129.6" sdnum="1033;0;0">
+			<font color="#000000">
+				{{item.sale_rate}}
+			</font>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom>
+			<font color="#000000">
+				{{item.sale_disc}}
+			</font>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="971129.6" sdnum="1033;0;0">
+			<font color="#000000">
+				<!-- {{item.sale_rate-(item.sale_rate*item.sale_disc/100)}} -->
+				{{item.sale_rate}}
+			</font>
+		</td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="1.5" sdnum="1033;0;0.00"><font color="#000000">0</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">0</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="1.5" sdnum="1033;0;0.00"><font color="#000000">0</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">0</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="1000263.488" sdnum="1033;0;0">
+			<font color="#000000">
+				<!-- {{(item.sale_rate-(item.sale_rate*item.sale_disc/100))*item.total_diamond_pcs}} -->
+				{{item.sale_rate*item.total_diamond_pcs}}
+			</font>
+		</td>
+	</tr>
+	
+
+	 <!-- <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=14 height="36" align="center" valign=middle bgcolor="#B9CDE5"><b><font face="Bookman Old Style" size=5 color="#000000">Total</font></b></td>  -->
 	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="right" valign=bottom sdval="1" sdnum="1033;"><font color="#000000">1</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000">Cut &amp; Polished Diamonds</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="71023910" sdnum="1033;"><b><font color="#000000">71023910</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="29.68" sdnum="1033;"><font color="#000000">29.68</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="32720" sdnum="1033;"><font color="#000000">32720</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="971129.6" sdnum="1033;0;0"><font color="#000000">971130</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="971129.6" sdnum="1033;0;0"><font color="#000000">971130</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="1.5" sdnum="1033;0;0.00"><font color="#000000">1.50</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">14567</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="1.5" sdnum="1033;0;0.00"><font color="#000000">1.50</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">14567</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="1000263.488" sdnum="1033;0;0"><font color="#000000">1000263</font></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom sdnum="1033;0;0.00"><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;0;0"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom sdnum="1033;0;0.00"><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="0" sdnum="1033;0;0"><font color="#000000">0</font></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom sdnum="1033;0;0.00"><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;0;0"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom sdnum="1033;0;0.00"><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="0" sdnum="1033;0;0"><font color="#000000">0</font></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom sdnum="1033;0;0.00"><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;0;0"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom sdnum="1033;0;0.00"><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="0" sdnum="1033;0;0"><font color="#000000">0</font></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		</tr>
-	<tr>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="21" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		</tr>
-	<tr>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 height="36" align="center" valign=middle bgcolor="#B9CDE5"><b><font face="Bookman Old Style" size=5 color="#000000">Total</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="29.68" sdnum="1033;"><font color="#000000">29.68</font></td>
+		 <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=14 height="36" align="right" ><b><font face="Bookman Old Style" size=3 color="#000000">Total</font></b></td> 
+		<!-- <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="29.68" sdnum="1033;"><font color="#000000">0</font></td>
 		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font color="#000000"><br></font></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="971129.6" sdnum="1033;"><font color="#000000">971129.6</font></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="971129.6" sdnum="1033;"><font color="#000000">0</font></td>
 		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="971129.6" sdnum="1033;"><font color="#000000">971129.6</font></td>
-		<td style="border-top: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font color="#000000"><br></font></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=middle sdval="14566.944" sdnum="1033;0;0"><font color="#000000">14567</font></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="971129.6" sdnum="1033;"><font color="#000000">0</font></td>
+		<td style="border-top: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="right" valign=middle><font color="#000000">0</font></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=middle sdval="14566.944" sdnum="1033;0;0"><font color="#000000">0</font></td>
 		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000" align="left" valign=middle><font color="#000000"><br></font></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="14566.944" sdnum="1033;0;0"><font color="#000000">14567</font></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=middle sdval="1000263.488" sdnum="1033;0;0"><font color="#000000">1000263</font></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-right: 1px solid #000000" align="right" valign=middle sdval="14566.944" sdnum="1033;0;0"><font color="#000000">0</font></td> -->
+		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=middle sdval="1000263.488" sdnum="1033;0;0"><font color="#000000">{{salesData[0].sales_amount_INR}}</font></td>
 		</tr>
 	<tr>
 		<td style="border-top: 2px solid #000000; border-left: 1px solid #000000" colspan=9 height="20" align="center" valign=bottom bgcolor="#B9CDE5"><b><font color="#000000">Total Invoice amount in words</font></b></td>
 		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000" colspan=5 align="left" valign=bottom><b><font color="#000000">Total Amount before Tax</font></b></td>
-		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="971129.6" sdnum="1033;0;0"><font color="#000000">971130</font></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="971129.6" sdnum="1033;0;0"><font color="#000000">{{salesData[0].sales_amount_INR}}</font></td>
 		</tr>
 	<tr>
-		<td style="border-top: 1px solid #000000; border-left: 1px solid #000000" height="20" align="left" valign=bottom><b><font color="#000000">TEN  LACS  TWO  HUNDRED  SIXTY  THREE  ONLY.</font></b></td>
-		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+		<td style="border-top: 1px solid #000000;border-right: 1px solid #000000; border-left: 1px solid #000000" height="20" align="left" valign=bottom colspan = "9"><b><font color="#000000">{{amountInWords}}</font></b></td>
+		
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=5 align="left" valign=bottom><b><font color="#000000">Add: CGST</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">14567</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">0</font></td>
 		</tr>
 	<tr>
-		<td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" height="20" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
-		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
+		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000; border-left: 1px solid #000000" height="20" align="left" valign=bottom colspan="9"><font color="#000000"><br></font></td>
+		
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=5 align="left" valign=bottom><b><font color="#000000">Add: SGST</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">14567</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="14566.944" sdnum="1033;0;0"><font color="#000000">0</font></td>
 		</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan="6" height="25" align="left" valign=bottom><b><font size=4 color="#000000">GST  NUMBER  :  27BLKPS9538P1ZV</font></b></td>
@@ -258,7 +210,7 @@
 		<td style="border-top: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=5 align="left" valign=bottom><b><font color="#000000">Total Tax Amount</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="29133.888" sdnum="1033;0;0"><font color="#000000">29134</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="29133.888" sdnum="1033;0;0"><font color="#000000">0</font></td>
 		</tr>
 	<tr>
 		<td style="border-left: 1px solid #000000" height="22" align="left" colspan="6" valign=bottom><b><font face="Arial" size=3 color="#000000">PAN  No.  BLKPS9538P</font></b></td>
@@ -266,7 +218,7 @@
 		<td style="border-bottom: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000" colspan=5 align="left" valign=bottom><b><font color="#000000">Total Amount after Tax:</font></b></td>
-		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="1000263.488" sdnum="1033;0;0"><font color="#000000">1000263</font></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="right" valign=bottom sdval="1000263.488" sdnum="1033;0;0"><font color="#000000">{{salesData[0].sales_amount_INR}}</font></td>
 		</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=6 height="20" align="center" valign=bottom bgcolor="#B9CDE5"><b><font color="#000000">Bank Details</font></b></td>
@@ -274,7 +226,7 @@
 		<td align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-right: 2px solid #000000" align="left" valign=bottom><font color="#000000"><br></font></td>
 		<td style="border-top: 2px solid #000000; border-right: 2px solid #000000" colspan=5 align="left" valign=bottom bgcolor="#B9CDE5"><b><font color="#000000">GST on Reverse Charge</font></b></td>
-		<td style="border-top: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">0</font></td>
+		<td style="border-top: 2px solid #000000; border-left: 2px solid #000000; border-right: 1px solid #000000" colspan=2 align="center" valign=bottom sdval="0" sdnum="1033;"><font color="#000000">{{salesData[0].sales_amount_INR}}</font></td>
 		</tr>
 	<tr>
 		<td style="border-top: 1px solid #000000; border-left: 1px solid #000000" height="23" align="left" valign=bottom><b><font size=3 color="#000000"><br></font></b></td>
@@ -368,6 +320,6 @@
 		<td colspan=7 align="center" valign=middle><b><font face="Arial" size=3 color="#000000">  Proprietor/Authorised Singnatory</font></b></td>
 	</tr>
 </table>
-<button class="btn btn-float bgm-red m-btn" data-action="print"><i class="zmdi zmdi-print"></i></button>
-  
-
+<button class="btn btn-info waves-effect m-t-10" (click) = "sendData($event)">Back</button>
+</div>
+<button class="btn btn-danger btn-sm  m-btn waves-effect" (click) = "printInvoice()"><i class="zmdi zmdi-print"></i> Print & Submit</button>
