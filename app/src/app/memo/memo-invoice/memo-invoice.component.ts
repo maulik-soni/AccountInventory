@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit,Input,EventEmitter,Output} from '@angular/core';
+import { WebServicesService } from './../../services/web-services.service';
 
 @Component({
   selector: 'app-memo-invoice',
@@ -7,16 +8,29 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MemoInvoiceComponent implements OnInit {
 
-  @Input() memoIssueData;
-  memoIssueRawData : any;
+  @Input('memoIssueData') memoIssueRawData : any;
 
-  constructor() {
+  @Output('childData') outgoingData = new EventEmitter<any>();
+
+  public sendData(data:any){
+    this.outgoingData.emit(data);
+	}
+  
+  constructor(
+    private _webservice : WebServicesService
+  ) {
     
    }
 
   ngOnInit() {
-    this.memoIssueRawData = this.memoIssueData;
     console.log(this.memoIssueRawData);
   }
+
+  printInvoice() {
+    window.print();
+    this._webservice.postmemo(this.memoIssueRawData,"memoissue");
+  }
+
+
 
 }
