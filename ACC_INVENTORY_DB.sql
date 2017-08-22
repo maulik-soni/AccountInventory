@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 22, 2017 at 02:59 PM
+-- Generation Time: Aug 22, 2017 at 04:07 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -42,8 +42,69 @@ CREATE TABLE `cashbook` (
 --
 
 INSERT INTO `cashbook` (`id`, `amount`, `voucher`, `date`, `description`, `type`, `created_at`, `updated_at`) VALUES
-(1, 3523, '1241241233', '2017-07-11', 'wegwgw', 'ergrehq', '2017-07-10 13:36:52', '2017-07-10 13:36:52'),
-(2, 2352, '2232', '2017-07-12', 'fwewef', 'ewfwewg', '2017-07-11 20:48:39', '2017-07-11 20:48:39');
+(1, 654646, '454', '2017-08-13', 'asdasd', 'asdas', '2017-08-13 09:34:26', '2017-08-13 09:34:26');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_bank_details`
+--
+
+CREATE TABLE `company_bank_details` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_branch` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `IFSC_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amount_USD` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `company_bank_details`
+--
+
+INSERT INTO `company_bank_details` (`id`, `bank_name`, `bank_address`, `bank_branch`, `account_number`, `IFSC_code`, `amount`, `amount_USD`, `created_at`, `updated_at`) VALUES
+(1, 'vikas', 'gjk', 'lkjljl', '44645', '666', NULL, NULL, '2017-08-20 17:55:32', '2017-08-20 17:55:32'),
+(2, 'vikas', 'kouugu', 'kopar', '459', '7997975', NULL, NULL, '2017-08-20 17:55:32', '2017-08-20 17:55:32'),
+(3, 'HDFC', 'Ghatkopar', 'Pant Nagar', '14598', 'HD87456', '7894568', NULL, '2017-08-20 18:03:44', '2017-08-20 18:03:44'),
+(4, 'HDFC', 'Ghatkopar', 'Pant Nagar', '14598', 'HD87456', '7894568', NULL, '2017-08-20 18:04:45', '2017-08-20 18:04:45'),
+(5, 'PNB', 'ijjlj', 'sdfsfd', '7897', 'sdf', '45698', NULL, '2017-08-20 18:04:45', '2017-08-20 18:04:45'),
+(6, 'AVNISH1', 'kurla', 'Matunga', '753951', 'AM9090', '456975', NULL, '2017-08-20 18:09:31', '2017-08-20 18:09:31'),
+(7, 'AVNISH2', 'Vidyavihar', 'Sion', '456852', 'AS4756', '13354687', NULL, '2017-08-20 18:09:31', '2017-08-20 18:09:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `company_profiles`
+--
+
+CREATE TABLE `company_profiles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `c_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `from` date NOT NULL,
+  `to` date NOT NULL,
+  `GST` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PAN` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `IEC` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `QBC` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `company_profiles`
+--
+
+INSERT INTO `company_profiles` (`id`, `c_name`, `address`, `phone`, `mobile`, `email`, `from`, `to`, `GST`, `PAN`, `IEC`, `QBC`, `created_at`, `updated_at`) VALUES
+(1, 'vikas pals', 'asgdjasgdasdasd', '987456', '9768', 'vikas@bewdigital.com', '2017-05-05', '0201-03-02', 'G57897sdf', '789545', '78956', '87979', '2017-08-13 03:11:54', '2017-08-20 09:53:56');
 
 -- --------------------------------------------------------
 
@@ -52,11 +113,11 @@ INSERT INTO `cashbook` (`id`, `amount`, `voucher`, `date`, `description`, `type`
 --
 
 CREATE TABLE `dealers` (
-  `id` int(11) NOT NULL,
-  `dealer_name` varchar(256) NOT NULL,
-  `dealer_status` varchar(256) NOT NULL,
-  `dealer_details` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(10) UNSIGNED NOT NULL,
+  `dealer_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dealer_status` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dealer_details` text COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -215,20 +276,30 @@ CREATE TABLE `password_resets` (
 CREATE TABLE `payment_reciepts` (
   `id` int(10) UNSIGNED NOT NULL,
   `invoice_number` int(11) NOT NULL,
-  `date` date NOT NULL,
-  `mod` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `invoice_value` double NOT NULL,
+  `transaction_date` date NOT NULL,
+  `transaction_mode` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `account_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `currency` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `f/p` enum('full','part') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `credit_INR` double NOT NULL,
-  `debit_INR` double NOT NULL,
-  `credit_dollar` double NOT NULL,
-  `debit_dollar` double NOT NULL,
+  `transaction_currency` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `transaction_status` enum('full','part') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `credit_INR` double DEFAULT NULL,
+  `debit_INR` double DEFAULT NULL,
+  `transaction_conversion_rate` double DEFAULT NULL,
   `balance` double NOT NULL,
+  `received` double NOT NULL,
+  `date` date NOT NULL,
+  `due_date` date NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payment_reciepts`
+--
+
+INSERT INTO `payment_reciepts` (`id`, `invoice_number`, `invoice_value`, `transaction_date`, `transaction_mode`, `transaction_details`, `account_name`, `transaction_currency`, `transaction_status`, `credit_INR`, `debit_INR`, `transaction_conversion_rate`, `balance`, `received`, `date`, `due_date`, `created_at`, `updated_at`) VALUES
+(1, 78965, 9874569, '2016-05-05', 'cash', NULL, 'vikas', 'INR', 'part', NULL, 15455, NULL, 9859114, 15455, '2016-05-05', '2017-02-19', '2017-08-22 03:20:34', '2017-08-22 03:20:34');
 
 -- --------------------------------------------------------
 
@@ -677,11 +748,11 @@ CREATE TABLE `sales_return` (
 --
 
 CREATE TABLE `server_log` (
-  `id` int(11) NOT NULL,
-  `server_IP` varchar(256) NOT NULL,
+  `id` int(10) UNSIGNED NOT NULL,
+  `server_IP` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` int(11) NOT NULL,
-  `log` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `log` text COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -709,6 +780,60 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `api_t
 (2, 'Dewayne Roberts', 'keyon.kertzmann@example.net', '$2y$10$Tg.qMUXLhp63IUF6bmwpruyMVe8VDbKnFCIIgGq7PoCCFoNt/ReAu', 'UbkL4DbnJe', 'XdgZEwzf4u7eMBsuwlsEEEBdF6KV0qwMYSlJdLGBONDMA1ZbCkxsXIIAhSfT', '2017-06-24 09:52:46', '2017-06-24 09:52:46'),
 (3, 'Mollie Hoppe', 'thurman33@example.com', '$2y$10$Tg.qMUXLhp63IUF6bmwpruyMVe8VDbKnFCIIgGq7PoCCFoNt/ReAu', 'fsdAEThb54', 'OKQp8yV3L8FR1CQo2gpUuSxq9SABG31v12HwB2SzSPbEGNJFoSAJfxRprG3f', '2017-06-24 09:52:46', '2017-06-24 09:52:46');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendors`
+--
+
+CREATE TABLE `vendors` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_code` int(11) NOT NULL,
+  `opening_bal` double DEFAULT NULL,
+  `opening_bal_USD` double DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_person` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fax_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `RAP` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `IDEX` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `diamond_world_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `QBC` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `credit_limit` double NOT NULL,
+  `credit_limit_USD` double NOT NULL,
+  `refernce_1` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `reference_2` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `GST` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `PAN` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendor_bank_details`
+--
+
+CREATE TABLE `vendor_bank_details` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `bank_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_branch` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `account_number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `IFSC_code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `amount` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amount_USD` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -717,6 +842,18 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `api_t
 -- Indexes for table `cashbook`
 --
 ALTER TABLE `cashbook`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `company_bank_details`
+--
+ALTER TABLE `company_bank_details`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `company_profiles`
+--
+ALTER TABLE `company_profiles`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -827,12 +964,6 @@ ALTER TABLE `sales_return`
   ADD KEY `sr_no` (`sr_no`);
 
 --
--- Indexes for table `server_log`
---
-ALTER TABLE `server_log`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -844,16 +975,6 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `cashbook`
---
-ALTER TABLE `cashbook`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `dealers`
---
-ALTER TABLE `dealers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `lab_issue`
 --
 ALTER TABLE `lab_issue`
@@ -863,11 +984,6 @@ ALTER TABLE `lab_issue`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
---
--- AUTO_INCREMENT for table `payment_reciepts`
---
-ALTER TABLE `payment_reciepts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `permissions`
 --
@@ -898,11 +1014,6 @@ ALTER TABLE `sales`
 --
 ALTER TABLE `sales_return`
   MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `server_log`
---
-ALTER TABLE `server_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
