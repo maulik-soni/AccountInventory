@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 29, 2017 at 09:47 AM
+-- Generation Time: Aug 22, 2017 at 02:59 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -88,8 +88,10 @@ CREATE TABLE `lab_issue` (
 --
 
 INSERT INTO `lab_issue` (`Sr_no`, `PCS_ID`, `LAB_type`, `date`, `shape`, `service`, `carat`, `diameter`, `height`, `color`, `clarity`, `amount`, `return_date`, `status`, `updated_at`, `created_at`) VALUES
-(5, 898235, 'GIA', '1970-01-16', 'ROUND BRILLIANT CUT', 'ergerherh', 100, '5343', '24', 'GRAY', 'IF', '234524', NULL, 'ISSUED', '2017-07-16 20:56:29', '2017-07-16 20:56:29'),
-(6, 1121241233, 'GIA', '1970-01-09', NULL, 'wegwbgb', 0, '235', '23', NULL, NULL, '2362362362', '2017-07-20', 'RECEIVED', '2017-07-20 09:01:19', '2017-07-20 09:01:04');
+(8, 23523, 'IGI', '1970-01-01', NULL, 'wefweg', 0, '23', '243', NULL, NULL, '342233', '2017-08-02', 'ISSUED', '2017-08-02 12:01:49', '2017-08-02 11:44:54'),
+(5, 898235, 'GIA', '1970-01-16', 'ROUND BRILLIANT CUT', 'ergerherh', 100, '5343', '24', 'GRAY', 'IF', '234524', '2017-08-02', 'ISSUED', '2017-08-02 12:01:43', '2017-07-16 20:56:29'),
+(7, 25235211, 'HRDA', '1970-01-01', NULL, '2ef22', 0, '2423', '32', NULL, NULL, '2423232', '2017-08-02', 'RECEIVED', '2017-08-02 14:31:40', '2017-08-02 11:44:02'),
+(6, 1121241233, 'GIA', '1970-01-09', NULL, 'wegwbgb', 0, '235', '23', NULL, NULL, '2362362362', '2017-08-02', 'ISSUED', '2017-08-02 12:01:43', '2017-07-20 09:01:04');
 
 -- --------------------------------------------------------
 
@@ -118,7 +120,9 @@ CREATE TABLE `memo_in` (
 --
 
 INSERT INTO `memo_in` (`PCS_ID`, `Lot_Number`, `memo_invoice_number`, `date`, `account_name`, `broker`, `reference`, `carats`, `rate`, `no_of_days`, `due_date`, `status`, `country`) VALUES
-(223523, NULL, '12424', '2017/7/18', 'RATNAKALA EXPORT', 'Tiffany Case', 'wegewwewe', 235, 235235, 12, '2017/7/30', 'ISSUED', 'Albania');
+(121332244, NULL, '12312312', '2017/8/9', 'HARISH DIAM', 'Barb Akew', 'dvadva', 1, 1232, 12, '2017/08/08', 'RETURNED', 'Albania'),
+(12323, NULL, '12312312', '2017/8/9', 'HARISH DIAM', 'Barb Akew', 'dvadva', 1, 1232, 12, '2017/08/08', 'RETURNED', 'Albania'),
+(4231231, NULL, '12312312', '2017/8/9', 'HARISH DIAM', 'Barb Akew', 'dvadva', 1, 1232, 12, '2017/8/21', 'ISSUED', 'Albania');
 
 -- --------------------------------------------------------
 
@@ -148,7 +152,8 @@ CREATE TABLE `memo_issue` (
 --
 
 INSERT INTO `memo_issue` (`PCS_ID`, `Lot_Number`, `memo_invoice_number`, `date`, `account_name`, `broker`, `reference`, `carats`, `rate`, `no_of_days`, `due_date`, `return_date`, `status`, `country`) VALUES
-(898235, NULL, '2623632', '2017/7/21', 'KANTILAL CHOTILAL', 'Tiffany Case', 'dvwvweb', 1113, 131212, 12, '2017/8/2', NULL, 'ISSUED', 'Algeria');
+(23523, NULL, '134112412', '2017/8/1', 'R. KANTILAL & CO.', 'Barb Akew', 'nsdvnw', 100, 100, 12, '2017/08/08', NULL, 'ISSUED', 'Albania'),
+(335, NULL, '25235', '2017/8/31', 'ANAND GHAN DIAM', 'Marsha Mellow', 'fwwef', 123, 42223, 12, '2017/9/12', NULL, 'ISSUED', 'Albania');
 
 -- --------------------------------------------------------
 
@@ -309,8 +314,59 @@ CREATE TABLE `purchase` (
   `avg_dolar` float DEFAULT NULL,
   `aginst_Hform` varchar(256) DEFAULT NULL,
   `mVAT` float DEFAULT NULL,
-  `broker_details` varchar(256) DEFAULT NULL
+  `broker_details` varchar(256) DEFAULT NULL,
+  `length` varchar(256) DEFAULT NULL,
+  `width` varchar(256) DEFAULT NULL,
+  `depth` varchar(256) DEFAULT NULL,
+  `message` varchar(256) DEFAULT NULL,
+  `weight` varchar(256) DEFAULT NULL,
+  `reportNo` varchar(256) DEFAULT NULL,
+  `colorDesc` varchar(256) DEFAULT NULL,
+  `finalCut` varchar(256) DEFAULT NULL,
+  `depthPct` varchar(256) DEFAULT NULL,
+  `tablePct` varchar(256) DEFAULT NULL,
+  `crnAg` varchar(256) DEFAULT NULL,
+  `crnHt` varchar(256) DEFAULT NULL,
+  `pavAg` varchar(256) DEFAULT NULL,
+  `pavDp` varchar(256) DEFAULT NULL,
+  `starLn` varchar(256) DEFAULT NULL,
+  `lrHalf` varchar(256) DEFAULT NULL,
+  `girdle` varchar(256) DEFAULT NULL,
+  `girdleCondition` varchar(256) DEFAULT NULL,
+  `girdlePct` varchar(256) DEFAULT NULL,
+  `culetSize` varchar(256) DEFAULT NULL,
+  `symmetry` varchar(256) DEFAULT NULL,
+  `fluorescenceIntensity` varchar(256) DEFAULT NULL,
+  `fluorescenceColor` varchar(256) DEFAULT NULL,
+  `keyToSymbols` varchar(256) DEFAULT NULL,
+  `reportType` varchar(256) DEFAULT NULL,
+  `reportDt` varchar(256) DEFAULT NULL,
+  `inscription` varchar(256) DEFAULT NULL,
+  `infoMsg` varchar(256) DEFAULT NULL,
+  `fullShapeDescription` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `purchase`
+--
+
+INSERT INTO `purchase` (`sr_no`, `PCS_ID`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportNo`, `colorDesc`, `finalCut`, `depthPct`, `tablePct`, `crnAg`, `crnHt`, `pavAg`, `pavDp`, `starLn`, `lrHalf`, `girdle`, `girdleCondition`, `girdlePct`, `culetSize`, `symmetry`, `fluorescenceIntensity`, `fluorescenceColor`, `keyToSymbols`, `reportType`, `reportDt`, `inscription`, `infoMsg`, `fullShapeDescription`) VALUES
+(21, 456, 'q123', '2017-07-29', '2017-08-28', 'S. R. DIAMONDS HK LTD.', '30', NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', 'Andorra', NULL, '{"comission1":0,"comission2":0}', 'RAPNET', NULL, NULL, 'MARQUISE CUT', NULL, NULL, 'GRAY', 'VVS2', 1, 1, 10, 3600, 4000, 5, 3780, 3600, 3600, 55, 55.38, 'GIA', '456c', 3600, 55.38, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 25235211, '535352', NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, '43634634', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(28, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 454646, 'q123', '2017-07-29', '2017-08-28', 'S. R. DIAMONDS HK LTD.', '30', NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', 'Andorra', NULL, '{"comission1":"-","comission2":"-"}', 'RAPNET', NULL, NULL, 'MARQUISE CUT', NULL, NULL, 'GRAY', 'VVS2', 1, 1, 10, 3600, 4000, 5, 3780, 3600, 3600, 55, 55.38, 'GIA', '456c', 3600, 55.38, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(30, 335, '535352', NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', NULL, NULL, '{"comission1":"-","comission2":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(31, 56211, '535352', NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', NULL, NULL, '{"comission1":"-","comission2":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(32, 523, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', NULL, NULL, '{"comission1":"-","comission2":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(33, 6223, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', NULL, NULL, '{"comission1":"-","comission2":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(34, 324646, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', NULL, NULL, '{"comission1":"-","comission2":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(35, 23623, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', NULL, NULL, '{"comission1":"-","comission2":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(36, 362322, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":"-","less2":"-","less3":"-"}', NULL, NULL, '{"comission1":"-","comission2":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerName":"-","brokerType":"-","brokerage":"-"}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '0', '0', '0', '0', '0', NULL, NULL, '0'),
+(37, 134135, NULL, NULL, NULL, NULL, NULL, 'erwgrg', 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', 'RAPNET', NULL, NULL, 'PRINCESS CUT', NULL, NULL, 'GRAY', 'IF', 2, 32, 22, 2531270, 3245220, 10, 2784400, 162001000, 162001000, 2492330, 2492330, NULL, '23235', 5062550, 77885.3, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', 'wglwgw', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'v', 'v', 'wewe', 'wewe', 'vwewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe', 'wewe');
 
 -- --------------------------------------------------------
 
@@ -358,8 +414,45 @@ CREATE TABLE `purchase_return` (
   `avg_dolar` float DEFAULT NULL,
   `aginst_Hform` varchar(256) DEFAULT NULL,
   `mVAT` float DEFAULT NULL,
-  `broker_details` varchar(256) DEFAULT NULL
+  `broker_details` varchar(256) DEFAULT NULL,
+  `length` varchar(256) DEFAULT NULL,
+  `width` varchar(256) DEFAULT NULL,
+  `depth` varchar(256) DEFAULT NULL,
+  `message` varchar(256) DEFAULT NULL,
+  `weight` varchar(256) DEFAULT NULL,
+  `reportno` varchar(256) DEFAULT NULL,
+  `colordesc` varchar(256) DEFAULT NULL,
+  `finalcut` varchar(256) DEFAULT NULL,
+  `depthpct` varchar(256) DEFAULT NULL,
+  `tablepct` varchar(256) DEFAULT NULL,
+  `crnag` varchar(256) DEFAULT NULL,
+  `crnht` varchar(256) DEFAULT NULL,
+  `pavag` varchar(256) DEFAULT NULL,
+  `pavdp` varchar(256) DEFAULT NULL,
+  `starln` varchar(256) DEFAULT NULL,
+  `lrhalf` varchar(256) DEFAULT NULL,
+  `girdle` varchar(256) DEFAULT NULL,
+  `girdlecondition` varchar(256) DEFAULT NULL,
+  `girdlepct` varchar(256) DEFAULT NULL,
+  `culetsize` varchar(256) DEFAULT NULL,
+  `symmetry` varchar(256) DEFAULT NULL,
+  `fluorescenceintensity` varchar(256) DEFAULT NULL,
+  `fluorescencecolor` varchar(256) DEFAULT NULL,
+  `keytosymbols` varchar(256) DEFAULT NULL,
+  `reporttype` varchar(256) DEFAULT NULL,
+  `reportdt` varchar(256) DEFAULT NULL,
+  `inscription` varchar(256) DEFAULT NULL,
+  `infomsg` varchar(256) DEFAULT NULL,
+  `fullshapedescription` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `purchase_return`
+--
+
+INSERT INTO `purchase_return` (`sr_no`, `PCS_ID`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportno`, `colordesc`, `finalcut`, `depthpct`, `tablepct`, `crnag`, `crnht`, `pavag`, `pavdp`, `starln`, `lrhalf`, `girdle`, `girdlecondition`, `girdlepct`, `culetsize`, `symmetry`, `fluorescenceintensity`, `fluorescencecolor`, `keytosymbols`, `reporttype`, `reportdt`, `inscription`, `infomsg`, `fullshapedescription`) VALUES
+(1, 123456, 'Inv123', '2017-07-29', '2017-09-12', 'ANAND GHAN DIAM', '45', 'A', 65, 'A', '{"less1":0,"less2":0,"less3":0}', 'India', NULL, '{"comission1":0,"comission2":0}', 'GENERAL STOCK', NULL, NULL, 'ROUND BRILLIANT CUT', NULL, NULL, 'BLUE', 'FL', 1, 1, 10, 900, 1000, 10, 990, 900, 900, 13, 13.85, 'GIA', '123456C', 900, 13.85, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 12345, 'inv 234', '2017-07-29', '2017-08-08', 'RATNAKALA EXPORT', '10', 'A', 65, 'B', '{"less1":0,"less2":0,"less3":0}', 'India', NULL, '{"comission1":0,"comission2":0}', 'GENERAL STOCK', NULL, '17', 'PRINCESS CUT', '123', 'L', 'GREEN', 'IF', 1, 1, 5, 950, 1000, 5, 997.5, 950, 950, 14, 14.62, 'GIA', '12345C', 950, 14.62, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -452,8 +545,45 @@ CREATE TABLE `sales` (
   `sales_amount_dolar` float DEFAULT NULL,
   `diff_amount_INR` float DEFAULT NULL,
   `diff_amount_dolar` float DEFAULT NULL,
-  `broker_details` varchar(256) DEFAULT NULL
+  `broker_details` varchar(256) DEFAULT NULL,
+  `length` varchar(256) DEFAULT NULL,
+  `width` varchar(256) DEFAULT NULL,
+  `depth` varchar(256) DEFAULT NULL,
+  `message` varchar(256) DEFAULT NULL,
+  `weight` varchar(256) DEFAULT NULL,
+  `reportno` varchar(256) DEFAULT NULL,
+  `colordesc` varchar(256) DEFAULT NULL,
+  `finalcut` varchar(256) DEFAULT NULL,
+  `depthpct` varchar(256) DEFAULT NULL,
+  `tablepct` varchar(256) DEFAULT NULL,
+  `crnag` varchar(256) DEFAULT NULL,
+  `crnht` varchar(256) DEFAULT NULL,
+  `pavag` varchar(256) DEFAULT NULL,
+  `pavdp` varchar(256) DEFAULT NULL,
+  `starln` varchar(256) DEFAULT NULL,
+  `lrhalf` varchar(256) DEFAULT NULL,
+  `girdle` varchar(256) DEFAULT NULL,
+  `girdlecondition` varchar(256) DEFAULT NULL,
+  `girdlepct` varchar(256) DEFAULT NULL,
+  `culetsize` varchar(256) DEFAULT NULL,
+  `symmetry` varchar(256) DEFAULT NULL,
+  `fluorescenceintensity` varchar(256) DEFAULT NULL,
+  `fluorescencecolor` varchar(256) DEFAULT NULL,
+  `keytosymbols` varchar(256) DEFAULT NULL,
+  `reporttype` varchar(256) DEFAULT NULL,
+  `reportdt` varchar(256) DEFAULT NULL,
+  `inscription` varchar(256) DEFAULT NULL,
+  `infomsg` varchar(256) DEFAULT NULL,
+  `fullshapedescription` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sales`
+--
+
+INSERT INTO `sales` (`sr_no`, `PCS_ID`, `invoice_number`, `sales_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `sale_disc`, `sale_rate`, `freight`, `purchase_amount_INR`, `purchase_amount_dolar`, `sales_amount_INR`, `sales_amount_dolar`, `diff_amount_INR`, `diff_amount_dolar`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportno`, `colordesc`, `finalcut`, `depthpct`, `tablepct`, `crnag`, `crnht`, `pavag`, `pavdp`, `starln`, `lrhalf`, `girdle`, `girdlecondition`, `girdlepct`, `culetsize`, `symmetry`, `fluorescenceintensity`, `fluorescencecolor`, `keytosymbols`, `reporttype`, `reportdt`, `inscription`, `infomsg`, `fullshapedescription`) VALUES
+(1, 234, 'inv345', '2017/7/29', '2017/9/2', 'KANTILAL CHOTILAL', '35', 'A', 65, NULL, '{"less1":0,"less2":0,"less3":0}', 'Algeria', NULL, '{"comission1":0,"comission2":0}', 'GENERAL STOCK', NULL, NULL, 'MARQUISE CUT', NULL, NULL, 'GREEN', 'IF', 1, 1, 10, 9000, 10000, 10, 9900, 0, 9000, 0, 138.46, 'GIA', '234C', 9000, 138.46, 10, 9000, 0, 9000, 138.46, 9000, 138.46, 0, 0, '{"brokerType":"","brokerName":"","brokerage":""}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 23523, '124124', '2017/8/22', '2017/9/3', NULL, '12', NULL, 31, '12411', '{"less1":0,"less2":0,"less3":0}', 'Afghanistan', NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '{"brokerType":"","brokerName":"","brokerage":""}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -508,7 +638,36 @@ CREATE TABLE `sales_return` (
   `sales_amount_dolar` float DEFAULT NULL,
   `diff_amount_INR` float DEFAULT NULL,
   `diff_amount_dolar` float DEFAULT NULL,
-  `broker_details` varchar(256) DEFAULT NULL
+  `broker_details` varchar(256) DEFAULT NULL,
+  `length` varchar(256) DEFAULT NULL,
+  `width` varchar(256) DEFAULT NULL,
+  `depth` varchar(256) DEFAULT NULL,
+  `message` varchar(256) DEFAULT NULL,
+  `weight` varchar(256) DEFAULT NULL,
+  `reportno` varchar(256) DEFAULT NULL,
+  `colordesc` varchar(256) DEFAULT NULL,
+  `finalcut` varchar(256) DEFAULT NULL,
+  `depthpct` varchar(256) DEFAULT NULL,
+  `tablepct` varchar(256) DEFAULT NULL,
+  `crnag` varchar(256) DEFAULT NULL,
+  `crnht` varchar(256) DEFAULT NULL,
+  `pavag` varchar(256) DEFAULT NULL,
+  `pavdp` varchar(256) DEFAULT NULL,
+  `starln` varchar(256) DEFAULT NULL,
+  `lrhalf` varchar(256) DEFAULT NULL,
+  `girdle` varchar(256) DEFAULT NULL,
+  `girdlecondition` varchar(256) DEFAULT NULL,
+  `girdlepct` varchar(256) DEFAULT NULL,
+  `culetsize` varchar(256) DEFAULT NULL,
+  `symmetry` varchar(256) DEFAULT NULL,
+  `fluorescenceintensity` varchar(256) DEFAULT NULL,
+  `fluorescencecolor` varchar(256) DEFAULT NULL,
+  `keytosymbols` varchar(256) DEFAULT NULL,
+  `reporttype` varchar(256) DEFAULT NULL,
+  `reportdt` varchar(256) DEFAULT NULL,
+  `inscription` varchar(256) DEFAULT NULL,
+  `infomsg` varchar(256) DEFAULT NULL,
+  `fullshapedescription` varchar(256) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -698,7 +857,7 @@ ALTER TABLE `dealers`
 -- AUTO_INCREMENT for table `lab_issue`
 --
 ALTER TABLE `lab_issue`
-  MODIFY `Sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -718,12 +877,12 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT for table `purchase_return`
 --
 ALTER TABLE `purchase_return`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `roles`
 --
@@ -733,12 +892,12 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `sales_return`
 --
 ALTER TABLE `sales_return`
-  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sr_no` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `server_log`
 --
