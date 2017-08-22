@@ -22,8 +22,11 @@ export class AddUserComponent implements OnInit {
   onSubmit(form:NgForm){
     this.userdata=JSON.stringify(this.usermodel);
     this._userservice.newuser(this.userdata)
-    .subscribe(response=>console.log(response));
-    form.reset();
+    .subscribe(response=>{
+      alert(response.message);
+      form.reset();
+    });
+    
   }
 
 }

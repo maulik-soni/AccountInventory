@@ -5,9 +5,9 @@ import { SharedModule } from './../shared/shared.module';
 import { AccountRoutingModule } from './account-routing.module';
 
 import { PayableComponent} from './payable/payable.component';
-import { RecievableComponent } from './recievable/recievable.component';
+import { ReceivableComponent } from './receivable/receivable.component';
 import { LedgerComponent } from './ledger/ledger.component';
-import { PaymentRecieptComponent } from './payment-reciept/payment-reciept.component';
+import { BillsComponent } from './bills/bills.component';
 
 import { WebServicesService } from './../services/web-services.service';
 
@@ -21,9 +21,9 @@ import { WebServicesService } from './../services/web-services.service';
   ],
   declarations: [
     PayableComponent,
-    RecievableComponent, 
+    ReceivableComponent, 
     LedgerComponent, 
-    PaymentRecieptComponent, 
+    BillsComponent, 
     ],
   providers:[WebServicesService]
 })

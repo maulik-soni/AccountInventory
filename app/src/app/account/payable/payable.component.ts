@@ -16,17 +16,19 @@ import 'rxjs/add/operator/debounceTime';
 })
 export class PayableComponent implements OnInit {
 private searchterm=new Subject;
-searchatts=new Search(['all','filter'],['invoice','account','date']);
+searchatts=new Search(['all','filter'],[['invoice number','invoice_number'],['party name','account_name'],['date','date']]);
 searchvalues=new SearchValues(
   this.searchatts.filter[0],
-  this.searchatts.filterby[0],
+  this.searchatts.filterby[0][1],
   null,
   new Date().toLocaleDateString(),
   new Date().toLocaleDateString()
 );
 
-titles=[];
+titles=['party name','amount'];
+innertitles=['invoice number','date of invoice','invoice amount','amount payed','balance amount','due'];
 data=[];
+
 searchresult=[];
 query;
 
@@ -65,9 +67,15 @@ constructor(private _payableservice:WebServicesService){}
     this.searchresult=[];
   }
 
+  resetsearch(){
+    this.searchvalues.search=null;
+  }
+
   onSubmit(form:NgForm){
     if(this.searchvalues.filter=='all'){
-      this.query=JSON.stringify(form.value);
+      this.query=JSON.stringify({
+       payable:"all"
+      });
       console.log(this.query);
     }
     if(this.searchvalues.filterby=='date'){
@@ -80,7 +88,12 @@ constructor(private _payableservice:WebServicesService){}
     }
 
     if(this.query){
-      this._payableservice.showpayable(this.query).subscribe(response=>this.data=response.data);
+      this._payableservice.showpayable(this.query).subscribe(response=>{
+      console.log(response.response);
+      console.log(response.response.accounts);
+      console.log(response.response.accounts[0]);
+      console.log(response.response.accounts[0].account_name);
+    this.data=response.response});
     }
     
   }

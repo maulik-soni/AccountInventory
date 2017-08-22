@@ -9,42 +9,54 @@
       <div class="card-header">Filter</div>
       <div class="card-body card-padding">
 
-        <md-radio-group [(ngModel)]="searchvalues.filter" class="main-filter" name="filter">
-          <md-radio-button  class="radio-button" *ngFor="let option of searchatts.filter" [value]="option" >{{option}}</md-radio-button>
+        <md-radio-group [(ngModel)]="searchvalues.inventory" class="main-filter" name="inventory">
+          <md-radio-button  class="radio-button" *ngFor="let option of searchatts.inventory" (change)="getoption(option)"[value]="option" >{{option}}</md-radio-button>
         </md-radio-group>
-  
-        <button *ngIf="searchvalues.filter=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
 
-        <div class="filter-container" *ngIf="searchvalues.filter=='filter'">
-          <md-radio-group [(ngModel)]="searchvalues.filterby"  name="filterby">
-            <md-radio-button  class="radio-button" *ngFor="let option of  searchatts.filterby" [value]="option">{{option}}</md-radio-button>
-          </md-radio-group>
+        <button *ngIf="searchvalues.inventory=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
+
+        <div class="filter-container" ngModelGroup="filter" *ngIf="searchvalues.inventory=='filter'" class="row">
+
+          <div *ngFor="let datas of filterdata; index as i" class="col-lg-2">
+            <div class="shade-bg">
+            <div ngModelGroup={{filterdata[i].item}}>
+              <p class="c-black f-500 labels">{{filtertitles[i]}}</p>
+              <div *ngFor="let data of filterdata[i].items">
+                <md-checkbox *ngIf="data" ngModel name={{data}}>{{data}}</md-checkbox>
+              </div>
+            </div> 
+            </div>
+          </div>
 
           <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
           
         </div>
       </div>
     </div>
-    <p>{{ filters.value | json}}</p>
+    <!--<p>{{ filters.value | json}}</p>-->
     </form>
 
     <div class="card">
-      <div class="card-header">Reports</div>
-    <div class="card-body  table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th *ngFor="let title of titles">{{title}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of data">
-            <td *ngFor="let title of titles">{{data[title]}}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="card-body card-padding overflow">
+       <div class="card-header">
+          <table class="table">
+            <thead>
+              <tr>
+                <th *ngFor="let title of resulttitles">{{title[0]}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of result">
+                <td *ngFor="let properties of resulttitles">{{data[properties[1]]}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
     </div>
     </div>
+
+    
+
 
   </div>
 </dashboard>

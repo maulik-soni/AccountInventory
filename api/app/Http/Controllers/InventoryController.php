@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Purchase;
-use App\MemoIn;
+use App\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,33 +9,131 @@ class InventoryController extends Controller
 {
     public function show(Request $request){
         $query=$request->all();
-        $purchase=Purchase::select(['invoice_number','PCS_ID','account_name','amount_INR as amount']);
-        $memo=MemoIn::select(['memo_invoice_number as invoice_number','PCS_ID','account_name','amount']);
+        $collect=Inventory::collection();
 
-        if($request->has('staticdata')){
-            $title=['invoice_number','PCS_ID','account_name','amount'];
-            $data=$purchase->union($memo)->get();
-             $sum=$data->sum('amount');
-            return response()->json(['titles'=>$title,'data'=>$data,'sum'=>$sum],201);
+
+	////////////////////////////////////////////
+	///// Showing all Result
+	///////////////////////////////////////////
+
+        if(($request->has('inventory')) && ($query['inventory']=='all')){
+            return response()->json([
+						'response'=>[
+								'inventory'=>$collect
+								]
+						],201);
         }
 
-        if($request->has('filter')&&($query['filter']=='all')){
-            $response=$purchase->union($memo)->get();
-            $sum=$response->sum('amount');
-            return response()->json(['data'=>$response,'sum'=>$sum],201);
+
+	////////////////////////////////////////////
+	/////  Filters
+	///////////////////////////////////////////
+
+        if($request->has('filter')){
+            $filterables = collect([
+                    'diamond_shape'=>[],
+                    'diamond_color'=>[],
+                    'diamond_clarity'=>[],
+                    'stock_status_group'=>[],
+                    'kapan'=>[],
+                    'LAB_type'=>[],
+                    'polishing_type'=>[]
+                    ]);
+            
+
+            ////////////////////////////////////////////
+            ///// All Filters
+            ///////////////////////////////////////////
+
+            if($query['filter']=='filteroptions'){
+
+                $filtervalues = $filterables->keys()
+                                ->map(function($item){
+                                        $collect = Inventory::getfields($item);
+									    return array('item'=>$item,'items'=>$collect);  
+								});
+
+                return response()->json([
+						'response'=>[
+								'filters'=>$filtervalues
+								]
+						],201);
+
+            }
+            ////////////////////////////////////////////
+            /////  Filter options
+            ///////////////////////////////////////////
+
+            if($query['inventory']=='filter'){
+                $querycollection=collect($query);
+                $filtered=$querycollection->transform(
+                            function($value,$key){
+                                $valueobject=collect($value);
+                                $valuekeys=$valueobject->keys();
+                                $result=collect([]);
+                                foreach($valuekeys as $key){
+                                    if($valueobject[$key]===true){
+                                        $result->push($key);
+                                    }
+                                } 
+                                if($result->isNotEmpty()){
+		 							    return $result;
+                                } 
+                                
+                            }
+                        );
+                if($filtered){
+                    $filterkeys=$filtered->keys();
+                    $results=$collect;
+                    foreach($filterkeys as $key){
+                        if($filtered[$key]){
+                            $results=$results->whereIn($key,$filtered[$key]);
+                        }
+                    }
+                }
+
+                 $inventories=collect($results->all())->values();
+
+                 ////////////////////////////////////////////
+                /////  Filter Results
+                ///////////////////////////////////////////
+
+                 if($request->has('filterresult')){
+                    return response()->json([
+                            'response'=>[
+                                    'inventory'=>$inventories
+                                    ]
+                            ],201);
+                 }
+
+                ////////////////////////////////////////////
+                /////  Dynamic Filter options
+                ///////////////////////////////////////////
+
+                if($request->has('getoption')){
+                    $filtervalues=collect([]);
+
+                    foreach($filterables as $key=>$value){
+                        foreach($inventories as $inventory){
+                            if(!(collect($value)->contains($inventory[$key]))){
+                                array_push($value,$inventory[$key]);
+                            }
+                        }
+                        $filtervalues=$filtervalues->push(array('item'=>$key,'items'=>$value))->values();
+                    }
+
+                    return response()->json([
+                    'response'=>[
+                            'filters'=>$filtervalues
+                            ]
+                    ],201);
+
+                }
+
+            }
+
         }
 
-        if($request->has('filterby')){
-           if($query['filterby']=='purchase'){
-            $response=$purchase->get();
-            $sum=$response->sum('amount');
-            return response()->json(['data'=>$response,'sum'=>$sum],201);
-           }
-           if($query['filterby']=='jangad'){
-            $response=$memo->get();
-            $sum=$response->sum('amount');
-            return response()->json(['data'=>$response,'sum'=>$sum],201);
-           }
-        }
+
     }
 }

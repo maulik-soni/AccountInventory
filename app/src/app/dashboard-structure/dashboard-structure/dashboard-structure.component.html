@@ -141,9 +141,9 @@
           <li class="sub-menu">
             <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Accounts</a>
             <ul style="display: none;">
-                <li><a [routerLink]="['/accounts/payment-reciept']">Payment/Reciept</a></li>
+                <li><a [routerLink]="['/accounts/bills']">Bills</a></li>
                 <li><a [routerLink]="['/accounts/payable']">Payable</a></li>
-                <li><a [routerLink]="['/accounts/recievable']">Recievable</a></li>
+                <li><a [routerLink]="['/accounts/receivable']">Recievable</a></li>
                 <li><a [routerLink]="['/accounts/ledger']">Ledger</a></li>
             </ul>
           </li>
@@ -166,6 +166,16 @@
 
           <li class="sub-menu">
             <a [routerLink]="['/inventory']"><i class="zmdi zmdi-account"></i>Inventory</a>
+          </li>
+
+          <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-account"></i>Settings</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/settings/company-profile']">Company Profile</a></li>
+                <li><a [routerLink]="['/settings/vendors-profile']">Vendors Profile</a></li>
+                <li><a [routerLink]="['/settings/company-bank-details']">Company Bank Details</a></li>
+                <li><a [routerLink]="['/settings/vendors-bank-detail']">Vendors Bank Detail</a></li>
+            </ul>
           </li>
 
         </ul>

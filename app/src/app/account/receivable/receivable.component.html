@@ -1,0 +1,117 @@
+<dashboard>
+  <div class="container">
+    <div class="block-header">
+      <h2>Receivables</h2>
+    </div>
+    <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
+    <div class="card searchfilters">
+      <div class="card-header">Filter</div>
+      <div class="card-body card-padding">
+
+        <md-radio-group [(ngModel)]="searchvalues.filter" class="main-filter" name="receivable">
+          <md-radio-button  class="radio-button" *ngFor="let option of searchatts.filter" [value]="option" >{{option}}</md-radio-button>
+        </md-radio-group>
+  
+        <button *ngIf="searchvalues.filter=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
+
+        <div class="filter-container" *ngIf="searchvalues.filter=='filter'">
+
+          <span>Filter By : </span>
+         
+
+          <md-radio-group [(ngModel)]="searchvalues.filterby" name="filterby">
+            <md-radio-button  class="radio-button" *ngFor="let option of  searchatts.filterby" (change)="resetsearch()" [value]="option[1]">{{option[0]}}</md-radio-button>
+          </md-radio-group>
+
+          <div *ngIf="searchvalues.filterby!='date'" class="search search-box">
+            <div class="input-group">
+              <input type="text" class="search-field form-control" #searchBox (keyup)="search(searchBox.value)" name="search" [(ngModel)]="searchvalues.search" placeholder="Search">
+              <div *ngIf="issearchempty()" class="search-suggestion">
+                  <p *ngFor="let result of  searchresult" (click)="setvalue(result)">{{result}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="searchvalues.filterby=='date'" class="filter-date">
+
+            <div class="input-group">
+            <div class="fg-line">
+                <label for="from">From</label>
+                <span class="dp-container">
+                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="picker"></button>
+                <input type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" name="fromdate" [(ngModel)]="searchvalues.from">
+                <md-datepicker #picker></md-datepicker>	
+                </span>					
+							</div>
+            </div>
+
+            <div class="input-group">
+            <div class="fg-line">
+                <label for="from">To</label>
+                <span class="dp-container">
+                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="pickers"></button>
+                <input type="text" id="to" class="form-control fg-input mdatepicker" [mdDatepicker]="pickers" [min]="minDate" [max]="maxDate" name="todate" [(ngModel)]="searchvalues.to">
+                <md-datepicker #pickers></md-datepicker>	
+                </span>					
+							</div>
+            </div>
+          </div>
+          <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
+          
+        </div>
+      </div>
+    </div>
+    <p>{{ filters.value | json}}</p>
+    </form>
+
+    <div class="card">
+      <!--<div class="card-header">Reports</div>-->
+    <div class="card-header  table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngFor="let title of titles">{{title}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let datas of data.accounts">
+            <td colspan="2">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>{{datas.account_name}}</th>
+                    <th>{{datas.account_sum}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+            <td colspan="2">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th  *ngFor="let title of innertitles">{{title}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let data of datas.account_invoices">
+                        <td>{{data.invoice_number}}</td>
+                        <td>{{data.date | date:"dd-MM-yy"}}</td>
+                        <td>{{data.invoice_value | currency:'INR':true}}</td>
+                        <td>{{data.received | currency:'INR':true}}</td>
+                        <td>{{data.balance | currency:'INR':true}}</td>
+                        <td>{{data.due_date | date:"dd-MM-yy"}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                </tr>
+                </tbody>
+              </table>
+            </td> 
+          </tr>
+              </tbody>
+            </table>
+    </div>
+    </div>
+  </div>
+</dashboard>

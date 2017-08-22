@@ -16,72 +16,84 @@ import { Search,SearchValues } from './../search.model';
 
 export class LedgerComponent implements OnInit {
 private searchterm=new Subject;
-searchatts=new Search(['all','filter'],['invoice','account','date']);
+searchatts=new Search(['all','filter'],[['invoice number','invoice_number'],['party name','account_name'],['date','date']]);
 searchvalues=new SearchValues(
   this.searchatts.filter[0],
-  this.searchatts.filterby[0],
+  this.searchatts.filterby[0][0],
   null,
   new Date().toLocaleDateString(),
   new Date().toLocaleDateString()
 );
 
-titles=[];
+titles=['date','particulars','debit','credit'];
 data=[];
-searchresult=[];
+account_name=[];
+accountname;
 query;
 
 constructor(private _ledgerservice:WebServicesService){}
   
   ngOnInit() {
-    this._ledgerservice.showledger({staticdata:'data'}).subscribe(
-      resData=>{
-        this.titles=resData.titles;
-        this.data=resData.data;
-        console.log(resData.titles);
-        console.log(resData.data);
-      });
+    let billtype;
+    billtype={
+      static_data:'staticdata',
+    }
+    this._ledgerservice.showledger(JSON.stringify(billtype))
+    .subscribe(response=>{this.account_name=response.names});
 
-      this.searchterm
-      .debounceTime(100)
-      .switchMap(search=>this._ledgerservice.searchledger({filterby:this.searchvalues.filterby,searchterm:search}))
-      .subscribe(result=>{
-          if(result.constructor=== Array){
-           this.searchresult=result;
-          }
-      });
+
      
   }
+
+  selectedparty($event){
+    this.accountname=$event;
+  }
   
-  search(searchvalue){
-    this.searchterm.next(searchvalue);
-  }
+  // search(searchvalue){
+  //   this.searchterm.next(searchvalue);
+  // }
 
-  issearchempty(){
-    return this.searchresult.length;
-  }
+  // issearchempty(){
+  //   return this.searchresult.length;
+  // }
 
-  setvalue(result){
-    this.searchvalues.search=result;
-    this.searchresult=[];
-  }
+  // setvalue(result){
+  //   this.to=result;
+  //   this.searchresult=[];
+  // }
 
   onSubmit(form:NgForm){
-    if(this.searchvalues.filter=='all'){
-      this.query=JSON.stringify(form.value);
-      console.log(this.query);
-    }
-    if(this.searchvalues.filterby=='date'){
-      this.query=JSON.stringify(form.value);
-      console.log(this.query);
-    }
-    if(form.value.search!=null){
-     this.query=JSON.stringify(form.value);
-     console.log(this.query);
+    // let data;
+    // if(this.to){
+    //   data={
+    //   ledger: 'ledger',
+    //   account_name:this.to
+    // }
+    //   this.query=JSON.stringify(data);
+    //   console.log(this.query);
+    // }
+    // if(this.searchvalues.filterby=='date'){
+    //   this.query=JSON.stringify(form.value);
+    //   console.log(this.query);
+    // }
+    // if(form.value.search!=null){
+    //  this.query=JSON.stringify(form.value);
+    //  console.log(this.query);
+    // }
+    if(this.accountname){
+      let account;
+      account={
+        account_name:this.accountname
+      }
+      this.query=JSON.stringify(account);
     }
 
-    if(this.query){
-      this._ledgerservice.showledger(this.query).subscribe(response=>this.data=response.data);
-    }
+    
+      this._ledgerservice.showledger(this.query).subscribe(response=>{
+      this.data=response;
+      console.log(this.data);
+  
+    });
     
   }
 

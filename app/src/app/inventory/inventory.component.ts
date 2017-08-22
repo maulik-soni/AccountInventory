@@ -12,38 +12,115 @@ import { WebServicesService } from './../services/web-services.service';
 export class InventoryComponent implements OnInit {
 searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
 searchvalues=new SearchValues(
-  this.searchatts.filter[0],
-  this.searchatts.filterby[0],
+  this.searchatts.inventory[0],
 );
 
-titles=[];
-data=[];
-query;
+filtertitles=['shape','color','clarity','group','kapan','lab','polish'];
+resulttitles=[
+  ['PCS ID','PCS_ID'],
+  ['invoice number','invoice_number'],
+  ['purchase date','purchase_date'],
+  ['due date','due_date'],
+  ['account','account_name'],
+  ['terms','payment_terms'],
+  ['polishing','polishing_type'],
+  ['conversion','currency_convrsion_rate'],
+  ['note','notes'],
+  ['less','less'],
+  ['country','country'],
+  ['bill','bill_type'],
+  ['comission','comission'],
+  ['stock status','stock_status_group'],
+  ['item','item'],
+  ['kapan','kapan'],
+  ['diamond shape','diamond_shape'],
+  ['lot number','diamond_lot_number'],
+  ['size','diamond_size'],
+  ['color','diamond_color'],
+  ['clarity','diamond_clarity'],
+  ['peices','total_diamond_pcs'],
+  ['carat','total_diamond_carat'],
+  ['discount','cost_discount'],
+  ['rate/carat','cost_rate_per_carat'],
+  ['RAP','RAP_price'],
+  ['wd rate','wd_rate'],
+  ['wd rate/carat','wd_rate_carat'],
+  ['rate','rate_INR'],
+  ['amount','amount_INR'],
+  ['rate(USD)','rate_dolar'],
+  ['amount(USD)','amount_dolar'],
+  ['LAB','LAB_type'],
+  ['certificate number','certificate_number'],
+  ['average','avg_INR'],
+  ['average(USD)','avg_dolar'],
+  ['Hform','against_Hform'],
+  ['VAT','mVAT'],
+  ['broker','broker_details'],
+  ['memo lot number','Lot_number'],
+  ['memo invoice number','memo_invoice_number'],
+  ['memo date','date'],
+  ['memo reference','reference'],
+  ['memo carats','carats'],
+  ['memo stone type','stone_type'],
+  ['memo days','no_of_days'],
+  ['memo due','due_date'],
+  ['memo status','status']
+  ]
+filterdata=[];
+result=[];
+
   constructor(
     private inventoryservice:WebServicesService
   ) { }
 
   ngOnInit() {
-    this.inventoryservice.showinventory({staticdata:'data'}).subscribe(
-      resData=>{
-        this.titles=resData.titles;
-      });
   }
 
+  getoption(option){
+    if(option=='filter'){
+      let getfilters;
+      getfilters={
+        filter:'filteroptions'
+      }
+      this.inventoryservice.showinventory(JSON.stringify(getfilters))
+      .subscribe(response=>{this.filterdata=response.response.filters;
+      console.log(this.filterdata);});
+    }
+  }
+
+  getdynamic(form:NgForm){
+    var all=form.value;
+    all['getoption']='getoption';
+   
+     this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
+       this.filterdata=response.response.filters;
+      console.log(this.filterdata);});
+
+ 
+  }
+  
+  
   onSubmit(form:NgForm){
-    if(this.searchvalues.filter=='all'){
-      this.query=JSON.stringify(form.value);
-      console.log(this.query);
-    }
+    
+// var all=form.value.filter;
+// all['filterresult']='filterresult';
 
-    if(form.value.filterby){
-     this.query=JSON.stringify(form.value);
-     console.log(this.query);
-    }
+if(this.searchvalues.inventory=="all"){
+  var all = form.value;
+}
 
-    if(this.query){
-      this.inventoryservice.showinventory(this.query).subscribe(response=>this.data=response.data);
-    }
+if(this.searchvalues.inventory!="all"){
+ var all=form.value.filter;
+ all['filterresult']='filterresult';
+ all['inventory']='filter';
+ all['filter']='search';
+}
+
+console.log(all);
+
+     this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
+       this.result=response.response.inventory;
+       console.log(response);});
     
   }
 

@@ -34,8 +34,9 @@ onedit(g){
 
 ondelete(id){
   console.log('vikas');
-  this._userservice.deleteuser(id.id);
-  this._userservice.showuser({staticdata:'data'}).subscribe(
+  this._userservice.deleteuser(id.id).subscribe(
+   response=>{console.log(response);
+   this._userservice.showuser({staticdata:'data'}).subscribe(
     resData=>{
         this.titles=resData.titles;
         this.titles.pop();
@@ -45,5 +46,9 @@ ondelete(id){
         this.titles.pop();
         this.data=resData.data;
       });
+      
+    }
+  );
+  
 }
 }

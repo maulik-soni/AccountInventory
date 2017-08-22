@@ -4,7 +4,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Location }               from '@angular/common';
 import { WebServicesService } from './../../services/web-services.service';
-
+import { Router } from '@angular/router';
 import { EditUser } from './edit-user.model';
 @Component({
   selector: 'app-edit-user',
@@ -16,7 +16,8 @@ user=EditUser;
 
   constructor(
      private editservice:  WebServicesService,
-     private route: ActivatedRoute) { }
+     private route: ActivatedRoute,
+     private _router:Router) { }
 
   ngOnInit():void {
         this.route.paramMap
@@ -26,7 +27,8 @@ user=EditUser;
 
   onSubmit(){
     this.editservice.updateuser(JSON.stringify(this.user))
-    .subscribe(response=>console.log(response))
+    .subscribe(response=>{console.log(response);
+     this._router.navigate(['users/manage-users']);})
     console.log(JSON.stringify(this.user));
   }
   }

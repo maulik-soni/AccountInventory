@@ -42,7 +42,7 @@
             <label for="password" class="col-sm-3 control-label">Password</label>
             <div class="col-sm-9">
               <div class="fg-line">
-                <input type="passowrd" class="form-control input-sm" id="password" name="password" #password="ngModel" [(ngModel)]="usermodel.password">
+                <input type="password" class="form-control input-sm" id="password" name="password" #password="ngModel" [(ngModel)]="usermodel.password">
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
             <label for="cpassword" class="col-sm-3 control-label">Confirm Password</label>
             <div class="col-sm-9">
               <div class="fg-line">
-                <input type="password" class="form-control input-sm" id="cpassword">
+                <input type="password" class="form-control input-sm" id="cpassword" name="confirm" [(ngModel)]="usermodel.confirm">
               </div>
             </div>
           </div>

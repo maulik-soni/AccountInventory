@@ -91,13 +91,43 @@ Route::delete('/deleteuser/{id}','UserController@destroy');
 
 
 
-Route::get('/searchpaymentreciept','PaymentRecieptController@search');
-Route::post('/showpaymentreciept','PaymentRecieptController@show');
+Route::get('/searchbill','BillsController@search');
+Route::post('/showbills','BillsController@show');
+Route::post('/newbill','BillsController@create');
 
-Route::post('/showrecievable','salesConroller@salesReport');
-Route::get('/searchrecievable','salesConroller@salesReport');
+Route::post('/showledger','LedgerController@show');
+
+Route::get('/searchpayable','PayableController@search');
+Route::post('/showpayable','PayableController@show');
+
+Route::get('/searchreceivable','ReceivableController@search');
+Route::post('/showreceivable','ReceivableController@show');
 
 Route::post('/showinventory','InventoryController@show');
+
+Route::post('/newvendor','VendorsController@create');
+Route::get('/editvendor/{id}','VendorsController@edit');
+Route::post('/showvendor','VendorsController@show');
+Route::post('/updatevendor','VendorsController@update');
+Route::delete('/deletevendor/{id}','VendorsController@destroy');
+
+Route::post('/newcompanybank','CompanyBankDetailsController@create');
+Route::get('/editcompanybank/{id}','CompanyBankDetailsController@edit');
+Route::post('/showcompanybank','CompanyBankDetailsController@show');
+Route::post('/updatecompanybank','CompanyBankDetailsController@update');
+Route::delete('/deletecompanybank/{id}','CompanyBankDetailsController@destroy');
+
+Route::post('/newvendorbank','VendorBankDetailsController@create');
+Route::get('/editvendorbank/{id}','VendorBankDetailsController@edit');
+Route::post('/showvendorbank','VendorBankDetailsController@show');
+Route::post('/updatevendorbank','VendorBankDetailsController@update');
+Route::delete('/deletevendorbank/{id}','VendorBankDetailsController@destroy');
+
+Route::post('/newcompanyprofile','CompanyProfileController@create');
+Route::get('/editcompanyprofile/{id}','CompanyProfileController@edit');
+Route::post('/showcompanyprofile','CompanyProfileController@show');
+Route::put('/updatecompanyprofile/{id}','CompanyProfileController@update');
+
 
 Route::post('/showcashbook','CashbookController@show');	
 Route::get('/searchcashbook','CashbookController@search');
