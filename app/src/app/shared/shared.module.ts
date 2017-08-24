@@ -11,6 +11,14 @@ import {MaterialModule,
   NativeDateAdapter,
   MD_DATE_FORMATS } from '@angular/material';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
+import { DaysPipe } from './pipes/days.pipe';
+import { NotifyDirective } from './directives/notify.directive';
+
+
+
+import { SharedService } from './shared.service';
+
+
 
 @NgModule({
   imports: [
@@ -24,8 +32,9 @@ import { DashboardStructureModule } from './../dashboard-structure/dashboard-str
     MdRadioModule,
     SelectModule
   ],
-  declarations: [],
-  providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},],
+  declarations: [DaysPipe, NotifyDirective],
+  providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},
+  SharedService],
   exports:[
     FormsModule,
     CommonModule,
@@ -33,10 +42,12 @@ import { DashboardStructureModule } from './../dashboard-structure/dashboard-str
     MdCheckboxModule,
     DashboardStructureModule,
     MdRadioModule,
-    SelectModule]
+    SelectModule,
+    DaysPipe,
+    NotifyDirective]
 })
 export class SharedModule {
    constructor(private dateAdapter: DateAdapter<Date>) {
-         dateAdapter.setLocale('en-ca');
+         dateAdapter.setLocale('en-IN');
     }
  }
