@@ -48,6 +48,6 @@ import { SharedService } from './shared.service';
 })
 export class SharedModule {
    constructor(private dateAdapter: DateAdapter<Date>) {
-         dateAdapter.setLocale('en-IN');
+         dateAdapter.setLocale('en-ca');
     }
  }

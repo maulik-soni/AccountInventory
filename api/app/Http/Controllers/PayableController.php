@@ -114,15 +114,17 @@ class PayableController extends Controller
 							'accounts'=>$accounts
 							]],201);
 					}
+
+
+			if($query['filterby']=='date')
+			    {
+			        $response=$collect->whereBetween('date',[$query['fromdate'],$query['todate']])->get();
+			        return $query;
+			    }
+			
 				}
 			}
 
-			// if($request->has('fromdate') || $request->has('todate'))
-			//     {
-			//         $response=Cashbook::whereBetween('date',[$query['fromdate'],$query['todate']])->get();
-			//         return response()->json(['data'=>$response],201);
-			//     }
-			// }
 			
 		}
 	}

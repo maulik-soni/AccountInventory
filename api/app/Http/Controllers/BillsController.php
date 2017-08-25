@@ -18,7 +18,10 @@ class BillsController extends Controller
         $query=$request->all();
         $this
         ->validate($request,[
-            'transaction_details'=>'nullable',
+            'cheque_no'=>'nullable',
+            'bank'=>'nullable',
+            'transaction_id'=>'nullable',
+            'bank_branch'=>'nullable',
             'transaction_conversion_rate'=>'nullable',
             'credit_INR'=>'nullable',
             'debit_INR'=>'nullable',
@@ -31,19 +34,22 @@ class BillsController extends Controller
         $data = new Bills([
             'invoice_number'=>$request->input('invoice_number'),
             'invoice_value'=>$request->input('invoice_value'),
-            'date'=>$request->input('date'),
             'transaction_date'=>$request->input('transaction_date'),
             'transaction_mode'=>$request->input('transaction_mode'),
-            'transaction_details'=>$request->input('transaction_details'),
+            'transaction_status'=>$request->input('transaction_status'),
             'account_name'=>$request->input('account_name'),
             'transaction_currency'=>$request->input('transaction_currency'),
-            'transaction_status'=>$request->input('transaction_status'),
-            'credit_INR'=>$request->input('credit'),
-            'debit_INR'=>$request->input('amount'),
+            'date'=>$request->input('date'),
             'due_date'=>$request->input('due_date'),
-            'transaction_conversion_rate'=>$request->input('transaction_conversion_rate'),
-            'received'=>($request->input('amount'))+($request->input('received')),
             'balance'=>($request->input('balance'))-($request->input('amount')),
+            'received'=>($request->input('amount'))+($request->input('received')),
+            'credit_INR'=>$request->input('credit_INR'),
+            'debit_INR'=>$request->input('amount'),
+            'transaction_conversion_rate'=>$request->input('transaction_conversion_rate'),
+            'cheque_no'=>$request->input('cheque_no'),
+            'bank'=>$request->input('bank'),
+            'transaction_id'=>$request->input('transaction_id'),
+            'bank_branch'=>$request->input('bank_branch')
         ]);
 
         $data->save();
@@ -56,21 +62,24 @@ class BillsController extends Controller
 
 
         $data = new Bills([
-            'invoice_number'=>$request->input('invoice_number'),
+             'invoice_number'=>$request->input('invoice_number'),
             'invoice_value'=>$request->input('invoice_value'),
-            'date'=>$request->input('date'),
             'transaction_date'=>$request->input('transaction_date'),
             'transaction_mode'=>$request->input('transaction_mode'),
-            'transaction_details'=>$request->input('transaction_details'),
+            'transaction_status'=>$request->input('transaction_status'),
             'account_name'=>$request->input('account_name'),
             'transaction_currency'=>$request->input('transaction_currency'),
-            'transaction_status'=>$request->input('transaction_status'),
+            'date'=>$request->input('date'),
+            'due_date'=>$request->input('due_date'),
+            'balance'=>($request->input('balance'))-($request->input('amount')),
+            'received'=>($request->input('amount'))+($request->input('received')),
             'credit_INR'=>$request->input('amount'),
             'debit_INR'=>$request->input('debit'),
-            'due_date'=>$request->input('due_date'),
             'transaction_conversion_rate'=>$request->input('transaction_conversion_rate'),
-            'received'=>($request->input('amount'))+($request->input('received')),
-            'balance'=>($request->input('balance'))-($request->input('amount')),
+            'cheque_no'=>$request->input('cheque_no'),
+            'bank'=>$request->input('bank'),
+            'transaction_id'=>$request->input('transaction_id'),
+            'bank_branch'=>$request->input('bank_branch')
         ]);
 
         $data->save();

@@ -17,13 +17,13 @@ export class SharedService {
             label: 'Cancel',
             className: 'btn-xs btn-inverse',
             placement: {
-                from: 'top',
-                align: 'right'
+                from: 'bottom',
+                align: 'center'
             },
             delay: 2500,
             animate: {
-                    enter: 'animated bounceIn',
-                    exit: 'animated bounceOut'
+                    enter: 'animated fadeIn',
+                    exit: 'animated fadeOut'
             },
             offset: {
                 x: 20,

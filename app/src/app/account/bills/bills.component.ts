@@ -152,9 +152,13 @@ export class BillsComponent implements OnInit {
       account_name:this.paymentvalues.account_name
     }
     this._bills.showbills(JSON.stringify(bill))
-    .subscribe(response=>{this.accountdata=response.response});
+    .subscribe(response=>{this.accountdata=response.response;
+    if(response.response.accounts.length===0 ){
+    this._shared.notify('No Results Found','inverse');
+  }});
   }
-  this._shared.notify('vikas','inverse');
+  
+  
   }
 
 
