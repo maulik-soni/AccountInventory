@@ -116,13 +116,31 @@ class PayableController extends Controller
 					}
 
 
+				}
 			if($query['filterby']=='date')
 			    {
-			        $response=$collect->whereBetween('date',[$query['fromdate'],$query['todate']])->get();
-			        return $query;
+			        $collection=Payable::betweenDates($query['fromdate'],$query['todate']);
+					$accounts=collect($collection)
+					->unique('account_name')
+								  ->pluck('account_name')
+					->map(function($item){
+                                    $collect = Payable::collection()
+											->where('account_name',$item);
+									$sum = $collect
+										   ->sum('balance');
+                                    $invoices = $collect
+                                                ->values();
+									return array('account_name'=>$item,'account_sum'=>$sum,'account_invoices'=>$invoices);
+									
+								});
+			         $sum = collect($collection)->values()->sum('balance');
+
+					return response()->json(['response'=>[
+							 'sum'=>$sum,
+							'accounts'=>$accounts
+							]],201);
 			    }
 			
-				}
 			}
 
 			
