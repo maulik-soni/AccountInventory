@@ -19,14 +19,14 @@
           <label class="c-black f-500 labels">Name</label>
           <div class="form-group noneditable">
             <div class="fg-line">
-              <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.name" name="c_name">
+              <input type="text" class="form-control" formControlName='name'>
             </div>
           </div>
 
           <label class="c-black f-500 labels">Account Code</label>
           <div class="form-group noneditable">
             <div class="fg-line">
-              <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.account_code" name="address">
+              <input type="text" class="form-control" formControlName="account_code">
             </div>
           </div>
 
@@ -35,7 +35,7 @@
               <label class="c-black f-500 labels">Opening Balance</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.opening_bal" name="phone">
+                  <input type="text" class="form-control" formControlName="opening_bal">
                 </div>
               </div>
             </div>
@@ -43,7 +43,7 @@
               <label class="c-black f-500 labels">Opening Balance (USD)</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.opening_bal_USD" name="mobile">
+                  <input type="text" class="form-control"  formControlName="opening_bal_USD">
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
               <label class="c-black f-500 labels">Remarks</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable  [(ngModel)]="vendordata.remarks" name="email">
+                  <input type="text" class="form-control"  formControlName="remarks">
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@
               <label class="c-black f-500 labels">Contact Person</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.contact_person" name="from">
+                  <input type="text" class="form-control"  formControlName="contact_person">
                 </div>
               </div>
             </div>
@@ -70,7 +70,7 @@
               <label class="c-black f-500 labels">Address</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.address" name="to" >
+                  <input type="text" class="form-control"  formControlName="address" >
                 </div>
               </div>
             </div>
@@ -81,7 +81,7 @@
               <label class="c-black f-500 labels">Phone</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.phone" name="GST">
+                  <input type="text" class="form-control"  formControlName="phone">
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@
               <label class="c-black f-500 labels">Mobile</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.mobile" name="PAN">
+                  <input type="text" class="form-control" formControlName="mobile">
                 </div>
               </div>
             </div>
@@ -97,7 +97,7 @@
               <label class="c-black f-500 labels">Email</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable  [(ngModel)]="vendordata.email" name="IEC">
+                  <input type="text" class="form-control"  formControlName="email">
                 </div>
               </div>
             </div>
@@ -105,7 +105,7 @@
               <label class="c-black f-500 labels">Country</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.country" name="QBC">
+                  <input type="text" class="form-control"  formControlName="country">
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@
               <label class="c-black f-500 labels">Fax</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.fax_number" name="QBC">
+                  <input type="text" class="form-control"  formControlName="fax_number">
                 </div>
               </div>
             </div>

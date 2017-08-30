@@ -1,6 +1,9 @@
-export class Company{
+
+
+export class CompanyProfile {
     constructor(
         public c_name:string,
+        public id:number,
         public address:string,
         public from:Date,
         public to:Date,
@@ -10,6 +13,6 @@ export class Company{
         public QBC:string,
         public phone?:string,
         public mobile?:string,
-        public email?:string
+        public email?:string,
     ){}
 }
