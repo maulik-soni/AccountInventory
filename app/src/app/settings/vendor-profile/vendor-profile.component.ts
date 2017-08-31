@@ -55,12 +55,16 @@ get banks() {
     this.banks.push(this._fb.group(new Bank('vikas','','','','',null,null)));
   }
 
+ removeBank(i: number) {
+        this.banks.removeAt(i);
+    }
+
 
 
   onSubmit(){
-    // this._vendor.newvendor(JSON.stringify(this.vendordata))
-    // .subscribe(response=>{console.log(response);
-    //  this.isAdd=true;})
+    this._vendor.newvendor(JSON.stringify(this.vendorProfile.value))
+     .subscribe(response=>{console.log(response);
+      this.isAdd=true;})
     
   }
 

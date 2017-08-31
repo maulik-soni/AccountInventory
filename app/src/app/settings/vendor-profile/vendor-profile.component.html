@@ -7,31 +7,34 @@
     <div class="card">
       <div class="card-body card-padding">
         <div *ngIf="isAdd">
-        <button  type="button"  (click)="addClient()" class="btn btn-lg btn-icon-text btn-primary waves-effect waves-circle">
-        <span class="zmdi zmdi-account-add">Add New Client</span>
-        </button>
-      </div>
+          <button  type="button"  (click)="addClient()" class="btn btn-info btn-sm btn-icon-text waves-effect">
+            <span class="zmdi zmdi-account-add"></span>
+            <span>Add Vendors</span>
+          </button>
+        </div>
 
-       <form *ngIf="!isAdd" #profile="ngForm" (ngSubmit)="onSubmit(profile)">
-      <div class="card">
-        <div class="card-body card-padding">
-
-          <label class="c-black f-500 labels">Name</label>
-          <div class="form-group noneditable">
-            <div class="fg-line">
-              <input type="text" class="form-control" formControlName='name'>
-            </div>
-          </div>
-
-          <label class="c-black f-500 labels">Account Code</label>
-          <div class="form-group noneditable">
-            <div class="fg-line">
-              <input type="text" class="form-control" formControlName="account_code">
-            </div>
-          </div>
+        <form *ngIf="!isAdd"  [formGroup]="vendorProfile" (ngSubmit)="onSubmit()" novalidate>
 
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Name</label>
+                <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName='name'>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+            <label class="c-black f-500 labels">Account Code</label>
+            <div class="form-group noneditable">
+              <div class="fg-line">
+                <input type="text" class="form-control" formControlName="account_code">
+              </div>
+            </div>
+            </div>
+
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Opening Balance</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -39,7 +42,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Opening Balance (USD)</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -47,7 +50,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Remarks</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -55,10 +58,10 @@
                 </div>
               </div>
             </div>
-          </div>
+         
 
-          <div class="row">
-            <div class="col-lg-6">
+          
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Contact Person</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -66,7 +69,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Address</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -74,10 +77,10 @@
                 </div>
               </div>
             </div>
-          </div>
+          
 
-          <div class="row">
-            <div class="col-lg-3">
+          
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Phone</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -85,7 +88,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Mobile</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -93,7 +96,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Email</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -101,7 +104,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Country</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -110,7 +113,7 @@
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Fax</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
@@ -119,118 +122,138 @@
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Rap</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.RAP" name="QBC">
+                  <input type="text" class="form-control"   formControlName="RAP">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">IDEX</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.IDEX" name="QBC">
+                  <input type="text" class="form-control"  formControlName="IDEX">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Diamond World Id</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.diamond_world_id" name="QBC">
+                  <input type="text" class="form-control"   formControlName="diamond_world_id">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">QBC</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.QBC" name="QBC">
+                  <input type="text" class="form-control"   formControlName="QBC">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Website</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.website" name="QBC">
+                  <input type="text" class="form-control"   formControlName="website">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Credit Limit</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.credit_limit" name="QBC">
+                  <input type="text" class="form-control"   formControlName="credit_limit">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Credit Limit (USD)</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.credit_limit_USD" name="QBC">
+                  <input type="text" class="form-control" formControlName="credit_limit_USD">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
-              <label class="c-black f-500 labels">Referenc (1)</label>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Reference (1)</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.reference_1" name="QBC">
+                  <input type="text" class="form-control" formControlName="reference_1">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">Reference (2)</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.reference_2" name="QBC">
+                  <input type="text" class="form-control" formControlName="reference_2">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">GST</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.GST" name="QBC">
+                  <input type="text" class="form-control" formControlName="GST">
                 </div>
               </div>
             </div>
 
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <label class="c-black f-500 labels">PAN</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" [disabled]=isEditable [(ngModel)]="vendordata.PAN" name="QBC">
+                  <input type="text" class="form-control" formControlName="PAN">
                 </div>
               </div>
             </div>
 
           </div>
 
+
+       
+        <div class="card-header">
+          <span style="margin:11px">Bank Details</span>
+           <button  (click)="addBank()"  class="btn btn-info btn-icon-text waves-effect">
+                <!--<span class="zmdi zmdi-account-add"></span>-->
+                <span> Add Bank</span>
+              </button>
         </div>
-      </div>
-      <button *ngIf="!isEditable" class="btn" (click)="onSubmit()">Save</button>
+
+        <div class="banks" [formGroup]="vendorBank">
+            <div formArrayName="banks" class="well well-lg">
+
+              <div *ngFor="let bank of banks.controls; let i=index" [formGroupName]="i" >
+                <div class="ch-alt">
+					      <h4 style="display: inline-block">Bank {{i + 1}}</h4>
+					      <span class="glyphicon glyphicon-remove pull-right"(click)="removeBank(i)"></span>
+				        </div>
+                <bank-details [group]="bank"></bank-details>
+              </div>
+            </div>
+          </div>
+        
+        <button *ngIf="!isAdd" class="btn" (click)="onSubmit()">Save</button>
     </form>
+
+    <p>{{vendorProfile.value | json}}</p>
+  <p>{{vendorBank.value | json}}</p>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card-body card-padding">
 
-    </div>
-  </div>
  </div>
 </dashboard>

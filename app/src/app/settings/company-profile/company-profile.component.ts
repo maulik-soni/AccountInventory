@@ -5,7 +5,7 @@ import { Component, OnInit} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { CompanyProfile } from '../company.model';
-import { Bank } from "../bank.model";
+import { Bank,BankTitles } from "../bank.model";
 
 import { WebServicesService } from './../../services/web-services.service';
 
@@ -17,10 +17,12 @@ import { WebServicesService } from './../../services/web-services.service';
 export class CompanyProfileComponent implements OnInit {
 
   
-  data;
+  companyprofiledata;
+  companybankdata;
   isEditable=true;
   companyProfile:FormGroup;
   companyBank:FormGroup;
+  titles=BankTitles;
 
   constructor(
     private _company:WebServicesService,
@@ -33,16 +35,28 @@ export class CompanyProfileComponent implements OnInit {
     let requesttype={onload:"onload"};
     this._company.showcompanyprofile(JSON.stringify(requesttype))
     .subscribe(response=>{
-      this.data=response.response.details;
-      this.companyProfile.patchValue(this.data);
+      this.companyprofiledata=response.response.details;
+      this.companyProfile.patchValue(this.companyprofiledata);
   });
+
+  this.showbank();
+ 
 }
 
 
+showbank(){
+  let requesttype={onload:"onload"};
+ this._company.showcompanybank(JSON.stringify(requesttype))
+  .subscribe(response=>{
+    this.companybankdata=response.response.bankdetails;
+  });
+}
   createProfileForm(){
     this.companyProfile=this._fb.group(new CompanyProfile('',null,'',null,null,'','','','','','',''));
     this.Disable();
   }
+
+
 
   createBankForms(){
     this.companyBank=this._fb.group({
@@ -63,6 +77,10 @@ export class CompanyProfileComponent implements OnInit {
      this.companyProfile.enable();
   }
 
+  removeBank(i: number) {
+    this.banks.removeAt(i);
+  }
+
   Disable(){
     this.isEditable=true;
     this.companyProfile.disable();
@@ -76,8 +94,10 @@ export class CompanyProfileComponent implements OnInit {
 
   onBankSubmit(){
     this._company.newcompanybank(JSON.stringify(this.companyBank.value))
-    .subscribe(response=>{console.log(response);})
+    .subscribe(response=>{ this.createBankForms();
+    this.showbank();})
   }
+  
 
 
 

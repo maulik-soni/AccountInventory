@@ -11,3 +11,11 @@ export class Bank{
         
     }
 }
+
+export const BankTitles=[
+    ['name','bank_name'],
+    ['address','bank_address'],
+    ['branch','bank_branch'],
+    ['account number','account_number'],
+    ['IFSC','IFSC_code'],
+    ['amount','amount']]
