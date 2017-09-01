@@ -22,9 +22,42 @@ class VendorBankDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+        public function create(Request $request)
     {
-        //
+        $query= $request->all();
+        if($request->has('banks')){
+           $collectrequests=$query['banks'];
+           foreach ($collectrequests as $key) {
+        //        $this
+        // ->validate($request,[
+        //     'bank_name'=>'required',
+        //     'bank_address'=>'required',
+        //     'bank_branch'=>'required',
+        //     'account_number'=>'required',
+        //     'IFSC_code'=>'required',
+        //     'amount'=>'nullable',
+        //     'amount_USD'=>'nullable',
+        // ]);
+
+        $data=new VendorBankDetails([
+            'bank_name'=>$key['bank_name'],
+            'bank_address'=>$key['bank_address'],
+            'bank_branch'=>$key['bank_branch'],
+            'account_number'=>$key['account_number'],
+            'IFSC_code'=>$key['IFSC_code'],
+            'amount'=>$key['amount'],
+            'amount_USD'=>$key['amount_USD']
+        ]);
+        $data->save();
+           }
+
+            return response()
+               ->json(['message'=>'successfully created user'],201);
+        
+           
+
+        }
+
     }
 
     /**

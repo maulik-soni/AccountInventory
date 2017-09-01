@@ -25,3 +25,11 @@ export class Vendor{
         public email?:string
     ){}
 }
+
+export const VendorTitles=[
+    ['name','name'],
+    ['account code','account_code'],
+    ['phone','phone'],
+    ['mobile','mobile'],
+    ['website','website'],
+    ['credit limit','credit_limit']]

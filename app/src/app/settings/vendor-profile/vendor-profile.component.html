@@ -227,7 +227,7 @@
        
         <div class="card-header">
           <span style="margin:11px">Bank Details</span>
-           <button  (click)="addBank()"  class="btn btn-info btn-icon-text waves-effect">
+           <button  (click)="addBank()" type="button" class="btn btn-info btn-icon-text waves-effect">
                 <!--<span class="zmdi zmdi-account-add"></span>-->
                 <span> Add Bank</span>
               </button>
@@ -246,11 +246,39 @@
             </div>
           </div>
         
-        <button *ngIf="!isAdd" class="btn" (click)="onSubmit()">Save</button>
+        <button *ngIf="!isAdd" class="btn">Save</button>
     </form>
 
     <p>{{vendorProfile.value | json}}</p>
   <p>{{vendorBank.value | json}}</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body card-padding">
+      <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngFor="let title of ventitles">{{title[0]}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vendor of vendordata">
+            <td *ngFor="let title of ventitles">{{vendor[title[1]]}}</td>
+            <!--<td class="text-left">
+              <button type="button"  (click)="onedit(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+                <span class="zmdi zmdi-edit"></span>
+              </button>
+              <button type="button" (click)="ondelete(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+                <span class="zmdi zmdi-delete"></span>
+              </button>
+            </td>-->
+          </tr>
+        </tbody>
+      </table>
+          <!--<p>{{companyBank.value | json}}</p>-->
+        </div>
     </div>
   </div>
 

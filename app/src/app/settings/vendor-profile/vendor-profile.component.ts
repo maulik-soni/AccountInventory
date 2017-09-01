@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Vendor } from '../vendor.model';
+import { Vendor,VendorTitles} from '../vendor.model';
 import { Bank } from "../bank.model";
 
 import { WebServicesService } from './../../services/web-services.service';
@@ -16,6 +16,8 @@ import { WebServicesService } from './../../services/web-services.service';
 })
 export class VendorProfileComponent implements OnInit {
   
+  vendordata;
+  ventitles=VendorTitles;
   isAdd=true;
   vendorProfile:FormGroup;
   vendorBank:FormGroup;
@@ -29,6 +31,13 @@ export class VendorProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showvendors();
+  }
+
+  showvendors(){
+     let requesttype={onload:"onload"};
+     this._vendor.showvendor(JSON.stringify(requesttype)).
+     subscribe(response=>{this.vendordata=response.response.vendors});
   }
 
   addClient(){
@@ -64,7 +73,11 @@ get banks() {
   onSubmit(){
     this._vendor.newvendor(JSON.stringify(this.vendorProfile.value))
      .subscribe(response=>{console.log(response);
-      this.isAdd=true;})
+      this.isAdd=true;
+    this.showvendors();})
+
+      this._vendor.newvendorbank(JSON.stringify(this.vendorBank.value))
+      .subscribe(response=>{console.log(response)});
     
   }
 

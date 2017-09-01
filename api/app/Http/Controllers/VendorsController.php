@@ -82,6 +82,14 @@ class VendorsController extends Controller
         return response()->json('updated',201);
     }
 
+    public function show(Vendors $vendors,Request $request){
+         if($request->has('onload')){
+        $data=Vendors::all();
+        }
+
+            return response()->json(['response'=>['vendors'=>$data]],201);
+    }
+
     public function destroy($id)
     {
         $user = Vendors::find($id);    

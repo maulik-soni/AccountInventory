@@ -14,8 +14,8 @@
         </md-radio-group>
 
         <button *ngIf="searchvalues.inventory=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
-
-        <div class="filter-container" ngModelGroup="filter" *ngIf="searchvalues.inventory=='filter'" class="row">
+        <div  *ngIf="searchvalues.inventory=='filter'"  class="filter-container">
+        <div  ngModelGroup="filter" class="row">
 
           <div *ngFor="let datas of filterdata; index as i" class="col-lg-2">
             <div class="shade-bg">
@@ -30,6 +30,7 @@
 
           <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
           
+        </div>
         </div>
       </div>
     </div>
