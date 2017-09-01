@@ -22,9 +22,42 @@ class CompanyBankDetailsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $query= $request->all();
+        if($request->has('banks')){
+           $collectrequests=$query['banks'];
+           foreach ($collectrequests as $key) {
+        //        $this
+        // ->validate($request,[
+        //     'bank_name'=>'required',
+        //     'bank_address'=>'required',
+        //     'bank_branch'=>'required',
+        //     'account_number'=>'required',
+        //     'IFSC_code'=>'required',
+        //     'amount'=>'nullable',
+        //     'amount_USD'=>'nullable',
+        // ]);
+
+        $data=new CompanyBankDetails([
+            'bank_name'=>$key['bank_name'],
+            'bank_address'=>$key['bank_address'],
+            'bank_branch'=>$key['bank_branch'],
+            'account_number'=>$key['account_number'],
+            'IFSC_code'=>$key['IFSC_code'],
+            'amount'=>$key['amount'],
+            'amount_USD'=>$key['amount_USD']
+        ]);
+        $data->save();
+           }
+
+            return response()
+               ->json(['message'=>'successfully created user'],201);
+        
+           
+
+        }
+
     }
 
     /**
@@ -44,9 +77,15 @@ class CompanyBankDetailsController extends Controller
      * @param  \App\CompanyBankDetails  $companyBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function show(CompanyBankDetails $companyBankDetails)
+    public function show(CompanyBankDetails $companyBankDetails,Request $request)
     {
-        //
+
+        
+        if($request->has('onload')){
+        $data=CompanyBankDetails::all();
+        }
+
+            return response()->json(['response'=>['bankdetails'=>$data]],201);
     }
 
     /**
