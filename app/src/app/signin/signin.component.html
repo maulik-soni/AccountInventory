@@ -1,56 +1,66 @@
-<div class="login-content">
-        <!-- Login -->
-        <form #f="ngForm" novalidate (ngSubmit)="f.valid && onSubmit(f)">
-
-
-            <!--<div class="col-sm-2">
-						
-                <p class="form-label">Country Name</p>
-                <ng-select [items]="options.account_name" (selected)="selectedparty($event)"  (removed)="removed($event)" placeholder="No Party Selected"></ng-select>
-					</div>-->
-
-
-        <div class="lc-block toggled" id="l-login">
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
-                <div class="fg-line">
-                    <input type="email" id="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="fields.email" required
-    validEmail>
-                </div>
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <div class="col col-md-8 col-lg-8 col-sm-6 p-0">
+            <div class="left-info">
+                <h1>Raha Exports</h1>
             </div>
-
-
-             <div *ngIf="email.touched && email.errors">
-<div class="alert alert-danger">
-    <strong *ngIf="email.errors.required">Required</strong>
-    <strong *ngIf="!email.errors.required && !email.errors.validEmail">Bad Format</strong>
-</div>
-
-  </div>
-            
-            <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
-                <div class="fg-line">
-                    <input type="password" required id="password" class="form-control" name="password" [(ngModel)]="fields.password">
-                </div>
-            </div>
-            
-            <div class="clearfix"></div>
-            
-   
-            
-            <button  class="btn btn-login btn-danger btn-float"  [disabled]="!f.valid" type="submit"><i class="zmdi zmdi-arrow-forward"></i></button>
-            
-           
         </div>
-        <p *ngIf="error">{{error}}</p>
-        </form>
-        
-        
+        <div class="col col-md-4 col-lg-4  col-sm-6 p-0">
+            <div class="login-form">
+                <div class="login-content">
+                <!-- Login -->
+                    <form #f="ngForm" novalidate (ngSubmit)="f.valid && onSubmit(f)">
 
-        
 
+                        <!--<div class="col-sm-2">
+                                    
+                            <p class="form-label">Country Name</p>
+                            <ng-select [items]="options.account_name" (selected)="selectedparty($event)"  (removed)="removed($event)" placeholder="No Party Selected"></ng-select>
+                        </div>-->
+
+
+                        
+                            <div class="m-b-20">
+                                <label for="email">Email</label>
+                                    <input 
+                                    type="email" 
+                                    id="email" 
+                                    class="form-control" 
+                                    name="email" 
+                                    #email="ngModel" 
+                                    [(ngModel)]="fields.email" 
+                                    required
+                                    validEmail>
+                                
+                            </div>
+
+
+                            <!--<div *ngIf="email.touched && email.errors">
+                                <div class="alert alert-danger">
+                                    <strong *ngIf="email.errors.required">Required</strong>
+                                    <strong *ngIf="!email.errors.required && !email.errors.validEmail">Bad Format</strong>
+                                </div>
+                            </div>-->
+                            
+                            <div class="m-b-20">
+                                    <label for="email">password</label>
+                                    <input type="password" required id="password" class="form-control" name="password" [(ngModel)]="fields.password">
+                            
+                            </div>
+                            
+                            
+                            <button  class="btn btn-login"  [disabled]="!f.valid" type="submit">Login</button>
+                            
+                        
+                        
+                        <p *ngIf="error">{{error}}</p>
+                    </form>
+                </div>
+
+
+
+
+            </div>
+        </div>
     </div>
-
-
-
+</div>
