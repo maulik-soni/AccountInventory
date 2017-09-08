@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { SignInFields,Countries } from './signin.model';
+import { SharedModule } from './../shared/shared.module';
 import { AuthService } from "./../authorization/auth.service";
 
 @Component({
@@ -26,7 +27,7 @@ export class SigninComponent implements OnInit {
  
  
   ngOnInit():any {
-    this.fields={email:"",password:""};
+    this.fields={email:"",password:"",country:this.countries[0]};
   }
 
   onSubmit(form:NgForm){
@@ -49,7 +50,8 @@ export class SigninComponent implements OnInit {
   }
 
   resetFields(){
-    this.fields={email:"",password:""};
+    this.fields.email="";
+    this.fields.password="";
   }
 
 }

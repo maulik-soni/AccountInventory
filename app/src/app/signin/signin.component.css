@@ -10,12 +10,23 @@
     background: orange;
 }
 
+.notify-error{
+    color: rgba(244, 67, 54, 0.7);
+    transition: all .3s;
+}
+
+.form-error{
+    margin-top: 5px;
+    text-align: center;
+}
+
 .login-content{
     margin: auto;
     height: auto!important;
     padding: 9%;
     width: 80%;
     background: #fff;
+    box-shadow:8px 6px 20px 0px rgba(0, 0, 0, 0.42);
 }
 
 .left-info h1{

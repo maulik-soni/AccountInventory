@@ -12,11 +12,13 @@ import {MaterialModule,
   MD_DATE_FORMATS } from '@angular/material';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
 import { DaysPipe } from './pipes/days.pipe';
-import { NotifyDirective } from './directives/notify.directive';
+
 
 
 
 import { SharedService } from './shared.service';
+import { ValidemailDirective } from './directives/validemail.directive';
+
 
 
 
@@ -32,7 +34,7 @@ import { SharedService } from './shared.service';
     MdRadioModule,
     SelectModule
   ],
-  declarations: [DaysPipe, NotifyDirective],
+  declarations: [DaysPipe, ValidemailDirective],
   providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},
   SharedService],
   exports:[
@@ -44,7 +46,7 @@ import { SharedService } from './shared.service';
     MdRadioModule,
     SelectModule,
     DaysPipe,
-    NotifyDirective]
+    ValidemailDirective,]
 })
 export class SharedModule {
    constructor(private dateAdapter: DateAdapter<Date>) {

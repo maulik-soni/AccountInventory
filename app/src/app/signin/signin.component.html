@@ -18,9 +18,17 @@
                             <ng-select [items]="options.account_name" (selected)="selectedparty($event)"  (removed)="removed($event)" placeholder="No Party Selected"></ng-select>
                         </div>-->
 
+                        <div>
+                            <label>Country:</label>
+                            <md-radio-group [(ngModel)]="fields.country" class="main-filter" name="billtype">
+          <md-radio-button  class="radio-button" *ngFor="let option of countries" [value]="option" >{{option}}</md-radio-button>
+        </md-radio-group>
+                        </div>
+
+
 
                         
-                            <div class="m-b-20">
+                            <div>
                                 <label for="email">Email</label>
                                     <input 
                                     type="email" 
@@ -29,31 +37,39 @@
                                     name="email" 
                                     #email="ngModel" 
                                     [(ngModel)]="fields.email" 
+                                    ValidEmail
                                     required
-                                    validEmail>
+                                    >
                                 
                             </div>
 
 
-                            <!--<div *ngIf="email.touched && email.errors">
-                                <div class="alert alert-danger">
-                                    <strong *ngIf="email.errors.required">Required</strong>
-                                    <strong *ngIf="!email.errors.required && !email.errors.validEmail">Bad Format</strong>
+                            <div *ngIf="email.touched && email.errors">
+                                <div class="notify-error">
+                                    <strong *ngIf="email.errors.required">Email can't be Empty</strong>
+                                    <strong *ngIf="!email.errors.required && email.errors.email">Please enter proper email</strong>
                                 </div>
-                            </div>-->
+                            </div>
                             
-                            <div class="m-b-20">
-                                    <label for="email">password</label>
-                                    <input type="password" required id="password" class="form-control" name="password" [(ngModel)]="fields.password">
+                            <div class="m-t-20">
+                                    <label for="password">Password</label>
+                                    <input type="password" required id="password" class="form-control"  #password="ngModel" name="password" [(ngModel)]="fields.password">
                             
+                            </div>
+
+                            <div *ngIf="password.touched && password.errors">
+                                <div class="notify-error">
+                                    <strong *ngIf="password.errors.required">Password can't be Empty</strong>
+                                </div>
                             </div>
                             
                             
-                            <button  class="btn btn-login"  [disabled]="!f.valid" type="submit">Login</button>
+                            <button  class="btn btn-primary m-t-20"   type="submit">Login</button>
                             
                         
                         
-                        <p *ngIf="error">{{error}}</p>
+                        <p *ngIf="error"  class="alert alert-danger alert-dismissible form-error">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>{{error}}</p>
                     </form>
                 </div>
 
