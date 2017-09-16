@@ -16,7 +16,7 @@ export class AuthorizedGuard implements CanActivate{
      if(!this._authService.isLoggedIn()){
          return true;
      }
-     this._router.navigate(['dashboard']);
+     this._router.navigate(['inventory']);
      return false;
 
 

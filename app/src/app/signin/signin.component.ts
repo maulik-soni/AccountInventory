@@ -36,7 +36,7 @@ export class SigninComponent implements OnInit {
       response=>{
         this.role=this.authservice.HasRole();
         // let redirect='/'+this.role;
-        let redirect = '/dashboard';
+        let redirect = '/inventory';
         this.route.navigate([redirect]);
       },
       error=>{
