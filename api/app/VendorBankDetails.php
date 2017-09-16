@@ -13,6 +13,7 @@ class VendorBankDetails extends Model
     'account_number',
     'IFSC_code',
     'amount',
+    'v_name',
     'amount_USD',
     ];
 }

@@ -20,6 +20,7 @@ class CreateVendorBankDetailsTable extends Migration
             $table->string('bank_branch');
             $table->string('account_number');
             $table->string('IFSC_code');
+            $table->string('v_name');
             $table->string('amount')->nullable();
             $table->string('amount_USD')->nullable();
             $table->timestamps();

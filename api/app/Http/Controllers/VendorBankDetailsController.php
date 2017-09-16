@@ -44,6 +44,7 @@ class VendorBankDetailsController extends Controller
             'bank_address'=>$key['bank_address'],
             'bank_branch'=>$key['bank_branch'],
             'account_number'=>$key['account_number'],
+            'v_name'=>$key['v_name'],
             'IFSC_code'=>$key['IFSC_code'],
             'amount'=>$key['amount'],
             'amount_USD'=>$key['amount_USD']
