@@ -188,7 +188,7 @@ export class MemoinReportComponent implements OnInit {
         {
           "Stock_ID": "Stock ID",
           "Lot_Number": "Lot Number",
-          "memo_invoice_number": "Memo Invoice Number",
+          "invoice_number": "Memo Invoice Number",
           "date": "Date",
           "account_name": "Party Name",
           "broker": "Broker Name",

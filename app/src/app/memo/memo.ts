@@ -1,6 +1,6 @@
 export class Memo { 
    constructor( 
-      public memo_invoice_number?: number, 
+      public invoice_number?: number, 
       public no_of_days?:number,
       public date?:string,
       public account_name?:string,

@@ -16,7 +16,7 @@ class CreateMemoIssueTable extends Migration {
 		{
 			$table->integer('PCS_ID')->nullable()->unique('PCS_ID');
 			$table->integer('Lot_Number')->nullable()->unique('Lot_Number');
-			$table->string('memo_invoice_number', 256);
+			$table->string('invoice_number', 256);
 			$table->string('date', 256)->nullable();
 			$table->string('account_name', 256)->nullable();
 			$table->string('broker', 256)->nullable();

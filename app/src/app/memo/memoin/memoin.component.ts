@@ -90,7 +90,7 @@ export class MemoInComponent implements OnInit {
 
   ngOnInit() {
     this.myForm = this._fb.group({
-      memo_invoice_number: [''],
+      invoice_number: [''],
       no_of_days:[''],
       due_date:[''],
       date:[''],

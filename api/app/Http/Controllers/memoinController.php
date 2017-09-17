@@ -74,9 +74,9 @@ class memoinController extends Controller
                 }
                 if($params['filterby']=='Invoice Number'){
                     if($params['reportType'] == "report"){
-                        $response=\App\MemoIn::where('memo_invoice_number',$params['search'])->where('status','ISSUED')->get();
+                        $response=\App\MemoIn::where('invoice_number',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIn::where('memo_invoice_number',$params['search'])->where('status','RETURNED')->get();
+                        $response=\App\MemoIn::where('invoice_number',$params['search'])->where('status','RETURNED')->get();
                    return response()->json($response,200);
                 }
                 if($params['filterby']=='Party Name'){

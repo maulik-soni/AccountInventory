@@ -76,9 +76,9 @@ class memoissueController extends Controller
                 }
                 if($params['filterby']=='Invoice Number'){
                     if($params['reportType'] == "report"){
-                        $response=\App\MemoIssue::where('memo_invoice_number',$params['search'])->where('status','ISSUED')->get();
+                        $response=\App\MemoIssue::where('invoice_number',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIssue::where('memo_invoice_number',$params['search'])->where('status','RECEIVED')->get();
+                        $response=\App\MemoIssue::where('invoice_number',$params['search'])->where('status','RECEIVED')->get();
                    return response()->json($response,200);
                 }
                 if($params['filterby']=='Party Name'){

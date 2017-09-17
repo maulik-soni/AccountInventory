@@ -1,5 +1,5 @@
 export interface newMemo {
-    memo_invoice_number: string;
+    invoice_number: string;
     no_of_days: number;
     due_date:string;
     date:string;
