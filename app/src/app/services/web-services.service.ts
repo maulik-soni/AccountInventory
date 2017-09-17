@@ -416,16 +416,16 @@ showinventory(data){
       .map((response:Response) => response.json());
   }
 
-  memoinchangestatus(pcsid){
+  memoinchangestatus(stockid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoinchangestatus,pcsid,options);
+    return this._http.post(this.apis.memoinchangestatus,stockid,options);
   }
 
-  memoissuechangestatus(pcsid){
+  memoissuechangestatus(stockid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoissuechangestatus,pcsid,options);
+    return this._http.post(this.apis.memoissuechangestatus,stockid,options);
   }
 
   showmemoin(data){
@@ -458,10 +458,10 @@ showinventory(data){
   *Lab Issue Module Web services*
   *******************************/
 
-  changelabissuestatus(pcsid){
+  changelabissuestatus(stockid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.changelabissuestatus,pcsid,options);
+    return this._http.post(this.apis.changelabissuestatus,stockid,options);
   }
 
   createlabissue(data){
@@ -544,12 +544,12 @@ showinventory(data){
       .map((response:Response) => response.json());
   }
 
-  fetchpurchase(pcsid,pcstype){
+  fetchpurchase(stockid,pcstype){
     if(pcstype == "singlestone"){
-      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
+      return this._http.get(this.apis.purchasereport+"?stockid="+stockid)
        .map((response:Response) => response.json());
     }else{
-      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid)
+      return this._http.get(this.apis.purchasereport+"?lot_number="+stockid)
        .map((response:Response) => response.json());
     }
   }

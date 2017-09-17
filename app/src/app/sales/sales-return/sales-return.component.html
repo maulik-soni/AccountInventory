@@ -62,7 +62,7 @@
                 <table id="data-table-selection" class="table table-striped">
                     <thead>
                     <tr>
-                        <th data-column-id="pcsid">Pcs ID</th>
+                        <th data-column-id="pcsid">Stock ID</th>
                         <th data-column-id="id" data-type="numeric" data-identifier="true">Invoice Number</th>
                         <th data-column-id="date">Date</th>
                         <th data-column-id="dealerName">Dealer Name</th>
@@ -77,7 +77,7 @@
                     </thead>
                     <tbody>
                     <tr *ngFor="let m of salesreturn">
-                        <td>{{m.PCS_ID}}</td>
+                        <td>{{m.Stock_ID}}</td>
                         <td>{{m.invoice_number}}</td>
                         <td>{{m.sales_date}}</td>
                         <td>{{m.account_name}}</td>

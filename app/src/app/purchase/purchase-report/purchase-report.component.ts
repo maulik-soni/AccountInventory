@@ -19,7 +19,7 @@ export class PurchaseReportComponent implements OnInit {
 
   mydata:any =  [];
   private searchterm=new Subject;
-  searchatts=new Search(['all','filter'],['PCS ID','Invoice Number','Party Name','date']);
+  searchatts=new Search(['all','filter'],['Stock ID','Invoice Number','Party Name','date']);
   searchvalues=new SearchValues(
     this.searchatts.filter[0],
     this.searchatts.filterby[0],
@@ -38,7 +38,7 @@ export class PurchaseReportComponent implements OnInit {
   constructor(
     private _webservice : WebServicesService
   ) { }
-  searching: any = { PCS_ID: '' };
+  searching: any = { Stock_ID: '' };
   ngOnInit() {
     
     this._webservice.showpurchase({reportType:"report",staticdata:'data'}).subscribe(
@@ -103,7 +103,7 @@ export class PurchaseReportComponent implements OnInit {
     console.log(this.purchaseReturnData);
     for(let j=0; j<this.purchaseReturnData.length; j++){
       for(var i=0; i<this.mydata.length; i++){
-        if(this.mydata[i].PCS_ID == this.purchaseReturnData[j] || this.mydata[i].Lot_Number == this.purchaseReturnData[j]){
+        if(this.mydata[i].Stock_ID == this.purchaseReturnData[j] || this.mydata[i].Lot_Number == this.purchaseReturnData[j]){
           this.mydata.splice(i,1);
         }
       }  
@@ -113,8 +113,8 @@ export class PurchaseReportComponent implements OnInit {
   }
 
   returnPurcahse(purchaseretrun,data){
-    var dataID = data.PCS_ID;
-    if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+    var dataID = data.Stock_ID;
+    if(data.Stock_ID == undefined || data.Stock_ID == '' || data.Stock_ID == null){
       dataID = data.diamond_lot_number;
     }
     console.log(purchaseretrun,dataID);
@@ -178,7 +178,7 @@ export class PurchaseReportComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",

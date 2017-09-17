@@ -1,6 +1,6 @@
 export class LabIssue { 
     constructor( 
-        public PCS_ID?:number,
+        public Stock_ID?:number,
         public size?:string,
         public shape?:string,
         public carat?:number,

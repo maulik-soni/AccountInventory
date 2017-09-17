@@ -8,7 +8,7 @@ class Purchase extends Model
 {
     public $timestamps = false;
     protected $table = 'purchase';
-    protected $primaryKey = 'PCS_ID';
+    protected $primaryKey = 'Stock_ID';
 
     public static function getData(){
         return Purchase::all();

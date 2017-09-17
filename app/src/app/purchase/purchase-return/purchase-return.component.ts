@@ -17,7 +17,7 @@ export class PurchaseReturnComponent implements OnInit {
 
   purchasereturn =  [];
   private searchterm=new Subject;
-  searchatts=new Search(['all','filter'],['PCS ID','Invoice Number','Party Name','date']);
+  searchatts=new Search(['all','filter'],['Stock ID','Invoice Number','Party Name','date']);
   searchvalues=new SearchValues(
     this.searchatts.filter[0],
     this.searchatts.filterby[0],
@@ -124,7 +124,7 @@ export class PurchaseReturnComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",

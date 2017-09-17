@@ -20,7 +20,7 @@ export class MemoissueReportComponent implements OnInit {
   received:any = [];
 
   private searchterm=new Subject;
-  searchatts=new Search(['all','filter'],['PCS ID','Invoice Number','Party Name','date']);
+  searchatts=new Search(['all','filter'],['Stock ID','Invoice Number','Party Name','date']);
   searchvalues=new SearchValues(
     this.searchatts.filter[0],
     this.searchatts.filterby[0],
@@ -83,7 +83,7 @@ export class MemoissueReportComponent implements OnInit {
     this._webservice.memoissuechangestatus(this.memoIssueReturn).subscribe((response)=>{
       for(let j=0; j<this.memoIssueReturn.length; j++){
         for(var i=0; i<this.issued.length; i++){
-          if(this.issued[i].PCS_ID == this.memoIssueReturn[j]){
+          if(this.issued[i].Stock_ID == this.memoIssueReturn[j]){
             this.issued.splice(i,1);
           }
         }
@@ -93,8 +93,8 @@ export class MemoissueReportComponent implements OnInit {
   }
 
   returnMemoissue(labissueRec,data){
-    var dataID = data.PCS_ID;
-    if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+    var dataID = data.Stock_ID;
+    if(data.Stock_ID == undefined || data.Stock_ID == '' || data.Stock_ID == null){
         dataID = data.Lot_Number;
       }
     console.log(labissueRec,dataID);
@@ -173,7 +173,7 @@ export class MemoissueReportComponent implements OnInit {
     if(exportCSVdata[0].sr_no != "Sr No."){
       exportCSVdata.unshift(
         {
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "Lot_Number": "Lot Number",
           "memo_invoice_number": "Memo Invoice Number",
           "date": "Date",

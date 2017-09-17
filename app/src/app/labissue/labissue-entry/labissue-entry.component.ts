@@ -89,7 +89,7 @@ export class LabissueEntryComponent implements OnInit {
           this.showPurchase = true;
           //this.newlabissue = Object.assign(this.newlabissuedata,this.mypurchase);
           this.newlabissue = new LabIssue(
-            this.mypurchase.PCS_ID,
+            this.mypurchase.Stock_ID,
             this.mypurchase.diamond_size,
             this.mypurchase.diamond_shape,
             this.mypurchase.total_diamond_carat,

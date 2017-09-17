@@ -24,7 +24,7 @@
         <div class="row m-t-25">
           <div class = "col-sm-4">
           <div class="form-group">
-            <p class="form-label">Search Purchase by 'PCS ID'</p>
+            <p class="form-label">Search Purchase by 'Stock ID'</p>
             <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
           </div>
           <button class="btn btn-primary btn-sm waves-effect" (click) = "search(searchPCS)">Search</button>
@@ -68,7 +68,7 @@
               </div>
               <div style="width:100%;float:left;">
                 <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                Pcs ID : {{mypurchase.PCS_ID}}
+                Stock ID : {{mypurchase.Stock_ID}}
                 <span style="font-size:11px; float:left; width:100%;">
                 Total Carats : {{mypurchase.carat}}
                 <!--<br>
@@ -112,8 +112,8 @@
         <div class="col-sm-4">
           <div class="form-group">
             <div class="fg-line">
-              <p class="form-label">PCS ID</p>
-              <input type="text" class="form-control fg-input" formControlName = "PCS_ID" name = "PCS_ID" (disabled)="this._router.url != '/jangad/jangad-in-entry'">
+              <p class="form-label">Stock ID</p>
+              <input type="text" class="form-control fg-input" formControlName = "Stock_ID" name = "Stock_ID" (disabled)="this._router.url != '/jangad/jangad-in-entry'">
             </div>
           </div>
         </div>
@@ -203,7 +203,7 @@
               
               <div style="width:100%;float:left;">
                 <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                Pcs ID : {{mypurchase.PCS_ID}}
+                Stock ID : {{mypurchase.Stock_ID}}
                 <span style="font-size:11px; float:left; width:100%;">
                 Total Carats : {{mypurchase.total_diamond_carat}}
                 <!--<br>

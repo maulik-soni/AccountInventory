@@ -25,7 +25,7 @@
 				<div class="row m-t-25" *ngIf="piecetype == 'singlestone'">
 					<div class = "col-sm-4">
 					<div class="form-group">
-						<p class="form-label">Search Purchase by 'PCS ID'</p>
+						<p class="form-label">Search Purchase by 'Stock ID'</p>
 						<input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
 					</div>
 					<button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
@@ -87,7 +87,7 @@
 						</div>
 						<div style="width:100%;float:left;">
 							<span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-							Pcs ID : {{newlabissue.PCS_ID}}
+							Stock ID : {{newlabissue.Stock_ID}}
 							<span style="font-size:11px; float:left; width:100%;">
 							Total Carats : {{newlabissue.carat}}
               <!--<br>

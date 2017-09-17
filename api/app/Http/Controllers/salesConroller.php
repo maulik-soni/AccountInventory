@@ -22,7 +22,7 @@ class salesConroller extends Controller
         // $sales->save();
         DB::table('sales')->insert($new_sales);
         for($i=0; $i<count($new_sales); $i++){
-            Purchase::where('PCS_ID','=',$new_sales[$i]['PCS_ID'])->delete();
+            Purchase::where('Stock_ID','=',$new_sales[$i]['Stock_ID'])->delete();
         }
         
 
@@ -37,8 +37,8 @@ class salesConroller extends Controller
             $sales_data = Sales::all()->take($params['limit']);
         }else if(!empty($params['lastid'])){
             $sales_data = Sales::all()->where('sr_no','>',$params['lastid']);
-        }else if(!empty($params['pcsid'])){
-            $sales_data = Sales::all()->where('PCS_ID','=',$params['pcsid']);
+        }else if(!empty($params['stockid'])){
+            $sales_data = Sales::all()->where('Stock_ID','=',$params['stockid']);
         }else{
             $sales_data = Sales::all();
         }
@@ -48,9 +48,9 @@ class salesConroller extends Controller
     public function editSales(){
         $newsales = Request::all();
         $sales = new \App\Sales;
-        $sales = Sales::find($newsales['PCS_ID']);
+        $sales = Sales::find($newsales['Stock_ID']);
         foreach ($newsales as $fields) {            
-            if($fields != "PCS_ID"){
+            if($fields != "Stock_ID"){
                 $sales->$fields = $newsales[$fields];       
             }
         }
@@ -58,29 +58,29 @@ class salesConroller extends Controller
     }
 
     public function delSales(){
-        $data = Request::all(); 
+        $data = Request::all();
         $sales = new \App\Sales;
-        Sales::where('PCS_ID', '=', $data['PCS_ID'])->delete();
+        Sales::where('Stock_ID', '=', $data['Stock_ID'])->delete();
     }
 
-    public function salesReturnFromDB($pcsID){
+    public function salesReturnFromDB($stockid){
         
-        $SR_pcsid = $pcsID;
+        $SR_stockid = $stockid;
 
         $sales = new \App\Sales;
         $sales_return = new \App\SalesReturn;
-        $SR_data = Sales::where(function($query) use($SR_pcsid){
-            $query->where('PCS_ID', '=', $SR_pcsid)
-                  ->orWhere('diamond_lot_number', '=', $SR_pcsid);
+        $SR_data = Sales::where(function($query) use($SR_stockid){
+            $query->where('Stock_ID', '=', $SR_stockid)
+                  ->orWhere('diamond_lot_number', '=', $SR_stockid);
         })->first()->toArray();
         foreach ($SR_data as $fields => $value) {
             if($fields != "sr_no")
                     $sales_return->$fields = $SR_data[$fields];
         }
         $sales_return->save();
-        Sales::where(function($query) use($SR_pcsid){
-            $query->where('PCS_ID', '=', $SR_pcsid)
-                  ->orWhere('diamond_lot_number', '=', $SR_pcsid);
+        Sales::where(function($query) use($SR_stockid){
+            $query->where('Stock_ID', '=', $SR_stockid)
+                  ->orWhere('diamond_lot_number', '=', $SR_stocki);
         })->first()->delete();
     }
 
@@ -106,9 +106,9 @@ class salesConroller extends Controller
             if(!empty($params['search'])){
                 if($params['filterby']=='PCS ID'){
                     if($params['reportType'] == "report"){
-                        $response=Sales::where('PCS_ID',$params['search'])->get();
+                        $response=Sales::where('Stock_ID',$params['search'])->get();
                     }else
-                        $response=SalesReturn::where('PCS_ID',$params['search'])->get();
+                        $response=SalesReturn::where('Stock_ID',$params['search'])->get();
                     return response()->json($response,200);
                 }
                 if($params['filterby']=='Invoice Number'){
@@ -162,10 +162,10 @@ class salesConroller extends Controller
     }
 
     public function salesReturn(){
-        $PR_pcsid = Request::all();
+        $PR_stockid = Request::all();
         
-        for($i = 0; $i<count($PR_pcsid); $i++){
-            $this->salesReturnFromDB($PR_pcsid[$i]);
+        for($i = 0; $i<count($PR_stockid); $i++){
+            $this->salesReturnFromDB($PR_stockid[$i]);
         }
     }
 
