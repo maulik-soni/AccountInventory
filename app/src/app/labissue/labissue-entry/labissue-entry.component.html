@@ -92,14 +92,14 @@
 							Total Carats : {{newlabissue.carat}}
               <!--<br>
 							Total Picies : {{mypurchase.total_diamond_pcs}}-->
-              <br>
-              Color : {{newlabissue.color}}
-              <br>
-              Shape : {{newlabissue.shape}}
-              <br>
-              Size : {{newlabissue.size}}
-              <br>
-              Clarity : {{newlabissue.clarity}}
+							<br>
+							Color : {{newlabissue.color}}
+							<br>
+							Shape : {{newlabissue.shape}}
+							<br>
+							Size : {{newlabissue.size}}
+							<br>
+							Clarity : {{newlabissue.clarity}}
 							</span>
 							</span>
 							<span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
@@ -135,10 +135,18 @@
 			</div>
 
 			<div class="card-body card-padding">
-				<div class="row">					
-          <div class="col-sm-4">
-            <p class="form-label">Lab Issue Date</p>
-            <!--<material-datepicker ></material-datepicker>-->					
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Invoice Number</p>
+								<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.invoice_number" name = "invoice_number" disabled="true">
+							</div>
+						</div>
+					</div>					
+					<div class="col-sm-4">
+						<p class="form-label">Lab Issue Date</p>
+            			<!--<material-datepicker ></material-datepicker>-->					
 						<span class="dp-container">	
 							<md-input-container class="mdInputContainer">
 								<input mdInput type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" [min]="minDate" [max]="maxDate" name="date" [(ngModel)]="newlabissue.date" [ngModelOptions]="{standalone: true}" disabled="true">
@@ -155,6 +163,8 @@
 							</div>
 						</div>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group">
 							<div class="fg-line">
@@ -163,45 +173,44 @@
 							</div>
 						</div>
 					</div>
-				</div>
-        <div class="row">
-						<div class="col-sm-4">
-							<div class="form-group">
-								<div class="fg-line">
-									<p class="form-label">Lab Type</p>
-									<!-- <input type="text" class="form-control fg-input" formControlName = "LAB_type" name="LAB_type"> -->							
-									<ng-select [allowClear]="true"
-										[items]="lab_type"
-										[disabled]="disabled"
-										(data)="refreshValue($event)"
-										(selected)="selected($event,'LAB_type')"
-										(removed)="removed($event)"
-										(typed)="typed($event)"
-										[(ngModel)] = "newlabissue.LAB_type"
-										placeholder="No Lab Type selected" name = "stock_status_group"  [ngModelOptions]="{standalone: true}">
-									</ng-select>
-								</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+								<p class="form-label">Lab Type</p>
+								<!-- <input type="text" class="form-control fg-input" formControlName = "LAB_type" name="LAB_type"> -->							
+								<ng-select [allowClear]="true"
+									[items]="lab_type"
+									[disabled]="disabled"
+									(data)="refreshValue($event)"
+									(selected)="selected($event,'LAB_type')"
+									(removed)="removed($event)"
+									(typed)="typed($event)"
+									[(ngModel)] = "newlabissue.LAB_type"
+									placeholder="No Lab Type selected" name = "stock_status_group"  [ngModelOptions]="{standalone: true}">
+								</ng-select>
 							</div>
 						</div>
-            <div class="col-sm-4">
-              <div class="form-group">
-                <div class="fg-line">
-                  <p class="form-label">Diameter</p>
-                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.diameter" name = "diameter" >
-                </div>
-              </div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+							<p class="form-label">Diameter</p>
+							<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.diameter" name = "diameter" >
+							</div>
 						</div>
-						<div class = "col-sm-4">
-              <div class="form-group">
-                <div class="fg-line">
-                  <p class="form-label">Amount</p>
-                  <input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.amount" name = "amount" >
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <button class="btn btn-success btn-lg waves-effect" type="submit" (click) = "onSubmit()"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class = "col-sm-4">
+						<div class="form-group">
+							<div class="fg-line">
+							<p class="form-label">Amount</p>
+							<input type="text" class="form-control fg-input" [(ngModel)] = "newlabissue.amount" name = "amount" >
+							</div>
+						</div>
+					</div>
+				</div>
+          		<button class="btn btn-success btn-lg waves-effect" type="submit" (click) = "onSubmit()"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
 			</div>
 		</div>
 

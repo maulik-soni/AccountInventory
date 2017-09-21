@@ -11,6 +11,7 @@ export class LabIssue {
         public diameter?:number,
         public height?:number,
         public amount?:number,
-        public LAB_type?:string
+        public LAB_type?:string,
+        public invoice_number?:string,
     ) {} 
 }
