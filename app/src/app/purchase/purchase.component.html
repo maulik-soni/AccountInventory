@@ -218,7 +218,6 @@
 						<p class="form-label m-b-10">Broker Name</p>
 						<ng-select [allowClear]="true"
 							[items]="brokers"
-							[disabled] = "disable == 'Direct'"
 							(data)="refreshValue($event)"
 							(selected)="selected($event,'brokerName')"
 							(removed)="removed($event)"
@@ -231,7 +230,7 @@
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Brokerage in %</p>
-								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage" [readonly]="disable == 'Direct'">
+								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage">
 							</div>
 						</div>
 					</div>
