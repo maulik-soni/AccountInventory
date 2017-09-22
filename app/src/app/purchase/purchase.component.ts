@@ -465,7 +465,6 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public onFileChange(evt:any) {
     var jsonMap = {
-          "sr_no": "Sr No.",
           "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
@@ -538,7 +537,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           "reportDt": "reportDt",
           "inscription": "inscription",
           "infoMsg": "infoMsg",
-          "fullShapeDescription": "fullShapeDescription"
+          "fullShapeDescription": "fullShapeDescription",
+          "company_name":"Company Name"
         };
 		const scope = this;
 		/* wire up file reader */
@@ -558,10 +558,11 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
       for (let x in jsonMap) {
         index.push(x);
       }
-      for(let i=1; i<scope.data.length; i++){
+      for(let i=1; i<scope.data.length-1; i++){
         for(let j=0; j<index.length; j++){
           jsonMap[index[j]] = scope.data[i][j];
         }
+        console.log(jsonMap);
         importedData.push(JSON.parse(JSON.stringify(jsonMap)));
       }
       for(var i = 0; i<importedData.length; i++){
@@ -585,11 +586,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           brokerage : importedData[i].brokerage
         };
         importedData[i].broker_details = JSON.stringify(importedData[i].broker_details);
-        
-    }
-      // console.log(importedData);
+      }
     };
-
 		reader.readAsBinaryString(target.files[0]);
   }
   submitData(){
@@ -612,16 +610,5 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
       
       this._webservice.postpurchasedata(importedData);
-  }  
-//   function getObjectKeyIndex(obj, keyToFind) {
-//     var i = 0, key;
-//     for (key in obj) {
-//         if (key == keyToFind) {
-//             return i;
-//         }
-//         i++;
-//     }
-//     return null;
-// }
-
+  }
 }
