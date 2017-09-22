@@ -107,11 +107,11 @@
 		</div>
 		<div class="card">
 			<div class="card-header">
-				<h2>Party Details</h2>
+				<h2>Company & Party Details</h2>
 			</div>
 			<div class="card-body card-padding">
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-sm-6">
 						<p class="form-label m-b-10">Party's Name</p>
 						<ng-select [allowClear]="true"
 							[items]="names"
@@ -122,6 +122,19 @@
 							(typed)="typed($event)"
 							[(ngModel)] = "newpurchase.account_name"
 							placeholder="Select Party's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-6">
+						<p class="form-label m-b-10">Company Name</p>
+						<ng-select [allowClear]="true"
+							[items]="names"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'company_name')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.company_name"
+							placeholder="Select Party's Name" name = "company_name" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
 				</div>

@@ -93,7 +93,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             amount_INR:0,
             amount_dolar:0,
             mVAT:0,
-            aginst_Hform:[''],            
+            aginst_Hform:[''],
+            company_name : [''],
             piecesTypes: this._fb.array([])
         });
         
