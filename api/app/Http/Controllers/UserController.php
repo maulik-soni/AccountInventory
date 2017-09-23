@@ -84,7 +84,7 @@ class UserController extends Controller
 
         $credentials= $request->only('email','password');
 
-        // Config::set('database.default', 'testing1');
+        //  Config::set('database.default', 'India');
 
 //         Config::set("database.connections.mysql", [
 //     "driver" => "mysql",

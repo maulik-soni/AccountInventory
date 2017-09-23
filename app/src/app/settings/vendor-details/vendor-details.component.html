@@ -1,3 +1,209 @@
-<p>
-  vendor-details works!
-</p>
+          <div [formGroup]="vendorform">
+                <div class="row">
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Name</label>
+                <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName='v_name'>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+            <label class="c-black f-500 labels">Account Code</label>
+            <div class="form-group noneditable">
+              <div class="fg-line">
+                <input type="text" class="form-control" formControlName="account_code">
+              </div>
+            </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Opening Balance</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="opening_bal">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Opening Balance (USD)</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="opening_bal_USD">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Remarks</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="remarks">
+                </div>
+              </div>
+            </div>
+         
+
+          
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Contact Person</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="contact_person">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Address</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="address" >
+                </div>
+              </div>
+            </div>
+          
+
+          
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Phone</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="phone">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Mobile</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="mobile">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Email</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="email">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Country</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="country">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Fax</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="fax_number">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Rap</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"   formControlName="RAP">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">IDEX</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"  formControlName="IDEX">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Diamond World Id</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"   formControlName="diamond_world_id">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">QBC</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"   formControlName="QBC">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Website</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"   formControlName="website">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Credit Limit</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control"   formControlName="credit_limit">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Credit Limit (USD)</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="credit_limit_USD">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Reference (1)</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="reference_1">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Reference (2)</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="reference_2">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">GST</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="GST">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">PAN</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="PAN">
+                </div>
+              </div>
+            </div>
+
+          </div>
+        <div>

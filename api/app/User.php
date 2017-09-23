@@ -49,6 +49,7 @@ class User extends Authenticatable
          return Schema::getColumnListing('users');
      }
 
+
        /* return !! $role->intersect($this->roles)->count();*/
 
     

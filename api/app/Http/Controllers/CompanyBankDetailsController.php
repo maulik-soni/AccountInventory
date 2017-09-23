@@ -41,6 +41,7 @@ class CompanyBankDetailsController extends Controller
 
         $data=new CompanyBankDetails([
             'bank_name'=>$key['bank_name'],
+            'c_id'=>$key['id'],
             'bank_address'=>$key['bank_address'],
             'bank_branch'=>$key['bank_branch'],
             'account_number'=>$key['account_number'],

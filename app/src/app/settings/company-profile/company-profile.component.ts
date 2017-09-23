@@ -1,14 +1,12 @@
-import { Component, OnInit} from '@angular/core';
-// import { NgForm } from '@angular/forms';
-// import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { CompanyProfile } from '../company.model';
-import { Bank,BankTitles } from "../bank.model";
+import { CompanyProfile,CompanyTitles} from '../company.model';
+import { Bank } from "../bank.model";
 
 import { WebServicesService } from './../../services/web-services.service';
-
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
@@ -16,89 +14,85 @@ import { WebServicesService } from './../../services/web-services.service';
 })
 export class CompanyProfileComponent implements OnInit {
 
-  
-  companyprofiledata;
-  companybankdata;
-  isEditable=true;
+  companydata;
+  comtitles=CompanyTitles;
+  isAdd=true;
   companyProfile:FormGroup;
-  companyBank:FormGroup;
-  titles=BankTitles;
+  // companyBank:FormGroup;
 
   constructor(
     private _company:WebServicesService,
     private _fb:FormBuilder,
-    ) { 
-      this.createProfileForm();
-    this.createBankForms(); }
+    private _router:Router
+  ) { 
+    this.createcompanyForm();
+    // this.createBanksForms();
+  }
 
   ngOnInit() {
-    let requesttype={onload:"onload"};
-    this._company.showcompanyprofile(JSON.stringify(requesttype))
-    .subscribe(response=>{
-      this.companyprofiledata=response.response.details;
-      this.companyProfile.patchValue(this.companyprofiledata);
-  });
+    this.showcompanies();
+  }
 
-  this.showbank();
- 
+  showcompanies(){
+     let requesttype={onload:"onload"};
+     this._company.showcompanyprofile(JSON.stringify(requesttype)).
+     subscribe(response=>{this.companydata=response.response.companies;
+    console.log(response)});
+  }
+
+  addClient(){
+    this.isAdd=false;
+  }
+
+  createcompanyForm(){
+    this.companyProfile=this._fb.group({companies:this._fb.array([])});
 }
 
-
-showbank(){
-  let requesttype={onload:"onload"};
- this._company.showcompanybank(JSON.stringify(requesttype))
-  .subscribe(response=>{
-    this.companybankdata=response.response.bankdetails;
-  });
+get companies(){
+  return this.companyProfile.get('companies') as FormArray;
 }
-  createProfileForm(){
-    this.companyProfile=this._fb.group(new CompanyProfile('',null,'',null,null,'','','','','','',''));
-    this.Disable();
+
+addcompany(){
+  this.companies.push(this._fb.group(new CompanyProfile('','',null,null,'','','','','','','')));
+}
+
+  removecompany(i: number) {
+       this.companies.removeAt(i);
+     }
+
+  viewprofile(g){
+    this._router.navigate(['settings/company-profile',g.id]);
   }
 
+// createBanksForms(){
+//   this.companyBank=this._fb.group({
+//     banks:this._fb.array([]),
+//   });
+// }
+
+// get banks() {
+//     return this.companyBank.get('banks') as FormArray;
+//   };
+
+//   addBank(){
+//     this.banks.push(this._fb.group(new Bank('vikas','','','','',null)));
+//   }
+
+//  removeBank(i: number) {
+//         this.banks.removeAt(i);
+//     }
 
 
-  createBankForms(){
-    this.companyBank=this._fb.group({
-      banks: this._fb.array([]),
-    });
+
+  onSubmit(){
+    this._company.newcompanyprofile(JSON.stringify(this.companyProfile.value))
+     .subscribe(response=>{console.log(response);
+      this.companies.reset();
+      this.createcompanyForm();
+    this.showcompanies();})
+
+      // this._company.newcompanybank(JSON.stringify(this.companyBank.value))
+      // .subscribe(response=>{console.log(response)});
+    
   }
-
-   get banks() {
-    return this.companyBank.get('banks') as FormArray;
-  };
-
-  addBank(){
-    this.banks.push(this._fb.group(new Bank('vikas','','','','',null,null)));
-  }
-
-  onProfileEdit(){
-     this.isEditable=false;
-     this.companyProfile.enable();
-  }
-
-  removeBank(i: number) {
-    this.banks.removeAt(i);
-  }
-
-  Disable(){
-    this.isEditable=true;
-    this.companyProfile.disable();
-  }
-
-  onProfileSubmit(){
-    this._company.updatecompanyprofile(JSON.stringify(this.companyProfile.value))
-    .subscribe(response=>{console.log(response);
-    this.Disable();})  
-  }
-
-  onBankSubmit(){
-    this._company.newcompanybank(JSON.stringify(this.companyBank.value))
-    .subscribe(response=>{ this.createBankForms();
-    this.showbank();})
-  }
-  
-
-
-
 }

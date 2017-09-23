@@ -44,7 +44,7 @@ class VendorBankDetailsController extends Controller
             'bank_address'=>$key['bank_address'],
             'bank_branch'=>$key['bank_branch'],
             'account_number'=>$key['account_number'],
-            'v_name'=>$key['v_name'],
+            'v_id'=>$key['id'],
             'IFSC_code'=>$key['IFSC_code'],
             'amount'=>$key['amount'],
             'amount_USD'=>$key['amount_USD']
@@ -78,9 +78,16 @@ class VendorBankDetailsController extends Controller
      * @param  \App\VendorBankDetails  $vendorBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function show(VendorBankDetails $vendorBankDetails)
+    public function show(request $request)
     {
-        //
+        $query= $request->all();
+         
+        if($request->has('onload')){
+        $data=VendorBankDetails::where('v_id',$query['id'])->get();
+        }
+
+            return response()->json(['response'=>['bankdetails'=>$data]],201);
+        
     }
 
     /**

@@ -6,13 +6,15 @@ import { SharedModule } from './../shared/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 
 
-
-import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { BankDetailsComponent } from './bank-details/bank-details.component';
 import { VendorProfileComponent } from './vendor-profile/vendor-profile.component';
 
 import { WebServicesService } from './../services/web-services.service';
 import { VendorDetailsComponent } from './vendor-details/vendor-details.component';
+import { VendorFullProfileComponent } from './vendor-full-profile/vendor-full-profile.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { CompanyFullProfileComponent } from './company-full-profile/company-full-profile.component';
 
 @NgModule({
   imports: [
@@ -21,7 +23,7 @@ import { VendorDetailsComponent } from './vendor-details/vendor-details.componen
     ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [CompanyProfileComponent, BankDetailsComponent, VendorProfileComponent, VendorDetailsComponent],
+  declarations: [BankDetailsComponent, VendorProfileComponent, VendorDetailsComponent, VendorFullProfileComponent, CompanyProfileComponent, CompanyDetailsComponent, CompanyFullProfileComponent],
   providers:[WebServicesService]
 })
 export class SettingsModule { }

@@ -41,7 +41,13 @@ use Illuminate\Http\Request;
 
 
 
-
+// Route::group(['middleware'=>'setdatabase'],function(){
+// 		Route::put('/{user}','UserController@update');
+// 		Route::delete('/{user}','UserController@delete');
+// 		Route::post('/','UserController@make');	
+// 	});
+// Route::group(['middleware'=>'setdatabase'],function(){
+// Route::group(['middleware'=>'auth:api'],function(){
 Route::post('/newpurchase', 'PurchaseController@newPurchaseEntry');
 Route::post('/purchasereturn', 'PurchaseController@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
@@ -83,7 +89,6 @@ Route::post('/showpurchase','PurchaseController@show');
 Route::get('/searchuser','UserController@search');
 Route::get('/edituser/{id}','UserController@edit');
 Route::post('/showuser','UserController@show');
-Route::post('/login','UserController@authenticate');
 Route::post('/newuser','UserController@create');
 Route::put('/updateuser/{id}','UserController@update');
 Route::delete('/deleteuser/{id}','UserController@destroy');
@@ -150,3 +155,10 @@ Route::get('/searchmemoin','memoinController@search');
 
 Route::post('/showmemoissue','memoissueController@show');
 Route::get('/searchmemoissue','memoissueController@search');
+
+
+	// });
+Route::post('/login','UserController@authenticate');
+Route::post('password/email', 'Auth\ForgotPasswordController@getResetToken');
+Route::post('password/email/{token}', 'Auth\ResetPasswordController@reset');
+// });

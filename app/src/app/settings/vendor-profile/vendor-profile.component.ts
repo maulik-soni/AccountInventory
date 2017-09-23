@@ -20,14 +20,15 @@ export class VendorProfileComponent implements OnInit {
   ventitles=VendorTitles;
   isAdd=true;
   vendorProfile:FormGroup;
-  vendorBank:FormGroup;
+  // vendorBank:FormGroup;
 
   constructor(
     private _vendor:WebServicesService,
-    private _fb:FormBuilder
+    private _fb:FormBuilder,
+    private _router:Router
   ) { 
     this.createVendorForm();
-    this.createBanksForms();
+    // this.createBanksForms();
   }
 
   ngOnInit() {
@@ -40,44 +41,61 @@ export class VendorProfileComponent implements OnInit {
      subscribe(response=>{this.vendordata=response.response.vendors});
   }
 
-  addClient(){
-    this.isAdd=false;
-  }
+  // addClient(){
+  //   this.isAdd=false;
+  // }
 
   createVendorForm(){
-    this.vendorProfile=this._fb.group(new Vendor('vikas','','','','','','','','',null,null,'','','',
+    this.vendorProfile=this._fb.group({vendors:this._fb.array([])});
+}
+
+get vendors(){
+  return this.vendorProfile.get('vendors') as FormArray;
+}
+
+addVendor(){
+  this.vendors.push(this._fb.group(new Vendor('vikas','','','','','','','','',null,null,'','','',
   '','','','',null,null,'','','',
-  ));
+  )));
 }
 
-createBanksForms(){
-  this.vendorBank=this._fb.group({
-    banks:this._fb.array([]),
-  });
-}
+  removeVendor(i: number) {
+       this.vendors.removeAt(i);
+     }
 
-get banks() {
-    return this.vendorBank.get('banks') as FormArray;
-  };
-
-  addBank(){
-    this.banks.push(this._fb.group(new Bank('vikas','','','','',null,null)));
+  viewprofile(g){
+    this._router.navigate(['settings/vendors-profile',g.id]);
   }
 
- removeBank(i: number) {
-        this.banks.removeAt(i);
-    }
+// createBanksForms(){
+//   this.vendorBank=this._fb.group({
+//     banks:this._fb.array([]),
+//   });
+// }
+
+// get banks() {
+//     return this.vendorBank.get('banks') as FormArray;
+//   };
+
+//   addBank(){
+//     this.banks.push(this._fb.group(new Bank('vikas','','','','',null)));
+//   }
+
+//  removeBank(i: number) {
+//         this.banks.removeAt(i);
+//     }
 
 
 
   onSubmit(){
     this._vendor.newvendor(JSON.stringify(this.vendorProfile.value))
      .subscribe(response=>{console.log(response);
-      this.isAdd=true;
+      this.vendors.reset();
+      this.createVendorForm();
     this.showvendors();})
 
-      this._vendor.newvendorbank(JSON.stringify(this.vendorBank.value))
-      .subscribe(response=>{console.log(response)});
+      // this._vendor.newvendorbank(JSON.stringify(this.vendorBank.value))
+      // .subscribe(response=>{console.log(response)});
     
   }
 

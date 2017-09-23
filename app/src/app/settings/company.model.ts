@@ -3,7 +3,6 @@
 export class CompanyProfile {
     constructor(
         public c_name:string,
-        public id:number,
         public address:string,
         public from:Date,
         public to:Date,
@@ -16,3 +15,12 @@ export class CompanyProfile {
         public email?:string,
     ){}
 }
+
+
+export const CompanyTitles=[
+    ['name','c_name'],
+    ['GST','GST'],
+    ['phone','phone'],
+    ['mobile','mobile'],
+    ['PAN','PAN'],
+    ['email','email']]

@@ -1,8 +1,8 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
-import{ Bank } from '../bank.model';
-import { WebServicesService } from './../../services/web-services.service';
+// import{ Bank } from '../bank.model';
+// import { WebServicesService } from './../../services/web-services.service';
 
 @Component({
   selector: 'bank-details',

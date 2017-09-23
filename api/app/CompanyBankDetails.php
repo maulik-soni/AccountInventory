@@ -13,7 +13,7 @@ class CompanyBankDetails extends Model
     'account_number',
     'IFSC_code',
     'amount',
-    'c_name',
+    'c_id',
     'amount_USD',
     ];
 }

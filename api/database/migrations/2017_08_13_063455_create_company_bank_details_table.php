@@ -20,7 +20,7 @@ class CreateCompanyBankDetailsTable extends Migration
             $table->string('bank_branch');
             $table->string('account_number');
             $table->string('IFSC_code');
-            $table->string('c_name');
+            $table->string('c_id');
             $table->string('amount')->nullable();
             $table->string('amount_USD')->nullable();
             $table->timestamps();

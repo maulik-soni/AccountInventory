@@ -9,60 +9,66 @@ class VendorsController extends Controller
 {
     public function create(Request $request)
     {
-        $this->validate($request,[
-            'name'=>'required',
-            'account_code'=>'required',
-            'opening_bal'=>'nullable',
-            'opening_bal_USD'=>'nullable',
-            'remarks'=>'nullable',
-            'contact_person'=>'required',
-            'GST'=>'required',
-            'PAN'=>'required',
-            'address'=>'required',
-            'phone'=>'nullable',
-            'mobile'=>'nullable',
-            'email'=>'nullable',
-            'country'=>'required',
-            'fax_number'=>'required',
-            'RAP'=>'required',
-            'IDEX'=>'required',
-            'diamond_world_id'=>'required',
-            'QBC'=>'required',
-            'website'=>'nullable',
-            'credit_limit'=>'required',
-            'credit_limit_USD'=>'required',
-            'refernce_1'=>'nullable',
-            'reference_2'=>'nullable',
+        $query= $request->all();
+        if($request->has('vendors')){
+           $collectrequests=$query['vendors'];
+           foreach ($collectrequests as $key) {
+        // $this->validate($request,[
+        //     'v_name'=>'required',
+        //     'account_code'=>'required',
+        //     'opening_bal'=>'nullable',
+        //     'opening_bal_USD'=>'nullable',
+        //     'remarks'=>'nullable',
+        //     'contact_person'=>'required',
+        //     'GST'=>'required',
+        //     'PAN'=>'required',
+        //     'address'=>'required',
+        //     'phone'=>'nullable',
+        //     'mobile'=>'nullable',
+        //     'email'=>'nullable',
+        //     'country'=>'required',
+        //     'fax_number'=>'required',
+        //     'RAP'=>'required',
+        //     'IDEX'=>'required',
+        //     'diamond_world_id'=>'required',
+        //     'QBC'=>'required',
+        //     'website'=>'nullable',
+        //     'credit_limit'=>'required',
+        //     'credit_limit_USD'=>'required',
+        //     'refernce_1'=>'nullable',
+        //     'reference_2'=>'nullable',
 
-            ]);
+        //     ]);
 
         $vendor = new Vendors([
-            'name'=> $request->input('name'),
-            'account_code'=>$request->input('account_code'),
-            'opening_bal'=>$request->input('opening_bal'),
-            'opening_bal_USD'=>$request->input('opening_bal_USD'),
-            'remarks'=>$request->input('remarks'),
-            'contact_person'=>$request->input('contact_person'),
-            'address'=>$request->input('address'),
-            'phone'=>$request->input('phone'),
-            'mobile'=>$request->input('mobile'),
-            'email'=>$request->input('email'),
-            'country'=>$request->input('country'),
-            'fax_number'=>$request->input('fax_number'),
-            'RAP'=>$request->input('RAP'),
-            'IDEX'=>$request->input('IDEX'),
-            'diamond_world_id'=>$request->input('diamond_world_id'),
-            'QBC'=>$request->input('QBC'),
-            'website'=>$request->input('website'),
-            'credit_limit'=>$request->input('credit_limit'),
-            'credit_limit_USD'=>$request->input('credit_limit_USD'),
-            'reference_1'=>$request->input('reference_1'),
-            'reference_2'=>$request->input('reference_2'),
-            'GST'=>$request->input('GST'),
-            'PAN'=>$request->input('PAN'),
+            'v_name'=> $key['v_name'],
+            'account_code'=>$key['account_code'],
+            'opening_bal'=>$key['opening_bal'],
+            'opening_bal_USD'=>$key['opening_bal_USD'],
+            'remarks'=>$key['remarks'],
+            'contact_person'=>$key['contact_person'],
+            'address'=>$key['address'],
+            'phone'=>$key['phone'],
+            'mobile'=>$key['mobile'],
+            'email'=>$key['email'],
+            'country'=>$key['country'],
+            'fax_number'=>$key['fax_number'],
+            'RAP'=>$key['RAP'],
+            'IDEX'=>$key['IDEX'],
+            'diamond_world_id'=>$key['diamond_world_id'],
+            'QBC'=>$key['QBC'],
+            'website'=>$key['website'],
+            'credit_limit'=>$key['credit_limit'],
+            'credit_limit_USD'=>$key['credit_limit_USD'],
+            'reference_1'=>$key['reference_1'],
+            'reference_2'=>$key['reference_2'],
+            'GST'=>$key['GST'],
+            'PAN'=>$key['PAN'],
             ]);
 
         $vendor->save();
+           }
+        }
         return response()->json(['message'=>'successfully created vendor'],201);
     }
 

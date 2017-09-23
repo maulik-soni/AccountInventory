@@ -20,8 +20,8 @@
 
                         <div>
                             <label>Country:</label>
-                            <md-radio-group [(ngModel)]="fields.country" class="main-filter" name="billtype">
-          <md-radio-button  class="radio-button" *ngFor="let option of countries" [value]="option" >{{option}}</md-radio-button>
+                            <md-radio-group [(ngModel)]="fields.country" (change)="countryChange()" class="main-filter" name="billtype">
+          <md-radio-button  class="radio-button" *ngFor="let option of countries"  [value]="option" >{{option}}</md-radio-button>
         </md-radio-group>
                         </div>
 
@@ -65,7 +65,7 @@
                             
                             
                             <button  class="btn btn-primary m-t-20"   type="submit">Login</button>
-                            
+                            <a href="">Forget Password</a>
                         
                         
                         <p *ngIf="error"  class="alert alert-danger alert-dismissible form-error">

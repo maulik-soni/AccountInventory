@@ -28,6 +28,16 @@ export class SigninComponent implements OnInit {
  
   ngOnInit():any {
     this.fields={email:"",password:"",country:this.countries[0]};
+    localStorage.setItem('country',this.fields.country)
+  }
+
+  countryChange(){
+    localStorage.setItem('country',this.fields.country)
+  }
+
+  getCountry(){
+     let store= localStorage.getItem('country');
+     return store.slice(1,store.length-1);
   }
 
   onSubmit(form:NgForm){
@@ -42,7 +52,9 @@ export class SigninComponent implements OnInit {
       error=>{
           this.error=error;
           this.resetFields();
-          form.reset();
+          form.controls['email'].reset();
+          form.controls['password'].reset();
+          // this.fields.country=this.getCountry();
       },
     );
     

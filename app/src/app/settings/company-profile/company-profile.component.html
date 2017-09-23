@@ -4,137 +4,45 @@
       <h2>Company Details</h2>
     </div>
 
-
-      <div class="card">
-    <form [formGroup]="companyProfile" (ngSubmit)="onProfileSubmit()" novalidate>
-        <div class="card-header">
-          <span style="margin:11px">Company Profile</span>
-           <button *ngIf="isEditable" (click)="onProfileEdit()"  class="btn btn-info btn-sm btn-icon-text waves-effect">
-                <!--<span class="zmdi zmdi-edit"></span>-->
-                <span>Edit Details</span>
-              </button>
-        </div>
-        <div class="card-body card-padding">
-
-          <div class="row">
-            <div class="col-lg-2">
-          <label class="c-black f-500 labels">Company Name</label>
-          <div class="form-group noneditable">
-            <div class="fg-line">
-              <input type="text" class="form-control" formControlName="c_name">
-            </div>
-          </div>
-            </div>
-
-            <div class="col-lg-2">
-          <label class="c-black f-500 labels">Company Address</label>
-          <div class="form-group noneditable">
-            <div class="fg-line">
-              <input type="text" class="form-control" formControlName="address">
-            </div>
-          </div>
-            </div>  
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Phone Number</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="phone">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Mobile Number</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="mobile">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Email</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="email">
-                </div>
-              </div>
-            </div>
-          
-
-          
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">From</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="from">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">To</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="to" >
-                </div>
-              </div>
-            </div>
-          
-
-          
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">GST Number</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="GST">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">PAN Number</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="PAN">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">IEC Number</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="IEC">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">QEC Number</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="QBC">
-                </div>
-              </div>
-            </div>
-          </div>
-
-      <button *ngIf="!isEditable" class="btn">Save</button>
-        </div>
-
-    </form>
-        <!--<p> {{companyProfile.value | json}} </p>-->
-      </div>
-
-
     <div class="card">
-       <div class="card-header">
+      <div class="card-body card-padding">
+        
+
+          <div>
+          <button  type="button"  (click)="addcompany()" class="btn btn-info btn-sm btn-icon-text waves-effect">
+            <span class="zmdi zmdi-account-add"></span>
+            <span>Add Vendors</span>
+          </button>
+        </div>
+        <form [formGroup]="companyProfile" (ngSubmit)="onSubmit()" novalidate>
+
+
+        <div formArrayName="companies" class="well well-lg">
+          <div *ngFor="let company of companies.controls; let i=index" [formGroupName]="i" >
+                <div class="ch-alt">
+					      <h4 style="display: inline-block">Company {{i + 1}}</h4>
+					      <span class="glyphicon glyphicon-remove pull-right" (click)="removecompany(i)"></span>
+                </div>
+              <company-details [companygroup]="company"></company-details>
+          </div>
+        </div>
+
+        <p>{{companyProfile.value | json}}</p>
+
+          
+
+
+       
+        <!-- <div class="card-header">
           <span style="margin:11px">Bank Details</span>
-           <button  (click)="addBank()"  class="btn btn-info btn-icon-text waves-effect">
-                <!--<span class="zmdi zmdi-account-add"></span>-->
+           <button  (click)="addBank()" type="button" class="btn btn-info btn-icon-text waves-effect">
                 <span> Add Bank</span>
               </button>
         </div>
-        <div class="card-body card-padding">
-          
-          <form *ngIf="banks.controls.length > 0" [formGroup]="companyBank" novalidate>
+
+        <div class="banks" [formGroup]="vendorBank">
             <div formArrayName="banks" class="well well-lg">
+
               <div *ngFor="let bank of banks.controls; let i=index" [formGroupName]="i" >
                 <div class="ch-alt">
 					      <h4 style="display: inline-block">Bank {{i + 1}}</h4>
@@ -143,20 +51,28 @@
                 <bank-details [group]="bank"></bank-details>
               </div>
             </div>
+          </div>
+          -->
+        
+        <button class="btn">Save</button> 
+    </form>
 
-            <button class="btn" (click)="onBankSubmit()">Save</button>
-          </form>
+    
+    </div>
+  </div>
 
-          <div class="table-responsive">
+  <div class="card">
+    <div class="card-body card-padding">
+      <div class="table-responsive">
       <table class="table">
         <thead>
           <tr>
-            <th *ngFor="let title of titles">{{title[0]}}</th>
+            <th *ngFor="let title of comtitles">{{title[0]}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let bank of companybankdata">
-            <td *ngFor="let title of titles">{{bank[title[1]]}}</td>
+          <tr *ngFor="let company of companydata" (click)="viewprofile(company)">
+            <td *ngFor="let title of comtitles">{{company[title[1]]}}</td>
             <!--<td class="text-left">
               <button type="button"  (click)="onedit(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-edit"></span>
@@ -170,11 +86,9 @@
       </table>
           <!--<p>{{companyBank.value | json}}</p>-->
         </div>
-      </div>
-
-
     </div>
- </div>
+  </div>
 
-    
+
+ </div>
 </dashboard>

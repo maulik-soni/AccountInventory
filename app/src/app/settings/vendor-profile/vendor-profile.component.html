@@ -6,229 +6,36 @@
 
     <div class="card">
       <div class="card-body card-padding">
-        <div *ngIf="isAdd">
-          <button  type="button"  (click)="addClient()" class="btn btn-info btn-sm btn-icon-text waves-effect">
+        
+
+          <div>
+          <button  type="button"  (click)="addVendor()" class="btn btn-info btn-sm btn-icon-text waves-effect">
             <span class="zmdi zmdi-account-add"></span>
             <span>Add Vendors</span>
           </button>
         </div>
+        <form [formGroup]="vendorProfile" (ngSubmit)="onSubmit()" novalidate>
 
-        <form *ngIf="!isAdd"  [formGroup]="vendorProfile" (ngSubmit)="onSubmit()" novalidate>
 
-          <div class="row">
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Name</label>
-                <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName='name'>
+        <div formArrayName="vendors" class="well well-lg">
+          <div *ngFor="let vendor of vendors.controls; let i=index" [formGroupName]="i" >
+                <div class="ch-alt">
+					      <h4 style="display: inline-block">Vendors {{i + 1}}</h4>
+					      <span class="glyphicon glyphicon-remove pull-right" (click)="removeVendor(i)"></span>
                 </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-            <label class="c-black f-500 labels">Account Code</label>
-            <div class="form-group noneditable">
-              <div class="fg-line">
-                <input type="text" class="form-control" formControlName="account_code">
-              </div>
-            </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Opening Balance</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="opening_bal">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Opening Balance (USD)</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="opening_bal_USD">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Remarks</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="remarks">
-                </div>
-              </div>
-            </div>
-         
-
-          
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Contact Person</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="contact_person">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Address</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="address" >
-                </div>
-              </div>
-            </div>
-          
-
-          
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Phone</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="phone">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Mobile</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="mobile">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Email</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="email">
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Country</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="country">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Fax</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="fax_number">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Rap</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"   formControlName="RAP">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">IDEX</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="IDEX">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Diamond World Id</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"   formControlName="diamond_world_id">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">QBC</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"   formControlName="QBC">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Website</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"   formControlName="website">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Credit Limit</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control"   formControlName="credit_limit">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Credit Limit (USD)</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="credit_limit_USD">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Reference (1)</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="reference_1">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">Reference (2)</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="reference_2">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">GST</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="GST">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2">
-              <label class="c-black f-500 labels">PAN</label>
-              <div class="form-group noneditable">
-                <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="PAN">
-                </div>
-              </div>
-            </div>
-
+              <vendor-details [vendorgroup]="vendor"></vendor-details>
           </div>
+        </div>
+
+        <p>{{vendorProfile.value | json}}</p>
+
+          
 
 
        
-        <div class="card-header">
+        <!-- <div class="card-header">
           <span style="margin:11px">Bank Details</span>
            <button  (click)="addBank()" type="button" class="btn btn-info btn-icon-text waves-effect">
-                <!--<span class="zmdi zmdi-account-add"></span>-->
                 <span> Add Bank</span>
               </button>
         </div>
@@ -245,12 +52,12 @@
               </div>
             </div>
           </div>
+          -->
         
-        <button *ngIf="!isAdd" class="btn">Save</button>
+        <button class="btn">Save</button> 
     </form>
 
-    <p>{{vendorProfile.value | json}}</p>
-  <p>{{vendorBank.value | json}}</p>
+    
     </div>
   </div>
 
@@ -264,7 +71,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let vendor of vendordata">
+          <tr *ngFor="let vendor of vendordata" (click)="viewprofile(vendor)">
             <td *ngFor="let title of ventitles">{{vendor[title[1]]}}</td>
             <!--<td class="text-left">
               <button type="button"  (click)="onedit(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
