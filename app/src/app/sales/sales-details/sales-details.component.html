@@ -34,11 +34,13 @@
 
       <div class="row m-t-25" *ngIf="piecetype == 'parcel'">
         <div class = "col-sm-4">
-        <div class="form-group">
-          <p class="form-label">Search Purchase by 'Lot Number'</p>
-          <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
-        </div>
-        <button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+          <div class="form-group col-lg-8 col-sm-8 col-xs-8">
+            <p class="form-label">Search Purchase by 'Lot Number'</p>
+            <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class = "col-lg-4 col-sm-4 col-xs-4">
+            <button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
+          </div>
         </div>
       </div>
 

@@ -6,13 +6,14 @@
 			<h2>New Jangad Issue Entry</h2>			
 		</div>
 		<div class="card">
-			<div class="card-header">
-				<h2>Basic Jangad in Information</h2>
+			<div class="card-header ch-alt">
+				<h2 style="display: inline-block">Basic Jangad in Information</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#basicInfo" aria-expanded="true" aria-controls="basicInfo"></a>
 			</div>
 
-			<div class="card-body card-padding">
+			<div class="card-body card-padding collapse in" id="basicInfo">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Jangad Invoice Number</p>
@@ -20,7 +21,7 @@
 							</div>
 						</div>
 					</div>					
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<p class="form-label">Jangad in Date</p>						
 						<span class="dp-container">	
 							<md-input-container class="mdInputContainer">
@@ -31,7 +32,7 @@
 						</span>
 						<!--<material-datepicker [(date)]="newmemo.date" (onSelect)="calcDay($event)"></material-datepicker>-->
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Terms</p>
@@ -39,9 +40,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Due Date</p>
@@ -51,16 +50,17 @@
 					</div>
 				</div>
 			</div>
-
 			
 		</div>
 		<div class="card">
-			<div class="card-header">
-				<h2>Dealer and Broker Details</h2>
+			<div class="card-header ch-alt">
+				<h2 style="display: inline-block">Dealer and Broker Details</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#partyBrokerDetails" aria-expanded="true" aria-controls="partyBrokerDetails"></a>
 			</div>
-			<div class="card-body card-padding">
+
+			<div class="card-body card-padding collapse in" id="partyBrokerDetails">
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-sm-6">
 						<p class="form-label">Dealer Name</p>
 						<ng-select [allowClear]="true"
 							[items]="names"
@@ -72,9 +72,7 @@
 							placeholder="No Dealer Name selected" name = "account_name" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-3">
 						<p class="form-label">Broker Name</p>
 						<ng-select [allowClear]="true"
 							[items]="brokers"
@@ -86,7 +84,7 @@
 							placeholder="No Broker Name selected" name = "broker" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Reference</p>
@@ -101,11 +99,12 @@
 		<div formArrayName="memoDetails">
 			<div *ngFor="let memoDetails of myForm.controls.memoDetails.controls; let i=index">
 				<div class="card">
-				<div class="card-header">
+				<div class="card-header ch-alt">
 					<h2 style="display: inline-block">Memo Item {{i + 1}}</h2>
 					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.memoDetails.controls.length > 1" (click)="removePiece(i)"></span>
+					<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#memoDtails{{i}}" aria-expanded="true" aria-controls="memoDtails"></a>
 				</div>
-				<div [formGroupName]="i">
+				<div [formGroupName]="i" id="memoDtails{{i}}" class="collapse in">
 					<app-memo-details [mygroup]="myForm.controls.memoDetails.controls[i]"></app-memo-details>
 				<!--<address></address>-->
 				</div>
