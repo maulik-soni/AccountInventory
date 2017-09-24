@@ -93,7 +93,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             amount_INR:0,
             amount_dolar:0,
             mVAT:0,
-            aginst_Hform:[''],            
+            aginst_Hform:[''],
+            company_name : [''],
             piecesTypes: this._fb.array([])
         });
         
@@ -156,7 +157,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             reportDt: [''],
             inscription: [''],
             infoMsg:[''],
-            fullShapeDescription:['']
+            fullShapeDescription:[''],
+            askedPrice:0,
         });
     }
 
@@ -464,7 +466,6 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public onFileChange(evt:any) {
     var jsonMap = {
-          "sr_no": "Sr No.",
           "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
@@ -537,7 +538,9 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           "reportDt": "reportDt",
           "inscription": "inscription",
           "infoMsg": "infoMsg",
-          "fullShapeDescription": "fullShapeDescription"
+          "fullShapeDescription": "fullShapeDescription",
+          "company_name":"Company Name",
+          "askedPrice" : "Asked Price"
         };
 		const scope = this;
 		/* wire up file reader */
@@ -557,11 +560,16 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
       for (let x in jsonMap) {
         index.push(x);
       }
+      console.log(scope.data);
       for(let i=1; i<scope.data.length; i++){
-        for(let j=0; j<index.length; j++){
-          jsonMap[index[j]] = scope.data[i][j];
+        if(scope.data[i].length){
+          for(let j=0; j<index.length; j++){
+            console.log(jsonMap[index[j]], scope.data[i][j]);
+            jsonMap[index[j]] = scope.data[i][j];
+          }
+          console.log(jsonMap);
+          importedData.push(JSON.parse(JSON.stringify(jsonMap)));
         }
-        importedData.push(JSON.parse(JSON.stringify(jsonMap)));
       }
       for(var i = 0; i<importedData.length; i++){
         console.log(importedData[i]);
@@ -584,11 +592,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           brokerage : importedData[i].brokerage
         };
         importedData[i].broker_details = JSON.stringify(importedData[i].broker_details);
-        
-    }
-      // console.log(importedData);
+      }
     };
-
 		reader.readAsBinaryString(target.files[0]);
   }
   submitData(){
@@ -611,16 +616,5 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
       
       this._webservice.postpurchasedata(importedData);
-  }  
-//   function getObjectKeyIndex(obj, keyToFind) {
-//     var i = 0, key;
-//     for (key in obj) {
-//         if (key == keyToFind) {
-//             return i;
-//         }
-//         i++;
-//     }
-//     return null;
-// }
-
+  }
 }

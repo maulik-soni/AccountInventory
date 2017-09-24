@@ -67,15 +67,74 @@
                 <th data-column-id="stockid">Stock ID</th>
                 <th data-column-id="id" data-type="numeric" data-identifier="true">Invoice Number</th>
                 <th data-column-id="date">Date</th>
+                <th data-column-id="due_date">Due Date</th>
                 <th data-column-id="dealerName">Dealer Name</th>
+                <th data-column-id="companyName">Company Name</th>
                 <th data-column-id="totalcarats">Total Carats</th>
                 <th data-column-id="totalpcs">Total Picies</th>
                 <th data-column-id="amountINR">Amount INR</th>
                 <th data-column-id="amountDOLLAR">Amount DOLLAR</th>
+                <th data-columb-id="additional_expenses">Additional Exp.</th>
                 <th data-column-id="currencyConversion">Currency Conversion Rate</th>
                 <th data-column-id="notes">Notes</th>
                 <th data-column-id="country">Country</th>
-                
+                <th data-column-id="payment_terms">Payment Terms</th>
+                <th data-column-id="polishing_type">Polishing Type</th>
+                <th data-column-id="less">Less</th>
+                <th data-column-id="bill_type">Bill Type</th>
+                <th data-column-id="comission">Comission</th>
+                <th data-column-id="stock_status_group">Stock Group</th>
+                <th data-column-id="item">Item</th>
+                <th data-column-id="kapan">Kapan</th>
+                <th data-column-id="diamond_shape">Diamond Shape</th>
+                <th data-column-id="diamond_lot_number">Diamond Lot Number</th>
+                <th data-column-id="diamond_size">Diamond Size</th>
+                <th data-column-id="diamond_color">Diamond Color</th>
+                <th data-column-id="diamond_clarity">diamond_clarity</th>
+                <th data-column-id="cost_discount">cost_discount</th>
+                <th data-column-id="cost_rate_per_carat">cost_rate_per_carat</th>
+                <th data-column-id="RAP_price">RAP_price</th>
+                <th data-column-id="wd_rate">wd_rate</th>
+                <th data-column-id="wd_rate_carat">wd_rate_carat</th>
+                <th data-column-id="rate_INR">rate_INR</th>
+                <th data-column-id="rate_dolar">rate_dolar</th>
+                <th data-column-id="LAB_type">LAB_type</th>
+                <th data-column-id="certificate_number">Certificate Number</th>
+                <th data-column-id="avg_INR">Avg INR</th>
+                <th data-column-id="avg_dolar">Avg USD</th>
+                <th data-column-id="aginst_Hform">Aginst Hform</th>
+                <th data-column-id="mVAT">mVAT</th>
+                <th data-column-id="broker_details">Broker Details</th>
+                <th data-column-id="length">Length</th>
+                <th data-column-id="width">Width</th>
+                <th data-column-id="depth">Depth</th>
+                <th data-column-id="message">Message</th>
+                <th data-column-id="weight">Weight</th>
+                <th data-column-id="reportno">Reportno</th>
+                <th data-column-id="colordesc">Color Description</th>
+                <th data-column-id="finalcut">Final Cut</th>
+                <th data-column-id="depthpct">Depthpct</th>
+                <th data-column-id="tablepct">Tablepct</th>
+                <th data-column-id="crnag">crnag</th>
+                <th data-column-id="crnht">crnht</th>
+                <th data-column-id="pavag">pavag</th>
+                <th data-column-id="pavdp">pavdp</th>
+                <th data-column-id="starln">starln</th>
+                <th data-column-id="lrhalf">lrhalf</th>
+                <th data-column-id="girdle">girdle</th>
+                <th data-column-id="girdlecondition">girdlecondition</th>
+                <th data-column-id="girdlepct">girdlepct</th>
+                <th data-column-id="culetsize">culetsize</th>
+                <th data-column-id="symmetry">Symmetry</th>
+                <th data-column-id="fluorescenceintensity">Fluorescence Intensity</th>
+                <th data-column-id="fluorescencecolor">Fluorescence Color</th>
+                <th data-column-id="keytosymbols">Key to Symbols</th>
+                <th data-column-id="reporttype">Report Type</th>
+                <th data-column-id="reportdt">Report dt</th>
+                <th data-column-id="inscription">Inscription</th>
+                <th data-column-id="infomsg">Info Msg</th>
+                <th data-column-id="fullshapedescription">Full Shape Description</th>
+               
               </tr>
             </thead>
             <tbody>
@@ -83,14 +142,73 @@
                 <td>{{m.Stock_ID}}</td>
                 <td>{{m.invoice_number}}</td>
                 <td>{{m.purchase_date}}</td>
+                <td>{{m.due_date}}</td>
                 <td>{{m.account_name}}</td>
+                <td>{{m.company_name}}</td>
                 <td>{{m.total_diamond_carat}}</td>
                 <td>{{m.total_diamond_pcs}}</td>
                 <td>{{m.amount_INR}}</td>
                 <td>{{m.amount_dolar}}</td>
+                <td>{{m.additional_expenses}}</td>
                 <td>{{m.currency_convrsion_rate}}</td>
                 <td>{{m.notes}}</td>
                 <td>{{m.country}}</td>
+                <td>{{m.payment_terms}}</td>
+                <td>{{m.polishing_type}}</td>
+                <td>{{m.less}}</td>
+                <td>{{m.bill_type}}</td>
+                <td>{{m.comission}}</td>
+                <td>{{m.stock_status_group}}</td>
+                <td>{{m.item}}</td>
+                <td>{{m.kapan}}</td>
+                <td>{{m.diamond_shape}}</td>
+                <td>{{m.diamond_lot_number}}</td>
+                <td>{{m.diamond_size}}</td>
+                <td>{{m.diamond_color}}</td>
+                <td>{{m.diamond_clarity}}</td>
+                <td>{{m.cost_discount}}</td>
+                <td>{{m.cost_rate_per_carat}}</td>
+                <td>{{m.RAP_price}}</td>
+                <td>{{m.wd_rate}}</td>
+                <td>{{m.wd_rate_carat}}</td>
+                <td>{{m.rate_INR}}</td>
+                <td>{{m.rate_dolar}}</td>
+                <td>{{m.LAB_type}}</td>
+                <td>{{m.certificate_number}}</td>
+                <td>{{m.avg_INR}}</td>
+                <td>{{m.avg_dolar}}</td>
+                <td>{{m.aginst_Hform}}</td>
+                <td>{{m.mVAT}}</td>
+                <td>{{m.broker_details}}</td>
+                <td>{{m.length}}</td>
+                <td>{{m.width}}</td>
+                <td>{{m.depth}}</td>
+                <td>{{m.message}}</td>
+                <td>{{m.weight}}</td>
+                <td>{{m.reportno}}</td>
+                <td>{{m.colordesc}}</td>
+                <td>{{m.finalcut}}</td>
+                <td>{{m.depthpct}}</td>
+                <td>{{m.tablepct}}</td>
+                <td>{{m.crnag}}</td>
+                <td>{{m.crnht}}</td>
+                <td>{{m.pavag}}</td>
+                <td>{{m.pavdp}}</td>
+                <td>{{m.starln}}</td>
+                <td>{{m.lrhalf}}</td>
+                <td>{{m.girdle}}</td>
+                <td>{{m.girdlecondition}}</td>
+                <td>{{m.girdlepct}}</td>
+                <td>{{m.culetsize}}</td>
+                <td>{{m.symmetry}}</td>
+                <td>{{m.fluorescenceintensity}}</td>
+                <td>{{m.fluorescencecolor}}</td>
+                <td>{{m.keytosymbols}}</td>
+                <td>{{m.reporttype}}</td>
+                <td>{{m.reportdt}}</td>
+                <td>{{m.inscription}}</td>
+                <td>{{m.infomsg}}</td>
+                <td>{{m.fullshapedescription}}</td>
               </tr>
             </tbody>
         </table>

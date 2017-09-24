@@ -174,10 +174,9 @@ export class PurchaseReportComponent implements OnInit {
         }
       }
     }
-    if(exportCSVdata[0].sr_no != "Sr No."){
+    if(exportCSVdata[0].Stock_ID != "Stock_ID"){
       exportCSVdata.unshift(
         {
-          "sr_no": "Sr No.",
           "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
@@ -250,7 +249,8 @@ export class PurchaseReportComponent implements OnInit {
           "reportDt": "reportDt",
           "inscription": "inscription",
           "infoMsg": "infoMsg",
-          "fullShapeDescription": "fullShapeDescription"
+          "fullShapeDescription": "fullShapeDescription",
+          "company_name":"Company Name"
         }
       );
     }

@@ -130,7 +130,8 @@ export class SalesComponent implements OnInit {
       reportDt: [''],
       inscription: [''],
       infoMsg:[''],
-      fullShapeDescription:['']
+      fullShapeDescription:[''],
+      company_name : [''],
     });
   }
 

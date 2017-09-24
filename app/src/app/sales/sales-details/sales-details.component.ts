@@ -87,7 +87,7 @@ export class SalesDetailsComponent implements OnInit {
 
           for (var key in this.mypurchase) {
             if (this.mypurchase.hasOwnProperty(key)) {
-              if(key != 'account_name' && key != "purchase_date" && key != "currency_convrsion_rate"){
+              if(key != 'account_name' && key != "purchase_date" && key != "currency_convrsion_rate" && key != "askedPrice" && key!="additional_expenses"){
                 console.log(key + " -> " + this.mypurchase[key]);
                 this.salesDetails.controls[key].patchValue(this.mypurchase[key]);
               }
