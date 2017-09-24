@@ -6,14 +6,14 @@
 			<h2 style="display : inline-block">New Sales Entry</h2>
 		</div>
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header ch-alt">
 				<h2 style="display : inline-block">Basic Sales Information</h2>
 				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#basicInfo" aria-expanded="true" aria-controls="basicInfo"></a>
 			</div>
 
 			<div class="card-body card-padding collapse in" id="basicInfo">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Invoice Number</p>
@@ -21,7 +21,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
@@ -29,7 +29,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<p class="form-label">Sales Date</p>
 						<!--<material-datepicker [(date)]="newsales.sales_date" (onSelect)="calcDay($event)"></material-datepicker>-->
 
@@ -40,12 +40,8 @@
 							</md-input-container>
 							<md-datepicker #picker></md-datepicker>	
 						</span>
-
 					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Terms of Payment</p>
@@ -53,8 +49,10 @@
 							</div>
 						</div>
 					</div>
-									
-					<div class="col-sm-4">
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Due Date</p>
@@ -62,7 +60,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<p class="form-label">Country</p>
 						<ng-select [allowClear]="true"
 							[items]="countries"
@@ -75,63 +73,49 @@
 							placeholder="Select The Country" name="country" [ngModelOptions]="{standalone: true}">
 						</ng-select> 
 					</div>
-				</div>
-
-				<div class="row m-t-15">
-					<div class="col-sm-8">
+					<div class="col-sm-3">
 						<div class="form-group ">
 							<div class="fg-line">
 								<p class="form-label">Notes or Remarks</p>
-								<textarea class="form-control" rows="3" name="notes" formControlName="notes"></textarea>
+								<textarea class="form-control" rows="2" name="notes" formControlName="notes"></textarea>
 							</div>
 						</div>
-					</div>					
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<p class="form-label">Dealer Name</p>
+							<ng-select [allowClear]="true"
+								[items]="names"
+								[disabled]="disabled"
+								(data)="refreshValue($event)"
+								(selected)="selected($event,'account_name')"
+								(removed)="removed($event)"
+								(typed)="typed($event)"
+								[(ngModel)] = "newsales.account_name"
+								placeholder="Select Dealer's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
+							</ng-select>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="card">
-			<div class="card-header">
-				<h2 style="display: inline-block">Party's Details</h2>
-				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#companyPartyDetails" aria-expanded="true" aria-controls="partyDetails"></a>
-			</div>
-			<div class="card-body card-padding collapse in" id="companyPartyDetails">
-				<div class="row">
-					<div class="col-sm-12">
-						<p class="form-label">Dealer Name</p>
-						<ng-select [allowClear]="true"
-							[items]="names"
-							[disabled]="disabled"
-							(data)="refreshValue($event)"
-							(selected)="selected($event,'account_name')"
-							(removed)="removed($event)"
-							(typed)="typed($event)"
-							[(ngModel)] = "newsales.account_name"
-							placeholder="Select Dealer's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
-						</ng-select>
-					</div>
-				</div>								
-			</div>
-		</div>
-
 		<div formArrayName="salesDetails">
           <div *ngFor="let address of myForm.controls.salesDetails.controls; let i=index" class="panel panel-default">
             <div class="card">
 				
-				<div class="card-header">
+				<div class="card-header ch-alt">
 					<h2 style="display: inline-block">Sale Item {{i + 1}}</h2>
 					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.salesDetails.controls.length > 1" (click)="removeSalesDetails(i)"></span>
 					<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="true" aria-controls="collapseExample"></a>
 				</div>
-				<div class="panel-body collapse in" [formGroupName]="i" id="collapseExample{{i}}">
+				<div class="collapse in" [formGroupName]="i" id="collapseExample{{i}}">
 					<app-sales-details [group]="myForm.controls.salesDetails.controls[i]" (childEvent) = "parenFunction($event)"></app-sales-details>
 				</div>
 			</div>
           </div>
         </div>
-		<a (click)="addSalesDetails()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Sale More Item</a>
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header ch-alt">
 				<h2 style="display: inline-block">Sales Revenue Details</h2>
 				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#revenueDetails" aria-expanded="true" aria-controls="revenueDetails"></a>
 			</div>
@@ -346,7 +330,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-3 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Freight</p>
@@ -354,10 +338,7 @@
 							</div>
 						</div>
 					</div>
-				</div>								
-
-				<div class="row">
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-3 m-t-15">
 						<p class="form-label">Broker Type</p>
 						<ng-select [allowClear]="true"
 							[items]="brokertypes"
@@ -370,7 +351,7 @@
 							placeholder="No Broker Type selected" name = "brokerType" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-3 m-t-15">
 						<p class="form-label">Broker Name</p>
 						<ng-select [allowClear]="true"
 							[items]="brokers"
@@ -383,7 +364,7 @@
 							placeholder="No Broker Name selected" name = "brokerName" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-3 m-t-15">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Brokerage in %</p>
@@ -406,19 +387,19 @@
 					<div class="col-sm-4 m-t-20">
 						<div class="form-group">
 							<div class="fg-line">
-								<p class="form-label">Aggent Comission 1 in %</p>
+								<p class="form-label">Aggent Comission in %</p>
 								<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2" [readonly] = "!comissionCheck">
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4 m-t-20">
+					<!-- <div class="col-sm-4 m-t-20">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Aggent Comission 2 in %</p>
 								<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2" [readonly] = "!comissionCheck">
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 				
 				
@@ -426,6 +407,7 @@
 			</div>
 			
 		</div>
+		<a (click)="addSalesDetails()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Sale More Item</a>
 		<button class="btn btn-success btn-sm waves-effect" type="submit">Generate Invoice</button>
 		<a (click) = "save(myForm, true)">Only Submit Data</a>
 	</form>
