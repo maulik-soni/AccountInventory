@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use App\LabIssue;
+use \App\Purchase;
+
 
 class LabIssueController extends Controller
 {
@@ -22,6 +24,7 @@ class LabIssueController extends Controller
         //      ]);
         
         $lab= new LabIssue;
+        $lab->invoice_number = Input::get('invoice_number');
 		$lab->Stock_ID = Input::get("Stock_ID");
         $lab->date = Input::get("date");
         $lab->LAB_type = Input::get("LAB_type");
@@ -35,7 +38,13 @@ class LabIssueController extends Controller
         $lab->amount = Input::get("amount");
         $lab->return_date = Input::get("return_date");
         $lab->status = "ISSUED";
-		$lab->save();
+        $lab->save();
+
+        $purchase = new \App\Purchase;
+        $purchase = Purchase::find(Input::get("Stock_ID"));
+        $purchase->amount_dolar = ($purchase->amount_dolar)+(Input::get("amount")/($purchase->amount_INR/$purchase->amount_dolar)); 
+        $purchase->amount_INR = $purchase->amount_INR+Input::get("amount");
+        $purchase->save();
 		return ("your data submitted successfully");
     }
     
