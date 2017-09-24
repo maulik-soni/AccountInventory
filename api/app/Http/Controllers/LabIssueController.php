@@ -42,6 +42,7 @@ class LabIssueController extends Controller
 
         $purchase = new \App\Purchase;
         $purchase = Purchase::find(Input::get("Stock_ID"));
+        $purchase->additional_expenses = Input::get("amount");
         $purchase->amount_dolar = ($purchase->amount_dolar)+(Input::get("amount")/($purchase->amount_INR/$purchase->amount_dolar)); 
         $purchase->amount_INR = $purchase->amount_INR+Input::get("amount");
         $purchase->save();
