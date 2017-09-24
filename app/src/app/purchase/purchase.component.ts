@@ -157,7 +157,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             reportDt: [''],
             inscription: [''],
             infoMsg:[''],
-            fullShapeDescription:['']
+            fullShapeDescription:[''],
+            askedPrice:0,
         });
     }
 
@@ -538,7 +539,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           "inscription": "inscription",
           "infoMsg": "infoMsg",
           "fullShapeDescription": "fullShapeDescription",
-          "company_name":"Company Name"
+          "company_name":"Company Name",
+          "askedPrice" : "Asked Price"
         };
 		const scope = this;
 		/* wire up file reader */
