@@ -2,43 +2,51 @@
 
   <div class="container">
 	<div class="card">
-		<div class="card-header">
-    	<h2>Lab issue Entry</h2>
-			<ul class="actions">
-				<li>
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Single Stone
-					</label>
-					
-					<label class="radio radio-inline m-r-20">
-						<input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
-						<i class="input-helper"></i>
-						Parcel
-					</label>
-				</li>			
-			</ul>
+		<div class="card-header ch-alt">
+    		<h2 style="display: inline-block">Lab issue Entry</h2>
+			<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#searchFromPurchase" aria-expanded="true" aria-controls="searchFromPurchase"></a>
 		</div>
-		<div class="card-body card-padding">
-			<div id="data-table-command-header" class="bootgrid-header container-fluid">
-				<div class="row m-t-25" *ngIf="piecetype == 'singlestone'">
+
+		<div class="collapse in" id="searchFromPurchase">
+			<div style="overflow : hidden">
+				<ul class="actions pull-right m-t-5">
+					<li>
+						<label class="radio radio-inline m-r-20">
+							<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+							<i class="input-helper"></i>
+							Single Stone
+						</label>
+						
+						<label class="radio radio-inline m-r-20">
+							<input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+							<i class="input-helper"></i>
+							Parcel
+						</label>
+					</li>			
+				</ul>
+			</div>
+			<div class="card-body card-padding">
+				<div class="row" *ngIf="piecetype == 'singlestone'">
 					<div class = "col-sm-4">
-					<div class="form-group">
+					<div class="form-group col-lg-8 col-sm-8 col-xs-8">
 						<p class="form-label">Search Purchase by 'Stock ID'</p>
 						<input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
 					</div>
-					<button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+					<div class = "col-lg-4 col-sm-4 col-xs-4">
+						<button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
+					</div>
 					</div>
 				</div>
-
+			
 				<div class="row m-t-25" *ngIf="piecetype == 'parcel'">
 					<div class = "col-sm-4">
-					<div class="form-group">
+					<div class="form-group col-lg-8 col-sm-8 col-xs-8">
 						<p class="form-label">Search Purchase by 'Lot Number'</p>
 						<input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
 					</div>
-					<button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+					<div class = "col-lg-4 col-sm-4 col-xs-4">
+						<button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -46,10 +54,12 @@
 	</div>
 
 	<div class="card" *ngIf="showPurchase">
-		<div class="card-header">
-			<h2>Purchased Stone details</h2>
+		<div class="card-header ch-alt">
+			<h2 style="display: inline-block">Purchased Stone details</h2>
+			<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#purchaseDetails" aria-expanded="true" aria-controls="purchaseDetails"></a>
 		</div>
-		<div class="card-body card-padding">
+
+		<div class="card-body card-padding collapse in" id="purchaseDetails">
 			<div class="row">
 				<div class="col-sm-12" style= "height:auto;color:#666;">
 					<div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
@@ -130,13 +140,14 @@
 	
 	<form *ngIf="showPurchase">
 		<div class="card">
-			<div class="card-header">
-				<h2>Lab Issue Information</h2>
+			<div class="card-header ch-alt">
+				<h2 style="display: inline-block">Lab Issue Information</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#labIssueTinfo" aria-expanded="true" aria-controls="labIssueTinfo"></a>
 			</div>
-
-			<div class="card-body card-padding">
+	
+			<div class="card-body card-padding collapse in" id="labIssueTinfo">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Invoice Number</p>
@@ -144,7 +155,7 @@
 							</div>
 						</div>
 					</div>					
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<p class="form-label">Lab Issue Date</p>
             			<!--<material-datepicker ></material-datepicker>-->					
 						<span class="dp-container">	
@@ -155,7 +166,7 @@
 							<md-datepicker #picker></md-datepicker>	
 						</span>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Service</p>
@@ -163,9 +174,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Diamond's Height</p>
@@ -173,7 +182,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Lab Type</p>
@@ -191,7 +202,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 							<p class="form-label">Diameter</p>
@@ -199,9 +210,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class = "col-sm-4">
+					<div class = "col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 							<p class="form-label">Amount</p>
@@ -210,10 +219,10 @@
 						</div>
 					</div>
 				</div>
-          		<button class="btn btn-success btn-lg waves-effect" type="submit" (click) = "onSubmit()"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
+          		
 			</div>
 		</div>
-
+		<button class="btn btn-success btn-lg waves-effect" type="submit" (click) = "onSubmit()"><i class="zmdi zmdi-check"></i>&nbsp;&nbsp;&nbsp;Submit</button>
 	</form>
 </div>
 
