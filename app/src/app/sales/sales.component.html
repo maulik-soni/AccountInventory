@@ -2,12 +2,16 @@
 <div class="container" *ngIf = "!loadInvoiceComponent">	
 	
 	<form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
+		<div class="block-header"  style="overflow: hidden">
+			<h2 style="display : inline-block">New Sales Entry</h2>
+		</div>
 		<div class="card">
 			<div class="card-header">
-				<h2>Basic Sales Information</h2>
+				<h2 style="display : inline-block">Basic Sales Information</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#basicInfo" aria-expanded="true" aria-controls="basicInfo"></a>
 			</div>
 
-			<div class="card-body card-padding">
+			<div class="card-body card-padding collapse in" id="basicInfo">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="form-group">
@@ -88,9 +92,10 @@
 
 		<div class="card">
 			<div class="card-header">
-				<h2>Party's Details</h2>
+				<h2 style="display: inline-block">Party's Details</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#companyPartyDetails" aria-expanded="true" aria-controls="partyDetails"></a>
 			</div>
-			<div class="card-body card-padding">
+			<div class="card-body card-padding collapse in" id="companyPartyDetails">
 				<div class="row">
 					<div class="col-sm-12">
 						<p class="form-label">Dealer Name</p>
@@ -108,15 +113,17 @@
 				</div>								
 			</div>
 		</div>
+
 		<div formArrayName="salesDetails">
           <div *ngFor="let address of myForm.controls.salesDetails.controls; let i=index" class="panel panel-default">
             <div class="card">
 				
 				<div class="card-header">
-					<h2>Sale Item {{i + 1}}</h2>
+					<h2 style="display: inline-block">Sale Item {{i + 1}}</h2>
 					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.salesDetails.controls.length > 1" (click)="removeSalesDetails(i)"></span>
+					<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="true" aria-controls="collapseExample"></a>
 				</div>
-				<div class="panel-body" [formGroupName]="i">
+				<div class="panel-body collapse in" [formGroupName]="i" id="collapseExample{{i}}">
 					<app-sales-details [group]="myForm.controls.salesDetails.controls[i]" (childEvent) = "parenFunction($event)"></app-sales-details>
 				</div>
 			</div>
@@ -125,10 +132,11 @@
 		<a (click)="addSalesDetails()" class="btn btn-danger btn-sm  m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Sale More Item</a>
 		<div class="card">
 			<div class="card-header">
-				<h2>Sales Revenue Details</h2>
+				<h2 style="display: inline-block">Sales Revenue Details</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#revenueDetails" aria-expanded="true" aria-controls="revenueDetails"></a>
 			</div>
 
-			<div class="card-body card-padding">
+			<div class="card-body card-padding collapse in" id="revenueDetails">
 				<!--<div class="row">
 					<p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
 					<div class="col-sm-4 m-t-15">
