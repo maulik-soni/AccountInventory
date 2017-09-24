@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header ch-alt">
 				<h2 style="display: inline-block">Basic Purchase Information</h2>
 				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#basicInfo" aria-expanded="true" aria-controls="basicInfo"></a>
 			</div>
@@ -100,14 +100,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header">
-				<h2 style="display: inline-block">Company & Party Details</h2>
-				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#companyPartyDetails" aria-expanded="true" aria-controls="companyPartyDetails"></a>
-			</div>
-			<div class="card-body card-padding collapse in" id="companyPartyDetails">
 				<div class="row">
 					<div class="col-sm-6">
 						<p class="form-label m-b-10">Party's Name</p>
@@ -138,7 +130,6 @@
 				</div>
 			</div>
 		</div>
-        <!--addresses-->
 		
         <div formArrayName="piecesTypes">
           	<div *ngFor="let piecesType of myForm.controls.piecesTypes.controls; let i=index">
@@ -158,10 +149,8 @@
           	</div>
         </div>
 
-		<a (click)="AddpiecesType()" class="btn btn-success btn-md m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add New Purchase Item</a>
-
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header ch-alt">
 				<h2 style="display: inline-block">Purchase Revenue Details</h2>
 				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#revenueDetails" aria-expanded="true" aria-controls="revenueDetails"></a>
 			</div>
@@ -321,7 +310,7 @@
 			</div>
 		</div>
 
-
+		<a (click)="AddpiecesType()" class="btn btn-success btn-md m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add New Purchase Item</a>
 
         <div class="margin-20">
           <button type="submit" class="btn btn-lg btn-primary">Submit</button>

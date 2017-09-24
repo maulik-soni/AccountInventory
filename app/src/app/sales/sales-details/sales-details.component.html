@@ -1,179 +1,180 @@
 <form [formGroup]="salesDetails">
-
-  <div class="card-header">
-    <!--<h2>Goods Details</h2>-->
-    <ul class="actions">
-      <li>
-        <label class="radio radio-inline m-r-20">
-          <input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
-          <i class="input-helper"></i>
-          Single Stone
-        </label>
-        
-        <label class="radio radio-inline m-r-20">
-          <input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
-          <i class="input-helper"></i>
-          Parcel
-        </label>
-      </li>			
-    </ul>
-	</div>
-
-  <div class="card-body card-padding">
-
-    <div class="row m-t-25" *ngIf="piecetype == 'singlestone'">
-      <div class = "col-sm-4">
-      <div class="form-group">
-        <p class="form-label">Search Purchase by 'Stock ID'</p>
-        <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
-      </div>
-      <button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
-      </div>
+  <div class="card">
+    <div style="overflow : hidden">
+      <ul class="actions pull-right m-t-5">
+        <li>
+          <label class="radio radio-inline m-r-20">
+            <input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+            <i class="input-helper"></i>
+            Certified Stone
+          </label>
+          
+          <label class="radio radio-inline m-r-20">
+            <input type="radio" value="parcel" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
+            <i class="input-helper"></i>
+            Parcel
+          </label>
+        </li>			
+      </ul>
     </div>
 
-    <div class="row m-t-25" *ngIf="piecetype == 'parcel'">
-      <div class = "col-sm-4">
-      <div class="form-group">
-        <p class="form-label">Search Purchase by 'Lot Number'</p>
-        <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
-      </div>
-      <button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
-      </div>
-    </div>
+    <div class="card-body card-padding">
 
-    <div *ngIf="searchResult">
-      <div class = "row m-t-25" *ngIf = "searchResult">
-          <div class="col-sm-12" style= "height:auto;color:#666;">
-              <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
-                  <div style="width:30%; float:left;padding:10px;">
-                      <span style="font-size:14px;float:left; width:100%;">
-                      <b>Client Name : {{mypurchase.account_name}}</b>
-                      </span>
-                      <span style="font-size:14px;float:left;width:100%;">
-                      <b>Currency Conversion Rate: $1 = ₹{{mypurchase.currency_convrsion_rate}}</b>
-                      </span>
-                      <!--<span style="font-size:14px;float:left;width:100%;">
-                      <b>Country : {{mypurchase.account_name}}</b> 
-                      </span>-->
-                      <!--<span style="font-size:14px;float:left;width:100%;">
-                      <b>Notes : {{mypurchase.account_name}}</b> 
-                      </span>-->
-                  </div>
-                  <div style="width:40%; float:right;padding:">
-                      <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                      <b>Date : {{mypurchase.purchase_date}}</b>
-                      </span>
-                      <!--<span style="font-size:14px;float:right;  padding:10px; text-align:right;">
-                      <b>Invoice# : {{mypurchase.account_name}}</b>
-                      </span>-->
-                  </div>
+      <div class="row" *ngIf="piecetype == 'singlestone'">
+        <div class = "col-sm-4">
+          <div class="form-group col-lg-8 col-sm-8 col-xs-8">
+            <p class="form-label">Search Purchase by 'Stock ID'</p>
+            <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class = "col-lg-4 col-sm-4 col-xs-4">
+            <button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row m-t-25" *ngIf="piecetype == 'parcel'">
+        <div class = "col-sm-4">
+        <div class="form-group">
+          <p class="form-label">Search Purchase by 'Lot Number'</p>
+          <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+        </div>
+        <button class="btn btn-primary btn-sm waves-effect" (click) = "search()">Search</button>
+        </div>
+      </div>
+
+      <div *ngIf="searchResult">
+        <div class = "row m-t-25" *ngIf = "searchResult">
+            <div class="col-sm-12" style= "height:auto;color:#666;">
+                <div style="width:100%; padding:0px 0px;border-bottom:1px solid rgba(0,0,0,0.2);float:left;">
+                    <div style="width:30%; float:left;padding:10px;">
+                        <span style="font-size:14px;float:left; width:100%;">
+                        <b>Client Name : {{mypurchase.account_name}}</b>
+                        </span>
+                        <span style="font-size:14px;float:left;width:100%;">
+                        <b>Currency Conversion Rate: $1 = ₹{{mypurchase.currency_convrsion_rate}}</b>
+                        </span>
+                        <!--<span style="font-size:14px;float:left;width:100%;">
+                        <b>Country : {{mypurchase.account_name}}</b> 
+                        </span>-->
+                        <!--<span style="font-size:14px;float:left;width:100%;">
+                        <b>Notes : {{mypurchase.account_name}}</b> 
+                        </span>-->
+                    </div>
+                    <div style="width:40%; float:right;padding:">
+                        <span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                        <b>Date : {{mypurchase.purchase_date}}</b>
+                        </span>
+                        <!--<span style="font-size:14px;float:right;  padding:10px; text-align:right;">
+                        <b>Invoice# : {{mypurchase.account_name}}</b>
+                        </span>-->
+                    </div>
+                </div>
+                <div style="width:100%; padding:0px; float:left;">
+                    <div style="width:100%;float:left;background:#efefef;">
+                        <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
+                        Decription
+                        </span>
+                        <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                        Amount
+                        </span>
+                    </div>
+                    <div style="width:100%;float:left;">
+                        <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
+                        Stock ID : {{mypurchase.Stock_ID}}
+                        <span style="font-size:10px; float:left; width:100%;">
+                        Total Carats : {{mypurchase.total_diamond_carat}}
+                        Total Picies : {{mypurchase.total_diamond_pcs}}
+                        <div>
+                          Diamond Shape :  {{mypurchase.diamond_shape}}
+                        </div>
+                        <div>
+                          Diamond Size :  {{mypurchase.diamond_size}}
+                        </div>
+                        <div>
+                          Diamond Colr :  {{mypurchase.diamond_color}}
+                        </div>
+                        <div>
+                          Diamond Length :  {{mypurchase.length}}
+                        </div>
+                        <div>
+                          Diamond Width :  {{mypurchase.width}}
+                        </div>
+                        <div>
+                          Diamond Depth :  {{mypurchase.depth}}
+                        </div>
+                        <div>
+                          Diamond Weight :  {{mypurchase.Weight}}
+                        </div>
+                        
+                        </span>
+                        </span>
+                        <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
+                        ₹ {{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
+                        </span>
+                    </div>
+                    <div style="width:100%;float:left; background:#fff;">
+                        <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
+                        Total : ₹ {{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
+                        </span>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        <div class="row">
+          <div class="col-sm-3 m-t-15">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">LESS</p>
+                <input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur) = "rateCALC('less')">
               </div>
-              <div style="width:100%; padding:0px; float:left;">
-                  <div style="width:100%;float:left;background:#efefef;">
-                      <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;font-weight:600;">
-                      Decription
-                      </span>
-                      <span style="font-weight:600;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                      Amount
-                      </span>
-                  </div>
-                  <div style="width:100%;float:left;">
-                      <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                      Stock ID : {{mypurchase.Stock_ID}}
-                      <span style="font-size:10px; float:left; width:100%;">
-                      Total Carats : {{mypurchase.total_diamond_carat}}
-                      Total Picies : {{mypurchase.total_diamond_pcs}}
-                      <div>
-                        Diamond Shape :  {{mypurchase.diamond_shape}}
-                      </div>
-                      <div>
-                        Diamond Size :  {{mypurchase.diamond_size}}
-                      </div>
-                      <div>
-                        Diamond Colr :  {{mypurchase.diamond_color}}
-                      </div>
-                      <div>
-                        Diamond Length :  {{mypurchase.length}}
-                      </div>
-                      <div>
-                        Diamond Width :  {{mypurchase.width}}
-                      </div>
-                      <div>
-                        Diamond Depth :  {{mypurchase.depth}}
-                      </div>
-                      <div>
-                        Diamond Weight :  {{mypurchase.Weight}}
-                      </div>
-                      
-                      </span>
-                      </span>
-                      <span style="font-weight:normal;float:left;padding:10px ;width:40%;color:#888;text-align:right;">
-                      ₹ {{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
-                      </span>
-                  </div>
-                  <div style="width:100%;float:left; background:#fff;">
-                      <span style="font-weight:600;float:right;padding:10px 0px;width:40%;color:#666;text-align:center;">
-                      Total : ₹ {{mypurchase.amount_INR}}(${{mypurchase.amount_dolar}})
-                      </span>
-                  </div>
+            </div>
+          </div>
+          <div class="col-sm-3 m-t-15">
+            <div class="form-group ">
+              <div class="fg-line">
+                <p class="form-label">Actual Sales Rate</p>
+                <input type="text" class="form-control fg-input" [(ngModel)] = "acctual_sale_rate"  name = "acctual_sale_rate" (blur) = "rateCALC('rate')" [ngModelOptions]="{standalone: true}">
               </div>
+            </div>
           </div>
+          <div class="col-sm-3 m-t-15">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Sales Discount</p>
+                <input type="text" class="form-control fg-input" formControlName = "sale_disc" name = "sale_disc" (blur) = "rateCALC('discount')">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3 m-t-15">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">Sales Rate after Discount</p>
+                <input type="text" class="form-control fg-input" formControlName = "sale_rate" name = "sale_disc" disabled = "true">
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-4 m-t-15">
+            <div class="form-group">
+              <div class="fg-line">
+                <p class="form-label">LESS 2</p>
+                <input type="text" class="form-control fg-input" formControlName = "less2" name = "less2" (blur) = "rateCALC('less')">
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 m-t-15">
+            <div class="form-group ">
+              <div class="fg-line">
+                <p class="form-label">LESS 3</p>
+                <input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur) = "rateCALC('less')">
+              </div>
+            </div>
+          </div> -->
         </div>
 
-      <div class="row">
-        <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p>
-        <div class="col-sm-4 m-t-15">
-          <div class="form-group">
-            <div class="fg-line">
-              <p class="form-label">LESS 1</p>
-              <input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur) = "rateCALC('less')">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4 m-t-15">
-          <div class="form-group">
-            <div class="fg-line">
-              <p class="form-label">LESS 2</p>
-              <input type="text" class="form-control fg-input" formControlName = "less2" name = "less2" (blur) = "rateCALC('less')">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4 m-t-15">
-          <div class="form-group ">
-            <div class="fg-line">
-              <p class="form-label">LESS 3</p>
-              <input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur) = "rateCALC('less')">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Sales Rate & Diescount</p>
-        <div class="col-sm-4 m-t-15">
-          <div class="form-group ">
-            <div class="fg-line">
-              <p class="form-label">Actual Sales Rate</p>
-              <input type="text" class="form-control fg-input" [(ngModel)] = "acctual_sale_rate"  name = "acctual_sale_rate" (blur) = "rateCALC('rate')" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4 m-t-15">
-          <div class="form-group">
-            <div class="fg-line">
-              <p class="form-label">Sales Discount</p>
-              <input type="text" class="form-control fg-input" formControlName = "sale_disc" name = "sale_disc" (blur) = "rateCALC('discount')">
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-4 m-t-15">
-          <div class="form-group">
-            <div class="fg-line">
-              <p class="form-label">Sales Rate after Discount</p>
-              <input type="text" class="form-control fg-input" formControlName = "sale_rate" name = "sale_disc" disabled = "true">
-            </div>
-          </div>
-        </div>
+        <!-- <div class="row">
+          
+        </div> -->
       </div>
     </div>
   </div>
