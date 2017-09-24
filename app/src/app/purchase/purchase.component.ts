@@ -558,12 +558,16 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
       for (let x in jsonMap) {
         index.push(x);
       }
-      for(let i=1; i<scope.data.length-1; i++){
-        for(let j=0; j<index.length; j++){
-          jsonMap[index[j]] = scope.data[i][j];
+      console.log(scope.data);
+      for(let i=1; i<scope.data.length; i++){
+        if(scope.data[i].length){
+          for(let j=0; j<index.length; j++){
+            console.log(jsonMap[index[j]], scope.data[i][j]);
+            jsonMap[index[j]] = scope.data[i][j];
+          }
+          console.log(jsonMap);
+          importedData.push(JSON.parse(JSON.stringify(jsonMap)));
         }
-        console.log(jsonMap);
-        importedData.push(JSON.parse(JSON.stringify(jsonMap)));
       }
       for(var i = 0; i<importedData.length; i++){
         console.log(importedData[i]);
