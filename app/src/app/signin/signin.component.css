@@ -7,7 +7,7 @@
 .login-form{
     height: 100vh;
     display: flex;
-    background: orange;
+    /* background: orange; */
 }
 
 .notify-error{
@@ -23,10 +23,19 @@
 .login-content{
     margin: auto;
     height: auto!important;
-    padding: 9%;
-    width: 80%;
+    /* padding: 2%;
+    width: 27%; */
     background: #fff;
     box-shadow:8px 6px 20px 0px rgba(0, 0, 0, 0.42);
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+}
+
+.container-fluid{
+    /* background: #fff; */
 }
 
 .left-info h1{

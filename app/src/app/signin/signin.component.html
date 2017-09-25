@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="row no-gutters">
-        <div class="col col-md-8 col-lg-8 col-sm-6 p-0">
+        <!-- <div class="col col-md-8 col-lg-8 col-sm-6 p-0">
             <div class="left-info">
                 <h1>Raha Exports</h1>
             </div>
-        </div>
-        <div class="col col-md-4 col-lg-4  col-sm-6 p-0">
+        </div> -->
+        <div class="col col-lg-3 col-md-4">
             <div class="login-form">
-                <div class="login-content">
+                <div class="login-content p-30">
                 <!-- Login -->
                     <form #f="ngForm" novalidate (ngSubmit)="f.valid && onSubmit(f)">
 
@@ -18,8 +18,8 @@
                             <ng-select [items]="options.account_name" (selected)="selectedparty($event)"  (removed)="removed($event)" placeholder="No Party Selected"></ng-select>
                         </div>-->
 
-                        <div>
-                            <label>Country:</label>
+                        <div class="well well-lg">
+                            <div class="m-b-20"><label>Country:</label></div>
                             <md-radio-group [(ngModel)]="fields.country" (change)="countryChange()" class="main-filter" name="billtype">
           <md-radio-button  class="radio-button" *ngFor="let option of countries"  [value]="option" >{{option}}</md-radio-button>
         </md-radio-group>
@@ -65,7 +65,7 @@
                             
                             
                             <button  class="btn btn-primary m-t-20"   type="submit">Login</button>
-                            <a href="">Forget Password</a>
+                            <div><a href="">Forget Password</a></div>
                         
                         
                         <p *ngIf="error"  class="alert alert-danger alert-dismissible form-error">
