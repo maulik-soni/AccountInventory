@@ -1,0 +1,83 @@
+<dashboard>
+ <div class="container">
+   <div class="block-header">
+      <h2>Vendor Details</h2>
+    </div>
+
+
+      <div class="card">
+    <form (ngSubmit)="onProfileSubmit()" novalidate>
+        <div class="card-header">
+          <span style="margin:11px">Vendor Profile</span>
+           <button *ngIf="isEditable" (click)="onProfileEdit()"  class="btn btn-info btn-sm btn-icon-text waves-effect">
+                <!--<span class="zmdi zmdi-edit"></span>-->
+                <span>Edit Details</span>
+              </button>
+        </div>
+        <div class="card-body card-padding">
+          <vendor-details [vendorgroup]="vendorProfile"></vendor-details>
+
+      <button *ngIf="!isEditable" class="btn">Save</button>
+        </div>
+
+    </form>
+        <!--<p> {{companyProfile.value | json}} </p>-->
+      </div>
+
+
+    <div class="card">
+       <div class="card-header">
+          <span style="margin:11px">Bank Details</span>
+           <button  (click)="addBank()"  class="btn btn-info btn-icon-text waves-effect">
+                <!--<span class="zmdi zmdi-account-add"></span>-->
+                <span> Add Bank</span>
+              </button>
+        </div>
+        <div class="card-body card-padding">
+          
+          <form *ngIf="banks.controls.length > 0" [formGroup]="vendorBank" novalidate>
+            <div formArrayName="banks" class="well well-lg">
+              <div *ngFor="let bank of banks.controls; let i=index" [formGroupName]="i" >
+                <div class="ch-alt">
+					      <h4 style="display: inline-block">Bank {{i + 1}}</h4>
+					      <span class="glyphicon glyphicon-remove pull-right"(click)="removeBank(i)"></span>
+				        </div>
+                <bank-details [group]="bank"></bank-details>
+              </div>
+            </div>
+
+            <button class="btn" (click)="onBankSubmit()">Save</button>
+            <p>{{ vendorBank.value | json}}</p>
+          </form>
+
+          <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th *ngFor="let title of titles">{{title[0]}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bank of vendorsbankdata">
+            <td *ngFor="let title of titles">{{bank[title[1]]}}</td>
+            <!--<td class="text-left">
+              <button type="button"  (click)="onedit(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+                <span class="zmdi zmdi-edit"></span>
+              </button>
+              <button type="button" (click)="ondelete(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+                <span class="zmdi zmdi-delete"></span>
+              </button>
+            </td>-->
+          </tr>
+        </tbody>
+      </table>
+          <!--<p>{{companyBank.value | json}}</p>-->
+        </div>
+      </div>
+
+
+    </div>
+ </div>
+
+    
+</dashboard>

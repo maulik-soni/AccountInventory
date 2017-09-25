@@ -1,6 +1,7 @@
 export class SignInFields {
     email: string; 
-    password: string; 
+    country:string; 
+    password: string;
 }
 
 export const Countries=['India','Indonesia','China'];

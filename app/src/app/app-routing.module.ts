@@ -1,19 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes,Router } from '@angular/router';
-
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes =[
    { 
     path: '',
-    redirectTo: '/login',
-    pathMatch: 'full' 
+    component:HomeComponent
   },
-  // { 
-  //   path: 'login',
-  //   redirectTo:'/login',
-  //   pathMatch:'full'
-  // },
+  { 
+    path: 'login',
+    redirectTo:'/login',
+  },
   
 ];
 

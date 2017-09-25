@@ -15,7 +15,7 @@ searchvalues=new SearchValues(
   this.searchatts.inventory[0],
 );
 
-filtertitles=['shape','color','clarity','group','kapan','lab','polish'];
+filtertitles=['shape','color','clarity','group','lab','polish'];
 resulttitles=[
   ['PCS ID','PCS_ID'],
   ['invoice number','invoice_number'],
@@ -114,6 +114,8 @@ if(this.searchvalues.inventory!="all"){
  all['filterresult']='filterresult';
  all['inventory']='filter';
  all['filter']='search';
+
+ this.searchvalues.inventory='all';
 }
 
 console.log(all);

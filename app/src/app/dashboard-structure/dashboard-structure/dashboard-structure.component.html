@@ -16,18 +16,18 @@
 
     <li class="pull-right">
       <ul class="top-menu">
-        <li id="toggle-width">
+        <!-- <li id="toggle-width">
           <div class="toggle-switch">
             <input id="tw-switch" type="checkbox" hidden="hidden">
             <label for="tw-switch" class="ts-helper"></label>
           </div>
-        </li>
+        </li> -->
 
-        <li id="top-search">
+        <!-- <li id="top-search">
           <a href="#"><i class="tm-icon zmdi zmdi-search"></i></a>
-        </li>
+        </li> -->
 
-        <li class="dropdown">
+        <!-- <li class="dropdown">
           <a data-toggle="dropdown" href="#"><i class="tm-icon zmdi zmdi-more-vert"></i></a>
           <ul class="dropdown-menu dm-icon pull-right">
             <li class="skin-switch hidden-xs">
@@ -52,7 +52,7 @@
               <a href="#"><i class="zmdi zmdi-settings"></i> Other Settings</a>
             </li>
           </ul>
-        </li>
+        </li> -->
 
       </ul>
     </li>
@@ -96,7 +96,7 @@
 
         <ul class="main-menu">
           <li class="active">
-            <a [routerLink]="['/dashboard']"><i class="zmdi zmdi-view-dashboard"></i>Dashboard</a>
+            <a [routerLink]="['/inventory']"><i class="zmdi zmdi-view-dashboard"></i>Inventory</a>
           </li>
           
           <li class="sub-menu">
@@ -162,10 +162,6 @@
                 <li><a [routerLink]="['/users/add-new']">Add New User</a></li>
                 <li><a [routerLink]="['/users/manage-users']">Manage Users</a></li>
             </ul>
-          </li>
-
-          <li class="sub-menu">
-            <a [routerLink]="['/inventory']"><i class="zmdi zmdi-account"></i>Inventory</a>
           </li>
 
           <li class="sub-menu">

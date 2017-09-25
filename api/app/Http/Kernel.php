@@ -20,6 +20,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         // \App\Http\Middleware\Cors::class,
         \Barryvdh\Cors\HandleCors::class,
+
     ];
 
     /**
@@ -60,6 +61,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'is'=> \App\Http\Middleware\CheckRole::class,
+        'setdatabase'=>\App\Http\Middleware\CheckDatabase::class,
         'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

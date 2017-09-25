@@ -19,17 +19,21 @@ class CreatePaymentRecieptsTable extends Migration
             $table->double('invoice_value');
             $table->date('transaction_date');
             $table->string('transaction_mode');
-            $table->json('transaction_details')->nullable();
+            $table->enum('transaction_status',['full','part']);
             $table->string('account_name');
             $table->string('transaction_currency');
-            $table->enum('transaction_status',['full','part']);
+            $table->date('date');
+            $table->date('due_date');
+            $table->double('balance');
+            $table->double('received');
+            $table->string('cheque_no')->nullable();
+            $table->string('bank')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('bank_branch')->nullable();
             $table->double('credit_INR')->nullable();
             $table->double('debit_INR')->nullable();
             $table->double('transaction_conversion_rate')->nullable();
-            $table->double('balance');
-            $table->double('received');
-            $table->date('date');
-            $table->date('due_date');
+    
             $table->timestamps();
         });
     }

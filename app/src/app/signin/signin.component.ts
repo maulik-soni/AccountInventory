@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { SignInFields,Countries } from './signin.model';
+import { SharedModule } from './../shared/shared.module';
 import { AuthService } from "./../authorization/auth.service";
 
 @Component({
@@ -26,7 +27,17 @@ export class SigninComponent implements OnInit {
  
  
   ngOnInit():any {
-    this.fields={email:"",password:""};
+    this.fields={email:"",password:"",country:this.countries[0]};
+    localStorage.setItem('country',this.fields.country)
+  }
+
+  countryChange(){
+    localStorage.setItem('country',this.fields.country)
+  }
+
+  getCountry(){
+     let store= localStorage.getItem('country');
+     return store.slice(1,store.length-1);
   }
 
   onSubmit(form:NgForm){
@@ -35,13 +46,15 @@ export class SigninComponent implements OnInit {
       response=>{
         this.role=this.authservice.HasRole();
         // let redirect='/'+this.role;
-        let redirect = '/dashboard';
+        let redirect = '/inventory';
         this.route.navigate([redirect]);
       },
       error=>{
           this.error=error;
           this.resetFields();
-          form.reset();
+          form.controls['email'].reset();
+          form.controls['password'].reset();
+          // this.fields.country=this.getCountry();
       },
     );
     
@@ -49,7 +62,8 @@ export class SigninComponent implements OnInit {
   }
 
   resetFields(){
-    this.fields={email:"",password:""};
+    this.fields.email="";
+    this.fields.password="";
   }
 
 }

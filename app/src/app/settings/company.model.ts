@@ -1,4 +1,6 @@
-export class Company{
+
+
+export class CompanyProfile {
     constructor(
         public c_name:string,
         public address:string,
@@ -10,6 +12,15 @@ export class Company{
         public QBC:string,
         public phone?:string,
         public mobile?:string,
-        public email?:string
+        public email?:string,
     ){}
 }
+
+
+export const CompanyTitles=[
+    ['name','c_name'],
+    ['GST','GST'],
+    ['phone','phone'],
+    ['mobile','mobile'],
+    ['PAN','PAN'],
+    ['email','email']]

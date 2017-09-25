@@ -25,7 +25,7 @@ searchvalues=new SearchValues(
 );
 
 titles=['party name','amount'];
-innertitles=['invoice number','date of invoice','invoice amount','amount received','balance amount','due']
+innertitles=['invoice number','date of invoice','invoice amount','amount received','balance amount','due','due days']
 data=[];
 
 searchresult=[];

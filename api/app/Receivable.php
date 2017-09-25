@@ -58,10 +58,28 @@ class Receivable extends Model
         return null;
     }
 
-    public static function getbydate($from,$to){
+     public static function betweenDates($from,$to){
+        $sales = DB::table('sales')
+                         ->leftjoin('payment_reciepts', 'sales.invoice_number', '=', 'payment_reciepts.invoice_number')
+                         ->where('payment_reciepts.invoice_number','=',null)
+                        ->select('sales.invoice_number','sales.account_name','sales.amount_INR as balance','sales.amount_INR as invoice_value','sales.sales_date as date','sales.due_date')
+                        ->whereBetween('sales_date',[$from,$to])
+                        ->get();
 
-        
-        $sales=DB::table('sales')->whereBetween('sales_date',[$from,$to])->get();
-        return [$from,$to];
+            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received')
+                       ->where([['balance','>=',0],['debit_INR','=',null]])
+                       ->whereBetween('date',[$from,$to])
+                       ->latest()
+                       ->get()
+                       ->unique('account_name')
+                       ->values()
+                       ->where('balance','!=',0)
+                       ->all();
+            
+             return $sales
+                        ->merge($reciept)
+                        ->unique()
+                        ->values()
+                        ->all();
     }
 }

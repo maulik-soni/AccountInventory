@@ -11,11 +11,18 @@ export class AuthService{
 
     constructor(private http:Http){}
 
+    getcountry(){
+    let country=localStorage.getItem('country');
+     if(country!=null){
+        return country;
+    }
+  }
+
     authenticate(email:string,password:string){
         let headers= new Headers({'X-Requested-With': 'XMLHttpRequest'});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.loginUrl,{email:email,password:password},options)
+        return this.http.post(this.loginUrl+'?country='+this.getcountry(),{email:email,password:password},options)
                         .map(this.extractData)
                         .catch(this.handleError);
                         
@@ -38,7 +45,7 @@ export class AuthService{
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
       //errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-      errMsg = `${error.statusText || ''} ${err}`;
+      errMsg = `${err}`;
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

@@ -1,0 +1,44 @@
+.left-info{
+    background: url('../../assets/images/loginbg.jpg') 50% no-repeat;
+    height: 100vh;
+    display: flex;
+}
+
+.login-form{
+    height: 100vh;
+    display: flex;
+    /* background: orange; */
+}
+
+.notify-error{
+    color: rgba(244, 67, 54, 0.7);
+    transition: all .3s;
+}
+
+.form-error{
+    margin-top: 5px;
+    text-align: center;
+}
+
+.login-content{
+    margin: auto;
+    height: auto!important;
+    /* padding: 2%;
+    width: 27%; */
+    background: #fff;
+    box-shadow:8px 6px 20px 0px rgba(0, 0, 0, 0.42);
+}
+
+.row{
+    display: flex;
+    justify-content: center;
+}
+
+.container-fluid{
+    /* background: #fff; */
+}
+
+.left-info h1{
+    margin: auto;
+    color: #fff;
+}
