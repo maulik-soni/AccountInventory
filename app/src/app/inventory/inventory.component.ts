@@ -10,14 +10,16 @@ import { WebServicesService } from './../services/web-services.service';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
+  avalue="vikas";
+  showfilterables=false;
 searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
 searchvalues=new SearchValues(
   this.searchatts.inventory[0],
 );
 
-filtertitles=['shape','color','clarity','group','lab','polish'];
+filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor'];
 resulttitles=[
-  ['PCS ID','PCS_ID'],
+  ['STOCK ID','Stock_ID'],
   ['invoice number','invoice_number'],
   ['purchase date','purchase_date'],
   ['due date','due_date'],
@@ -76,27 +78,42 @@ result=[];
   ngOnInit() {
   }
 
-  getoption(option){
-    if(option=='filter'){
-      let getfilters;
+  showpopup(){
+  this.showfilterables=true;
+   let getfilters;
       getfilters={
         filter:'filteroptions'
       }
       this.inventoryservice.showinventory(JSON.stringify(getfilters))
       .subscribe(response=>{this.filterdata=response.response.filters;
       console.log(this.filterdata);});
-    }
-  }
+}
+
 
   getdynamic(form:NgForm){
     var all=form.value;
     all['getoption']='getoption';
+    all['inventory']='filter';
+    console.log(all);
    
      this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
        this.filterdata=response.response.filters;
       console.log(this.filterdata);});
 
  
+  }
+
+  getallfilterdata(){
+    let data={
+      inventory:'all',
+    }
+
+    this.inventoryservice.showinventory(JSON.stringify(data)).subscribe(response=>{
+       this.result=response.response.inventory;
+       console.log(response);
+      });
+
+      this.showfilterables=false
   }
   
   
@@ -105,25 +122,37 @@ result=[];
 // var all=form.value.filter;
 // all['filterresult']='filterresult';
 
-if(this.searchvalues.inventory=="all"){
-  var all = form.value;
-}
+// if(this.searchvalues.inventory=="all"){
+//   var all = form.value;
+// }
 
-if(this.searchvalues.inventory!="all"){
+
  var all=form.value.filter;
  all['filterresult']='filterresult';
  all['inventory']='filter';
  all['filter']='search';
+ 
 
- this.searchvalues.inventory='all';
-}
 
-console.log(all);
+console.log(form.value);
 
      this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
        this.result=response.response.inventory;
        console.log(response);});
+
+       this.showfilterables=false;
     
+  }
+
+  getbarcodeid(formb:NgForm){
+    let barcodevalues=[];
+    for (let key in formb.value){
+      let value=formb.value[key];
+      if(value){
+        barcodevalues.push(key);
+      }
+    }
+     console.log(barcodevalues);
   }
 
 }

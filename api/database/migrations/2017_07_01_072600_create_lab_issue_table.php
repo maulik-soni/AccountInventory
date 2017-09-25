@@ -14,7 +14,7 @@ class CreateLabIssueTable extends Migration {
 	{
 		Schema::create('lab_issue', function(Blueprint $table)
 		{
-			$table->integer('PCS_ID')->unique();
+			$table->integer('Stock_ID')->unique();
 			$table->increments('sr_no');
 			$table->integer('invoice_number')->unique();
 			$table->string('date', 256)->nullable();

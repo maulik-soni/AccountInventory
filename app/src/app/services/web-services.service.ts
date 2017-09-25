@@ -549,10 +549,10 @@ showinventory(data){
     this._http.post(this.apis.postnewpurchase,data,options).subscribe();
   }
 
-  purchaseReturn(PCS_ID){
+  purchaseReturn(Stock_ID){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.purchaseretrun,PCS_ID,options).subscribe();
+    this._http.post(this.apis.purchaseretrun,Stock_ID,options).subscribe();
   }
 
   purchaseretrunreport(){
@@ -620,10 +620,10 @@ showinventory(data){
     this._http.post(this.apis.postnewsales,data,options).subscribe();
   }
 
-  salesReturn(PCS_ID){
+  salesReturn(Stock_ID){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.salesreturn,PCS_ID,options).subscribe();
+    this._http.post(this.apis.salesreturn,Stock_ID,options).subscribe();
   }
 
   salesretrunreport(){

@@ -119,7 +119,7 @@ export class SalesReturnComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "PCS ID",
           "invoice_number": "Invoice Number",
           "sales_date": "Sales Date",
           "due_date": "Due Date",

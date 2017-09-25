@@ -35,9 +35,11 @@ class InventoryController extends Controller
                     'diamond_color'=>[],
                     'diamond_clarity'=>[],
                     'stock_status_group'=>[],
-                    // 'kapan'=>[],
                     'LAB_type'=>[],
-                    'polishing_type'=>[]
+                    'polishing_type'=>[],
+                    'finalCut'=>[],
+                    'symmetry'=>[],
+                    'fluorescenceIntensity'=>[],
                     ]);
             
 

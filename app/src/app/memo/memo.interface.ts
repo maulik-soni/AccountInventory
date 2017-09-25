@@ -10,7 +10,7 @@ export interface newMemo {
 }
 
 export interface memoDetails{
-    PCS_ID: number;
+    Stock_ID: number;
     Lot_Number: number;
     carats: number;
     rate:number;

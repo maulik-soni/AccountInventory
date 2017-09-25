@@ -103,7 +103,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   initPiecesType() {
         return this._fb.group({
-            PCS_ID: [''],
+            Stock_ID: [''],
             certificate_number: [''],
             kapan:[''],
             LAB_type:[''],
@@ -465,7 +465,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public onFileChange(evt:any) {
     var jsonMap = {
           "sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "PCS ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",

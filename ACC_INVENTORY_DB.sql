@@ -127,7 +127,7 @@ CREATE TABLE `dealers` (
 
 CREATE TABLE `lab_issue` (
   `Sr_no` int(11) NOT NULL,
-  `PCS_ID` int(11) NOT NULL,
+  `Stock_ID` int(11) NOT NULL,
   `LAB_type` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date` date DEFAULT NULL,
   `shape` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -148,7 +148,7 @@ CREATE TABLE `lab_issue` (
 -- Dumping data for table `lab_issue`
 --
 
-INSERT INTO `lab_issue` (`Sr_no`, `PCS_ID`, `LAB_type`, `date`, `shape`, `service`, `carat`, `diameter`, `height`, `color`, `clarity`, `amount`, `return_date`, `status`, `updated_at`, `created_at`) VALUES
+INSERT INTO `lab_issue` (`Sr_no`, `Stock_ID`, `LAB_type`, `date`, `shape`, `service`, `carat`, `diameter`, `height`, `color`, `clarity`, `amount`, `return_date`, `status`, `updated_at`, `created_at`) VALUES
 (8, 23523, 'IGI', '1970-01-01', NULL, 'wefweg', 0, '23', '243', NULL, NULL, '342233', '2017-08-02', 'ISSUED', '2017-08-02 12:01:49', '2017-08-02 11:44:54'),
 (5, 898235, 'GIA', '1970-01-16', 'ROUND BRILLIANT CUT', 'ergerherh', 100, '5343', '24', 'GRAY', 'IF', '234524', '2017-08-02', 'ISSUED', '2017-08-02 12:01:43', '2017-07-16 20:56:29'),
 (7, 25235211, 'HRDA', '1970-01-01', NULL, '2ef22', 0, '2423', '32', NULL, NULL, '2423232', '2017-08-02', 'RECEIVED', '2017-08-02 14:31:40', '2017-08-02 11:44:02'),
@@ -161,7 +161,7 @@ INSERT INTO `lab_issue` (`Sr_no`, `PCS_ID`, `LAB_type`, `date`, `shape`, `servic
 --
 
 CREATE TABLE `memo_in` (
-  `PCS_ID` int(11) DEFAULT NULL,
+  `Stock_ID` int(11) DEFAULT NULL,
   `Lot_Number` int(11) DEFAULT NULL,
   `memo_invoice_number` varchar(256) NOT NULL,
   `date` varchar(256) DEFAULT NULL,
@@ -180,7 +180,7 @@ CREATE TABLE `memo_in` (
 -- Dumping data for table `memo_in`
 --
 
-INSERT INTO `memo_in` (`PCS_ID`, `Lot_Number`, `memo_invoice_number`, `date`, `account_name`, `broker`, `reference`, `carats`, `rate`, `no_of_days`, `due_date`, `status`, `country`) VALUES
+INSERT INTO `memo_in` (`Stock_ID`, `Lot_Number`, `memo_invoice_number`, `date`, `account_name`, `broker`, `reference`, `carats`, `rate`, `no_of_days`, `due_date`, `status`, `country`) VALUES
 (121332244, NULL, '12312312', '2017/8/9', 'HARISH DIAM', 'Barb Akew', 'dvadva', 1, 1232, 12, '2017/08/08', 'RETURNED', 'Albania'),
 (12323, NULL, '12312312', '2017/8/9', 'HARISH DIAM', 'Barb Akew', 'dvadva', 1, 1232, 12, '2017/08/08', 'RETURNED', 'Albania'),
 (4231231, NULL, '12312312', '2017/8/9', 'HARISH DIAM', 'Barb Akew', 'dvadva', 1, 1232, 12, '2017/8/21', 'ISSUED', 'Albania');
@@ -192,7 +192,7 @@ INSERT INTO `memo_in` (`PCS_ID`, `Lot_Number`, `memo_invoice_number`, `date`, `a
 --
 
 CREATE TABLE `memo_issue` (
-  `PCS_ID` int(11) DEFAULT NULL,
+  `Stock_ID` int(11) DEFAULT NULL,
   `Lot_Number` int(11) DEFAULT NULL,
   `memo_invoice_number` varchar(256) NOT NULL,
   `date` varchar(256) DEFAULT NULL,
@@ -212,7 +212,7 @@ CREATE TABLE `memo_issue` (
 -- Dumping data for table `memo_issue`
 --
 
-INSERT INTO `memo_issue` (`PCS_ID`, `Lot_Number`, `memo_invoice_number`, `date`, `account_name`, `broker`, `reference`, `carats`, `rate`, `no_of_days`, `due_date`, `return_date`, `status`, `country`) VALUES
+INSERT INTO `memo_issue` (`Stock_ID`, `Lot_Number`, `memo_invoice_number`, `date`, `account_name`, `broker`, `reference`, `carats`, `rate`, `no_of_days`, `due_date`, `return_date`, `status`, `country`) VALUES
 (23523, NULL, '134112412', '2017/8/1', 'R. KANTILAL & CO.', 'Barb Akew', 'nsdvnw', 100, 100, 12, '2017/08/08', NULL, 'ISSUED', 'Albania'),
 (335, NULL, '25235', '2017/8/31', 'ANAND GHAN DIAM', 'Marsha Mellow', 'fwwef', 123, 42223, 12, '2017/9/12', NULL, 'ISSUED', 'Albania');
 
@@ -347,7 +347,7 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 
 CREATE TABLE `purchase` (
   `sr_no` int(11) NOT NULL,
-  `PCS_ID` int(11) DEFAULT NULL,
+  `Stock_ID` int(11) DEFAULT NULL,
   `invoice_number` varchar(256) DEFAULT NULL,
   `purchase_date` date DEFAULT NULL,
   `due_date` date DEFAULT NULL,
@@ -421,7 +421,7 @@ CREATE TABLE `purchase` (
 -- Dumping data for table `purchase`
 --
 
-INSERT INTO `purchase` (`sr_no`, `PCS_ID`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportNo`, `colorDesc`, `finalCut`, `depthPct`, `tablePct`, `crnAg`, `crnHt`, `pavAg`, `pavDp`, `starLn`, `lrHalf`, `girdle`, `girdleCondition`, `girdlePct`, `culetSize`, `symmetry`, `fluorescenceIntensity`, `fluorescenceColor`, `keyToSymbols`, `reportType`, `reportDt`, `inscription`, `infoMsg`, `fullShapeDescription`) VALUES
+INSERT INTO `purchase` (`sr_no`, `Stock_ID`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportNo`, `colorDesc`, `finalCut`, `depthPct`, `tablePct`, `crnAg`, `crnHt`, `pavAg`, `pavDp`, `starLn`, `lrHalf`, `girdle`, `girdleCondition`, `girdlePct`, `culetSize`, `symmetry`, `fluorescenceIntensity`, `fluorescenceColor`, `keyToSymbols`, `reportType`, `reportDt`, `inscription`, `infoMsg`, `fullShapeDescription`) VALUES
 (21, 456, 'q123', '2017-07-29', '2017-08-28', 'S. R. DIAMONDS HK LTD.', '30', NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', 'Andorra', NULL, '{"comission1":0,"comission2":0}', 'RAPNET', NULL, NULL, 'MARQUISE CUT', NULL, NULL, 'GRAY', 'VVS2', 1, 1, 10, 3600, 4000, 5, 3780, 3600, 3600, 55, 55.38, 'GIA', '456c', 3600, 55.38, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (23, 25235211, '535352', NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 65, NULL, '{"less1":0,"less2":0,"less3":0}', NULL, NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, '43634634', NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -447,7 +447,7 @@ INSERT INTO `purchase` (`sr_no`, `PCS_ID`, `invoice_number`, `purchase_date`, `d
 
 CREATE TABLE `purchase_return` (
   `sr_no` int(11) NOT NULL,
-  `PCS_ID` int(11) DEFAULT NULL,
+  `Stock_ID` int(11) DEFAULT NULL,
   `invoice_number` varchar(256) DEFAULT NULL,
   `purchase_date` date DEFAULT NULL,
   `due_date` date DEFAULT NULL,
@@ -521,7 +521,7 @@ CREATE TABLE `purchase_return` (
 -- Dumping data for table `purchase_return`
 --
 
-INSERT INTO `purchase_return` (`sr_no`, `PCS_ID`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportno`, `colordesc`, `finalcut`, `depthpct`, `tablepct`, `crnag`, `crnht`, `pavag`, `pavdp`, `starln`, `lrhalf`, `girdle`, `girdlecondition`, `girdlepct`, `culetsize`, `symmetry`, `fluorescenceintensity`, `fluorescencecolor`, `keytosymbols`, `reporttype`, `reportdt`, `inscription`, `infomsg`, `fullshapedescription`) VALUES
+INSERT INTO `purchase_return` (`sr_no`, `Stock_ID`, `invoice_number`, `purchase_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `aginst_Hform`, `mVAT`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportno`, `colordesc`, `finalcut`, `depthpct`, `tablepct`, `crnag`, `crnht`, `pavag`, `pavdp`, `starln`, `lrhalf`, `girdle`, `girdlecondition`, `girdlepct`, `culetsize`, `symmetry`, `fluorescenceintensity`, `fluorescencecolor`, `keytosymbols`, `reporttype`, `reportdt`, `inscription`, `infomsg`, `fullshapedescription`) VALUES
 (1, 123456, 'Inv123', '2017-07-29', '2017-09-12', 'ANAND GHAN DIAM', '45', 'A', 65, 'A', '{"less1":0,"less2":0,"less3":0}', 'India', NULL, '{"comission1":0,"comission2":0}', 'GENERAL STOCK', NULL, NULL, 'ROUND BRILLIANT CUT', NULL, NULL, 'BLUE', 'FL', 1, 1, 10, 900, 1000, 10, 990, 900, 900, 13, 13.85, 'GIA', '123456C', 900, 13.85, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2, 12345, 'inv 234', '2017-07-29', '2017-08-08', 'RATNAKALA EXPORT', '10', 'A', 65, 'B', '{"less1":0,"less2":0,"less3":0}', 'India', NULL, '{"comission1":0,"comission2":0}', 'GENERAL STOCK', NULL, '17', 'PRINCESS CUT', '123', 'L', 'GREEN', 'IF', 1, 1, 5, 950, 1000, 5, 997.5, 950, 950, 14, 14.62, 'GIA', '12345C', 950, 14.62, NULL, 0, '{"brokerType":"","brokerName":"","brokerage":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
@@ -571,7 +571,7 @@ INSERT INTO `role_user` (`role_id`, `user_id`) VALUES
 
 CREATE TABLE `sales` (
   `sr_no` int(11) NOT NULL,
-  `PCS_ID` int(11) DEFAULT NULL,
+  `Stock_ID` int(11) DEFAULT NULL,
   `invoice_number` varchar(256) NOT NULL,
   `sales_date` varchar(256) DEFAULT NULL,
   `due_date` varchar(256) DEFAULT NULL,
@@ -652,7 +652,7 @@ CREATE TABLE `sales` (
 -- Dumping data for table `sales`
 --
 
-INSERT INTO `sales` (`sr_no`, `PCS_ID`, `invoice_number`, `sales_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `sale_disc`, `sale_rate`, `freight`, `purchase_amount_INR`, `purchase_amount_dolar`, `sales_amount_INR`, `sales_amount_dolar`, `diff_amount_INR`, `diff_amount_dolar`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportno`, `colordesc`, `finalcut`, `depthpct`, `tablepct`, `crnag`, `crnht`, `pavag`, `pavdp`, `starln`, `lrhalf`, `girdle`, `girdlecondition`, `girdlepct`, `culetsize`, `symmetry`, `fluorescenceintensity`, `fluorescencecolor`, `keytosymbols`, `reporttype`, `reportdt`, `inscription`, `infomsg`, `fullshapedescription`) VALUES
+INSERT INTO `sales` (`sr_no`, `Stock_ID`, `invoice_number`, `sales_date`, `due_date`, `account_name`, `payment_terms`, `polishing_type`, `currency_convrsion_rate`, `notes`, `less`, `country`, `bill_type`, `comission`, `stock_status_group`, `item`, `kapan`, `diamond_shape`, `diamond_lot_number`, `diamond_size`, `diamond_color`, `diamond_clarity`, `total_diamond_pcs`, `total_diamond_carat`, `cost_discount`, `cost_rate_per_carat`, `RAP_price`, `wd_rate`, `wd_rate_carat`, `rate_INR`, `amount_INR`, `rate_dolar`, `amount_dolar`, `LAB_type`, `certificate_number`, `avg_INR`, `avg_dolar`, `sale_disc`, `sale_rate`, `freight`, `purchase_amount_INR`, `purchase_amount_dolar`, `sales_amount_INR`, `sales_amount_dolar`, `diff_amount_INR`, `diff_amount_dolar`, `broker_details`, `length`, `width`, `depth`, `message`, `weight`, `reportno`, `colordesc`, `finalcut`, `depthpct`, `tablepct`, `crnag`, `crnht`, `pavag`, `pavdp`, `starln`, `lrhalf`, `girdle`, `girdlecondition`, `girdlepct`, `culetsize`, `symmetry`, `fluorescenceintensity`, `fluorescencecolor`, `keytosymbols`, `reporttype`, `reportdt`, `inscription`, `infomsg`, `fullshapedescription`) VALUES
 (1, 234, 'inv345', '2017/7/29', '2017/9/2', 'KANTILAL CHOTILAL', '35', 'A', 65, NULL, '{"less1":0,"less2":0,"less3":0}', 'Algeria', NULL, '{"comission1":0,"comission2":0}', 'GENERAL STOCK', NULL, NULL, 'MARQUISE CUT', NULL, NULL, 'GREEN', 'IF', 1, 1, 10, 9000, 10000, 10, 9900, 0, 9000, 0, 138.46, 'GIA', '234C', 9000, 138.46, 10, 9000, 0, 9000, 138.46, 9000, 138.46, 0, 0, '{"brokerType":"","brokerName":"","brokerage":""}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (2, 23523, '124124', '2017/8/22', '2017/9/3', NULL, '12', NULL, 31, '12411', '{"less1":0,"less2":0,"less3":0}', 'Afghanistan', NULL, '{"comission1":0,"comission2":0}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '{"brokerType":"","brokerName":"","brokerage":""}', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
@@ -664,7 +664,7 @@ INSERT INTO `sales` (`sr_no`, `PCS_ID`, `invoice_number`, `sales_date`, `due_dat
 
 CREATE TABLE `sales_return` (
   `sr_no` int(11) NOT NULL,
-  `PCS_ID` int(11) NOT NULL,
+  `Stock_ID` int(11) NOT NULL,
   `invoice_number` varchar(256) NOT NULL,
   `sales_date` varchar(256) DEFAULT NULL,
   `due_date` varchar(256) DEFAULT NULL,
@@ -866,21 +866,21 @@ ALTER TABLE `dealers`
 -- Indexes for table `lab_issue`
 --
 ALTER TABLE `lab_issue`
-  ADD PRIMARY KEY (`PCS_ID`),
+  ADD PRIMARY KEY (`Stock_ID`),
   ADD KEY `Sr_no` (`Sr_no`);
 
 --
 -- Indexes for table `memo_in`
 --
 ALTER TABLE `memo_in`
-  ADD UNIQUE KEY `PCS_ID` (`PCS_ID`),
+  ADD UNIQUE KEY `Stock_ID` (`Stock_ID`),
   ADD UNIQUE KEY `Lot_Number` (`Lot_Number`);
 
 --
 -- Indexes for table `memo_issue`
 --
 ALTER TABLE `memo_issue`
-  ADD UNIQUE KEY `PCS_ID` (`PCS_ID`),
+  ADD UNIQUE KEY `Stock_ID` (`Stock_ID`),
   ADD UNIQUE KEY `Lot_Number` (`Lot_Number`);
 
 --
@@ -919,7 +919,7 @@ ALTER TABLE `permission_role`
 --
 ALTER TABLE `purchase`
   ADD PRIMARY KEY (`sr_no`),
-  ADD UNIQUE KEY `PCS_ID` (`PCS_ID`),
+  ADD UNIQUE KEY `Stock_ID` (`Stock_ID`),
   ADD UNIQUE KEY `diamond_lot_number` (`diamond_lot_number`),
   ADD KEY `sr_no` (`sr_no`);
 
@@ -928,7 +928,7 @@ ALTER TABLE `purchase`
 --
 ALTER TABLE `purchase_return`
   ADD PRIMARY KEY (`sr_no`),
-  ADD UNIQUE KEY `PCS_ID` (`PCS_ID`),
+  ADD UNIQUE KEY `Stock_ID` (`Stock_ID`),
   ADD UNIQUE KEY `diamond_lot_number` (`diamond_lot_number`),
   ADD KEY `sr_no` (`sr_no`);
 
@@ -950,7 +950,7 @@ ALTER TABLE `role_user`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`sr_no`),
-  ADD UNIQUE KEY `PCS_ID` (`PCS_ID`),
+  ADD UNIQUE KEY `Stock_ID` (`Stock_ID`),
   ADD UNIQUE KEY `diamond_lot_number` (`diamond_lot_number`),
   ADD KEY `sr_no` (`sr_no`);
 
@@ -959,7 +959,7 @@ ALTER TABLE `sales`
 --
 ALTER TABLE `sales_return`
   ADD PRIMARY KEY (`sr_no`),
-  ADD UNIQUE KEY `PCS_ID` (`PCS_ID`),
+  ADD UNIQUE KEY `Stock_ID` (`Stock_ID`),
   ADD UNIQUE KEY `diamond_lot_number` (`diamond_lot_number`),
   ADD KEY `sr_no` (`sr_no`);
 

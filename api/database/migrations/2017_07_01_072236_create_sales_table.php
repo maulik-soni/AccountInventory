@@ -14,7 +14,7 @@ class CreateSalesTable extends Migration {
 	{
 		Schema::create('sales', function(Blueprint $table)
 		{
-			$table->integer('PCS_ID')->nullable()->unique('PCS_ID');
+			$table->integer('Stock_ID')->nullable()->unique('Stock_ID');
 			$table->integer('sr_no', true);
 			$table->string('invoice_number', 256);
 			$table->string('sales_date', 256)->nullable();

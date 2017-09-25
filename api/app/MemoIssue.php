@@ -8,5 +8,5 @@ class MemoIssue extends Model
 {
     public $timestamps = false;
     protected $table = 'memo_issue';
-    protected $primaryKey = 'PCS_ID';
+    protected $primaryKey = 'Stock_ID';
 }

@@ -22,7 +22,7 @@ class LabIssueController extends Controller
         //      ]);
         
         $lab= new LabIssue;
-		$lab->PCS_ID = Input::get("PCS_ID");
+		$lab->Stock_ID = Input::get("Stock_ID");
         $lab->date = Input::get("date");
         $lab->LAB_type = Input::get("LAB_type");
 		$lab->shape = Input::get("shape");
@@ -41,7 +41,7 @@ class LabIssueController extends Controller
     
     public function editlab(Request $request,$id)
     {
-        $id='PCS_ID';
+        $id='Stock_ID';
         $labis=LabIssue::find($id);
     }
     
@@ -49,12 +49,12 @@ class LabIssueController extends Controller
     {
         $data = $request->all(); 
         $lab = new \App\LabIssue;
-        LabIssue::where('PCS_ID', '=', $data['PCS_ID'])->delete();
+        LabIssue::where('Stock_ID', '=', $data['Stock_ID'])->delete();
     }    
     public function repoLabissue()
     {   
-        // $query=$request->only('PCS_ID');
-        // $repo = LabIssue::all()->where('PCS_ID','=',$query['PCS_ID']);
+        // $query=$request->only('Stock_ID');
+        // $repo = LabIssue::all()->where('Stock_ID','=',$query['Stock_ID']);
         // return $repo;       
         $repo = LabIssue::all();
         return $repo;
@@ -63,8 +63,8 @@ class LabIssueController extends Controller
         $data = $pcsID;
         // var_dump($data);
         $lab = new \App\LabIssue;
-        $mon=LabIssue::select('status')->where('PCS_ID', '=', $data)->update(['status'=>'RECEIVED']);
-        $ton=LabIssue::select('return_date')->where('PCS_ID', '=', $data)->update(['return_date'=>date('y/m/d')]);
+        $mon=LabIssue::select('status')->where('Stock_ID', '=', $data)->update(['status'=>'RECEIVED']);
+        $ton=LabIssue::select('return_date')->where('Stock_ID', '=', $data)->update(['return_date'=>date('y/m/d')]);
         return 'Done';
     }
 
@@ -82,9 +82,9 @@ class LabIssueController extends Controller
             if(!empty($params['search'])){
                 if($params['filterby']=='PCS ID'){
                     if($params['reportType'] == "report"){
-                        $response=LabIssue::where('PCS_ID',$params['search'])->where('status','ISSUED')->get();
+                        $response=LabIssue::where('Stock_ID',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=LabIssue::where('PCS_ID',$params['search'])->where('status','RECEIVED')->get();
+                        $response=LabIssue::where('Stock_ID',$params['search'])->where('status','RECEIVED')->get();
                     return response()->json($response,200);
                 }
                 if($params['filterby']=='Lab Type'){

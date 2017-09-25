@@ -14,7 +14,7 @@ class CreatePurchaseReturnTable extends Migration {
 	{
 		Schema::create('purchase_return', function(Blueprint $table)
 		{
-			$table->integer('PCS_ID')->unique();
+			$table->integer('Stock_ID')->unique();
 			$table->increments('sr_no');
 			$table->string('invoice_number', 256);
 			$table->string('purchase_date', 256)->nullable();

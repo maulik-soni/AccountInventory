@@ -126,7 +126,7 @@ export class LabissueReceivedReportComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "Sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "PCS ID",
           "LAB_type": "Lab Type",
           "date" : "Date",
           "shape" : "Shape",

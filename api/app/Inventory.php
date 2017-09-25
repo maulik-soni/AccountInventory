@@ -5,16 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Purchase;
-use App\MemoIn;
+use App\SalesReturn;
 use DB;
 
 class Inventory extends Model
 {
 
     public static function collection(){
-        $purchase=Purchase::all();
-        $memo=MemoIn::all();
-        return $purchase->merge($memo);
+        $purchase=DB::table('purchase')->get();
+        $sales=SalesReturn::all();
+        return $purchase->merge($sales);
     }
 
     public static function getfields($item){

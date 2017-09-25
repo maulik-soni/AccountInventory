@@ -14,7 +14,7 @@ class CreateMemoIssueTable extends Migration {
 	{
 		Schema::create('memo_issue', function(Blueprint $table)
 		{
-			$table->integer('PCS_ID')->nullable()->unique('PCS_ID');
+			$table->integer('Stock_ID')->nullable()->unique('Stock_ID');
 			$table->integer('Lot_Number')->nullable()->unique('Lot_Number');
 			$table->string('memo_invoice_number', 256);
 			$table->string('date', 256)->nullable();

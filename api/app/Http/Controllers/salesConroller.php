@@ -22,7 +22,7 @@ class salesConroller extends Controller
         // $sales->save();
         DB::table('sales')->insert($new_sales);
         for($i=0; $i<count($new_sales); $i++){
-            Purchase::where('PCS_ID','=',$new_sales[$i]['PCS_ID'])->delete();
+            Purchase::where('Stock_ID','=',$new_sales[$i]['Stock_ID'])->delete();
         }
         
 
@@ -38,7 +38,7 @@ class salesConroller extends Controller
         }else if(!empty($params['lastid'])){
             $sales_data = Sales::all()->where('sr_no','>',$params['lastid']);
         }else if(!empty($params['pcsid'])){
-            $sales_data = Sales::all()->where('PCS_ID','=',$params['pcsid']);
+            $sales_data = Sales::all()->where('Stock_ID','=',$params['pcsid']);
         }else{
             $sales_data = Sales::all();
         }
@@ -48,9 +48,9 @@ class salesConroller extends Controller
     public function editSales(){
         $newsales = Request::all();
         $sales = new \App\Sales;
-        $sales = Sales::find($newsales['PCS_ID']);
+        $sales = Sales::find($newsales['Stock_ID']);
         foreach ($newsales as $fields) {            
-            if($fields != "PCS_ID"){
+            if($fields != "Stock_ID"){
                 $sales->$fields = $newsales[$fields];       
             }
         }
@@ -60,7 +60,7 @@ class salesConroller extends Controller
     public function delSales(){
         $data = Request::all(); 
         $sales = new \App\Sales;
-        Sales::where('PCS_ID', '=', $data['PCS_ID'])->delete();
+        Sales::where('Stock_ID', '=', $data['Stock_ID'])->delete();
     }
 
     public function salesReturnFromDB($pcsID){
@@ -70,7 +70,7 @@ class salesConroller extends Controller
         $sales = new \App\Sales;
         $sales_return = new \App\SalesReturn;
         $SR_data = Sales::where(function($query) use($SR_pcsid){
-            $query->where('PCS_ID', '=', $SR_pcsid)
+            $query->where('Stock_ID', '=', $SR_pcsid)
                   ->orWhere('diamond_lot_number', '=', $SR_pcsid);
         })->first()->toArray();
         foreach ($SR_data as $fields => $value) {
@@ -79,7 +79,7 @@ class salesConroller extends Controller
         }
         $sales_return->save();
         Sales::where(function($query) use($SR_pcsid){
-            $query->where('PCS_ID', '=', $SR_pcsid)
+            $query->where('Stock_ID', '=', $SR_pcsid)
                   ->orWhere('diamond_lot_number', '=', $SR_pcsid);
         })->first()->delete();
     }
@@ -106,9 +106,9 @@ class salesConroller extends Controller
             if(!empty($params['search'])){
                 if($params['filterby']=='PCS ID'){
                     if($params['reportType'] == "report"){
-                        $response=Sales::where('PCS_ID',$params['search'])->get();
+                        $response=Sales::where('Stock_ID',$params['search'])->get();
                     }else
-                        $response=SalesReturn::where('PCS_ID',$params['search'])->get();
+                        $response=SalesReturn::where('Stock_ID',$params['search'])->get();
                     return response()->json($response,200);
                 }
                 if($params['filterby']=='Invoice Number'){

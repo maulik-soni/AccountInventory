@@ -14,7 +14,7 @@ export class Purchase {
       public brokerName?:string,
       public brokerType?:string,
       public brokerage?:number,
-      public PCS_ID?:number,
+      public Stock_ID?:number,
       public certificate_number?:string,
       public diamond_lot_number?:string,
       public diamond_shape?:string,
