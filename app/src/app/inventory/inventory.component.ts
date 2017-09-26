@@ -11,6 +11,7 @@ import { WebServicesService } from './../services/web-services.service';
 })
 export class InventoryComponent implements OnInit {
   avalue="vikas";
+  searchcount=0;
   showfilterables=false;
 searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
 searchvalues=new SearchValues(
@@ -90,18 +91,18 @@ result=[];
 }
 
 
-  getdynamic(form:NgForm){
-    var all=form.value;
-    all['getoption']='getoption';
-    all['inventory']='filter';
-    console.log(all);
+  // getdynamic(form:NgForm){
+  //   var all=form.value;
+  //   all['getoption']='getoption';
+  //   all['inventory']='filter';
+  //   console.log(all);
    
-     this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
-       this.filterdata=response.response.filters;
-      console.log(this.filterdata);});
+  //    this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
+  //      this.filterdata=response.response.filters;
+  //     console.log(this.filterdata);});
 
  
-  }
+  // }
 
   getallfilterdata(){
     let data={
@@ -110,6 +111,7 @@ result=[];
 
     this.inventoryservice.showinventory(JSON.stringify(data)).subscribe(response=>{
        this.result=response.response.inventory;
+       this.searchcount=response.response.searches;
        console.log(response);
       });
 
@@ -117,7 +119,7 @@ result=[];
   }
   
   
-  onSubmit(form:NgForm){
+  onSubmit(form:NgForm,prop){
     
 // var all=form.value.filter;
 // all['filterresult']='filterresult';
@@ -138,9 +140,10 @@ console.log(form.value);
 
      this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
        this.result=response.response.inventory;
+       this.searchcount=response.response.searches;
        console.log(response);});
 
-       this.showfilterables=false;
+       this.showfilterables=prop;
     
   }
 

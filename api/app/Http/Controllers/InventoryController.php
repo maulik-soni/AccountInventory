@@ -103,7 +103,9 @@ class InventoryController extends Controller
                  if($request->has('filterresult')){
                     return response()->json([
                             'response'=>[
-                                    'inventory'=>$inventories
+                                    'inventory'=>$inventories,
+                                    'searches'=>sizeof($inventories),
+                                    'total_carats'=>$inventories->pluck('total_diamond_carat')->avg(),
                                     ]
                             ],201);
                  }
@@ -112,25 +114,10 @@ class InventoryController extends Controller
                 /////  Dynamic Filter options
                 ///////////////////////////////////////////
 
-                if($request->has('getoption')){
-                    $filtervalues=collect([]);
+                // if($request->has('getoption')){
+                //     return $inventories;
 
-                    foreach($filterables as $key=>$value){
-                        foreach($inventories as $inventory){
-                            if(!(collect($value)->contains($inventory[$key]))){
-                                array_push($value,$inventory[$key]);
-                            }
-                        }
-                        $filtervalues=$filtervalues->push(array('item'=>$key,'items'=>$value))->values();
-                    }
-
-                    return response()->json([
-                    'response'=>[
-                            'filters'=>$filtervalues
-                            ]
-                    ],201);
-
-                }
+                // }
 
             }
 

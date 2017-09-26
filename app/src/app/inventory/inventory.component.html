@@ -4,7 +4,7 @@
       <h2></h2>
     </div>
 
-    <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
+    <form #filters="ngForm" (ngSubmit)="onSubmit(filters,false)">
     <div class="card searchfilters">
       <div class="card-header">Filter</div>
       <div class="card-body card-padding">
@@ -17,20 +17,23 @@
           <div class="filterables-container">
             
             <button type="button" (click)="getallfilterdata()"  class="btn btn-info btn-lg waves-effect">All</button>
+            <h2>Searches Found:{{searchcount}}</h2>
             <hr>
             
             <div  ngModelGroup="filter" class="filter-container">
-              
               <div *ngFor="let datas of filterdata; index as i" class="filter-boxes">
                 <div class="shade-bg">
                   <div ngModelGroup={{filterdata[i].item}}>
                     <p class="c-black f-500 labels">{{filtertitles[i]}}</p>
                     <div *ngFor="let data of filterdata[i].items">
-                      <md-checkbox *ngIf="data" (change)="getdynamic(filters)" ngModel name={{data}}>{{data}}</md-checkbox>
+                      <md-checkbox *ngIf="data" (change)="onSubmit(filters,true)" ngModel name={{data}}>{{data}}</md-checkbox>
                     </div>
                   </div> 
                 </div>
               </div>
+            </div>
+            <div ngModelGroup="filter-range">
+              
             </div>
             <button type="submit" class="btn btn-info waves-effect">Get Result</button> 
           </div>
@@ -38,7 +41,7 @@
         <button type="button" (click)="showpopup()" class="btn btn-info waves-effect">Filter</button>
       </div>
     </div>
-    <!--<p>{{ filters.value | json}}</p>-->
+    <p>{{ filters.value | json}}</p>
     </form>
 
     <div class="card">
