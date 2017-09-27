@@ -23,9 +23,10 @@ import { SettingsModule } from './settings/settings.module';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import { LabissueModule } from './labissue/labissue.module';
 import { HomeComponent } from './home/home.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, ResetPasswordComponent],
   imports: [
     BrowserModule,
     AuthModule,

@@ -12,6 +12,10 @@ const appRoutes: Routes =[
     path: 'login',
     redirectTo:'/login',
   },
+  {
+    path: 'resetpassword',
+    redirectTo:'/resetpassword'
+  }
   
 ];
 

@@ -41,13 +41,13 @@ use Illuminate\Http\Request;
 
 
 
-// Route::group(['middleware'=>'setdatabase'],function(){
-// 		Route::put('/{user}','UserController@update');
-// 		Route::delete('/{user}','UserController@delete');
-// 		Route::post('/','UserController@make');	
-// 	});
-// Route::group(['middleware'=>'setdatabase'],function(){
-// Route::group(['middleware'=>'auth:api'],function(){
+Route::group(['middleware'=>'setdatabase'],function(){
+		Route::put('/{user}','UserController@update');
+		Route::delete('/{user}','UserController@delete');
+		Route::post('/','UserController@make');	
+	});
+Route::group(['middleware'=>'setdatabase'],function(){
+Route::group(['middleware'=>'auth:api'],function(){
 Route::post('/newpurchase', 'PurchaseController@newPurchaseEntry');
 Route::post('/purchasereturn', 'PurchaseController@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
@@ -157,8 +157,8 @@ Route::post('/showmemoissue','memoissueController@show');
 Route::get('/searchmemoissue','memoissueController@search');
 
 
-	// });
+	});
 Route::post('/login','UserController@authenticate');
 Route::post('password/email', 'Auth\ForgotPasswordController@getResetToken');
 Route::post('password/email/{token}', 'Auth\ResetPasswordController@reset');
-// });
+});

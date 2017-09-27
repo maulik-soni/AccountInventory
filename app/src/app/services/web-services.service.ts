@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map';
 export class WebServicesService {
   private login_url = "http://127.0.0.1:8000"
   private base_url = this.login_url
+  private api_token_header='?api_token='+this.gettoken()+'&&country='+this.getcountry()
   private apis = {
     salesreport: this.base_url+'/api/salesreport',
     purchasereport:this.base_url+'/api/purchasereport',
@@ -96,6 +97,7 @@ export class WebServicesService {
   //////////////
   gettoken(){
     let token=localStorage.getItem('currentUser');
+    // console.log(token);
     if(token!=null){
         return token.slice(1,token.length-1);
     }
@@ -110,24 +112,24 @@ export class WebServicesService {
   newuser(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newuser,data,options)
+    return this._http.post(this.apis.newuser+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchuser(data){
-    return this._http.get(this.apis.searchuser+'?'+data.filterby+'='+data.searchterm)
+    return this._http.get(this.apis.searchuser+'?'+data.filterby+'='+data.searchterm+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
   showuser(data){
       let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showuser,data,options)
+    return this._http.post(this.apis.showuser+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   edituser(data){
-    return this._http.get(this.apis.edituser+'/'+data)
+    return this._http.get(this.apis.edituser+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -135,13 +137,13 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let id=JSON.parse(data);
-    return this._http.put(this.apis.updateuser+'/'+id.id,data,options)
+    return this._http.put(this.apis.updateuser+'/'+id.id+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   deleteuser(data){
     console.log(this.apis.deleteuser+'/'+data);
-      return this._http.delete(this.apis.deleteuser+'/'+data)
+      return this._http.delete(this.apis.deleteuser+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -156,11 +158,11 @@ export class WebServicesService {
    newcompanyprofile(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newcompanyprofile,data,options)
+    return this._http.post(this.apis.newcompanyprofile+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
   editcompanyprofile(data){
-    return this._http.get(this.apis.editcompanyprofile+'/'+data)
+    return this._http.get(this.apis.editcompanyprofile+'/'+data+this.api_token_header)
     .map((response:Response)=>response.json());
   }
 
@@ -168,14 +170,14 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let id=JSON.parse(data);
-    return this._http.put(this.apis.updatecompanyprofile+'/'+id.id,data,options)
+    return this._http.put(this.apis.updatecompanyprofile+'/'+id.id+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   showcompanyprofile(data){
       let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showcompanyprofile,data,options)
+    return this._http.post(this.apis.showcompanyprofile+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
@@ -187,19 +189,19 @@ export class WebServicesService {
  newcompanybank(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newcompanybank,data,options)
+    return this._http.post(this.apis.newcompanybank+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   showcompanybank(data){
       let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showcompanybank,data,options)
+    return this._http.post(this.apis.showcompanybank+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   editcompanybank(data){
-    return this._http.get(this.apis.editcompanybank+'/'+data)
+    return this._http.get(this.apis.editcompanybank+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -207,12 +209,12 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let id=JSON.parse(data);
-    return this._http.put(this.apis.updatecompanybank+'/'+id.id,data,options)
+    return this._http.put(this.apis.updatecompanybank+'/'+id.id+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   deletecompanybank(data){
-      return this._http.delete(this.apis.deletecompanybank+'/'+data)
+      return this._http.delete(this.apis.deletecompanybank+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -225,7 +227,7 @@ export class WebServicesService {
  newvendor(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newvendor,data,options)
+    return this._http.post(this.apis.newvendor+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
@@ -237,12 +239,12 @@ export class WebServicesService {
   showvendor(data){
       let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showvendor,data,options)
+    return this._http.post(this.apis.showvendor+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   editvendor(data){
-    return this._http.get(this.apis.editvendor+'/'+data)
+    return this._http.get(this.apis.editvendor+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -250,12 +252,12 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let id=JSON.parse(data);
-    return this._http.put(this.apis.updatevendor+'/'+id.id,data,options)
+    return this._http.put(this.apis.updatevendor+'/'+id.id+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   deletevendor(data){
-      return this._http.delete(this.apis.deletevendor+'/'+data)
+      return this._http.delete(this.apis.deletevendor+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -267,19 +269,19 @@ export class WebServicesService {
  newvendorbank(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newvendorbank,data,options)
+    return this._http.post(this.apis.newvendorbank+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   showvendorbank(data){
       let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showvendorbank,data,options)
+    return this._http.post(this.apis.showvendorbank+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   editvendorbank(data){
-    return this._http.get(this.apis.editvendorbank+'/'+data)
+    return this._http.get(this.apis.editvendorbank+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -287,12 +289,12 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let id=JSON.parse(data);
-    return this._http.put(this.apis.updatevendorbank+'/'+id.id,data,options)
+    return this._http.put(this.apis.updatevendorbank+'/'+id.id+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   deletevendorbank(data){
-      return this._http.delete(this.apis.deletevendorbank+'/'+data)
+      return this._http.delete(this.apis.deletevendorbank+'/'+data+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
@@ -303,20 +305,20 @@ export class WebServicesService {
   newcashbook(data):any{
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newcashbook,data,options)
+    return this._http.post(this.apis.newcashbook+this.api_token_header,data,options)
      .map((response:Response) => response.json());
   }
 
   showcashbook(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showcashbook,data,options)
+    return this._http.post(this.apis.showcashbook+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchcashbook(data){
     console.log(data);
-    return this._http.get(this.apis.searchcashbook+'?'+data.filterby+'='+data.searchterm)
+    return this._http.get(this.apis.searchcashbook+'?'+data.filterby+'='+data.searchterm+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
@@ -330,7 +332,7 @@ export class WebServicesService {
 showinventory(data){
      let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showinventory,data,options)
+    return this._http.post(this.apis.showinventory+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
@@ -345,13 +347,13 @@ showinventory(data){
   showpayable(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showpayable,data,options)
+    return this._http.post(this.apis.showpayable+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
 
   searchpayable(data){
-    return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm)
+    return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
@@ -364,12 +366,12 @@ showinventory(data){
    showreceivable(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showreceivable,data,options)
+    return this._http.post(this.apis.showreceivable+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchreceivable(data){
-    return this._http.get(this.apis.searchreceivable+'?'+data.filterby+'='+data.searchterm)
+    return this._http.get(this.apis.searchreceivable+'?'+data.filterby+'='+data.searchterm+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
@@ -379,7 +381,7 @@ showinventory(data){
   showledger(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showledger,data,options)
+    return this._http.post(this.apis.showledger+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
@@ -387,21 +389,21 @@ showinventory(data){
 
 
   searchbills(data){
-    return this._http.get(this.apis.searchbills+'?'+data.filterby+'='+data.searchterm)
+    return this._http.get(this.apis.searchbills+'?'+data.filterby+'='+data.searchterm+this.api_token_header)
     .map((response:Response) => response.json());
   }
 
   showbills(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showbills,data,options)
+    return this._http.post(this.apis.showbills+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   newbill(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.newbill,data,options)
+    return this._http.post(this.apis.newbill+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
@@ -415,9 +417,9 @@ showinventory(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     if(memotype == "memoissue"){
-      this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
+      this._http.post(this.apis.postnewmemoissue+this.api_token_header,data,options).subscribe();
     }else{
-      this._http.post(this.apis.postnewmemoin,data,options).subscribe();
+      this._http.post(this.apis.postnewmemoin+this.api_token_header,data,options).subscribe();
     }
   }
 
@@ -425,54 +427,54 @@ showinventory(data){
     console.log(data);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewmemoissue,data,options).subscribe();
+    this._http.post(this.apis.postnewmemoissue+this.api_token_header,data,options).subscribe();
   }
 
   memoinreport(){
-    return this._http.get(this.apis.memoinreport)
+    return this._http.get(this.apis.memoinreport+this.api_token_header)
       .map((response:Response) => response.json());
   }
 
   memoissuereport(){
-    return this._http.get(this.apis.memoissuereport)
+    return this._http.get(this.apis.memoissuereport+this.api_token_header)
       .map((response:Response) => response.json());
   }
 
   memoinchangestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoinchangestatus,pcsid,options);
+    return this._http.post(this.apis.memoinchangestatus+this.api_token_header,pcsid,options);
   }
 
   memoissuechangestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoissuechangestatus,pcsid,options);
+    return this._http.post(this.apis.memoissuechangestatus+this.api_token_header,pcsid,options);
   }
 
   showmemoin(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showmemoin,data,options)
+    return this._http.post(this.apis.showmemoin+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchmemoin(data){
     console.log(data);
-    return this._http.get(this.apis.searchmemoin+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchmemoin+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
   showmemoissue(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showmemoissue,data,options)
+    return this._http.post(this.apis.showmemoissue+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchmemoissue(data){
     console.log(data);
-    return this._http.get(this.apis.searchmemoissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchmemoissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
@@ -483,31 +485,31 @@ showinventory(data){
   changelabissuestatus(pcsid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.changelabissuestatus,pcsid,options);
+    return this._http.post(this.apis.changelabissuestatus+this.api_token_header,pcsid,options);
   }
 
   createlabissue(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.createlabissue,data,options).subscribe();
+    this._http.post(this.apis.createlabissue+this.api_token_header,data,options).subscribe();
   }
 
   reportlab(){
     console.log("GET");
-    return this._http.get(this.apis.reportlab)
+    return this._http.get(this.apis.reportlab+this.api_token_header)
       .map((response:Response) => response.json());
   }
 
   showlabissue(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showlabissue,data,options)
+    return this._http.post(this.apis.showlabissue+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchlabissue(data){
     console.log(data);
-    return this._http.get(this.apis.searchlabissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchlabissue+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
@@ -519,26 +521,26 @@ showinventory(data){
   showpurchase(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showpurchase,data,options)
+    return this._http.post(this.apis.showpurchase+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchpurchase(data){
     console.log(data);
-    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
   showpurchaseretrun(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showpurchase,data,options)
+    return this._http.post(this.apis.showpurchase+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchpurchasereturn(data){
     console.log(data);
-    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchpurchase+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
@@ -546,32 +548,32 @@ showinventory(data){
     console.log(data);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewpurchase,data,options).subscribe();
+    this._http.post(this.apis.postnewpurchase+this.api_token_header,data,options).subscribe();
   }
 
   purchaseReturn(Stock_ID){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.purchaseretrun,Stock_ID,options).subscribe();
+    this._http.post(this.apis.purchaseretrun+this.api_token_header,Stock_ID,options).subscribe();
   }
 
   purchaseretrunreport(){
     console.log(this.apis.purchaseretrunreport);
-    return this._http.get(this.apis.purchaseretrunreport)
+    return this._http.get(this.apis.purchaseretrunreport+this.api_token_header)
       .map((response:Response) => response.json());
   }
 
   getpurchasereport(){    
-    return this._http.get(this.apis.purchasereport)
+    return this._http.get(this.apis.purchasereport+this.api_token_header)
       .map((response:Response) => response.json());
   }
 
   fetchpurchase(pcsid,pcstype){
     if(pcstype == "singlestone"){
-      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid)
+      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid+this.api_token_header)
        .map((response:Response) => response.json());
     }else{
-      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid)
+      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid+this.api_token_header)
        .map((response:Response) => response.json());
     }
   }
@@ -585,31 +587,31 @@ showinventory(data){
   showsales(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showsales,data,options)
+    return this._http.post(this.apis.showsales+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchsales(data){
     console.log(data);
-    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
   showsalesretrun(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.showsales,data,options)
+    return this._http.post(this.apis.showsales+this.api_token_header,data,options)
     .map((response:Response) => response.json());
   }
 
   searchsalesreturn(data){
     console.log(data);
-    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType)
+    return this._http.get(this.apis.searchsales+'?'+data.filterby+'='+data.searchterm+'&reportType='+data.reportType+this.api_token_header)
        .map((response:Response) => response.json());
   }
 
   getsalesreport(){    
-    return this._http.get(this.apis.salesreport)
+    return this._http.get(this.apis.salesreport+this.api_token_header)
       .map((response:Response) => response.json());
   }
 
@@ -617,18 +619,18 @@ showinventory(data){
     console.log(data);
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.postnewsales,data,options).subscribe();
+    this._http.post(this.apis.postnewsales+this.api_token_header,data,options).subscribe();
   }
 
   salesReturn(Stock_ID){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    this._http.post(this.apis.salesreturn,Stock_ID,options).subscribe();
+    this._http.post(this.apis.salesreturn+this.api_token_header,Stock_ID,options).subscribe();
   }
 
   salesretrunreport(){
     console.log(this.apis.salesretrunreport)
-    return this._http.get(this.apis.salesretrunreport)
+    return this._http.get(this.apis.salesretrunreport+this.api_token_header)
       .map((response:Response) => response.json());
   }
 
