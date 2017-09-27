@@ -92,6 +92,7 @@ Route::post('/showuser','UserController@show');
 Route::post('/newuser','UserController@create');
 Route::put('/updateuser/{id}','UserController@update');
 Route::delete('/deleteuser/{id}','UserController@destroy');
+Route::post('/logout','UserController@logout');
 	
 
 

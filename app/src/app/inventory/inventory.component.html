@@ -48,14 +48,14 @@
       <div class="card-body card-padding overflow">
        <div class="card-header">
          <form #filterresult="ngForm">
-          <table class="table">
+          <table class="table table-bordered">
             <thead>
               <tr>
                 <th></th>
                 <th *ngFor="let title of resulttitles">{{title[0]}}</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style=" height: 130px; overflow-y: scroll">
               <tr *ngFor="let datas of result">
                 <td><md-checkbox *ngIf="datas" (change)="getbarcodeid(filterresult)" ngModel name={{datas.Stock_ID}}></md-checkbox></td>
                 <td *ngFor="let properties of resulttitles">{{datas[properties[1]]}}</td>

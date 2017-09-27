@@ -24,6 +24,14 @@ h2{
     color: #fff;
 }
 
+td,th{
+    width:1px;white-space:nowrap;
+}
+
+tbody{
+    height: 45px;
+}
+
 .labels{
     background: #03bcd4;
     color: #fff!important;
