@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Purchase;
 use App\SalesReturn;
+use App\LabIssue;
 use DB;
 
 class Inventory extends Model
@@ -14,7 +15,16 @@ class Inventory extends Model
     public static function collection(){
         $purchase=DB::table('purchase')->get();
         $sales=SalesReturn::all();
-        return $purchase->merge($sales);
+        $huj=$purchase->merge($sales);
+        $loc=$huj->map(function($item){
+            $lab=LabIssue::select('Stock_ID')->pluck('Stock_ID');
+            if($lab->contains($item->Stock_ID)){
+               return array($item,'status'=>$collect); 
+
+            }
+            return $item; 
+    });
+    return $loc;
     }
 
     public static function getfields($item){

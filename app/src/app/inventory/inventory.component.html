@@ -3,13 +3,13 @@
     <div class="block-header">
       <h2></h2>
     </div>
-
+    
     <form #filters="ngForm" (ngSubmit)="onSubmit(filters,false)">
-    <div class="card searchfilters">
-      <div class="card-header">Filter</div>
-      <div class="card-body card-padding">
-<!-- 
-        <md-radio-group [(ngModel)]="searchvalues.inventory" class="main-filter" name="inventory">
+      <div class="card searchfilters">
+        <div class="card-header"></div>
+        <div class="card-body card-padding">
+          <!-- 
+            <md-radio-group [(ngModel)]="searchvalues.inventory" class="main-filter" name="inventory">
           <md-radio-button  class="radio-button" *ngFor="let option of searchatts.inventory" (change)="getoption(option)"[value]="option" >{{option}}</md-radio-button>
         </md-radio-group>-->
         
@@ -17,7 +17,7 @@
           <div class="filterables-container">
             
             <button type="button" (click)="getallfilterdata()"  class="btn btn-info btn-lg waves-effect">All</button>
-            <h2>Searches Found:{{searchcount}}</h2>
+            <h3>Stones Found:{{searchcount}}</h3>
             <hr>
             
             <div  ngModelGroup="filter" class="filter-container">
@@ -38,16 +38,23 @@
             <button type="submit" class="btn btn-info waves-effect">Get Result</button> 
           </div>
         </div>
-        <button type="button" (click)="showpopup()" class="btn btn-info waves-effect">Filter</button>
+        <button type="button" (click)="showpopup()" class="btn btn-info waves-effect">Search</button>
+        <hr>
+        <button type="button" (click)="printbarcode()" class="btn bgm-lightgreen waves-effect">Generate Barcode</button>
+        <button type="button" class="btn bgm-lightgreen waves-effect">Print Label</button>
+        <button type="button" class="btn bgm-lightgreen waves-effect">BulK Sell</button>
+        <button type="button" class="btn bgm-lightgreen waves-effect">Bulk Memo</button>
+        <button type="button" class="btn bgm-lightgreen waves-effect">Bulk Lab Issue</button>
+        <button type="button" class="btn bgm-lightgreen waves-effect">Download Report</button>
       </div>
     </div>
-    <p>{{ filters.value | json}}</p>
-    </form>
+    <!-- <p>{{ filters.value | json}}</p> -->
+  </form>
 
-    <div class="card">
-      <div class="card-body card-padding overflow">
-       <div class="card-header">
-         <form #filterresult="ngForm">
+  <div class="card">
+    <div class="p-0 card-body card-padding overflow">
+      <div class="p-0 card-header">
+        <form #filterresult="ngForm">
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -57,16 +64,15 @@
             </thead>
             <tbody style=" height: 130px; overflow-y: scroll">
               <tr *ngFor="let datas of result">
-                <td><md-checkbox *ngIf="datas" (change)="getbarcodeid(filterresult)" ngModel name={{datas.Stock_ID}}></md-checkbox></td>
+                <td><md-checkbox *ngIf="datas" (change)="getbarcodeid(filterresult)" (ngModel)=datas name={{datas|json}}></md-checkbox></td>
                 <td *ngFor="let properties of resulttitles">{{datas[properties[1]]}}</td>
               </tr>
             </tbody>
           </table>
-          <button type="button" class="btn btn-info waves-effect">Generate Barcode</button>
-          <ngx-barcode [bc-value]="avalue" [bc-display-value]="true"></ngx-barcode>
+          <!-- <ngx-barcode [bc-value]="avalue" [bc-display-value]="true"></ngx-barcode> -->
           </form>
         </div>
-        <p>{{filterresult.value | json}}</p>
+        <!-- <p>{{filterresult.value | json}}</p> -->
     </div>
     </div>
 

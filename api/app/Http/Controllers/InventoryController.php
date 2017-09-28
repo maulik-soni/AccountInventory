@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Inventory;
+use App\MemoIssue;
+use App\LabIssue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,6 +12,7 @@ class InventoryController extends Controller
     public function show(Request $request){
         $query=$request->all();
         $collect=Inventory::collection();
+        $lab=LabIssue::select('Stock_ID')->pluck('Stock_ID');
 
 
 	////////////////////////////////////////////
@@ -17,9 +20,11 @@ class InventoryController extends Controller
 	///////////////////////////////////////////
 
         if(($request->has('inventory')) && ($query['inventory']=='all')){
+            $lab=LabIssue::select('Stock_ID')->pluck('Stock_ID');
             return response()->json([
 						'response'=>[
-								'inventory'=>$collect
+                                'inventory'=>$collect,
+                                'lab'=>$lab
 								]
 						],201);
         }

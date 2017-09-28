@@ -20,8 +20,12 @@
     overflow: auto;
 }
 
-h2{
+h3{
     color: #fff;
+}
+
+th{
+    background: #ced6d6!important;
 }
 
 td,th{

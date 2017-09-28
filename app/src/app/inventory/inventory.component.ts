@@ -13,61 +13,74 @@ export class InventoryComponent implements OnInit {
   avalue="vikas";
   searchcount=0;
   showfilterables=false;
-searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
-searchvalues=new SearchValues(
-  this.searchatts.inventory[0],
-);
+  searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
+  searchvalues=new SearchValues(
+    this.searchatts.inventory[0],
+  );
 
-filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor'];
+  filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor'];
 resulttitles=[
-  ['STOCK ID','Stock_ID'],
-  ['invoice number','invoice_number'],
-  ['purchase date','purchase_date'],
-  ['due date','due_date'],
-  ['account','account_name'],
-  ['terms','payment_terms'],
-  ['polishing','polishing_type'],
-  ['conversion','currency_convrsion_rate'],
-  ['note','notes'],
-  ['less','less'],
-  ['country','country'],
-  ['bill','bill_type'],
-  ['comission','comission'],
   ['stock status','stock_status_group'],
   ['item','item'],
   ['kapan','kapan'],
+  ['STOCK ID','Stock_ID'],
   ['diamond shape','diamond_shape'],
   ['lot number','diamond_lot_number'],
-  ['size','diamond_size'],
   ['color','diamond_color'],
   ['clarity','diamond_clarity'],
-  ['peices','total_diamond_pcs'],
   ['carat','total_diamond_carat'],
+  ['crown height','crnHt'],
+  ['cut','finalCut'],
+  ['polishing','polishing_type'],
+  ['symmetry','symmetry'],
+  ['measurement','fullShapeDescription'],
+  ['fluo','fluorescenceIntensity'],
+  ['fluo Color','fluorescenceColor'],
+  ['height','length'],
+  ['girdle','girdle'],
+  ['crown angle','crnAg'],
+  ['pav depth','pavDp'],
+  ['pav angle','pavAg'],
+  ['culet','culetSize'],
+  ['LAB','LAB_type'],
   ['discount','cost_discount'],
-  ['rate/carat','cost_rate_per_carat'],
+  ['cost rate/carat','cost_rate_per_carat'],
   ['RAP','RAP_price'],
   ['wd rate','wd_rate'],
   ['wd rate/carat','wd_rate_carat'],
+  ['party name','account_name'],
+  ['purchase date','purchase_date'],
+  ['due date','due_date'],
   ['rate','rate_INR'],
   ['amount','amount_INR'],
   ['rate(USD)','rate_dolar'],
   ['amount(USD)','amount_dolar'],
-  ['LAB','LAB_type'],
-  ['certificate number','certificate_number'],
-  ['average','avg_INR'],
-  ['average(USD)','avg_dolar'],
-  ['Hform','against_Hform'],
-  ['VAT','mVAT'],
-  ['broker','broker_details'],
-  ['memo lot number','Lot_number'],
-  ['memo invoice number','memo_invoice_number'],
-  ['memo date','date'],
-  ['memo reference','reference'],
-  ['memo carats','carats'],
-  ['memo stone type','stone_type'],
-  ['memo days','no_of_days'],
-  ['memo due','due_date'],
-  ['memo status','status']
+
+  // ['invoice number','invoice_number'],
+  // ['terms','payment_terms'],
+  // ['conversion','currency_convrsion_rate'],
+  // ['note','notes'],
+  // ['less','less'],
+  // ['country','country'],
+  // ['bill','bill_type'],
+  // ['comission','comission'],
+  // ['size','diamond_size'],
+  // ['peices','total_diamond_pcs'],
+  // ['certificate number','certificate_number'],
+  // ['average','avg_INR'],
+  // ['average(USD)','avg_dolar'],
+  // ['Hform','against_Hform'],
+  // ['VAT','mVAT'],
+  // ['broker','broker_details'],
+  // ['memo lot number','Lot_number'],
+  // ['memo invoice number','memo_invoice_number'],
+  // ['memo date','date'],
+  // ['memo reference','reference'],
+  // ['memo carats','carats'],
+  // ['memo stone type','stone_type'],
+  // ['memo days','no_of_days'],
+  // ['memo due','due_date'],
+  // ['memo status','status']
   ]
 filterdata=[];
 result=[];
@@ -152,7 +165,7 @@ console.log(form.value);
     for (let key in formb.value){
       let value=formb.value[key];
       if(value){
-        barcodevalues.push(key);
+        barcodevalues.push(JSON.parse(key));
       }
     }
      console.log(barcodevalues);
