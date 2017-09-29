@@ -11,6 +11,8 @@ import { WebServicesService } from './../services/web-services.service';
 })
 export class InventoryComponent implements OnInit {
   avalue="vikas";
+  selected=[];
+  barcodes=[];
   searchcount=0;
   showfilterables=false;
   searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
@@ -160,7 +162,7 @@ console.log(form.value);
     
   }
 
-  getbarcodeid(formb:NgForm){
+  getselecteddata(formb:NgForm){
     let barcodevalues=[];
     for (let key in formb.value){
       let value=formb.value[key];
@@ -168,7 +170,24 @@ console.log(form.value);
         barcodevalues.push(JSON.parse(key));
       }
     }
-     console.log(barcodevalues);
+    this.selected=barcodevalues;
+  }
+
+  generatebarcode(){
+    this.barcodes=[];
+    let barcodedata=this.selected;
+    for(let data of barcodedata){
+      this.barcodes.push('Stock ID: '+data.Stock_ID);
+    }
+    console.log(this.barcodes);
+  }
+
+  printbarcode(data){
+  
+
+    window.print();
+    this.barcodes=[];
+
   }
 
 }

@@ -40,7 +40,7 @@
         </div>
         <button type="button" (click)="showpopup()" class="btn btn-info waves-effect">Search</button>
         <hr>
-        <button type="button" (click)="printbarcode()" class="btn bgm-lightgreen waves-effect">Generate Barcode</button>
+        <button type="button" (click)="generatebarcode()" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Generate Barcode</button>
         <button type="button" class="btn bgm-lightgreen waves-effect">Print Label</button>
         <button type="button" class="btn bgm-lightgreen waves-effect">BulK Sell</button>
         <button type="button" class="btn bgm-lightgreen waves-effect">Bulk Memo</button>
@@ -51,7 +51,12 @@
     <!-- <p>{{ filters.value | json}}</p> -->
   </form>
 
-  <div class="card">
+  <div class="card" id="print-div" >
+    <ngx-barcode bc-text-position="top" bc-height="47" bc-width="1" *ngFor="let data of barcodes" [bc-value]="data" [bc-display-value]="true"></ngx-barcode>
+    <button type="button" *ngIf="barcodes.length>0" (click)="printbarcode()" >Print Barcodes</button>
+  </div>
+
+  <div class="card" id="results">
     <div class="p-0 card-body card-padding overflow">
       <div class="p-0 card-header">
         <form #filterresult="ngForm">
@@ -63,8 +68,8 @@
               </tr>
             </thead>
             <tbody style=" height: 130px; overflow-y: scroll">
-              <tr *ngFor="let datas of result">
-                <td><md-checkbox *ngIf="datas" (change)="getbarcodeid(filterresult)" (ngModel)=datas name={{datas|json}}></md-checkbox></td>
+              <tr *ngFor="let datas of result" [class.lab]="datas.status=='lab'" [class.memo]="datas.status=='memoout'">
+                <td><md-checkbox *ngIf="datas" (change)="getselecteddata(filterresult)" (ngModel)=datas name={{datas|json}}></md-checkbox></td>
                 <td *ngFor="let properties of resulttitles">{{datas[properties[1]]}}</td>
               </tr>
             </tbody>

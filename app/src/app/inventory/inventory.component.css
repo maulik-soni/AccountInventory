@@ -24,6 +24,14 @@ h3{
     color: #fff;
 }
 
+.lab{
+    background: #bdf3d2;
+}
+
+.memo{
+    background:  #bbe2f5;
+}
+
 th{
     background: #ced6d6!important;
 }
@@ -58,3 +66,21 @@ tbody{
     padding:10px;
     display: inline-flex;
 }
+
+
+@media print {
+    body * {
+      visibility: hidden !important;
+    }
+    #print-div, #print-div * {
+      visibility: visible !important;
+    }
+    #print-div {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    #results,button{
+        display: none;
+    }
+  }

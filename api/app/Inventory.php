@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Purchase;
 use App\SalesReturn;
 use App\LabIssue;
+use App\MemoIssue;
 use DB;
 
 class Inventory extends Model
@@ -18,11 +19,28 @@ class Inventory extends Model
         $huj=$purchase->merge($sales);
         $loc=$huj->map(function($item){
             $lab=LabIssue::select('Stock_ID')->pluck('Stock_ID');
+            $memo=MemoIssue::select('Stock_ID')->pluck('Stock_ID');
             if($lab->contains($item->Stock_ID)){
-               return array($item,'status'=>$collect); 
+                $item = (array)$item;
+                $item['status'] = 'lab';
+                $item = (object)$item;
+                return $item;
+            }
+
+            if($memo->contains($item->Stock_ID)){
+                $item = (array)$item;
+                $item['status'] = 'memoout';
+                $item = (object)$item;
+                return $item;
 
             }
-            return $item; 
+
+            $item = (array)$item;
+            $item['status'] = 'none';
+            $item = (object)$item;
+            return $item;
+
+            
     });
     return $loc;
     }
