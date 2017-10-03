@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Bank,BankTitles } from "../bank.model";
 import { CompanyProfile } from '../company.model';
+import { SharedService } from './../../shared/shared.service';
 
 @Component({
   selector: 'app-company-full-profile',
@@ -19,6 +20,7 @@ export class CompanyFullProfileComponent implements OnInit {
   isEditable=true;
   companyProfile:FormGroup;
   companyBank:FormGroup;
+  editBank:FormGroup;
   titles=BankTitles;
   
   
@@ -27,10 +29,12 @@ export class CompanyFullProfileComponent implements OnInit {
     private showprofile:  WebServicesService,
      private route: ActivatedRoute,
      private _router:Router,
+     private _shared:SharedService,
      private _fb:FormBuilder,
   ) {
     this.createcompanyForm();
     this.createBankForms();
+    this.createedit();
    }
 
   
@@ -40,7 +44,8 @@ export class CompanyFullProfileComponent implements OnInit {
       .subscribe(response=> {this.companiesprofiledata=response.response.response;
          this.companyProfile.patchValue(this.companiesprofiledata);
          this.showbank(this.companiesprofiledata.id);
-      console.log(this.companiesprofiledata)});
+      // console.log(this.companiesprofiledata)
+    });
 
   }
 
@@ -49,16 +54,23 @@ export class CompanyFullProfileComponent implements OnInit {
  this.showprofile.showcompanybank(JSON.stringify(requesttype))
   .subscribe(response=>{
     this.companiesbankdata=response.response.bankdetails;
-    console.log(response);
+    // console.log(response);
   });
 }
 
 createcompanyForm(){
-    this.companyProfile=this._fb.group(new CompanyProfile('','',null,null,'','','','','','',''));
+    this.companyProfile=this._fb.group(new CompanyProfile('','','',null,null,'','','','','','',''));
     this.Disable();
   }
 
+  createedit(){
+    this.editBank=this._fb.group(new Bank(null,'','','','','',null,null));
+  }
 
+  onedit(data){
+    this.editBank.patchValue(data);
+    console.log(data);
+  }
 
   createBankForms(){
     this.companyBank=this._fb.group({
@@ -79,6 +91,10 @@ createcompanyForm(){
      this.companyProfile.enable();
   }
 
+  onDeleteBank(data){
+    
+  }
+
   removeBank(i: number) {
     this.banks.removeAt(i);
   }
@@ -88,11 +104,20 @@ createcompanyForm(){
     this.companyProfile.disable();
   }
 
-  // onProfileSubmit(){
-  //   this._company.updatecompanyprofile(JSON.stringify(this.companyProfile.value))
-  //   .subscribe(response=>{console.log(response);
-  //   this.Disable();})  
-  // }
+  profilesave(){
+    this.showprofile.updatecompanyprofile(JSON.stringify(this.companyProfile.value))
+    .subscribe(response=>{
+      this._shared.notify(response,'inverse');
+    this.Disable();})  
+  }
+
+  onEditSubmit(){
+    console.log(this.editBank.value);
+    this.showprofile.updatecompanybank(JSON.stringify(this.editBank.value))
+    .subscribe(response=>{
+      console.log(response);
+    })
+  }
 
   onBankSubmit(){
     this.showprofile.newcompanybank(JSON.stringify(this.companyBank.value))

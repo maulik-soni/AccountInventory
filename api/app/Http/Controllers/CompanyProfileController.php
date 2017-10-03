@@ -60,7 +60,7 @@ class CompanyProfileController extends Controller
     public function update(Request $request,$id)
     {
         $query=CompanyProfile::find($id);
-        $updatequery=$request->except(['id']);
+        $updatequery=$request->except(['id','api_token','country']);
         foreach($updatequery as $update=>$newvalue){
              $query->$update=$newvalue;
         }

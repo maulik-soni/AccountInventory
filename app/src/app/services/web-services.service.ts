@@ -63,6 +63,10 @@ export class WebServicesService {
     updatevendor:this.base_url+'/api/updatevendor',
     showvendor:this.base_url+'/api/showvendor',
     deletevendor:this.base_url+'/api/deletevndor',
+
+    getcompanybanks:this.base_url+'/api/getcompanybanks',
+    getcompanybranches:this.base_url+'/api/getcompanybranches',
+    getcompanyamount:this.base_url+'/api/getbankamount',
   
     newuser:this.base_url+'/api/newuser',
     searchuser:this.base_url+'/api/searchuser',
@@ -111,6 +115,32 @@ export class WebServicesService {
         return country;
     }
   }
+
+  getcompanybanks(){
+    return this._http.get(this.apis.getcompanybanks+this.api_token_header())
+    .map((response:Response)=>response.json());
+  }
+
+  getcompanybranches(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    console.log(this.apis.getcompanybranches+this.api_token_header());
+    return this._http.post(this.apis.getcompanybranches+this.api_token_header(),data,options)
+    .map((response:Response)=>response.json());
+  }
+  
+  getcompanyamount(data){
+     let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    console.log(this.apis.getcompanyamount+this.api_token_header());
+    return this._http.post(this.apis.getcompanyamount+this.api_token_header(),data,options)
+    .map((response:Response)=>response.json());
+    // return this._http.post(this.apis.getcompanyamount+this.api_token_header(),data,options)
+    // .map((response:Response)=>response.json());
+    //  console.log(data);
+    // console.log(data);
+  }
+
   newuser(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -180,6 +210,7 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let id=JSON.parse(data);
+    console.log(id);
     return this._http.put(this.apis.updatecompanyprofile+'/'+id.id+this.api_token_header(),data,options)
     .map((response:Response) => response.json());
   }

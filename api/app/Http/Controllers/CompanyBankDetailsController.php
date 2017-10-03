@@ -72,6 +72,24 @@ class CompanyBankDetailsController extends Controller
         //
     }
 
+    public function getcompanybanks(){
+        $data=CompanyBankDetails::select('bank_name')->distinct()->pluck('bank_name');
+        return response()
+               ->json(['banks'=>$data],201);
+    }
+
+    public function getbankbranches(Request $request){
+        $query=$request->all();
+        $data=CompanyBankDetails::select('bank_branch')->where('bank_name',$query['bank_name'])->pluck('bank_branch');
+        return response()->json(['branches'=>$data],201);
+    }
+
+    public function getamount(Request $request){
+        $query=$request->all();
+        $data=CompanyBankDetails::select('amount')->where([['bank_name',$query['bank_name']],['bank_branch',$query['bank_branch']]])->pluck('amount');
+        return response()->json(['amount'=>$data],201);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -107,9 +125,15 @@ class CompanyBankDetailsController extends Controller
      * @param  \App\CompanyBankDetails  $companyBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CompanyBankDetails $companyBankDetails)
+    public function update(Request $request,$id)
     {
-        //
+         $query=CompanyBankDetails::find($id);
+        $updatequery=$request->except(['id','api_token','country']);
+        foreach($updatequery as $update=>$newvalue){
+             $query->$update=$newvalue;
+        }
+        $query->update();
+        return response()->json('updated',201);
     }
 
     /**

@@ -53,7 +53,7 @@ get companies(){
 }
 
 addcompany(){
-  this.companies.push(this._fb.group(new CompanyProfile('','',null,null,'','','','','','','')));
+  this.companies.push(this._fb.group(new CompanyProfile('','','',null,null,'','','','','','')));
 }
 
   removecompany(i: number) {
@@ -85,11 +85,16 @@ addcompany(){
 
 
   onSubmit(){
-    this._company.newcompanyprofile(JSON.stringify(this.companyProfile.value))
-     .subscribe(response=>{console.log(response);
-      this.companies.reset();
-      this.createcompanyForm();
-    this.showcompanies();})
+  //  this.companyProfile.setValue({
+  //    from: new Date(this.companyProfile.value.companies[0].from.valueOf()).toLocaleDateString('en-ca'),
+  //  });
+
+   console.log(this.companyProfile.value);
+    // this._company.newcompanyprofile(JSON.stringify(this.companyProfile.value))
+    //  .subscribe(response=>{console.log(response);
+    //   this.companies.reset();
+    //   this.createcompanyForm();
+    // this.showcompanies();})
 
       // this._company.newcompanybank(JSON.stringify(this.companyBank.value))
       // .subscribe(response=>{console.log(response)});

@@ -19,7 +19,7 @@ export class Bills{
         public debit?:number,
         public credit?:number,
         public tranasaction_conversion_rate?:number,
-        public bank_branch?:string
+        public bank_branch?:String
     ){}
 }
 

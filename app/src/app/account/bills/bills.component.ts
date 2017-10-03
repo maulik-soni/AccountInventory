@@ -18,9 +18,11 @@ import { SharedService } from './../../shared/shared.service';
 export class BillsComponent implements OnInit {
   accountdata=[];
   invoicedata;
+  bankamount;
+  amountdisable=false;
   showpaymentoptions=false;
   titles=['party name','amount'];
-  innertitles=['invoice number','date of invoice','invoice amount','amount paid','balance amount','due date','due days'];
+  innertitles=['invoice number','date of invoice','invoice amount','amount','balance amount','due date','due days'];
   options=new Options(
     ['cash','cheque','bank transfer'],
     ['payment','receive'],
@@ -77,6 +79,16 @@ export class BillsComponent implements OnInit {
   selectedby($event){
     this.paymentvalues.transaction_mode=$event.id;
     console.log(this.paymentvalues.transaction_mode);
+    if($event.id=='cheque' || $event.id=='bank transfer'){
+      this._bills.getcompanybanks()
+      .subscribe(response=>{this.options.bank=response.banks;
+         this.selectedbank({id:this.options.bank[0]});
+         
+      });
+       
+     
+
+    }
   }
 
   selectedtype($event){
@@ -87,6 +99,7 @@ export class BillsComponent implements OnInit {
   selectedparty($event){
     this.paymentvalues.account_name=$event.id;
     console.log(this.paymentvalues.account_name);
+    this.getdata();
   }
 
   selectedstatus($event){
@@ -103,14 +116,45 @@ export class BillsComponent implements OnInit {
     console.log(this.paymentvalues.transaction_currency);
   }
 
+  selectedbank($event){
+    this.paymentvalues.bank=$event.id;
+    let bank;
+    bank={
+      bank_name: this.paymentvalues.bank
+    }
+    this._bills.getcompanybranches(JSON.stringify(bank))
+    .subscribe(response=>{this.options.branch=response.branches;
+      this.paymentvalues.bank_branch=this.options.branch[0];
+      this.getbankamount(this.paymentvalues.bank,this.paymentvalues.bank_branch);
+    });
+  }
+
+  selectedbankbranch($event){
+    this.paymentvalues.bank_branch=$event.id;
+    this.getbankamount(this.paymentvalues.bank,this.paymentvalues.bank_branch);
+  }
+
+  getbankamount(bank,branch){
+    let data;
+    data={
+      bank_name:bank,
+      bank_branch:branch
+    }
+    this._bills.getcompanyamount(JSON.stringify(data))
+    .subscribe(response=>{this.bankamount=response.amount[0]});
+  }
+
 
 
   gettype(option){
     let billtype;
+    this.showpaymentoptions=false;
+    this.paymentvalues.transaction_mode=this.options.transaction_mode[0];
     let billtypevalue=option;
     billtype={
       billtype:billtypevalue,
     }
+    this.accountdata=[];
     this._bills.showbills(JSON.stringify(billtype))
     .subscribe(response=>{this.options.account_name=response.response.account_names});
   }
@@ -128,9 +172,11 @@ export class BillsComponent implements OnInit {
   setamount(){
       if(this.paymentvalues.transaction_status==="full"){
     this.paymentvalues.amount=this.invoicedata.balance;
+    this.amountdisable=true;
       }
       else{
         this.paymentvalues.amount=null;
+        this.amountdisable=false;
       }
   }
 
@@ -163,11 +209,12 @@ export class BillsComponent implements OnInit {
 
 
   onSubmit(form:NgForm){
-     this.paymentvalues.transaction_date=new Date(this.paymentvalues.date.valueOf()).toLocaleDateString();
+     this.paymentvalues.transaction_date=new Date(this.paymentvalues.date.valueOf()).toLocaleDateString('en-ca');
      this._bills.newbill(JSON.stringify(this.paymentvalues))
      .subscribe(response=>{console.log(response);
      this.getdata();
      this.showpaymentoptions=false;
+     console.log(form);
      this.paymentvalues.amount=null;
      
     //  this.paymentvalues.balance=this.invoicedata.balance;

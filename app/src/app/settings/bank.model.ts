@@ -6,7 +6,7 @@ export class Bank{
         public bank_branch:string,
         public account_number:string,
         public IFSC_code:string,
-        public account_code:string,
+        // public account_code:string,
         public amount?:number,
         public amount_USD?:number,
     ){

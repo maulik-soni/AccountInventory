@@ -96,6 +96,7 @@ result=[];
 
   showpopup(){
   this.showfilterables=true;
+  this.barcodes=[];
    let getfilters;
       getfilters={
         filter:'filteroptions'

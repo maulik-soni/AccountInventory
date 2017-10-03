@@ -25,7 +25,7 @@
 
           
       </div>
-          <span *ngIf="paymentvalues.account_name" (click)="getdata()" class="btn btn-info waves-effect">Get Result</span>
+          <!-- <span *ngIf="paymentvalues.account_name" (click)="getdata()" class="btn btn-info waves-effect">Get Result</span> -->
           
     </div>
     </div>
@@ -72,7 +72,8 @@
                         <td>{{data.balance | currency:'INR':true}}</td>
                         <td>{{data.due_date | date:"dd-MM-yy"}}</td>
                         <td>{{data.due_date |  date:"dd-MM-yy" | days}}</td>
-                        <td (click)="getinvoice(data)" class="cta-pay-receive"> <span class="btn btn-info waves-effect">pay</span></td>
+                        <td (click)="getinvoice(data)" > <span *ngIf="paymentvalues.transaction_type==options.transaction_type[0]"  class="btn btn-info waves-effect">pay</span>
+                        <span *ngIf="paymentvalues.transaction_type==options.transaction_type[1]" class="btn btn-info waves-effect">recieve</span></td>
                       </tr>
                     </tbody>
                   </table>
@@ -124,15 +125,16 @@
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Bank</p>
-                       <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedby($event)"></ng-select>
+                       <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Bank Branch</p>
-                       <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedby($event)"></ng-select>
+                       <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedbankbranch($event)"></ng-select>
                     </div>
                   </div>
+                  <p>{{bankamount}}</p>
                 </div>
                 <div *ngIf="paymentvalues.transaction_mode==='bank transfer'">
                   <div class="form-group">
@@ -144,13 +146,13 @@
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Bank</p>
-                       <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedby($event)"></ng-select>
+                       <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Bank Branch</p>
-                       <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedby($event)"></ng-select>
+                       <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedbankbranch($event)"></ng-select>
                     </div>
                   </div>
                 </div>
@@ -179,7 +181,7 @@
             <div class="form-group">
               <div class="fg-line">
                 <p class="form-label">Full/Part</p>
-                <ng-select [items]="options.transaction_status" [items]="options.transaction_status"  (selected)="selectedstatus($event)"></ng-select>
+                <ng-select [items]="options.transaction_status" [active]="options.transaction_status" [items]="options.transaction_status"  (selected)="selectedstatus($event)"></ng-select>
               </div>
             </div>
           </div>
@@ -188,7 +190,7 @@
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Amount</p>
-								<input type="text" class="form-control fg-input"  [disabled]="transaction_status==='full'" name = "amount" #amountBox [(ngModel)]="paymentvalues.amount">								
+								<input type="text" class="form-control fg-input"  [disabled]="amountdisable" name = "amount" #amountBox [(ngModel)]="paymentvalues.amount">								
 							</div>
 						</div>
 					</div>

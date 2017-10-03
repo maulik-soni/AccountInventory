@@ -16,4 +16,5 @@ class CompanyBankDetails extends Model
     'c_id',
     'amount_USD',
     ];
+
 }

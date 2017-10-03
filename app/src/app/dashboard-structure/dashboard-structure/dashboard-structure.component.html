@@ -85,9 +85,15 @@
           </a>
 
           <ul class="main-menu">
-            <li>
-              <a href="#"><i class="zmdi zmdi-settings"></i> Settings</a>
-            </li>
+             <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-account"></i>Settings</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/settings/company-profile']">Company Profile</a></li>
+                <li><a [routerLink]="['/settings/vendors-profile']">Vendors Profile</a></li>
+                <!-- <li><a [routerLink]="['/settings/company-bank-details']">Company Bank Details</a></li>
+                <li><a [routerLink]="['/settings/vendors-bank-detail']">Vendors Bank Detail</a></li> -->
+            </ul>
+          </li>
             <li>
               <a (click)="logout()"><i class="zmdi zmdi-time-restore"></i> Logout</a>
             </li>
@@ -164,15 +170,7 @@
             </ul>
           </li>
 
-          <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-account"></i>Settings</a>
-            <ul style="display: none;">
-                <li><a [routerLink]="['/settings/company-profile']">Company Profile</a></li>
-                <li><a [routerLink]="['/settings/vendors-profile']">Vendors Profile</a></li>
-                <li><a [routerLink]="['/settings/company-bank-details']">Company Bank Details</a></li>
-                <li><a [routerLink]="['/settings/vendors-bank-detail']">Vendors Bank Detail</a></li>
-            </ul>
-          </li>
+         
 
         </ul>
       </div>
