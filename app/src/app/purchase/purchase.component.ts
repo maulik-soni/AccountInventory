@@ -127,9 +127,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             cost_rate_per_carat:0,
             wd_rate:0,
             wd_rate_carat:0,
-            less1:0,
-            less2:0,
-            less3:0,
+            less:0,
             rate_INR:0,
             rate_dolar:0,
             diamond_lot_number:[''],
@@ -206,14 +204,14 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
         var purchaseData:any = [];
         for(var i = 0; i < piecesarray.length; i++){
           purchaseData.push(Object.assign({}, newpurchase, piecesarray[i]));
-          purchaseData[i].less = JSON.stringify({
-            less1:piecesarray[i].less1,
-            less2:piecesarray[i].less2,
-            less3:piecesarray[i].less3
-          });
-          delete purchaseData[i].less1;
-          delete purchaseData[i].less2;
-          delete purchaseData[i].less3;
+          // purchaseData[i].less = JSON.stringify({
+          //   less1:piecesarray[i].less1,
+          //   less2:piecesarray[i].less2,
+          //   less3:piecesarray[i].less3
+          // });
+          // delete purchaseData[i].less1;
+          // delete purchaseData[i].less2;
+          // delete purchaseData[i].less3;
           // purchaseData[i].comission = JSON.stringify({
           //   comission1:purchaseData[i].comission1,
           //   comission2:purchaseData[i].comission2
@@ -252,8 +250,10 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public lab_type:any = this.ConstantService.LAB_TYPE;
   newpurchase = new Purchase();
 
-  public less:any = {less1:0,less2:0,less3:0};
+  // public less:any = {less1:0,less2:0,less3:0};
   // public comission:any = {comission1:0,comission2:0};
+  public less:any = 0;
+  
   public comission:any = 0;  
   private value:any = {};
   private _disabledV:string = '0';
@@ -361,7 +361,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     var totalCRT = this.newpurchase.total_diamond_carat;
 
     this.newpurchase.amount_INR =  this.newpurchase.avg_INR*this.newpurchase.total_diamond_carat;
-    var lessDis = parseInt(this.less.less1)+parseInt(this.less.less2)+parseInt(this.less.less3);
+    var lessDis = parseInt(this.less)
     console.log(this.newpurchase.amount_INR,lessDis,(this.newpurchase.amount_INR*(lessDis/100)))
     var amountINR = this.newpurchase.amount_INR-(this.newpurchase.amount_INR*(lessDis/100));
     var amountDOLAR = this.newpurchase.amount_INR/this.newpurchase.currency_convrsion_rate;
@@ -437,7 +437,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   onSubmit(form:NgForm) {
 
     this.submitted = true;
-    this.newpurchase.less = JSON.stringify(this.less);
+    // this.newpurchase.less = JSON.stringify(this.less);
     // this.newpurchase.comission = JSON.stringify(this.comission);
     this.newpurchasedata = JSON.parse(JSON.stringify(this.newpurchase));
     console.log(JSON.stringify(this.newpurchasedata));
@@ -513,9 +513,10 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           "avg_dolar": "Average in USD",
           "aginst_Hform": "Against Hform",
           "mVAT": "mVAT",
-          "less1": "Less 1",
-          "less2": "Less 2",
-          "less3": "Less 3",
+          // "less1": "Less 1",
+          // "less2": "Less 2",
+          // "less3": "Less 3",
+          "less": "Less",
           // "comission1": "Comission 1",
           // "comission2": "Comission 2",
           "comission": "Comission",
@@ -591,12 +592,12 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
         // };
         // importedData[i].comission = JSON.stringify(importedData[i].comission);
 
-        importedData[i].less = {
-          less1 : importedData[i].less1,
-          less2 : importedData[i].less2,
-          less3 : importedData[i].less3
-        };
-        importedData[i].less = JSON.stringify(importedData[i].less);
+        // importedData[i].less = {
+        //   less1 : importedData[i].less1,
+        //   less2 : importedData[i].less2,
+        //   less3 : importedData[i].less3
+        // };
+        // importedData[i].less = JSON.stringify(importedData[i].less);
         
         importedData[i].broker_details = {
           brokerName : importedData[i].brokerName,
@@ -617,9 +618,9 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           }
         }
         delete importedData[i].sr_no;
-        delete importedData[i].less1;
-        delete importedData[i].less2;
-        delete importedData[i].less3;
+        // delete importedData[i].less1;
+        // delete importedData[i].less2;
+        // delete importedData[i].less3;
         // delete importedData[i].comission1;
         // delete importedData[i].comission2;
         delete importedData[i].brokerName;

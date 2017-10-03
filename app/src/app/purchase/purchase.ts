@@ -27,7 +27,7 @@ export class Purchase {
       public total_diamond_pcs?:number,
       public total_diamond_carat?:number,
       public diamond_clarity?:string,
-      public less?:{},
+      public less?:number,
       public comission?:number,
       public cost_discount?:number,
       public cost_rate_per_carat?:number,

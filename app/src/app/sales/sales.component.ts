@@ -100,9 +100,7 @@ export class SalesComponent implements OnInit {
       certificate_number: [''],
       avg_INR: 0,
       avg_dolar: 0,
-      less1:0,
-      less2:0,
-      less3:0,
+      less:0,
       sale_disc:0,
       sale_rate:0,
       length: [''],
@@ -158,14 +156,14 @@ export class SalesComponent implements OnInit {
       var salesData:any = [];
       for(var i = 0; i < salesdetails.length; i++){
         salesData.push(Object.assign({}, newsales, salesdetails[i]));
-        salesData[i].less = JSON.stringify({
-          less1:salesdetails[i].less1,
-          less2:salesdetails[i].less2,
-          less3:salesdetails[i].less3
-        });
-        delete salesData[i].less1;
-        delete salesData[i].less2;
-        delete salesData[i].less3;
+        // salesData[i].less = JSON.stringify({
+        //   less1:salesdetails[i].less1,
+        //   less2:salesdetails[i].less2,
+        //   less3:salesdetails[i].less3
+        // });
+        // delete salesData[i].less1;
+        // delete salesData[i].less2;
+        // delete salesData[i].less3;
         // salesData[i].comission = JSON.stringify({
         //   comission1:salesData[i].comission1,
         //   comission2:salesData[i].comission2
@@ -212,8 +210,10 @@ export class SalesComponent implements OnInit {
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public names:Array<string> = this.ConstantService.NAMES;
 
-  public less:any = {less1:0,less2:0,less3:0};
+  // public less:any = {less1:0,less2:0,less3:0};
   // public comission:any = {comission1:0,comission2:0};
+  public less:any =0;
+  
   public comission:any = 0;
   
   private value:any = {};
@@ -337,7 +337,7 @@ export class SalesComponent implements OnInit {
 
   public calAmount():void{
     var salesAmount = this.newsales.sale_rate*this.mypurchase.total_diamond_carat*this.mypurchase.total_diamond_pcs;
-    var lessDis = parseInt(this.less.less1)+parseInt(this.less.less2)+parseInt(this.less.less3);
+    var lessDis = parseInt(this.less)
     salesAmount = parseInt((salesAmount*(1-(lessDis/100))).toFixed(2));
     salesAmount = parseInt((salesAmount*(1-(this.newsales.sale_disc/100))).toFixed(2));
     this.newsales.sales_amount_INR = salesAmount;
@@ -348,7 +348,7 @@ export class SalesComponent implements OnInit {
 
   
   onSubmit() { 
-    this.newsales.less = JSON.stringify(this.less);
+    // this.newsales.less = JSON.stringify(this.less);
     // this.newsales.comission = JSON.stringify(this.comission);
     this.newsalesdata.broker_details = {
       brokerName : this.newsales.brokerName,

@@ -97,13 +97,13 @@ export class PurchaseReturnComponent implements OnInit {
         if(exportCSVdata[i][key] == null){
           exportCSVdata[i][key] = '-'; 
         }
-        if(key == "less"){
-          exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
-          exportCSVdata[i].less1 = exportCSVdata[i][key].less1;
-          exportCSVdata[i].less2 = exportCSVdata[i][key].less2;
-          exportCSVdata[i].less3 = exportCSVdata[i][key].less3;
-          delete exportCSVdata[i][key];
-        }
+        // if(key == "less"){
+        //   exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
+        //   exportCSVdata[i].less1 = exportCSVdata[i][key].less1;
+        //   exportCSVdata[i].less2 = exportCSVdata[i][key].less2;
+        //   exportCSVdata[i].less3 = exportCSVdata[i][key].less3;
+        //   delete exportCSVdata[i][key];
+        // }
         // if(key == "comission"){
         //   exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
         //   exportCSVdata[i].comission1 = exportCSVdata[i][key].comission1;
@@ -160,9 +160,10 @@ export class PurchaseReturnComponent implements OnInit {
           "avg_dolar": "Average in USD",
           "aginst_Hform": "Against Hform",
           "mVAT": "mVAT",
-          "less1": "Less 1",
-          "less2": "Less 2",
-          "less3": "Less 3",
+          // "less1": "Less 1",
+          // "less2": "Less 2",
+          // "less3": "Less 3",
+          "less": "Less",
           // "comission1": "Comission 1",
           // "comission2": "Comission 2",
           "comission": "Comission",
