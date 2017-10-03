@@ -1,23 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from './../shared/shared.module';
 import { SettingsRoutingModule } from './settings-routing.module';
 
-import { CompanyProfileComponent } from './company-profile/company-profile.component';
-import { CompanyBankDetailsComponent } from './company-bank-details/company-bank-details.component';
-import { VendorBankDetailsComponent } from './vendor-bank-details/vendor-bank-details.component';
+
+import { BankDetailsComponent } from './bank-details/bank-details.component';
 import { VendorProfileComponent } from './vendor-profile/vendor-profile.component';
 
 import { WebServicesService } from './../services/web-services.service';
+import { VendorDetailsComponent } from './vendor-details/vendor-details.component';
+import { VendorFullProfileComponent } from './vendor-full-profile/vendor-full-profile.component';
+import { CompanyProfileComponent } from './company-profile/company-profile.component';
+import { CompanyDetailsComponent } from './company-details/company-details.component';
+import { CompanyFullProfileComponent } from './company-full-profile/company-full-profile.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SettingsRoutingModule,
+    ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [CompanyProfileComponent, CompanyBankDetailsComponent, VendorBankDetailsComponent, VendorProfileComponent],
+  declarations: [BankDetailsComponent, VendorProfileComponent, VendorDetailsComponent, VendorFullProfileComponent, CompanyProfileComponent, CompanyDetailsComponent, CompanyFullProfileComponent],
   providers:[WebServicesService]
 })
 export class SettingsModule { }

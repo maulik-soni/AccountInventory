@@ -4,9 +4,10 @@ import { RouterModule, Routes,Router } from '@angular/router';
 
 
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
-import { CompanyBankDetailsComponent } from './company-bank-details/company-bank-details.component';
-import { VendorBankDetailsComponent } from './vendor-bank-details/vendor-bank-details.component';
+// import { CompanyFullProfileComponent } from './company-full-profile/company-full-profile.component';
+import { CompanyFullProfileComponent } from './company-full-profile/company-full-profile.component';
 import { VendorProfileComponent } from './vendor-profile/vendor-profile.component';
+import { VendorFullProfileComponent } from './vendor-full-profile/vendor-full-profile.component';
 
 import { AuthGuard } from './../authorization/auth-guard.service';
 import { AdminGuard } from './../authorization/admin-role-guard.service';
@@ -17,20 +18,30 @@ const settingRoutes: Routes = [
     canActivate:[AuthGuard,AdminGuard],
     children:[
       {
-        path:'company-bank-details',
-        component: CompanyBankDetailsComponent
-      },
-      {
         path:'company-profile',
-         component: CompanyProfileComponent
-      },
-      {
-        path:'vendors-bank-detail',
-        component: VendorBankDetailsComponent
+        children:[
+          {
+            path:'',
+            component: CompanyProfileComponent
+          },
+          {
+            path:':id',
+            component: CompanyFullProfileComponent
+          }
+        ]
       },
       {
         path:'vendors-profile',
-        component: VendorProfileComponent
+        children:[
+          {
+            path:'',
+            component: VendorProfileComponent
+          },
+          {
+            path:':id',
+            component: VendorFullProfileComponent
+          }
+        ]
       },
     ]
   }

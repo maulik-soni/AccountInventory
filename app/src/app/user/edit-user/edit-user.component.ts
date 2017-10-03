@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit,AfterViewInit }      from '@angular/core';
+import { Component, OnInit }      from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Location }               from '@angular/common';
+// import { Location }               from '@angular/common';
 import { WebServicesService } from './../../services/web-services.service';
 import { Router } from '@angular/router';
 import { EditUser } from './edit-user.model';

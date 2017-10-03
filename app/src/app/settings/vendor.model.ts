@@ -1,6 +1,6 @@
 export class Vendor{
     constructor(
-        public name:string,
+        public v_name:string,
         public account_code:string,
         public address:string,
         public country:string,
@@ -25,3 +25,11 @@ export class Vendor{
         public email?:string
     ){}
 }
+
+export const VendorTitles=[
+    ['name','v_name'],
+    ['account code','account_code'],
+    ['phone','phone'],
+    ['mobile','mobile'],
+    ['website','website'],
+    ['credit limit','credit_limit']]

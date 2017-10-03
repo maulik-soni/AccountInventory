@@ -14,16 +14,19 @@ class Bills extends Model
         'invoice_value',
         'transaction_date',
         'transaction_mode',
-        'transaction_details',
+        'transaction_status',
         'account_name',
         'transaction_currency',
-        'transaction_status',
+        'date',
+        'due_date',
+        'balance',
+        'received',
         'credit_INR',
         'debit_INR',
         'transaction_conversion_rate',
-        'balance',
-        'received',
-        'date',
-        'due_date'
+        'cheque_no',
+        'bank',
+        'transaction_id',
+        'bank_branch'
     ];
 }

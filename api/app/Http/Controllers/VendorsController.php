@@ -9,27 +9,66 @@ class VendorsController extends Controller
 {
     public function create(Request $request)
     {
-        $this->validate($request,[
-            'name'=>'required',
-            'account_code'=>'required',
-            'opening_bal'=>'nullable',
-            'opening_bal_USD'=>'nullable',
-            'remarks'=>'nullable',
-            'contact_person'=>'required',
-            'GST'=>'required',
-            'PAN'=>'required',
-            ]);
+        $query= $request->all();
+        if($request->has('vendors')){
+           $collectrequests=$query['vendors'];
+           foreach ($collectrequests as $key) {
+        // $this->validate($request,[
+        //     'v_name'=>'required',
+        //     'account_code'=>'required',
+        //     'opening_bal'=>'nullable',
+        //     'opening_bal_USD'=>'nullable',
+        //     'remarks'=>'nullable',
+        //     'contact_person'=>'required',
+        //     'GST'=>'required',
+        //     'PAN'=>'required',
+        //     'address'=>'required',
+        //     'phone'=>'nullable',
+        //     'mobile'=>'nullable',
+        //     'email'=>'nullable',
+        //     'country'=>'required',
+        //     'fax_number'=>'required',
+        //     'RAP'=>'required',
+        //     'IDEX'=>'required',
+        //     'diamond_world_id'=>'required',
+        //     'QBC'=>'required',
+        //     'website'=>'nullable',
+        //     'credit_limit'=>'required',
+        //     'credit_limit_USD'=>'required',
+        //     'refernce_1'=>'nullable',
+        //     'reference_2'=>'nullable',
+
+        //     ]);
 
         $vendor = new Vendors([
-            'name'=> $request->input('name'),
-            'account_code'=>$request->input('account_code'),
-            'opening_bal'=>$request->input('opening_bal'),
-            'opening_bal_USD'=>$request->input('opening_bal_USD'),
-            'GST'=>$request->input('GST'),
-            'PAN'=>$request->input('PAN'),
+            'v_name'=> $key['v_name'],
+            'account_code'=>$key['account_code'],
+            'opening_bal'=>$key['opening_bal'],
+            'opening_bal_USD'=>$key['opening_bal_USD'],
+            'remarks'=>$key['remarks'],
+            'contact_person'=>$key['contact_person'],
+            'address'=>$key['address'],
+            'phone'=>$key['phone'],
+            'mobile'=>$key['mobile'],
+            'email'=>$key['email'],
+            'country'=>$key['country'],
+            'fax_number'=>$key['fax_number'],
+            'RAP'=>$key['RAP'],
+            'IDEX'=>$key['IDEX'],
+            'diamond_world_id'=>$key['diamond_world_id'],
+            'QBC'=>$key['QBC'],
+            'website'=>$key['website'],
+            'credit_limit'=>$key['credit_limit'],
+            'credit_limit_USD'=>$key['credit_limit_USD'],
+            'reference_1'=>$key['reference_1'],
+            'reference_2'=>$key['reference_2'],
+            'GST'=>$key['GST'],
+            'PAN'=>$key['PAN'],
             ]);
 
         $vendor->save();
+           }
+        }
         return response()->json(['message'=>'successfully created vendor'],201);
     }
 
@@ -47,6 +86,14 @@ class VendorsController extends Controller
         }
         $query->update();
         return response()->json('updated',201);
+    }
+
+    public function show(Vendors $vendors,Request $request){
+         if($request->has('onload')){
+        $data=Vendors::all();
+        }
+
+            return response()->json(['response'=>['vendors'=>$data]],201);
     }
 
     public function destroy($id)

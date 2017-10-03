@@ -2,10 +2,6 @@
     display: inline-block;
     width: 82%;
 }
-span.ui-select-match-text{
-    display: inline-block!important;
-    margin-top: 10px!important;
-}
 
 .input-group-addon{
     min-width: auto;
@@ -96,3 +92,19 @@ span.ui-select-match-text{
     opacity: 1;
 }
 
+.center-align{
+    display: flex;
+    align-items: center;
+}
+
+.custom-width-2{
+    width: 18%!important;
+}
+
+.pull-left{
+        margin-top: 5px;
+}
+
+.ng-select{
+    height: 53px;
+}

@@ -1,0 +1,74 @@
+          <div [formGroup]="bankform">
+            
+
+          <div class="row">
+
+            <div class="col-lg-2">            
+          <label class="c-black f-500 labels">Bank Name</label>
+          <div class="form-group noneditable">
+            <div class="fg-line">
+              <input type="text" class="form-control" formControlName="bank_name">
+            </div>
+          </div>
+            </div>
+
+            <div class="col-lg-2">            
+          <label class="c-black f-500 labels">Bank Address</label>
+          <div class="form-group noneditable">
+            <div class="fg-line">
+              <input type="text" class="form-control" formControlName="bank_address">
+            </div>
+          </div>
+            </div>
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Bank Branch</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="bank_branch">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Account Number</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="account_number">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">IFSC Code</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="IFSC_code">
+                </div>
+              </div>
+            </div>
+          
+
+            <div class="col-lg-2">
+              <label class="c-black f-500 labels">Amount</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="amount">
+                </div>
+              </div>
+            </div>
+            <!--<div class="col-lg-2">
+              <label class="c-black f-500 labels">Amount (USD)</label>
+              <div class="form-group noneditable">
+                <div class="fg-line">
+                  <input type="text" class="form-control" formControlName="amount_USD">
+                </div>
+              </div>
+            </div>-->
+          </div>
+          </div>
+          <!--<button *ngIf="isEditable" type="button"  (click)="onedit(data)" class="btn btn-icon command-edit waves-effect waves-circle">
+                <span class="zmdi zmdi-edit"></span>
+              </button>
+          
+
+      <button type="buton" *ngIf="!isEditable" class="btn" (click)="onSubmit()">Save</button>-->
+    

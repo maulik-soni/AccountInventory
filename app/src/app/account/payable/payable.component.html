@@ -100,6 +100,7 @@
                         <td>{{data.received | currency:'INR':true}}</td>
                         <td>{{data.balance | currency:'INR':true}}</td>
                         <td>{{data.due_date | date:"dd-MM-yy"}}</td>
+                        <td>{{data.due_date |  date:"dd-MM-yy" | days}}</td>
                       </tr>
                     </tbody>
                   </table>

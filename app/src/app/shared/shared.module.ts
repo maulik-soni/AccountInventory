@@ -11,6 +11,16 @@ import {MaterialModule,
   NativeDateAdapter,
   MD_DATE_FORMATS } from '@angular/material';
 import { DashboardStructureModule } from './../dashboard-structure/dashboard-structure.module';
+import { DaysPipe } from './pipes/days.pipe';
+
+
+
+
+import { SharedService } from './shared.service';
+import { ValidemailDirective } from './directives/validemail.directive';
+
+
+
 
 @NgModule({
   imports: [
@@ -24,8 +34,9 @@ import { DashboardStructureModule } from './../dashboard-structure/dashboard-str
     MdRadioModule,
     SelectModule
   ],
-  declarations: [],
-  providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},],
+  declarations: [DaysPipe, ValidemailDirective],
+  providers:[ {provide: DateAdapter, useClass: NativeDateAdapter},
+  SharedService],
   exports:[
     FormsModule,
     CommonModule,
@@ -33,7 +44,9 @@ import { DashboardStructureModule } from './../dashboard-structure/dashboard-str
     MdCheckboxModule,
     DashboardStructureModule,
     MdRadioModule,
-    SelectModule]
+    SelectModule,
+    DaysPipe,
+    ValidemailDirective,]
 })
 export class SharedModule {
    constructor(private dateAdapter: DateAdapter<Date>) {

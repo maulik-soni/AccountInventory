@@ -216,3 +216,7 @@
     max-width: 90%;
     width: auto !important;
 }
+
+.ui-select-match-text{
+    margin-top: 5px;
+}

@@ -4,7 +4,8 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class WebServicesService {
-  private base_url = "http://127.0.0.1:8000";
+  private login_url = "http://127.0.0.1:8000"
+  private base_url = this.login_url
   private apis = {
     salesreport: this.base_url+'/api/salesreport',
     purchasereport:this.base_url+'/api/purchasereport',
@@ -38,6 +39,7 @@ export class WebServicesService {
     showreceivable:this.base_url+'/api/showreceivable',
     searchreceivable:this.base_url+'/api/searchreceivable',
 
+    newcompanyprofile:this.base_url+'/api/newcompanyprofile',
     editcompanyprofile:this.base_url+'/api/editcompanyprofile',
     showcompanyprofile:this.base_url+'/api/showcompanyprofile',
     updatecompanyprofile:this.base_url+'/api/updatecompanyprofile',
@@ -93,8 +95,21 @@ export class WebServicesService {
   constructor(private _http:Http) { }
   ///////////////
   ///User
+  ///?api_token='+this.gettoken()+'&&country='+this.getcountry(),
   //////////////
+  gettoken(){
+    let token=localStorage.getItem('currentUser');
+    if(token!=null){
+        return token.slice(1,token.length-1);
+    }
+  }
 
+  getcountry(){
+    let country=localStorage.getItem('country');
+     if(country!=null){
+        return country;
+    }
+  }
   newuser(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -140,6 +155,13 @@ export class WebServicesService {
 
 
   //////Company Profile
+
+   newcompanyprofile(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.newcompanyprofile,data,options)
+    .map((response:Response) => response.json());
+  }
   editcompanyprofile(data){
     return this._http.get(this.apis.editcompanyprofile+'/'+data)
     .map((response:Response)=>response.json());

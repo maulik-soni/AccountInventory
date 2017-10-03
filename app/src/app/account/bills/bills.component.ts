@@ -6,8 +6,10 @@ import{Bills,Options} from './bills.model';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
-
 import { WebServicesService } from './../../services/web-services.service';
+import { SharedService } from './../../shared/shared.service';
+
+
 @Component({
   selector: 'app-bills',
   templateUrl: './bills.component.html',
@@ -18,12 +20,14 @@ export class BillsComponent implements OnInit {
   invoicedata;
   showpaymentoptions=false;
   titles=['party name','amount'];
-  innertitles=['invoice number','date of invoice','invoice amount','amount paid','balance amount','due'];
+  innertitles=['invoice number','date of invoice','invoice amount','amount paid','balance amount','due date','due days'];
   options=new Options(
     ['cash','cheque','bank transfer'],
     ['payment','receive'],
     ['part','full'],
     ['INR','USD'],
+   [],
+   ['HDFC','PNB'],
    []
    );
   paymentvalues=new Bills(
@@ -39,13 +43,22 @@ export class BillsComponent implements OnInit {
     '',
     null,
     null,
-    null
+    null,
+    '',
+    '',
+    '',
+    null,
+    null,
+    null,
+    ''
     );
 
 
   constructor(
-    private _bills:WebServicesService
-  ) { }
+    private _bills:WebServicesService,
+    private _shared:SharedService
+  ) {
+   }
 
 
   ngOnInit() {
@@ -58,6 +71,8 @@ export class BillsComponent implements OnInit {
     .subscribe(response=>{this.options.account_name=response.response.account_names});
 
   }
+
+
 
   selectedby($event){
     this.paymentvalues.transaction_mode=$event.id;
@@ -76,6 +91,9 @@ export class BillsComponent implements OnInit {
 
   selectedstatus($event){
     this.paymentvalues.transaction_status=$event.id;
+  
+      this.setamount();
+    
     console.log(this.paymentvalues.transaction_status);
   }
 
@@ -99,13 +117,21 @@ export class BillsComponent implements OnInit {
 
  
   setdata(){
-    console.log(this.paymentvalues);
     this.paymentvalues.balance=this.invoicedata.balance;
     this.paymentvalues.date=this.invoicedata.date;
     this.paymentvalues.due_date=this.invoicedata.due_date;
     this.paymentvalues.invoice_number=this.invoicedata.invoice_number;
     this.paymentvalues.invoice_value=this.invoicedata.invoice_value;
     this.paymentvalues.received=this.invoicedata.received;
+  }
+
+  setamount(){
+      if(this.paymentvalues.transaction_status==="full"){
+    this.paymentvalues.amount=this.invoicedata.balance;
+      }
+      else{
+        this.paymentvalues.amount=null;
+      }
   }
 
   getinvoice(data){
@@ -126,9 +152,15 @@ export class BillsComponent implements OnInit {
       account_name:this.paymentvalues.account_name
     }
     this._bills.showbills(JSON.stringify(bill))
-    .subscribe(response=>{this.accountdata=response.response});
-    }
+    .subscribe(response=>{this.accountdata=response.response;
+    if(response.response.accounts.length===0 ){
+    this._shared.notify('No Results Found','inverse');
+  }});
   }
+  
+  
+  }
+
 
   onSubmit(form:NgForm){
      this.paymentvalues.transaction_date=new Date(this.paymentvalues.date.valueOf()).toLocaleDateString();

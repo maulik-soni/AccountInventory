@@ -9,45 +9,51 @@ class CompanyProfileController extends Controller
 {
     public function create(Request $request)
     {
-        $this->validate($request,[
-            'c_name'=>'required',
-            'address'=>'required',
-            'phone'=>'nullable',
-            'mobile'=>'nullable',
-            'email'=>'nullable|email',
-            'from'=>'required',
-            'to'=>'required',
-            'GST'=>'required',
-            'PAN'=>'required',
-            'IEC'=>'required',
-            'QBC'=>'required'
-            ]);
+         $query= $request->all();
+        if($request->has('companies')){
+           $collectrequests=$query['companies'];
+           foreach ($collectrequests as $key) {
+        // $this->validate($request,[
+        //     'c_name'=>'required',
+        //     'address'=>'required',
+        //     'phone'=>'nullable',
+        //     'mobile'=>'nullable',
+        //     'email'=>'nullable|email',
+        //     'from'=>'required',
+        //     'to'=>'required',
+        //     'GST'=>'required',
+        //     'PAN'=>'required',
+        //     'IEC'=>'required',
+        //     'QBC'=>'required'
+        //     ]);
 
         $company_profile = new CompanyProfile([
-            'c_name'=> $request->input('c_name'),
-            'address'=>$request->input('address'),
-            'phone'=>$request->input('phone'),
-            'mobile'=>$request->input('mobile'),
-            'from'=>$request->input('from'),
-            'to'=>$request->input('to'),
-            'email'=>$request->input('email'),
-            'GST'=>$request->input('GST'),
-            'PAN'=>$request->input('PAN'),
-            'IEC'=>$request->input('IEC'),
-            'QBC'=>$request->input('QBC')
+            'c_name'=> $key['c_name'],
+            'address'=>$key['address'],
+            'phone'=>$key['phone'],
+            'mobile'=>$key['mobile'],
+            'from'=>$key['from'],
+            'to'=>$key['to'],
+            'email'=>$key['email'],
+            'GST'=>$key['GST'],
+            'PAN'=>$key['PAN'],
+            'IEC'=>$key['IEC'],
+            'QBC'=>$key['QBC']
             ]);
 
         $company_profile->save();
+           }
 
         return response()->json(
             ['response'=>['message'=>'Successful']],
             201);
     }
+    }
 
     public function edit($id){
         $data=CompanyProfile::all()->where('id',$id)->first();
         return response()->json(
-            ['response'=>['editable_data'=>$data]],
+            ['response'=>['response'=>$data]],
             201);
     }
 
@@ -65,9 +71,9 @@ class CompanyProfileController extends Controller
     public function show(Request $request){
         $query=$request->all();
         if($request->has('onload')){
-            $data=CompanyProfile::all()->first();
+            $data=CompanyProfile::all();
 
-            return response()->json(['response'=>['details'=>$data]],201);
+            return response()->json(['response'=>['companies'=>$data]],201);
         }
     }
 
