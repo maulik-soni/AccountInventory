@@ -104,12 +104,12 @@ export class PurchaseReturnComponent implements OnInit {
           exportCSVdata[i].less3 = exportCSVdata[i][key].less3;
           delete exportCSVdata[i][key];
         }
-        if(key == "comission"){
-          exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
-          exportCSVdata[i].comission1 = exportCSVdata[i][key].comission1;
-          exportCSVdata[i].comission2 = exportCSVdata[i][key].comission2;
-          delete exportCSVdata[i][key];
-        }
+        // if(key == "comission"){
+        //   exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
+        //   exportCSVdata[i].comission1 = exportCSVdata[i][key].comission1;
+        //   exportCSVdata[i].comission2 = exportCSVdata[i][key].comission2;
+        //   delete exportCSVdata[i][key];
+        // }
         if(key == "broker_details"){
           exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
           exportCSVdata[i].brokerType = exportCSVdata[i][key].brokerType;
@@ -163,8 +163,9 @@ export class PurchaseReturnComponent implements OnInit {
           "less1": "Less 1",
           "less2": "Less 2",
           "less3": "Less 3",
-          "comission1": "Comission 1",
-          "comission2": "Comission 2",
+          // "comission1": "Comission 1",
+          // "comission2": "Comission 2",
+          "comission": "Comission",
           "brokerType": "Broker Type",
           "brokerName": "Broker Name",
           "brokerage": "Brokerage",

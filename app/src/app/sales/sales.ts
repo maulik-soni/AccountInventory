@@ -29,7 +29,7 @@ export class Sales {
       public total_diamond_carat?:number,
       public diamond_clarity?:string,
       public less?:{},
-      public comission?:{},
+      public comission?:number,
       public cost_discount?:number,
       public cost_rate_per_carat?:number,
       public RAP_price?:number,

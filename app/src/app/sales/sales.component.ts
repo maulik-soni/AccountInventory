@@ -59,8 +59,7 @@ export class SalesComponent implements OnInit {
             brokerName:[''],
             brokerType:[''],
             brokerage:[''],
-            comission1:0,
-            comission2:0,
+            comission:0,
             purchase_amount_INR:0,
             purchase_amount_dolar:0,
             freight:0,
@@ -167,12 +166,12 @@ export class SalesComponent implements OnInit {
         delete salesData[i].less1;
         delete salesData[i].less2;
         delete salesData[i].less3;
-        salesData[i].comission = JSON.stringify({
-          comission1:salesData[i].comission1,
-          comission2:salesData[i].comission2
-        });
-        delete salesData[i].comission1 
-        delete salesData[i].comission2
+        // salesData[i].comission = JSON.stringify({
+        //   comission1:salesData[i].comission1,
+        //   comission2:salesData[i].comission2
+        // });
+        // delete salesData[i].comission1 
+        // delete salesData[i].comission2
         salesData[i].broker_details = JSON.stringify({
           brokerType : salesData[i].brokerType,
           brokerName : salesData[i].brokerName,
@@ -214,7 +213,9 @@ export class SalesComponent implements OnInit {
   public names:Array<string> = this.ConstantService.NAMES;
 
   public less:any = {less1:0,less2:0,less3:0};
-  public comission:any = {comission1:0,comission2:0};
+  // public comission:any = {comission1:0,comission2:0};
+  public comission:any = 0;
+  
   private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
@@ -266,8 +267,9 @@ export class SalesComponent implements OnInit {
   public checkComission(){
     console.log(this.comissionCheck);
     if(!this.comissionCheck){
-      this.comission.comission1 = 0;
-      this.comission.comission2 = 0;
+      // this.comission.comission1 = 0;
+      // this.comission.comission2 = 0;
+      this.comission = 0; 
     }
   }
 
@@ -347,7 +349,7 @@ export class SalesComponent implements OnInit {
   
   onSubmit() { 
     this.newsales.less = JSON.stringify(this.less);
-    this.newsales.comission = JSON.stringify(this.comission);
+    // this.newsales.comission = JSON.stringify(this.comission);
     this.newsalesdata.broker_details = {
       brokerName : this.newsales.brokerName,
       brokerType : this.newsales.brokerType,
