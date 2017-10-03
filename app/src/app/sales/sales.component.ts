@@ -43,6 +43,10 @@ export class SalesComponent implements OnInit {
 
   ngOnInit() {
 
+    this._webservice.generateInvoice('sales').subscribe(response=>
+      this.myForm.controls['invoice_number'].patchValue("SA-"+response)
+    );
+
     this.myForm = this._fb.group({
             invoice_number:[''],
             currency_convrsion_rate:[''],

@@ -117,7 +117,7 @@
 					<div class="col-sm-6">
 						<p class="form-label m-b-10">Company Name</p>
 						<ng-select [allowClear]="true"
-							[items]="names"
+							[items]="companyName"
 							[disabled]="disabled"
 							(data)="refreshValue($event)"
 							(selected)="selected($event,'company_name')"

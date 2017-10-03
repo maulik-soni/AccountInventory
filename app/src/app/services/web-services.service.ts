@@ -84,7 +84,10 @@ export class WebServicesService {
     searchmemoin:this.base_url+'/api/searchmemoin',
 
     showmemoissue:this.base_url+'/api/showmemoissue',
-    searchmemoissue:this.base_url+'/api/searchmemoissue'
+    searchmemoissue:this.base_url+'/api/searchmemoissue',
+
+    getcompany : this.base_url+'/api/getcompany',
+    generateInvoice : this.base_url+'/api/getInvoiceNumber'
   };
   
   constructor(private _http:Http) { }
@@ -611,7 +614,15 @@ showinventory(data){
   }
 
 
-  
+  getCompany(){
+    return this._http.get(this.apis.getcompany)
+    .map((response:Response) => response.json());
+  }
+
+  generateInvoice(table){
+    return this._http.get(this.apis.generateInvoice+"?table="+table)
+    .map((response:Response) => response.json());
+  }
 
   dateConversion(date){
     console.log(date);

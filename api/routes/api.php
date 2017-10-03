@@ -150,3 +150,6 @@ Route::get('/searchmemoin','memoinController@search');
 
 Route::post('/showmemoissue','memoissueController@show');
 Route::get('/searchmemoissue','memoissueController@search');
+
+Route::get('/getcompany', 'sharedAPIController@fetchCompanyName');
+Route::get('/getInvoiceNumber', 'sharedAPIController@generateInvoiceNumber');

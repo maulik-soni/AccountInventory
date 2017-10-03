@@ -97,6 +97,11 @@ export class MemooutComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    this._webservice.generateInvoice('memo_issue').subscribe(response=>
+      this.myForm.controls['invoice_number'].patchValue("MM-"+response)
+    );
+
     this.myForm = this._fb.group({
       invoice_number: [''],
       no_of_days:[''],

@@ -59,6 +59,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     private _fb: FormBuilder
   ) {
     this.options = new DatePickerOptions();
+     
   }
 
   addComponents() {
@@ -73,6 +74,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   }
 
   ngOnInit() {
+
+    this._webservice.getCompany().subscribe(response=>
+      this.companyName=response
+    );
+
+    
+    this._webservice.generateInvoice('purchase').subscribe(response=>
+      this.myForm.controls['invoice_number'].patchValue("PU-"+response)
+    );
 
     this.myForm = this._fb.group({
             invoice_number: [''],
@@ -226,7 +236,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
 
   ngAfterViewInit(){}
-
+  public companyName:Array<string>=[];
+  public invoice:any;
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public brokertypes:Array<string> = this.ConstantService.BROKERTYPES;
   public names:Array<string> = this.ConstantService.NAMES;
@@ -237,11 +248,10 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public clarity:Array<string> = this.ConstantService.CLARITY;
   public sizes:Array<string> = this.ConstantService.SIZES;
   public taxes:Array<string> = this.ConstantService.TAXES;
-  public invoice:any = this.ConstantService.INVOICE;
+  
   public dolar:any = this.ConstantService.DOLAR;
   public lab_type:any = this.ConstantService.LAB_TYPE;
-
-  newpurchase = new Purchase(this.invoice,this.dolar,false,"Bill To Bill");
+  newpurchase = new Purchase();
 
   public less:any = {less1:0,less2:0,less3:0};
   public comission:any = {comission1:0,comission2:0};
