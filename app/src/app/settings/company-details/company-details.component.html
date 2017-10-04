@@ -49,9 +49,9 @@
               <label class="c-black f-500 labels">From</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control fg-input mdatepicker" [mdDatepicker]="datepicker"  formControlName="from">
+                  <input type="text" disabled class="form-control fg-input mdatepicker" [mdDatepicker]="datepicker" formControlName="from">
                 <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="datepicker"></button>
-                <md-datepicker #datepicker></md-datepicker>	
+                <md-datepicker  #datepicker></md-datepicker>	
                 </div>
               </div>
             </div>
@@ -60,7 +60,9 @@
               <label class="c-black f-500 labels">To</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="to" >
+                  <input type="text" disabled class="form-control fg-input mdatepicker" [mdDatepicker]="datepickerto"  formControlName="to">
+                  <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="datepickerto"></button>
+                  <md-datepicker #datepickerto></md-datepicker>	
                 </div>
               </div>
             </div>

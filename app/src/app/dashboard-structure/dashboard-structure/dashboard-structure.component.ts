@@ -29,10 +29,10 @@ export class DashboardStructureComponent implements OnInit {
     log={
       logout:'logout'
     }
-    this._logoutservice.logoutuser(JSON.stringify(log)).subscribe(response=>{console.log(response);localStorage.clear();
-      this.route.navigate(['/login'])
+    this._logoutservice.logoutuser(JSON.stringify(log)).subscribe(response=>{console.log(response);
     });
-            ;
+    localStorage.clear();
+    this.route.navigate(['/login']);
             
 
   }

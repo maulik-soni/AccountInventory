@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import{ NgForm } from '@angular/forms';
 
-import { SearchValues,SearchOptions} from './search.model';
 import { WebServicesService } from './../services/web-services.service';
 
 @Component({
@@ -10,17 +9,13 @@ import { WebServicesService } from './../services/web-services.service';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-  avalue="vikas";
   selected=[];
   barcodes=[];
   searchcount=0;
   showfilterables=false;
-  searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
-  searchvalues=new SearchValues(
-    this.searchatts.inventory[0],
-  );
-
-  filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor'];
+  collectiontype=['all','stock in hand','stock on memo-issue','stock on memo-in','sold stones','lab issue'];
+  initfilterby=this.collectiontype[0];
+  filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor','party name','certificate'];
 resulttitles=[
   ['stock status','stock_status_group'],
   ['item','item'],
@@ -99,7 +94,8 @@ result=[];
   this.barcodes=[];
    let getfilters;
       getfilters={
-        filter:'filteroptions'
+        filter:'filteroptions',
+        filterby:this.initfilterby,
       }
       this.inventoryservice.showinventory(JSON.stringify(getfilters))
       .subscribe(response=>{this.filterdata=response.response.filters;
@@ -120,47 +116,41 @@ result=[];
  
   // }
 
-  getallfilterdata(){
-    let data={
-      inventory:'all',
-    }
+  // getallfilterdata(){
+  //   let data={
+  //     inventory:'all',
+  //   }
 
-    this.inventoryservice.showinventory(JSON.stringify(data)).subscribe(response=>{
-       this.result=response.response.inventory;
-       this.searchcount=response.response.searches;
-       console.log(response);
-      });
+  //   this.inventoryservice.showinventory(JSON.stringify(data)).subscribe(response=>{
+  //      this.result=response.response.inventory;
+  //      this.searchcount=response.response.searches;
+  //      console.log(response);
+  //     });
 
-      this.showfilterables=false
+  //     this.showfilterables=false
+  // }
+
+  resetcollection(filterby){
+    this.showfilterables=true;
+    this.barcodes=[];
+     let getfilters;
+        getfilters={
+          filter:'filteroptions',
+          filterby:filterby,
+        }
+        this.inventoryservice.showinventory(JSON.stringify(getfilters))
+        .subscribe(response=>{this.filterdata=response.response.filters;
+        console.log(this.filterdata);});
   }
   
   
   onSubmit(form:NgForm,prop){
-    
-// var all=form.value.filter;
-// all['filterresult']='filterresult';
-
-// if(this.searchvalues.inventory=="all"){
-//   var all = form.value;
-// }
-
-
- var all=form.value.filter;
- all['filterresult']='filterresult';
- all['inventory']='filter';
- all['filter']='search';
- 
-
-
-console.log(form.value);
-
-     this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
+    console.log(form.value);
+     this.inventoryservice.showinventory(JSON.stringify(form.value)).subscribe(response=>{
        this.result=response.response.inventory;
        this.searchcount=response.response.searches;
        console.log(response);});
-
        this.showfilterables=prop;
-    
   }
 
   getselecteddata(formb:NgForm){

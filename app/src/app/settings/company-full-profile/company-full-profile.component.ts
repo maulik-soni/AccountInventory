@@ -105,6 +105,7 @@ createcompanyForm(){
   }
 
   profilesave(){
+    
     this.showprofile.updatecompanyprofile(JSON.stringify(this.companyProfile.value))
     .subscribe(response=>{
       this._shared.notify(response,'inverse');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCashbook extends Migration
+class CreateJournalEntryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,20 @@ class CreateCashbook extends Migration
      */
     public function up()
     {
-        Schema::create('cashbook', function (Blueprint $table) {
+        Schema::create('journal_entry', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('amount');
             $table->string('voucher');
             $table->date('date');
             $table->longtext('description');
             $table->string('type');
-            $table->timestamps();
+            $table->string('transaction_currency');
+            $table->string('transaction_id')->nullable();
+            $table->string('cheque_no')->nullable();
+            $table->string('bank')->nullable();
+            $table->double('transaction_conversion_rate')->nullable();
+            $table->string('bank_branch')->nullable();
+            $table->double('amount');
+
         });
     }
 
@@ -31,6 +37,6 @@ class CreateCashbook extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cashbook');
+        Schema::dropIfExists('journal_entry');
     }
 }

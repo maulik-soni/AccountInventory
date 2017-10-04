@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePaymentRecieptsTable extends Migration
+class CreateBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePaymentRecieptsTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment_reciepts', function (Blueprint $table) {
+        Schema::create('bills', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('invoice_number');
             $table->double('invoice_value');
@@ -33,8 +33,6 @@ class CreatePaymentRecieptsTable extends Migration
             $table->double('credit_INR')->nullable();
             $table->double('debit_INR')->nullable();
             $table->double('transaction_conversion_rate')->nullable();
-    
-            $table->timestamps();
         });
     }
 
@@ -45,6 +43,6 @@ class CreatePaymentRecieptsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_reciepts');
+        Schema::dropIfExists('bills');
     }
 }
