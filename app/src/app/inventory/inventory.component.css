@@ -20,6 +20,39 @@
     overflow: auto;
 }
 
+.label-container{
+    height: 21cm;
+    width:16.8cm;
+    background: #EBE8E8;
+}
+
+.label-container .inputs .single-line{
+    display: flex;
+    justify-content: space-between;
+}
+
+.label-container .inputs label{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.inputs{
+    width: 30%;
+    height: 7cm;
+}
+
+.label-container .inputs input{
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    width: auto;
+    min-width: 20px;
+    border:none!important;
+    background: transparent!important;
+    border-bottom: 1px solid !important;
+}
+
 h3{
     color: #fff;
 }

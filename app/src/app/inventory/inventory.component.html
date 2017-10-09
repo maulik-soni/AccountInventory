@@ -76,7 +76,7 @@
         <button type="button" (click)="showpopup()" class="btn btn-info waves-effect">Search</button>
         <hr>
         <button type="button" (click)="generatebarcode()" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Generate Barcode</button>
-        <button type="button" class="btn bgm-lightgreen waves-effect">Print Label</button>
+        <button type="button" class="btn bgm-lightgreen waves-effect" (click)="printlabel()">Print Label</button>
         <span *ngIf="initfilterby=='stock in hand'">
         <button type="button" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">BulK Sell</button>
         <button type="button" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Bulk Memo</button>
@@ -90,8 +90,53 @@
   </form>
 
   <div class="card" id="print-div" >
+    <div class="label-container">
+      <div class="inputs">
+        <div class="single-line">
+          <label>St. Id</label>
+          <input type="text">
+        </div>
+        <div class="single-line">
+            <label for="shape">Shape</label>
+            <input type="text" id="shape">
+          </div>
+          <div class="single-line">
+              <label for="color">color</label>
+              <input type="text" id="color">
+          </div>
+          <div class="single-line">
+                <label for="clarity">clarity</label>
+                <input type="text" id="clarity">
+          </div>
+          <div class="single-line">
+            <label for="cut">cut</label>
+            <input type="text" id="cut">
+          </div>
+          <div class="single-line">
+              <label for="pol">pol</label>
+              <input type="text" id="pol">
+          </div>
+          <div class="single-line">
+              <label for="sym">sym</label>
+              <input type="text" id="sym">
+          </div>
+          <div class="single-line">
+              <label for="fl">fl</label>
+              <input type="text" id="fl">
+          </div>
+
+          <div class="single-line">
+              <label for="weight">weight</label>
+              <input type="text" id="weight">
+          </div>
+
+
+      </div>
+    </div>
+    <div *ngIf="barcodes.length>0">
     <ngx-barcode bc-text-position="top" bc-height="47" bc-width="1" *ngFor="let data of barcodes" [bc-value]="data" [bc-display-value]="true"></ngx-barcode>
     <button type="button" *ngIf="barcodes.length>0" (click)="printbarcode()" >Print Barcodes</button>
+  </div>
   </div>
 
   <div class="card" id="results">
