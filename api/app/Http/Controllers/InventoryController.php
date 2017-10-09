@@ -11,9 +11,7 @@ class InventoryController extends Controller
 {
     public function show(Request $request){
         $query=$request->all();
-        $collect=Inventory::collection($query['filterby']);
-        
-        
+        $collect=Inventory::collection($query['filterby'],$query['date']);
         ////////////////////////////////////////////
         ///// Showing all Result
         ///////////////////////////////////////////
@@ -51,8 +49,8 @@ class InventoryController extends Controller
                     
                                     $filtervalues = $filterables->keys()
                                                     ->map(function($item){
-                                                            $collect = Inventory::getfields($item);
-                                                            return array('item'=>$item,'items'=>$collect);  
+                                                            $collection = Inventory::getfields($item);
+                                                            return array('item'=>$item,'items'=>$collection);  
                                                     });
                     
                                     return response()->json([

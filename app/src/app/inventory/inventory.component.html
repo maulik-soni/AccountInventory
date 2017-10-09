@@ -16,13 +16,45 @@
         <div  *ngIf="showfilterables"  class="filter-modal">
           <div class="filterables-container">
             
-            <!-- <button type="button" (click)="getallfilterdata()"  class="btn btn-info btn-lg waves-effect">All</button> -->
+            <div class="filter-collection-options">
             <md-radio-group [(ngModel)]="initfilterby" name="filterby">
                 <md-radio-button  class="radio-button" *ngFor="let option of  collectiontype" (change)="resetcollection(option)" [value]="option">{{option}}</md-radio-button>
               </md-radio-group>
+              </div>
 
             <h3>Stones Found:{{searchcount}}</h3>
             <hr>
+
+            <div class="date-filter-container">
+
+            <div class="date-option">
+              <md-checkbox [(ngModel)]="datefilter" (change)="datetoggle()" name="dates">Date</md-checkbox>
+            </div>
+
+            
+
+            <div ngModelGroup="date" class="from-to-dates" *ngIf="datefilter">
+              
+                <div class="date-pick">
+                  <label for="from">From</label>
+                  <span class="dp-container">
+                  <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="picker"></button>
+                  <input type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" required name="fromDate" [(ngModel)]="fromDate">
+                  <md-datepicker #picker></md-datepicker>	
+                  </span>
+                </div>
+
+                <div class="date-pick">
+                  <label for="from">To</label>
+                  <span class="dp-container">
+                  <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="pickers"></button>
+                  <input type="text" id="from" class="form-control fg-input mdatepicker" [mdDatepicker]="pickers" required name="toDate" [(ngModel)]="toDate">
+                  <md-datepicker #pickers></md-datepicker>	
+                  </span>
+                </div>
+              
+            </div>
+            </div>
             
             <div  ngModelGroup="filter" class="filter-container">
               <div *ngFor="let datas of filterdata; index as i" class="filter-boxes">
@@ -35,19 +67,22 @@
                   </div> 
                 </div>
               </div>
-            
             </div>
-            <button type="submit" class="btn btn-info waves-effect">Get Result</button> 
+
+
+            <button type="submit" [disabled]="!filters.valid" class="btn btn-info waves-effect">Get Result</button> 
         </div>
         </div>
         <button type="button" (click)="showpopup()" class="btn btn-info waves-effect">Search</button>
         <hr>
         <button type="button" (click)="generatebarcode()" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Generate Barcode</button>
         <button type="button" class="btn bgm-lightgreen waves-effect">Print Label</button>
-        <button type="button" class="btn bgm-lightgreen waves-effect">BulK Sell</button>
-        <button type="button" class="btn bgm-lightgreen waves-effect">Bulk Memo</button>
-        <button type="button" class="btn bgm-lightgreen waves-effect">Bulk Lab Issue</button>
-        <button type="button" class="btn bgm-lightgreen waves-effect">Download Report</button>
+        <span *ngIf="initfilterby=='stock in hand'">
+        <button type="button" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">BulK Sell</button>
+        <button type="button" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Bulk Memo</button>
+        <button type="button" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Bulk Lab Issue</button>
+        </span>
+        <button type="button" (click)="printxl()"  [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Download Report</button>
       </div>
       </div>
 
