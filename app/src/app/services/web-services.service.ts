@@ -76,6 +76,8 @@ export class WebServicesService {
     deleteuser:this.base_url+'/api/deleteuser',
     logoutuser:this.base_url+'/api/logout',
 
+    resetpassword:this.base_url+'/api/resetpassword',
+
     newcashbook:this.base_url+'/api/newcashbook',
     showcashbook:this.base_url+'/api/showcashbook',
     searchcashbook:this.base_url+'/api/searchcashbook',
@@ -184,7 +186,13 @@ export class WebServicesService {
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.logoutuser+this.api_token_header(),data,options)
     .map((response:Response) => response.json());
+  }
 
+  resetpassword(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.resetpassword+'?country='+this.getcountry(),data,options)
+    .map((response:Response) => response.json());
   }
 
 

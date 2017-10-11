@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ForgetpasswordComponent } from './forgetpassword.component';
-
+import { SharedModule } from './../shared/shared.module';
+import { ForgetPasswordComponent } from './forgetpassword.component';
+import { ForgetPasswordRoutingModule} from './forgetpassword-routing.module';
+import { Router,RouterModule } from '@angular/router';
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule,
+    RouterModule,
+    ForgetPasswordRoutingModule
   ],
-  declarations: [ForgetpasswordComponent]
+  declarations: [ForgetPasswordComponent]
 })
-export class ForgetpasswordModule { }
+export class ForgetPasswordModule { }

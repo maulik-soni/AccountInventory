@@ -120,49 +120,51 @@
   </form>
 
   <div class="card" id="print-div" >
-    <div class="label-container">
+    <div *ngIf="selected.length>0">
+    <div class="label-container" *ngFor="let data of selected">
       <div class="inputs">
         <div class="single-line">
           <label>St. Id</label>
-          <input type="text">
+          <input type="text" value={{data.Stock_ID}}>
         </div>
         <div class="single-line">
             <label for="shape">Shape</label>
-            <input type="text" id="shape">
+            <input type="text" id="shape" value={{data.diamond_shape}}>
           </div>
           <div class="single-line">
               <label for="color">color</label>
-              <input type="text" id="color">
+              <input type="text" id="color"  value={{data.diamond_color}}>
           </div>
           <div class="single-line">
                 <label for="clarity">clarity</label>
-                <input type="text" id="clarity">
+                <input type="text" id="clarity" value={{data.diamond_clarity}}>
           </div>
           <div class="single-line">
             <label for="cut">cut</label>
-            <input type="text" id="cut">
+            <input type="text" id="cut" value={{data.finalCut}}>
           </div>
           <div class="single-line">
               <label for="pol">pol</label>
-              <input type="text" id="pol">
+              <input type="text" id="pol" value={{data.polishing_type}}>
           </div>
           <div class="single-line">
               <label for="sym">sym</label>
-              <input type="text" id="sym">
+              <input type="text" id="sym" value={{data.symmetry}}>
           </div>
           <div class="single-line">
               <label for="fl">fl</label>
-              <input type="text" id="fl">
+              <input type="text" id="fl" value={{data.fluorescenceColor}}>
           </div>
 
           <div class="single-line">
               <label for="weight">weight</label>
-              <input type="text" id="weight">
+              <input type="text" id="weight" value={{data.weight}}>
           </div>
-
-
       </div>
     </div>
+  </div>
+
+
     <div *ngIf="barcodes.length>0">
     <ngx-barcode bc-text-position="top" bc-height="47" bc-width="1" *ngFor="let data of barcodes" [bc-value]="data" [bc-display-value]="true"></ngx-barcode>
     <button type="button" *ngIf="barcodes.length>0" (click)="printbarcode()" >Print Barcodes</button>
@@ -176,7 +178,7 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th></th>
+                <th><md-checkbox *ngIf="datas" (change)="getselecteddata(filterresult)" (ngModel)=datas name={{datas|json}}></md-checkbox></th>
                 <th *ngFor="let title of resulttitles">{{title[0]}}</th>
               </tr>
             </thead>
