@@ -19,7 +19,18 @@ export class InventoryComponent implements OnInit {
   showfilterables=false;
   collectiontype=['all','stock in hand','stock on memo-issue','stock on memo-in','sold stones','lab issue'];
   initfilterby=this.collectiontype[0];
-  filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor','party name','certificate'];
+  range0=false;
+  range1=false;
+  range2=false;
+  range3=false;
+
+  caratrange=[
+    [0.01,0.02,0.03],
+    [0.04,0.05,0.06,0.07],
+    [0.08,0.09,0.10,0.11,0.12,0.13,0.14],
+    [0.15,0.16,0.17],
+  ]
+  filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor','party name','carats'];
 resulttitles=[
   ['stock status','stock_status_group'],
   ['item','item'],
@@ -94,6 +105,7 @@ result=[];
   }
 
   showpopup(){
+
   this.showfilterables=true;
   this.datefilter=false;
   this.datetoggle();
@@ -113,6 +125,7 @@ result=[];
       this.inventoryservice.showinventory(JSON.stringify(getfilters))
       .subscribe(response=>{
         this.filterdata=response.response.filters;
+        this.filterdata.pop();
       console.log(response);});
 }
 
@@ -143,11 +156,15 @@ result=[];
         this.inventoryservice.showinventory(JSON.stringify(getfilters))
         .subscribe(response=>{
           this.filterdata=response.response.filters;
+        this.filterdata.pop();          
         console.log(response);});
   }
   
   
   onSubmit(form:NgForm,prop){
+
+    console.log(this.range0);
+    console.log(this.range1);
    if(!form.value.date){
      let getdate;
       getdate={
@@ -156,6 +173,7 @@ result=[];
       }
      form.value.date=getdate;
    }
+    console.log(form.value);
      this.inventoryservice.showinventory(JSON.stringify(form.value)).subscribe(response=>{
        this.result=response.response.inventory;
        this.searchcount=response.response.searches;

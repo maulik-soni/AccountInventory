@@ -67,7 +67,37 @@
                   </div> 
                 </div>
               </div>
+
+              <div class="filter-boxes">
+                <div class="shade-bg">
+                  <div ngModelGroup="total_diamond_carat">
+                    <p class="c-black f-500 labels">carat</p>
+                    <div>
+                      <div *ngFor="let data of caratrange[0]">
+                        <md-checkbox [ngModel]="range0" name={{data}}>{{data}}</md-checkbox>
+                      </div>
+                      <div *ngFor="let data of caratrange[1]">
+                        <md-checkbox [ngModel]="range1" name={{data}}>{{data}}</md-checkbox>
+                      </div>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+
+
+              <div class="filter-boxes">
+                <div class="shade-bg">
+                  <div>
+                    <p class="c-black f-500 labels">carat</p>
+                    <div> 
+                      <md-checkbox (change)="onSubmit(filters,true)"  [(ngModel)]="range0" name="range0">0.01-0.03</md-checkbox>
+                      <md-checkbox (change)="onSubmit(filters,true)"  [(ngModel)]="range1" name="range1">0.03-0.07</md-checkbox>
+                    </div>
+                  </div> 
+                </div>
+              </div>
             </div>
+              
 
 
             <button type="submit" [disabled]="!filters.valid" class="btn btn-info waves-effect">Get Result</button> 

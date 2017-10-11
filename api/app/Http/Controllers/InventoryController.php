@@ -44,6 +44,7 @@ class InventoryController extends Controller
                                 'symmetry'=>[],
                                 'fluorescenceIntensity'=>[],
                                 'account_name'=>[],
+                                'total_diamond_carat'=>[],
                                 ]);
                                 if($query['filter']=='filteroptions'){
                     
