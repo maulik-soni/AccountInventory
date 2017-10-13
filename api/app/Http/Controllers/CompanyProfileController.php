@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CompanyProfile;
 
+use Carbon\Carbon;
+
 class CompanyProfileController extends Controller
 {
     public function create(Request $request)
@@ -32,8 +34,8 @@ class CompanyProfileController extends Controller
             'address'=>$key['address'],
             'phone'=>$key['phone'],
             'mobile'=>$key['mobile'],
-            'from'=>$key['from'],
-            'to'=>$key['to'],
+            'from'=>Carbon::parse($key['from'])->addDays(1)->toDateString(),
+            'to'=>Carbon::parse($key['to'])->addDays(1)->toDateString(),
             'email'=>$key['email'],
             'GST'=>$key['GST'],
             'PAN'=>$key['PAN'],
@@ -62,7 +64,15 @@ class CompanyProfileController extends Controller
         $query=CompanyProfile::find($id);
         $updatequery=$request->except(['id','api_token','country']);
         foreach($updatequery as $update=>$newvalue){
-             $query->$update=$newvalue;
+                if($update=='from' || $update=='to'){
+                    if(strlen($newvalue)>11){
+                        $query->$update=Carbon::parse($newvalue)->addDays(1)->toDateString();
+                    }else{
+                    $query->$update=$newvalue;
+                    }
+                }else{
+                    $query->$update=$newvalue;
+                }
         }
         $query->update();
         return response()->json('updated',201);
@@ -74,6 +84,10 @@ class CompanyProfileController extends Controller
             $data=CompanyProfile::all();
 
             return response()->json(['response'=>['companies'=>$data]],201);
+        }
+        if($request->has('companynames')){
+            $data=CompanyProfile::select('c_name')->get()->pluck('c_name');
+            return response()->json(['response'=>['company_names'=>$data]],201);
         }
     }
 

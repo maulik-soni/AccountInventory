@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -39,11 +38,12 @@ export class VendorProfileComponent implements OnInit {
      let requesttype={onload:"onload"};
      this._vendor.showvendor(JSON.stringify(requesttype)).
      subscribe(response=>{this.vendordata=response.response.vendors});
+     
   }
 
-  // addClient(){
-  //   this.isAdd=false;
-  // }
+  addClient(){
+    this.isAdd=false;
+  }
 
   createVendorForm(){
     this.vendorProfile=this._fb.group({vendors:this._fb.array([])});
@@ -54,7 +54,7 @@ get vendors(){
 }
 
 addVendor(){
-  this.vendors.push(this._fb.group(new Vendor('vikas','','','','','','','','',null,null,'','','',
+  this.vendors.push(this._fb.group(new Vendor(null,'vikas','','','','','','','','',null,null,'','','',
   '','','','',null,null,'','','',
   )));
 }

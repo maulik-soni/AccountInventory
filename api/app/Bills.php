@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bills extends Model
 {
-
-
-    protected $table = 'payment_reciepts';
+    protected $table = 'bills';
+    public $timestamps = false;
     protected $fillable = [
         'invoice_number',
         'invoice_value',

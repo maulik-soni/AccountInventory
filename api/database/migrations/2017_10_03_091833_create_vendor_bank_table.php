@@ -20,9 +20,14 @@ class CreateVendorBankTable extends Migration
             $table->string('bank_branch');
             $table->string('account_number');
             $table->string('IFSC_code');
-            $table->string('v_id');
-            $table->string('amount')->nullable();
-            $table->string('amount_USD')->nullable();
+            $table->integer('v_id')->unsigned();
+            $table->double('amount',20,2)->nullable();
+            $table->double('amount_USD',20,2)->nullable();
+
+            $table->foreign('v_id')
+                  ->references('id')
+                  ->on('vendor_profile')
+                  ->onDelete('cascade');
         });
     }
 

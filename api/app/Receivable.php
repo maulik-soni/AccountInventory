@@ -9,11 +9,11 @@ use DB;
 
 class Receivable extends Model
 {
-    
+    public $timestamps = false;
     public static function collection(){
          $sales = DB::table('sales')
-                        ->leftjoin('payment_reciepts', 'sales.invoice_number', '=', 'payment_reciepts.invoice_number')
-                        ->where('payment_reciepts.invoice_number','=',null)
+                        ->leftjoin('bills', 'sales.invoice_number', '=', 'bills.invoice_number')
+                        ->where('bills.invoice_number','=',null)
                         ->select('sales.invoice_number','sales.account_name','sales.sales_amount_INR as balance','sales.sales_amount_INR as invoice_value','sales.sales_date as date','sales.due_date')
                         ->get();
 
@@ -32,8 +32,8 @@ class Receivable extends Model
     public static function search($term){
         if(Schema::hasColumn('sales',key($term))){
             $sales = DB::table('sales')
-                            ->leftjoin('payment_reciepts', 'sales.invoice_number', '=', 'payment_reciepts.invoice_number')
-                            ->where('payment_reciepts.invoice_number','=',null)
+                            ->leftjoin('bills', 'sales.invoice_number', '=', 'bills.invoice_number')
+                            ->where('bills.invoice_number','=',null)
                             ->select('sales.invoice_number','sales.account_name','sales.sales_amount_INR as balance')
                             ->where('sales.'.key($term),'like','%'.$term[key($term)].'%')
                             ->pluck(key($term));
@@ -60,8 +60,8 @@ class Receivable extends Model
 
      public static function betweenDates($from,$to){
         $sales = DB::table('sales')
-                         ->leftjoin('payment_reciepts', 'sales.invoice_number', '=', 'payment_reciepts.invoice_number')
-                         ->where('payment_reciepts.invoice_number','=',null)
+                         ->leftjoin('bills', 'sales.invoice_number', '=', 'bills.invoice_number')
+                         ->where('bills.invoice_number','=',null)
                         ->select('sales.invoice_number','sales.account_name','sales.amount_INR as balance','sales.amount_INR as invoice_value','sales.sales_date as date','sales.due_date')
                         ->whereBetween('sales_date',[$from,$to])
                         ->get();

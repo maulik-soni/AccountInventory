@@ -14,7 +14,7 @@ class CreateBillsTable extends Migration
     public function up()
     {
         Schema::create('bills', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('transaction_id');
             $table->integer('invoice_number');
             $table->double('invoice_value');
             $table->date('transaction_date');
@@ -24,15 +24,16 @@ class CreateBillsTable extends Migration
             $table->string('transaction_currency');
             $table->date('date');
             $table->date('due_date');
-            $table->double('balance');
-            $table->double('received');
+            $table->double('balance',20,2);
+            $table->double('received',20,2);
             $table->string('cheque_no')->nullable();
             $table->string('bank')->nullable();
-            $table->string('transaction_id')->nullable();
             $table->string('bank_branch')->nullable();
-            $table->double('credit_INR')->nullable();
-            $table->double('debit_INR')->nullable();
+            $table->double('credit_INR',20,2)->nullable();
+            $table->double('debit_INR',20,2)->nullable();
+            $table->string('company_name'); 
             $table->double('transaction_conversion_rate')->nullable();
+            $table->timestamps();
         });
     }
 

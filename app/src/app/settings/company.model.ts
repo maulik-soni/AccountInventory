@@ -2,7 +2,7 @@
 
 export class CompanyProfile {
     constructor(
-        public id:string,
+        public id:number,
         public c_name:string,
         public address:string,
         public from:Date,

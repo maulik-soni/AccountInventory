@@ -6,7 +6,7 @@
 
 
       <div class="card">
-    <form (ngSubmit)="onProfileSubmit()" novalidate>
+    <form (ngSubmit)=" profilesave()" novalidate>
         <div class="card-header">
           <span style="margin:11px">Vendor Profile</span>
            <button *ngIf="isEditable" (click)="onProfileEdit()"  class="btn btn-info btn-sm btn-icon-text waves-effect">
@@ -50,6 +50,11 @@
             <p>{{ vendorBank.value | json}}</p>
           </form>
 
+          <form (ngSubmit)="onEditSubmit()" novalidate>
+            <bank-details [group]="editBank"></bank-details>
+            <button class="btn"> save changes</button>
+          </form>
+
           <div class="table-responsive">
       <table class="table">
         <thead>
@@ -60,14 +65,14 @@
         <tbody>
           <tr *ngFor="let bank of vendorsbankdata">
             <td *ngFor="let title of titles">{{bank[title[1]]}}</td>
-            <!--<td class="text-left">
-              <button type="button"  (click)="onedit(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+            <td class="text-left">
+              <button type="button"  (click)="onedit(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-edit"></span>
               </button>
-              <button type="button" (click)="ondelete(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+              <button type="button" (click)="ondelete(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-delete"></span>
               </button>
-            </td>-->
+            </td>
           </tr>
         </tbody>
       </table>

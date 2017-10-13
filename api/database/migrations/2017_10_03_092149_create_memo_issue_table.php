@@ -14,9 +14,9 @@ class CreateMemoIssueTable extends Migration
     public function up()
     {
         Schema::create('memo_issue', function (Blueprint $table) {
-            $table->increments('Stock_ID');
+            $table->increments('memo_invoice_number');
+            $table->integer('Stock_ID');
 			$table->integer('Lot_Number')->nullable()->unique();
-			$table->string('memo_invoice_number');
 			$table->date('date')->nullable();
 			$table->string('account_name')->nullable();
 			$table->string('broker')->nullable();

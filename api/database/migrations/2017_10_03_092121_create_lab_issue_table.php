@@ -14,7 +14,8 @@ class CreateLabIssueTable extends Migration
     public function up()
     {
         Schema::create('lab_issue', function (Blueprint $table) {
-            $table->increments('Stock_ID');
+            $table->increments('id');
+            $table->integer('Stock_ID');
 			$table->integer('invoice_number')->unique();
 			$table->date('date')->nullable();
 			$table->string('client_ref_num')->nullable();
@@ -26,8 +27,8 @@ class CreateLabIssueTable extends Migration
 			$table->string('color')->nullable();
 			$table->string('clarity')->nullable();
 			$table->double('rate')->nullable();
-			$table->double('amount')->nullable();
-			$table->date('return_date', 256)->nullable();
+            $table->double('amount',20,2)->nullable();
+			$table->date('return_date')->nullable();
 			$table->string('status')->nullable();
         });
     }

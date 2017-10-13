@@ -20,12 +20,13 @@ class CreateJournalEntryTable extends Migration
             $table->longtext('description');
             $table->string('type');
             $table->string('transaction_currency');
+            $table->string('company_name');
             $table->string('transaction_id')->nullable();
             $table->string('cheque_no')->nullable();
             $table->string('bank')->nullable();
             $table->double('transaction_conversion_rate')->nullable();
             $table->string('bank_branch')->nullable();
-            $table->double('amount');
+            $table->double('amount',20,2);
 
         });
     }

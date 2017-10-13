@@ -14,7 +14,8 @@ class CreateMemoInTable extends Migration
     public function up()
     {
         Schema::create('memo_in', function (Blueprint $table) {
-            $table->increments('Stock_ID');
+            $table->increments('id');
+            $table->integer('Stock_ID');
 			$table->integer('Lot_Number')->nullable()->unique('Lot_Number');
 			$table->string('memo_invoice_number');
 			$table->date('date')->nullable();

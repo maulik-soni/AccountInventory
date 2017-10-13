@@ -27,22 +27,24 @@ searchvalues=new SearchValues(
 
 titles=['date','particulars','debit','credit'];
 data=[];
-account_name=[];
+account_names=[];
+company_names=[];
 accountname;
+companyname;
 query;
 
 constructor(private _ledgerservice:WebServicesService){}
   
   ngOnInit() {
-    let billtype;
-    billtype={
-      static_data:'staticdata',
-    }
-    this._ledgerservice.showledger(JSON.stringify(billtype))
-    .subscribe(response=>{this.account_name=response.names});
-
-
+    let requesttype={companynames:"companynames"};
+    this._ledgerservice.showcompanyprofile(JSON.stringify(requesttype)).
+    subscribe(response=>{this.account_names=response.response.company_names;
+   console.log(response)});
      
+  }
+
+  selectedcompany($event){
+    this.companyname=$event;
   }
 
   selectedparty($event){

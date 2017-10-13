@@ -14,7 +14,8 @@ class CreatePurchaseReturnTable extends Migration
     public function up()
     {
         Schema::create('purchase_return', function (Blueprint $table) {
-            $table->increments('Stock_ID');
+			$table->increments('id');
+			$table->integer('String_ID')->unique();
 			$table->string('invoice_number')->nullable();
 			$table->date('purchase_date')->nullable();
 			$table->date('due_date')->nullable();
@@ -39,13 +40,13 @@ class CreatePurchaseReturnTable extends Migration
 			$table->float('total_diamond_carat')->nullable();
 			$table->float('cost_discount')->nullable();
 			$table->float('cost_rate_per_carat')->nullable();
-			$table->float('RAP_price')->nullable();
+			$table->double('RAP_price',20,2)->nullable();
 			$table->float('wd_rate')->nullable();
 			$table->float('wd_rate_carat')->nullable();
 			$table->float('rate_INR')->nullable();
-			$table->float('amount_INR')->nullable();
-			$table->float('rate_dolar')->nullable();
-			$table->float('amount_dolar')->nullable();
+			$table->double('amount_INR',20,2)->nullable();
+			$table->double('rate_dolar')->nullable();
+			$table->double('amount_dolar',20,2)->nullable();
 			$table->string('LAB_type')->nullable();
 			$table->string('certificate_number')->unique()->nullable();
 			$table->float('avg_INR')->nullable();

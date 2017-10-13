@@ -18,6 +18,7 @@ export class CompanyFullProfileComponent implements OnInit {
   companiesprofiledata;
   companiesbankdata;
   isEditable=true;
+  isEditableBank=false;
   companyProfile:FormGroup;
   companyBank:FormGroup;
   editBank:FormGroup;
@@ -59,7 +60,7 @@ export class CompanyFullProfileComponent implements OnInit {
 }
 
 createcompanyForm(){
-    this.companyProfile=this._fb.group(new CompanyProfile('','','',null,null,'','','','','','',''));
+    this.companyProfile=this._fb.group(new CompanyProfile(null,'','',null,null,'','','','','','',''));
     this.Disable();
   }
 
@@ -69,7 +70,8 @@ createcompanyForm(){
 
   onedit(data){
     this.editBank.patchValue(data);
-    console.log(data);
+    this.isEditableBank=true;
+    
   }
 
   createBankForms(){
@@ -108,7 +110,7 @@ createcompanyForm(){
     
     this.showprofile.updatecompanyprofile(JSON.stringify(this.companyProfile.value))
     .subscribe(response=>{
-      this._shared.notify(response,'inverse');
+      this._shared.notify('Company Details '+response,'success');
     this.Disable();})  
   }
 
@@ -116,7 +118,10 @@ createcompanyForm(){
     console.log(this.editBank.value);
     this.showprofile.updatecompanybank(JSON.stringify(this.editBank.value))
     .subscribe(response=>{
-      console.log(response);
+      this._shared.notify('Bank Details '+response,'success');
+      this.editBank.reset();
+      this.ngOnInit();
+      this.isEditableBank=false;
     })
   }
 

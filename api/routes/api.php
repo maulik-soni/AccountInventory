@@ -114,7 +114,7 @@ Route::post('/showinventory','InventoryController@show');
 Route::post('/newvendor','VendorsController@create');
 Route::get('/editvendor/{id}','VendorsController@edit');
 Route::post('/showvendor','VendorsController@show');
-Route::post('/updatevendor','VendorsController@update');
+Route::put('/updatevendor/{id}','VendorsController@update');
 Route::delete('/deletevendor/{id}','VendorsController@destroy');
 
 Route::post('/newcompanybank','CompanyBankDetailsController@create');
@@ -129,7 +129,7 @@ Route::post('/getbankamount','CompanyBankDetailsController@getamount');
 Route::post('/newvendorbank','VendorBankDetailsController@create');
 Route::get('/editvendorbank/{id}','VendorBankDetailsController@edit');
 Route::post('/showvendorbank','VendorBankDetailsController@show');
-Route::post('/updatevendorbank','VendorBankDetailsController@update');
+Route::put('/updatevendorbank/{id}','VendorBankDetailsController@update');
 Route::delete('/deletevendorbank/{id}','VendorBankDetailsController@destroy');
 
 Route::post('/newcompanyprofile','CompanyProfileController@create');

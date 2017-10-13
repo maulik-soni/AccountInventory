@@ -17,11 +17,11 @@ class CreateVendorProfileTable extends Migration
             $table->increments('id');
             $table->string('v_name');
             $table->integer('account_code');
-            $table->double('opening_bal')->nullable();
-            $table->double('opening_bal_USD')->nullable();
+            $table->double('opening_bal',20,2)->nullable();
+            $table->double('opening_bal_USD',20,2)->nullable();
             $table->string('remarks')->nullable();
             $table->string('contact_person')->nullable();
-             $table->string('address');
+            $table->string('address');
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();
             $table->string('email')->nullable();

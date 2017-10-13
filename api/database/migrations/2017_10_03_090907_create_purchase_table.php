@@ -39,13 +39,13 @@ class CreatePurchaseTable extends Migration
 			$table->float('total_diamond_carat')->nullable();
 			$table->float('cost_discount')->nullable();
 			$table->float('cost_rate_per_carat')->nullable();
-			$table->float('RAP_price')->nullable();
+			$table->double('RAP_price',20,2)->nullable();
 			$table->float('wd_rate')->nullable();
 			$table->float('wd_rate_carat')->nullable();
 			$table->float('rate_INR')->nullable();
-			$table->float('amount_INR')->nullable();
-			$table->float('rate_dolar')->nullable();
-			$table->float('amount_dolar')->nullable();
+			$table->double('amount_INR',20,2)->nullable();
+			$table->double('rate_dolar')->nullable();
+			$table->double('amount_dolar',20,2)->nullable();
 			$table->string('LAB_type')->nullable();
 			$table->string('certificate_number')->unique()->nullable();
 			$table->float('avg_INR')->nullable();

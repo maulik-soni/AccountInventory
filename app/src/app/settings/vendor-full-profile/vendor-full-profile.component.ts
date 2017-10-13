@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Bank,BankTitles } from "../bank.model";
 import { Vendor} from '../vendor.model';
+import { SharedService } from './../../shared/shared.service';
 
 @Component({
   selector: 'app-vendor-full-profile',
@@ -13,11 +14,13 @@ import { Vendor} from '../vendor.model';
   styleUrls: ['./vendor-full-profile.component.css']
 })
 export class VendorFullProfileComponent implements OnInit {
+
   vendorsprofiledata;
   vendorsbankdata;
   isEditable=true;
   vendorProfile:FormGroup;
   vendorBank:FormGroup;
+  editBank:FormGroup;
   titles=BankTitles;
   
   
@@ -26,10 +29,12 @@ export class VendorFullProfileComponent implements OnInit {
     private showprofile:  WebServicesService,
      private route: ActivatedRoute,
      private _router:Router,
+     private _shared:SharedService,
      private _fb:FormBuilder,
   ) {
     this.createVendorForm();
     this.createBankForms();
+    this.createedit();
    }
 
   
@@ -53,13 +58,20 @@ export class VendorFullProfileComponent implements OnInit {
 }
 
 createVendorForm(){
-    this.vendorProfile=this._fb.group(new Vendor('vikas','','','','','','','','',null,null,'','','',
+    this.vendorProfile=this._fb.group(new Vendor(null,'vikas','','','','','','','','',null,null,'','','',
   '','','','',null,null,'','','',
   ));
     this.Disable();
   }
 
+  createedit(){
+    this.editBank=this._fb.group(new Bank(null,'','','','','',null,null));
+  }
 
+  onedit(data){
+    this.editBank.patchValue(data);
+    console.log(data);
+  }
 
   createBankForms(){
     this.vendorBank=this._fb.group({
@@ -80,6 +92,11 @@ createVendorForm(){
      this.vendorProfile.enable();
   }
 
+  onDeleteBank(data){
+    
+  }
+
+
   removeBank(i: number) {
     this.banks.removeAt(i);
   }
@@ -89,11 +106,21 @@ createVendorForm(){
     this.vendorProfile.disable();
   }
 
-  // onProfileSubmit(){
-  //   this._company.updatecompanyprofile(JSON.stringify(this.companyProfile.value))
-  //   .subscribe(response=>{console.log(response);
-  //   this.Disable();})  
-  // }
+  profilesave(){
+    console.log(this.vendorProfile.value)
+    this.showprofile.updatevendor(JSON.stringify(this.vendorProfile.value))
+    .subscribe(response=>{
+      this._shared.notify(response,'inverse');
+    this.Disable();})  
+  }
+
+  onEditSubmit(){
+    console.log(this.editBank.value);
+    this.showprofile.updatevendorbank(JSON.stringify(this.editBank.value))
+    .subscribe(response=>{
+      console.log(response);
+    })
+  }
 
   onBankSubmit(){
     this.showprofile.newvendorbank(JSON.stringify(this.vendorBank.value))
