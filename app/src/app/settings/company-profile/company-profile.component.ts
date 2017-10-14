@@ -7,6 +7,7 @@ import { CompanyProfile,CompanyTitles} from '../company.model';
 import { Bank } from "../bank.model";
 
 import { WebServicesService } from './../../services/web-services.service';
+import { SharedService } from './../../shared/shared.service';
 
 @Component({
   selector: 'app-company-profile',
@@ -24,7 +25,8 @@ export class CompanyProfileComponent implements OnInit {
   constructor(
     private _company:WebServicesService,
     private _fb:FormBuilder,
-    private _router:Router
+    private _router:Router,
+    private _shared:SharedService,
   ) { 
     this.createcompanyForm();
   }
@@ -37,7 +39,8 @@ export class CompanyProfileComponent implements OnInit {
      let requesttype={onload:"onload"};
      this._company.showcompanyprofile(JSON.stringify(requesttype)).
      subscribe(response=>{this.companydata=response.response.companies;
-    console.log(response)});
+    // console.log(response)
+  });
   }
 
   addClient(){
@@ -68,7 +71,9 @@ addcompany(){
 
   onSubmit(){
     this._company.newcompanyprofile(JSON.stringify(this.companyProfile.value))
-     .subscribe(response=>{console.log(response);
+     .subscribe(response=>{
+      //  console.log(response);
+      this._shared.notify('Company Account '+response,'success');
       this.companies.reset();
       this.createcompanyForm();
     this.showcompanies();})

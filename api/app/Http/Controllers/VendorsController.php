@@ -69,7 +69,7 @@ class VendorsController extends Controller
         $vendor->save();
            }
         }
-        return response()->json(['message'=>'successfully created vendor'],201);
+        return response()->json('Created',201);
     }
 
     public function edit($id){
@@ -80,7 +80,7 @@ class VendorsController extends Controller
     public function update(Request $request,$id)
     {
         $query=Vendors::find($id);
-        $updatequery=$request->except(['id']);
+        $updatequery=$request->except(['id','api_token','dbcountry']);
         foreach($updatequery as $update=>$newvalue){
              $query->$update=$newvalue;
         }

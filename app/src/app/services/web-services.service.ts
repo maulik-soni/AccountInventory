@@ -7,7 +7,7 @@ export class WebServicesService {
   private login_url = "http://127.0.0.1:8000"
   private base_url = this.login_url
   private api_token_header(){
-    return '?api_token='+this.gettoken()+'&&country='+this.getcountry()}
+    return '?api_token='+this.gettoken()+'&&dbcountry='+this.getcountry()}
   private apis = {
     salesreport: this.base_url+'/api/salesreport',
     purchasereport:this.base_url+'/api/purchasereport',
@@ -45,6 +45,7 @@ export class WebServicesService {
     editcompanyprofile:this.base_url+'/api/editcompanyprofile',
     showcompanyprofile:this.base_url+'/api/showcompanyprofile',
     updatecompanyprofile:this.base_url+'/api/updatecompanyprofile',
+    deletecompanyprofile:this.base_url+'/api/deletecompanyprofile',
 
     newcompanybank:this.base_url+'/api/newcompanybank',
     editcompanybank:this.base_url+'/api/editcompanybank',
@@ -112,7 +113,7 @@ export class WebServicesService {
   }
 
   getcountry(){
-    let country=localStorage.getItem('country');
+    let country=localStorage.getItem('dbcountry');
      if(country!=null){
         return country;
     }
@@ -230,6 +231,13 @@ export class WebServicesService {
     .map((response:Response) => response.json());
   }
 
+  deletecompanyprofile(data){
+    console.log(this.apis.deletecompanyprofile+'/'+data);
+      return this._http.delete(this.apis.deletecompanyprofile+'/'+data+this.api_token_header())
+    .map((response:Response) => response.json());
+  }
+
+
 
 
 
@@ -258,11 +266,15 @@ export class WebServicesService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let id=JSON.parse(data);
+    console.log(this.apis.updatecompanybank+'/'+id.id+this.api_token_header());
+    console.log(data);
+    console.log(options);
     return this._http.put(this.apis.updatecompanybank+'/'+id.id+this.api_token_header(),data,options)
     .map((response:Response) => response.json());
   }
 
   deletecompanybank(data){
+    console.log(data);
       return this._http.delete(this.apis.deletecompanybank+'/'+data+this.api_token_header())
     .map((response:Response) => response.json());
   }
@@ -341,6 +353,8 @@ export class WebServicesService {
     return this._http.put(this.apis.updatevendorbank+'/'+id.id+this.api_token_header(),data,options)
     .map((response:Response) => response.json());
   }
+
+  
 
   deletevendorbank(data){
       return this._http.delete(this.apis.deletevendorbank+'/'+data+this.api_token_header())

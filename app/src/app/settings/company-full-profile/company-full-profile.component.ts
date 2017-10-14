@@ -85,7 +85,7 @@ createcompanyForm(){
   };
 
   addBank(){
-    this.banks.push(this._fb.group(new Bank(this.companiesprofiledata.id,'vikas','','','','',null,null)));
+    this.banks.push(this._fb.group(new Bank(this.companiesprofiledata.id,'','','','','',null,null)));
   }
 
   onProfileEdit(){
@@ -93,8 +93,12 @@ createcompanyForm(){
      this.companyProfile.enable();
   }
 
-  onDeleteBank(data){
-    
+  ondeletebank(data){
+    this.showprofile.deletecompanybank(data.id)
+    .subscribe(response=>{
+      this._shared.notify('Bank '+response,'success');
+      this.ngOnInit();
+    })
   }
 
   removeBank(i: number) {
@@ -115,7 +119,7 @@ createcompanyForm(){
   }
 
   onEditSubmit(){
-    console.log(this.editBank.value);
+    // console.log(this.editBank.value);
     this.showprofile.updatecompanybank(JSON.stringify(this.editBank.value))
     .subscribe(response=>{
       this._shared.notify('Bank Details '+response,'success');

@@ -16,8 +16,6 @@ export class BankDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-    console.log(this.bankform);
     
   }
 

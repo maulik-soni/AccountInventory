@@ -34,7 +34,7 @@ class CreateVendorProfileTable extends Migration
             $table->string('website')->nullable();
             $table->double('credit_limit');
             $table->double('credit_limit_USD');
-            $table->string('refernce_1')->nullable();
+            $table->string('reference_1')->nullable();
             $table->string('reference_2')->nullable();
             $table->string('GST');
             $table->string('PAN');

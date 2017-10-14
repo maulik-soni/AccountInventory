@@ -46,8 +46,7 @@ class CompanyProfileController extends Controller
         $company_profile->save();
            }
 
-        return response()->json(
-            ['response'=>['message'=>'Successful']],
+        return response()->json('created',
             201);
     }
     }
@@ -62,7 +61,7 @@ class CompanyProfileController extends Controller
     public function update(Request $request,$id)
     {
         $query=CompanyProfile::find($id);
-        $updatequery=$request->except(['id','api_token','country']);
+        $updatequery=$request->except(['id','api_token','dbcountry']);
         foreach($updatequery as $update=>$newvalue){
                 if($update=='from' || $update=='to'){
                     if(strlen($newvalue)>11){
@@ -91,10 +90,10 @@ class CompanyProfileController extends Controller
         }
     }
 
-    // public function destroy($id)
-    // {
-    //     $user = Vendors::find($id);    
-    //     $user->delete();
-    //     return response()->json('deleted',201);
-    // }
+    public function destroy($id)
+    {
+        $company = CompanyProfile::find($id);    
+        $company->delete();
+        return response()->json('deleted',201);
+    }
 }

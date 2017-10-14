@@ -136,6 +136,7 @@ Route::post('/newcompanyprofile','CompanyProfileController@create');
 Route::get('/editcompanyprofile/{id}','CompanyProfileController@edit');
 Route::post('/showcompanyprofile','CompanyProfileController@show');
 Route::put('/updatecompanyprofile/{id}','CompanyProfileController@update');
+Route::delete('/deletecompanyprofile/{id}','CompanyProfileController@destroy');
 
 
 

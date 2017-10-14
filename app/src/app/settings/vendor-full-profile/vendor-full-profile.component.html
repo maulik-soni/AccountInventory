@@ -42,7 +42,7 @@
 					      <h4 style="display: inline-block">Bank {{i + 1}}</h4>
 					      <span class="glyphicon glyphicon-remove pull-right"(click)="removeBank(i)"></span>
 				        </div>
-                <bank-details [group]="bank"></bank-details>
+                <vendor-bank-details [group]="bank"></vendor-bank-details>
               </div>
             </div>
 
@@ -50,8 +50,8 @@
             <p>{{ vendorBank.value | json}}</p>
           </form>
 
-          <form (ngSubmit)="onEditSubmit()" novalidate>
-            <bank-details [group]="editBank"></bank-details>
+          <form (ngSubmit)="onEditSubmit()" *ngIf="isEditableBank" novalidate>
+            <vendor-bank-details [group]="editBank"></vendor-bank-details>
             <button class="btn"> save changes</button>
           </form>
 
@@ -69,7 +69,7 @@
               <button type="button"  (click)="onedit(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-edit"></span>
               </button>
-              <button type="button" (click)="ondelete(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+              <button type="button" (click)="ondeletebank(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-delete"></span>
               </button>
             </td>

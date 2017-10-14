@@ -12,7 +12,7 @@ export class AuthService{
     constructor(private http:Http){}
 
     getcountry(){
-    let country=localStorage.getItem('country');
+    let country=localStorage.getItem('dbcountry');
      if(country!=null){
         return country;
     }
@@ -22,7 +22,7 @@ export class AuthService{
         let headers= new Headers({'X-Requested-With': 'XMLHttpRequest'});
         let options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.loginUrl+'?country='+this.getcountry(),{email:email,password:password},options)
+        return this.http.post(this.loginUrl+'?dbcountry='+this.getcountry(),{email:email,password:password},options)
                         .map(this.extractData)
                         .catch(this.handleError);
                         

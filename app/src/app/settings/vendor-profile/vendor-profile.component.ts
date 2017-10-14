@@ -5,6 +5,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Vendor,VendorTitles} from '../vendor.model';
 import { Bank } from "../bank.model";
+import { SharedService } from './../../shared/shared.service';
 
 import { WebServicesService } from './../../services/web-services.service';
 
@@ -24,6 +25,7 @@ export class VendorProfileComponent implements OnInit {
   constructor(
     private _vendor:WebServicesService,
     private _fb:FormBuilder,
+    private _shared:SharedService,
     private _router:Router
   ) { 
     this.createVendorForm();
@@ -54,7 +56,7 @@ get vendors(){
 }
 
 addVendor(){
-  this.vendors.push(this._fb.group(new Vendor(null,'vikas','','','','','','','','',null,null,'','','',
+  this.vendors.push(this._fb.group(new Vendor(null,'','','','','','','','','',null,null,'','','',
   '','','','',null,null,'','','',
   )));
 }
@@ -89,7 +91,8 @@ addVendor(){
 
   onSubmit(){
     this._vendor.newvendor(JSON.stringify(this.vendorProfile.value))
-     .subscribe(response=>{console.log(response);
+     .subscribe(response=>{
+       this._shared.notify('Vendor Account '+response,'success');
       this.vendors.reset();
       this.createVendorForm();
     this.showvendors();})

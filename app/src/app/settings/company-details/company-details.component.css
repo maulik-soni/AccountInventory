@@ -2,3 +2,12 @@
     padding: 15px;
    
 }
+
+input:disabled {
+border:none;
+cursor: auto;
+}
+
+ input:disabled+button{
+    display: none;
+} 

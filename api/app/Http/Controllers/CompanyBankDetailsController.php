@@ -128,7 +128,7 @@ class CompanyBankDetailsController extends Controller
     public function update(Request $request,$id)
     {
          $query=CompanyBankDetails::find($id);
-        $updatequery=$request->except(['id','api_token','country']);
+        $updatequery=$request->except(['id','api_token','dbcountry']);
         foreach($updatequery as $update=>$newvalue){
              $query->$update=$newvalue;
         }
@@ -142,8 +142,10 @@ class CompanyBankDetailsController extends Controller
      * @param  \App\CompanyBankDetails  $companyBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CompanyBankDetails $companyBankDetails)
+    public function destroy($id)
     {
-        //
+         $company = CompanyBankDetails::find($id);    
+        $company->delete();
+        return response()->json('deleted',201);
     }
 }

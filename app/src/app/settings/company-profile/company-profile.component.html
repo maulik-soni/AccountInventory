@@ -1,7 +1,7 @@
 <dashboard>
  <div class="container">
    <div class="block-header">
-      <h2>Company Details</h2>
+      <h2>Company Profile</h2>
     </div>
 
     <div class="card">
@@ -9,7 +9,7 @@
         
 
           <div>
-          <button  type="button"  (click)="addcompany()" class="btn btn-info btn-sm btn-icon-text waves-effect m-b-20">
+          <button  type="button"  (click)="addcompany()" class="btn btn-info btn-sm btn-icon-text waves-effect">
             <span class="zmdi zmdi-account-add"></span>
             <span>Add Companies</span>
           </button>
@@ -17,7 +17,7 @@
         <form [formGroup]="companyProfile" (ngSubmit)="onSubmit()" novalidate>
 
 
-        <div formArrayName="companies" *ngIf="companies.controls.length>0" class="well well-lg">
+        <div formArrayName="companies" *ngIf="companies.controls.length>0" class=" m-t-20 well well-lg">
           <div *ngFor="let company of companies.controls; let i=index" [formGroupName]="i" class="company">
                 <div class="ch-alt">
 					      <h4 style="display: inline-block">Company {{i + 1}}</h4>
@@ -27,9 +27,9 @@
           </div>
         </div>
 
-        <p>{{companyProfile.value | json}}</p>
+        <!-- <p>{{companyProfile.value | json}}</p> -->
         
-        <button *ngIf="companies.controls.length>0" class="btn bgm-blue waves-effect">Save</button> 
+        <button *ngIf="companies.controls.length>0" class="btn">Save</button> 
     </form>
 
     

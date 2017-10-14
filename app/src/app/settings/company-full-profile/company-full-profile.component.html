@@ -1,7 +1,7 @@
 <dashboard>
  <div class="container">
    <div class="block-header">
-      <h2></h2>
+      <h2>Company Profile</h2>
     </div>
 
 
@@ -47,7 +47,7 @@
             </div>
 
             <button class="btn" (click)="onBankSubmit()">Save</button>
-            <p>{{ companyBank.value | json}}</p>
+            <!-- <p>{{ companyBank.value | json}}</p> -->
           </form>
 
           <form *ngIf="isEditableBank" (ngSubmit)="onEditSubmit()" novalidate>
@@ -69,7 +69,7 @@
               <button type="button"  (click)="onedit(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-edit"></span>
               </button>
-              <button type="button" (click)="ondelete(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+              <button type="button" (click)="ondeletebank(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-delete"></span>
               </button>
             </td>

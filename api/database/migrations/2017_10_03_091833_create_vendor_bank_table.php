@@ -21,8 +21,7 @@ class CreateVendorBankTable extends Migration
             $table->string('account_number');
             $table->string('IFSC_code');
             $table->integer('v_id')->unsigned();
-            $table->double('amount',20,2)->nullable();
-            $table->double('amount_USD',20,2)->nullable();
+
 
             $table->foreign('v_id')
                   ->references('id')
