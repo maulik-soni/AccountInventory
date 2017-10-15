@@ -22,6 +22,9 @@ import { MemoInvoiceComponent } from '../memo-invoice/memo-invoice.component';
 export class MemooutComponent implements OnInit {
 
   public myForm: FormGroup;
+  public singleMemoOutData:any = {};
+  public bulkMemoOutData:any = [];
+
   loadInvoiceComponent:boolean = false;
   constructor(
     private _webservice : WebServicesService,
@@ -97,6 +100,16 @@ export class MemooutComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.bulkMemoOutData = [];
+
+    this.singleMemoOutData = {
+      Stock_ID: [''],
+      Lot_Number:[''],
+      carats: [0],
+      rate:[0],
+      country:['']
+    };
     
     this._webservice.generateInvoice('memo_issue').subscribe(response=>
       this.myForm.controls['invoice_number'].patchValue("MM-"+response)
@@ -112,17 +125,19 @@ export class MemooutComponent implements OnInit {
       reference:[''],
       memoDetails: this._fb.array([])
     });
-    this.memoAdd();
+    
+    
+    if(this.bulkMemoOutData .length){
+      this.bulkMemoOutData.forEach(element => {
+        this.memoAdd(element);
+      });
+    }else{
+      this.memoAdd({});
+    }
   }
 
-  initMemoDtails() {
-    return this._fb.group({
-      Stock_ID: [''],
-      Lot_Number:[''],
-      carats: [0],
-      rate:[0],
-      country:['']
-    });
+  initMemoDtails(memoData) {
+    return this._fb.group(Object.assign(JSON.parse(JSON.stringify(this.singleMemoOutData)),memoData));
   }
 
   public calcDay():void{    
@@ -139,9 +154,9 @@ export class MemooutComponent implements OnInit {
     return  d;
   }
 
-  memoAdd() {
+  memoAdd(memoData) {
     const control = <FormArray>this.myForm.controls['memoDetails'];
-    const addrCtrl = this.initMemoDtails();
+    const addrCtrl = this.initMemoDtails(memoData);
     control.push(addrCtrl);
   }
 
@@ -151,14 +166,22 @@ export class MemooutComponent implements OnInit {
   }
 
   save(formData,submit) {
-    console.log(formData._value,JSON.parse(JSON.stringify(formData._value)));
+    // console.log(formData._value,JSON.parse(JSON.stringify(formData._value)));
     var newMemo = JSON.parse(JSON.stringify(formData._value));
-    console.log(newMemo); 
+    // console.log(newMemo); 
     var memoPCDetails = JSON.parse(JSON.stringify(newMemo.memoDetails));
     delete newMemo.memoDetails;
     var memoData:any = [];
     for(var i = 0; i < memoPCDetails.length; i++){
       memoPCDetails[i].status = "ISSUED";
+      for (var key in memoPCDetails[i]) {
+        if (memoPCDetails[i].hasOwnProperty(key)) {
+          if(key != 'Lot_Number' && key != "Stock_ID" && key != "carats" && key != "country" && key!="rate"){
+            console.log(key + " -> " + memoPCDetails[i][key]);
+            delete memoPCDetails[i][key];
+          }
+        }
+      }
       memoData.push(Object.assign({}, newMemo, memoPCDetails[i]));
     }
     this.finalMemoData = memoData;

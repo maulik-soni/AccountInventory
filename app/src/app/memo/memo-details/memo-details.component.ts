@@ -26,6 +26,7 @@ export class MemoDetailsComponent implements OnInit {
   private oldamountINR = 0;
   public disable:any = '';
   private comissionCheck:any = false;
+  public showSearch = true;
   
 
   private get disabledV():string {
@@ -43,13 +44,10 @@ export class MemoDetailsComponent implements OnInit {
     this.memoDetails.controls[id].patchValue(JSON.parse(JSON.stringify(value)).text);
   }
 
-  public removed(value:any):void {
-    // console.log('Removed value is: ', value);
-    
+  public removed(value:any):void {    
   }
 
   public typed(value:any):void {
-    // console.log('New search input: ', value);
   }
 
   public refreshValue(value:any):void {
@@ -67,35 +65,24 @@ export class MemoDetailsComponent implements OnInit {
   search(pcID){
     this._webservice.fetchpurchase(pcID,this.piecetype)
       .subscribe(
-        resData => {
-          console.log(pcID);
-          this.searchResult = true;
-          console.log(resData);
-          console.log(Object.keys(resData)[0]);
-          this.mypurchase = resData[Object.keys(resData)[0]];
-          console.log(this.mypurchase);
-          // this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
-          // this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text; 
-          // this.mypurchase.diamond_shape = JSON.parse(this.mypurchase.diamond_shape)[0].text;
-          // this.mypurchase.diamond_size = JSON.parse(this.mypurchase.diamond_size)[0].text;
-          // this.mypurchase.diamond_color = JSON.parse(this.mypurchase.diamond_color)[0].text;
-          // this.mypurchase.diamond_clarity = JSON.parse(this.mypurchase.diamond_clarity)[0].text;
-          console.log(this.mypurchase,JSON.stringify(this.mypurchase));
-          this.memoDetails.controls['Stock_ID'].patchValue(this.mypurchase.Stock_ID);
-
-          // this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
-          // this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;
-          // this.mypurchase.country = JSON.parse(this.mypurchase.country)[0].text;
-          // this.showPurchase = true;
-          // this.newsales = new Sales(this.invoice,this.dollar,this.mypurchase.amount_INR,this.mypurchase.amount_dolar,0);
-          // console.log(this.mypurchase,JSON.stringify(this.mypurchase));
-          // console.log(this.newsalesdata,JSON.stringify(this.newsalesdata));
+        data => {
+          this.dataProcessing(data[Object.keys(data)[0]]);
         }
       );
     
   }
   
   ngOnInit() {
+    if(this.memoDetails.value.Stock_ID != '' && this._router.url == '/jangad/jangad-issue-entry'){      
+      this.showSearch = false;
+      this.dataProcessing(this.memoDetails.value);
+    }
+  }
+
+  dataProcessing(data){
+    this.searchResult = true;
+    this.mypurchase = JSON.parse(JSON.stringify(data));
+    this.memoDetails.controls['Stock_ID'].patchValue(this.mypurchase.Stock_ID);
   }
 
 }
