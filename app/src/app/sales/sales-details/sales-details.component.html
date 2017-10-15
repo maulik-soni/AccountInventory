@@ -1,6 +1,6 @@
 <form [formGroup]="salesDetails">
   <div class="card">
-    <div style="overflow : hidden">
+    <div style="overflow : hidden" *ngIf = "showSearch">
       <ul class="actions pull-right m-t-5">
         <li>
           <label class="radio radio-inline m-r-20">
@@ -19,31 +19,31 @@
     </div>
 
     <div class="card-body card-padding">
-
-      <div class="row" *ngIf="piecetype == 'singlestone'">
-        <div class = "col-sm-4">
-          <div class="form-group col-lg-8 col-sm-8 col-xs-8">
-            <p class="form-label">Search Purchase by 'Stock ID'</p>
-            <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+      <div *ngIf = "showSearch">
+        <div class="row" *ngIf="piecetype == 'singlestone'">
+          <div class = "col-sm-4">
+            <div class="form-group col-lg-8 col-sm-8 col-xs-8">
+              <p class="form-label">Search Purchase by 'Stock ID'</p>
+              <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class = "col-lg-4 col-sm-4 col-xs-4">
+              <button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
+            </div>
           </div>
-          <div class = "col-lg-4 col-sm-4 col-xs-4">
-            <button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
+        </div>
+
+        <div class="row" *ngIf="piecetype == 'parcel'">
+          <div class = "col-sm-4">
+            <div class="form-group col-lg-8 col-sm-8 col-xs-8">
+              <p class="form-label">Search Purchase by 'Lot Number'</p>
+              <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class = "col-lg-4 col-sm-4 col-xs-4">
+              <button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="row m-t-25" *ngIf="piecetype == 'parcel'">
-        <div class = "col-sm-4">
-          <div class="form-group col-lg-8 col-sm-8 col-xs-8">
-            <p class="form-label">Search Purchase by 'Lot Number'</p>
-            <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
-          </div>
-          <div class = "col-lg-4 col-sm-4 col-xs-4">
-            <button class=" btn btn-primary btn-sm waves-effect m-t-25" (click) = "search()">Search</button>
-          </div>
-        </div>
-      </div>
-
       <div *ngIf="searchResult">
         <div class = "row m-t-25" *ngIf = "searchResult">
             <div class="col-sm-12" style= "height:auto;color:#666;">

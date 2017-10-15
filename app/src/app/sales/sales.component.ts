@@ -27,6 +27,8 @@ export abstract class AbstractViewInit {
 export class SalesComponent implements OnInit {
 
   public myForm: FormGroup;
+  public singleSalesData = {};
+  public bulkSalesData:any = [];
   loadInvoiceComponent:boolean = false;
   finalSalesData : any;
   constructor(
@@ -43,38 +45,10 @@ export class SalesComponent implements OnInit {
 
   ngOnInit() {
 
-    this._webservice.generateInvoice('sales').subscribe(response=>
-      this.myForm.controls['invoice_number'].patchValue("SA-"+response)
-    );
+    this.bulkSalesData=[];
 
-    this.myForm = this._fb.group({
-            invoice_number:[''],
-            currency_convrsion_rate:[''],
-            sales_date:[''],
-            due_date:[''],
-            country:[''],
-            notes:[''],
-            payment_terms:0,
-            account_name:[''],
-            brokerName:[''],
-            brokerType:[''],
-            brokerage:[''],
-            comission:0,
-            purchase_amount_INR:0,
-            purchase_amount_dolar:0,
-            freight:0,
-            sales_amount_INR:0,
-            sales_amount_dolar:0,
-            diff_amount_INR:0,
-            diff_amount_dolar:0,
-            salesDetails: this._fb.array([])
-        });
-    this.addSalesDetails();
-  }
-
-  initSalesDetails() {
-    return this._fb.group({
-      Stock_ID: [''],
+    this.singleSalesData = {
+      Stock_ID: '',
       polishing_type: [''],
       bill_type: [''],
       stock_status_group: [''],
@@ -133,12 +107,52 @@ export class SalesComponent implements OnInit {
       infoMsg:[''],
       fullShapeDescription:[''],
       company_name : [''],
-    });
+    };
+
+    this._webservice.generateInvoice('sales').subscribe(response=>
+      this.myForm.controls['invoice_number'].patchValue("SA-"+response)
+    );
+
+    this.myForm = this._fb.group({
+            invoice_number:[''],
+            currency_convrsion_rate:[''],
+            sales_date:[''],
+            due_date:[''],
+            country:[''],
+            notes:[''],
+            payment_terms:0,
+            account_name:[''],
+            brokerName:[''],
+            brokerType:[''],
+            brokerage:[''],
+            comission:0,
+            purchase_amount_INR:0,
+            purchase_amount_dolar:0,
+            freight:0,
+            sales_amount_INR:0,
+            sales_amount_dolar:0,
+            diff_amount_INR:0,
+            diff_amount_dolar:0,
+            salesDetails: this._fb.array([])
+        });
+    
+    if(this.bulkSalesData.length){
+      this.bulkSalesData.forEach(element => {
+        this.addSalesDetails(element);
+      });
+    }else{
+      this.addSalesDetails({});
+    }
   }
 
-  addSalesDetails() {
+  initSalesDetails(salesData) {
+    return this._fb.group(Object.assign(JSON.parse(JSON.stringify(this.singleSalesData)),salesData));
+  }
+
+  addSalesDetails(salesData) {
+      
       const control = <FormArray>this.myForm.controls['salesDetails'];
-      const addrCtrl = this.initSalesDetails();
+      const addrCtrl = this.initSalesDetails(salesData);
       control.push(addrCtrl);
   }
 
@@ -193,9 +207,7 @@ export class SalesComponent implements OnInit {
 
 
 
-  ngAfterViewInit(){
-    console.log("view loaded");
-  }
+  ngAfterViewInit(){}
 
   date: DateModel;
   options: DatePickerOptions;
