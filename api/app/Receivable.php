@@ -14,10 +14,10 @@ class Receivable extends Model
          $sales = DB::table('sales')
                         ->leftjoin('bills', 'sales.invoice_number', '=', 'bills.invoice_number')
                         ->where('bills.invoice_number','=',null)
-                        ->select('sales.invoice_number','sales.account_name','sales.sales_amount_INR as balance','sales.sales_amount_INR as invoice_value','sales.sales_date as date','sales.due_date')
+                        ->select('sales.invoice_number','sales.account_name','sales.sales_amount_INR as balance','sales.sales_amount_INR as invoice_value','sales.sales_date as date','sales.due_date','sales.company_name')
                         ->get();
 
-            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received')
+            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received','company_name')
                        ->where([['balance','>=',0],['debit_INR','=',null]])
                        ->latest()
                        ->get()
@@ -62,11 +62,11 @@ class Receivable extends Model
         $sales = DB::table('sales')
                          ->leftjoin('bills', 'sales.invoice_number', '=', 'bills.invoice_number')
                          ->where('bills.invoice_number','=',null)
-                        ->select('sales.invoice_number','sales.account_name','sales.amount_INR as balance','sales.amount_INR as invoice_value','sales.sales_date as date','sales.due_date')
+                        ->select('sales.invoice_number','sales.account_name','sales.amount_INR as balance','sales.amount_INR as invoice_value','sales.sales_date as date','sales.due_date','sales.company_name')
                         ->whereBetween('sales_date',[$from,$to])
                         ->get();
 
-            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received')
+            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received','company_name')
                        ->where([['balance','>=',0],['debit_INR','=',null]])
                        ->whereBetween('date',[$from,$to])
                        ->latest()

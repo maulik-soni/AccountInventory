@@ -51,9 +51,17 @@
                   <table class="table table-bordered">
                     <thead class="thead-inverse">
                       <tr>
-                        <th  *ngFor="let title of innertitles" >
-                          {{title}}
+                          <th>invoice number</th>
+                          <th>date of invoice</th>
+                          <th>invoice amount</th>
+                          <th>
+                            amount <span *ngIf="paymentvalues.transaction_type=='payment'">paid</span>
+                            <span *ngIf="paymentvalues.transaction_type=='receive'">received</span>
                           </th>
+                          <th>balance amount</th>
+                          <th>due date</th>
+                          <th>due days</th>
+                          <th>action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -64,7 +72,7 @@
                         <td style="text-align: right">{{data.received}}</td>
                         <td style="text-align: right">{{data.balance}}</td>
                         <td>{{data.due_date }}</td>
-                        <td>{{data.due_date |  date:"dd-MM-yy" | days}}</td>
+                        <td>{{data.due_date | days}}</td>
                         <td (click)="getinvoice(data)" > <span *ngIf="paymentvalues.transaction_type==options.transaction_type[0]"  class="btn btn-info waves-effect">pay</span>
                         <span *ngIf="paymentvalues.transaction_type==options.transaction_type[1]" class="btn btn-info waves-effect">recieve</span></td>
                       </tr>
@@ -90,8 +98,7 @@
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Date</p>
-                <input type="text" class="form-control fg-input mdatepicker" [mdDatepicker]="datepicker" name="date" [max]="maxDate" [(ngModel)]="paymentvalues.transaction_date">
-                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="datepicker"></button>
+                <input type="text" class="form-control fg-input mdatepicker" (focus)="datepicker.open()" [mdDatepicker]="datepicker" name="date" [max]="maxDate" readonly [(ngModel)]="paymentvalues.transaction_date">
                 <md-datepicker #datepicker></md-datepicker>							
 							</div>
 						</div>
@@ -105,41 +112,64 @@
                 <div *ngIf="paymentvalues.transaction_mode==='cheque'">
                   <div class="form-group">
                     <div class="fg-line">
+                      <p class="form-label">Bank</p>
+                      <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="fg-line">
+                      <p class="form-label">Bank Branch</p>
+                      <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedbankbranch($event)"></ng-select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="fg-line">
+                      <p class="form-label">Account Number</p>
+                      <ng-select [items]="options.account_number" [active]="options.account_number" (selected)="selectedaccountnumber($event)"></ng-select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="fg-line">
+                      <p class="form-label">Amount Available</p>
+                      <p>{{bankamount}}</p>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="fg-line">
                       <p class="form-label">Cheque No</p>
                      <input type="text" class="form-control fg-input" name = "cheque_no" [(ngModel)]="paymentvalues.cheque_no">	
                     </div>
                   </div>
-                  <div class="form-group">
-                    <div class="fg-line">
-                      <p class="form-label">Bank</p>
-                       <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="fg-line">
-                      <p class="form-label">Bank Branch</p>
-                       <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedbankbranch($event)"></ng-select>
-                    </div>
-                  </div>
-                  <p>{{bankamount}}</p>
                 </div>
                 <div *ngIf="paymentvalues.transaction_mode==='bank transfer'">
+                    <div class="form-group">
+                        <div class="fg-line">
+                          <p class="form-label">Bank</p>
+                          <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="fg-line">
+                          <p class="form-label">Bank Branch</p>
+                          <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedbankbranch($event)"></ng-select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="fg-line">
+                          <p class="form-label">Account Number</p>
+                          <ng-select [items]="options.account_number" [active]="options.account_number" (selected)="selectedaccountnumber($event)"></ng-select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="fg-line">
+                          <p class="form-label">Amount Available</p>
+                          <p>{{bankamount}}</p>
+                        </div>
+                      </div>
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Transaction Id</p>
                      <input type="text" class="form-control fg-input" name = "transaction_id" #amountBox [(ngModel)]="paymentvalues.transaction_id">	
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="fg-line">
-                      <p class="form-label">Bank</p>
-                       <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="fg-line">
-                      <p class="form-label">Bank Branch</p>
-                       <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedbankbranch($event)"></ng-select>
                     </div>
                   </div>
                 </div>
@@ -159,6 +189,12 @@
                      <input type="text" class="form-control fg-input" name = "transaction_conversion" [(ngModel)]="paymentvalues.tranasaction_conversion_rate">	
                     </div>
                   </div>
+                  <div class="form-group">
+                      <div class="fg-line">
+                        <p class="form-label">Amount in dollar</p>
+                       <input type="text" class="form-control fg-input" name = "usd_amount" [(ngModel)]="paymentvalues.usd_amount">	
+                      </div>
+                    </div>
               </div>
             </div>
           </div>

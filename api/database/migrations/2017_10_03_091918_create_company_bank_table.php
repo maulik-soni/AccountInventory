@@ -21,6 +21,7 @@ class CreateCompanyBankTable extends Migration
             $table->string('account_number');
             $table->string('IFSC_code');
             $table->integer('c_id')->unsigned();
+            $table->double('opening_balance',20,2);
             $table->double('amount',20,2)->nullable();
             $table->double('amount_USD',20,2)->nullable();
            

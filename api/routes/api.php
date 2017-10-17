@@ -123,6 +123,8 @@ Route::post('/showcompanybank','CompanyBankDetailsController@show');
 Route::put('/updatecompanybank/{id}','CompanyBankDetailsController@update');
 Route::delete('/deletecompanybank/{id}','CompanyBankDetailsController@destroy');
 Route::get('/getcompanybanks','CompanyBankDetailsController@getcompanybanks');
+Route::post('/getcompanybank','CompanyBankDetailsController@getcompanybank');
+Route::post('/getcompanybankaccount','CompanyBankDetailsController@getcompanybankaccount');
 Route::post('/getcompanybranches','CompanyBankDetailsController@getbankbranches');
 Route::post('/getbankamount','CompanyBankDetailsController@getamount');
 

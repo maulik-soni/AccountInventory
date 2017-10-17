@@ -22,6 +22,7 @@ class CreateBillsTable extends Migration
             $table->enum('transaction_status',['full','part']);
             $table->string('account_name');
             $table->string('transaction_currency');
+            $table->double('usd_amount')->nullable();
             $table->date('date');
             $table->date('due_date');
             $table->double('balance',20,2);
@@ -29,6 +30,7 @@ class CreateBillsTable extends Migration
             $table->string('cheque_no')->nullable();
             $table->string('bank')->nullable();
             $table->string('bank_branch')->nullable();
+            $table->string('account_number')->nullable();
             $table->double('credit_INR',20,2)->nullable();
             $table->double('debit_INR',20,2)->nullable();
             $table->string('company_name'); 

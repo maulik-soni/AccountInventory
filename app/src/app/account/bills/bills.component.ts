@@ -17,6 +17,7 @@ import { SharedService } from './../../shared/shared.service';
 })
 export class BillsComponent implements OnInit {
   accountdata=[];
+  companyname;
   invoicedata;
   bankamount;
   amountdisable=false;
@@ -29,13 +30,14 @@ export class BillsComponent implements OnInit {
     ['part','full'],
     ['INR','USD'],
    [],
-   ['HDFC','PNB'],
+   [],
+   [],
    []
    );
   paymentvalues=new Bills(
     null,
     null,
-    new Date().toLocaleDateString(),
+    new Date().toLocaleDateString('en-ca'),
     this.options.transaction_mode[0],
     this.options.transaction_type[0],
     this.options.transaction_status[0],
@@ -49,6 +51,8 @@ export class BillsComponent implements OnInit {
     '',
     '',
     '',
+    null,
+    null,
     null,
     null,
     null,
@@ -70,7 +74,8 @@ export class BillsComponent implements OnInit {
       billtype:billtypevalue,
     }
     this._bills.showbills(JSON.stringify(billtype))
-    .subscribe(response=>{this.options.account_name=response.response.account_names});
+    .subscribe(response=>{this.options.account_name=response.response.account_names;
+    console.log(response)});
 
   }
 
@@ -78,16 +83,17 @@ export class BillsComponent implements OnInit {
 
   selectedby($event){
     this.paymentvalues.transaction_mode=$event.id;
-    console.log(this.paymentvalues.transaction_mode);
     if($event.id=='cheque' || $event.id=='bank transfer'){
-      this._bills.getcompanybanks()
+      let data;
+      data={
+        company_name:this.companyname,
+      }
+      this._bills.getcompanybank(JSON.stringify(data))
       .subscribe(response=>{this.options.bank=response.banks;
+        console.log(response)
          this.selectedbank({id:this.options.bank[0]});
          
       });
-       
-     
-
     }
   }
 
@@ -120,25 +126,57 @@ export class BillsComponent implements OnInit {
     this.paymentvalues.bank=$event.id;
     let bank;
     bank={
-      bank_name: this.paymentvalues.bank
+      bank_name: this.paymentvalues.bank,
+      company_name:this.companyname,
     }
     this._bills.getcompanybranches(JSON.stringify(bank))
     .subscribe(response=>{this.options.branch=response.branches;
       this.paymentvalues.bank_branch=this.options.branch[0];
-      this.getbankamount(this.paymentvalues.bank,this.paymentvalues.bank_branch);
+      this.getbankaccount(this.paymentvalues.bank,this.paymentvalues.bank_branch,this.companyname);
+      this.paymentvalues.account_number=this.options.account_number[0];
+      this.getbankamount(this.paymentvalues.bank,this.paymentvalues.bank_branch,this.paymentvalues.account_number,this.companyname);
     });
+  }
+
+  selectedaccountnumber($event){
+    this.paymentvalues.account_number=$event.id;
+    this.getbankamount(this.paymentvalues.bank,this.paymentvalues.bank_branch,this.paymentvalues.account_number,this.companyname);
   }
 
   selectedbankbranch($event){
     this.paymentvalues.bank_branch=$event.id;
-    this.getbankamount(this.paymentvalues.bank,this.paymentvalues.bank_branch);
+    let bank;
+    bank={
+      bank_name:this.paymentvalues.bank,
+      company_name:this.companyname,
+      bank_branch:this.paymentvalues.bank_branch
+    }
+    this._bills.getcompanybankaccount(JSON.stringify(bank))
+    .subscribe(response=>{
+      this.options.account_number=response.account_number;
+      this.paymentvalues.account_number=this.options.account_number[0];
+      this.getbankaccount(this.paymentvalues.bank,this.paymentvalues.bank_branch,this.companyname);
+    });
   }
 
-  getbankamount(bank,branch){
+  getbankaccount(bank,branch,companyname){
     let data;
     data={
       bank_name:bank,
-      bank_branch:branch
+      bank_branch:branch,
+      company_name:companyname,
+    }
+    this._bills.getcompanybankaccount(JSON.stringify(data))
+    .subscribe(response=>{this.options.account_number=response.account_number});
+  }
+
+  getbankamount(bank,branch,account,companyname){
+    let data;
+    data={
+      bank_name:bank,
+      bank_branch:branch,
+      account_number:account,
+      company_name:companyname
     }
     this._bills.getcompanyamount(JSON.stringify(data))
     .subscribe(response=>{this.bankamount=response.amount[0]});
@@ -182,6 +220,7 @@ export class BillsComponent implements OnInit {
 
   getinvoice(data){
     console.log(data);
+    this.companyname=data.company_name;
     this.invoicedata=data;
     this.setdata();
     this.showpaymentoptions=true;

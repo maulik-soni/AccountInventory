@@ -24,6 +24,8 @@ class Bills extends Model
         'debit_INR',
         'transaction_conversion_rate',
         'cheque_no',
+        'account_number',
+        'company_name',
         'bank',
         'transaction_id',
         'bank_branch'

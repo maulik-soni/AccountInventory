@@ -14,10 +14,10 @@ class Payable extends Model
          $purchase = DB::table('purchase')
                         ->leftjoin('bills', 'purchase.invoice_number', '=', 'bills.invoice_number')
                         ->where('bills.invoice_number','=',null)
-                        ->select('purchase.invoice_number','purchase.account_name','purchase.amount_INR as balance','purchase.amount_INR as invoice_value','purchase.purchase_date as date','purchase.due_date')
+                        ->select('purchase.invoice_number','purchase.account_name','purchase.amount_INR as balance','purchase.amount_INR as invoice_value','purchase.purchase_date as date','purchase.due_date','purchase.company_name')
                         ->get();
 
-            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received')
+            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received','company_name')
                        ->where([['balance','>=',0],['credit_INR','=',null]])
                        ->latest()
                        ->get()
@@ -62,11 +62,11 @@ class Payable extends Model
         $purchase = DB::table('purchase')
                          ->leftjoin('bills', 'purchase.invoice_number', '=', 'bills.invoice_number')
                          ->where('bills.invoice_number','=',null)
-                        ->select('purchase.invoice_number','purchase.account_name','purchase.amount_INR as balance','purchase.amount_INR as invoice_value','purchase.purchase_date as date','purchase.due_date')
+                        ->select('purchase.invoice_number','purchase.account_name','purchase.amount_INR as balance','purchase.amount_INR as invoice_value','purchase.purchase_date as date','purchase.due_date','purchase.company_name')
                         ->whereBetween('purchase_date',[$from,$to])
                         ->get();
 
-            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received')
+            $reciept = Bills::select('invoice_number','account_name','balance','invoice_value','date','due_date','received','company_name')
                        ->where([['balance','>=',0],['credit_INR','=',null]])
                        ->whereBetween('date',[$from,$to])
                        ->latest()

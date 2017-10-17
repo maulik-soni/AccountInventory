@@ -8,10 +8,10 @@
       <div class="card">
     <form (ngSubmit)="profilesave()" novalidate>
         <div class="card-header">
-          <span style="margin:11px">Company Details</span>
+          <!-- <span style="margin:11px">Company Details</span> -->
            <button *ngIf="isEditable" (click)="onProfileEdit()"  class="btn btn-info btn-sm btn-icon-text waves-effect">
                 <!--<span class="zmdi zmdi-edit"></span>-->
-                <span>Edit Details</span>
+                <span>Edit Company Details</span>
               </button>
         </div>
         <div class="card-body card-padding">
@@ -27,10 +27,10 @@
 
     <div class="card">
        <div class="card-header">
-          <span style="margin:11px">Bank Details</span>
+          <!-- <span style="margin:11px">Bank Details</span> -->
            <button  (click)="addBank()"  class="btn btn-info btn-icon-text waves-effect">
                 <!--<span class="zmdi zmdi-account-add"></span>-->
-                <span> Add Bank</span>
+                <span> Add Bank Details</span>
               </button>
         </div>
         <div class="card-body card-padding">

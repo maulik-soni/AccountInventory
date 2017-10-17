@@ -66,6 +66,8 @@ export class WebServicesService {
     deletevendor:this.base_url+'/api/deletevndor',
 
     getcompanybanks:this.base_url+'/api/getcompanybanks',
+    getcompanybank:this.base_url+'/api/getcompanybank',
+    getcompanybankaccount:this.base_url+'/api/getcompanybankaccount',
     getcompanybranches:this.base_url+'/api/getcompanybranches',
     getcompanyamount:this.base_url+'/api/getbankamount',
   
@@ -124,10 +126,24 @@ export class WebServicesService {
     .map((response:Response)=>response.json());
   }
 
+  getcompanybankaccount(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.getcompanybankaccount+this.api_token_header(),data,options)
+    .map((response:Response)=>response.json());
+  }
+
+  getcompanybank(data){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this._http.post(this.apis.getcompanybank+this.api_token_header(),data,options)
+    .map((response:Response)=>response.json());
+  }
+
+
   getcompanybranches(data){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    console.log(this.apis.getcompanybranches+this.api_token_header());
     return this._http.post(this.apis.getcompanybranches+this.api_token_header(),data,options)
     .map((response:Response)=>response.json());
   }
@@ -251,6 +267,7 @@ export class WebServicesService {
   }
 
   showcompanybank(data){
+    console.log(this.apis.showcompanybank+this.api_token_header());
       let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     return this._http.post(this.apis.showcompanybank+this.api_token_header(),data,options)

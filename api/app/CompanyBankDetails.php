@@ -16,6 +16,7 @@ class CompanyBankDetails extends Model
     'IFSC_code',
     'amount',
     'c_id',
+    'opening_balance',
     'amount_USD',
     ];
 

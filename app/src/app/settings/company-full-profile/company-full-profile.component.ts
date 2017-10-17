@@ -45,17 +45,18 @@ export class CompanyFullProfileComponent implements OnInit {
       .subscribe(response=> {this.companiesprofiledata=response.response.response;
          this.companyProfile.patchValue(this.companiesprofiledata);
          this.showbank(this.companiesprofiledata.id);
-      // console.log(this.companiesprofiledata)
+      // console.log(this.companiesprofiledata);
     });
 
   }
 
   showbank(ids){
+    console.log(ids);
   let requesttype={onload:"onload",id:ids};
  this.showprofile.showcompanybank(JSON.stringify(requesttype))
   .subscribe(response=>{
     this.companiesbankdata=response.response.bankdetails;
-    // console.log(response);
+    console.log(response);
   });
 }
 
