@@ -3,11 +3,12 @@
    
 }
 
+input:read-only{
+    cursor:text;
+    opacity: 1;
+}
+
 input:disabled {
 border:none;
 cursor: auto;
 }
-
- input:disabled+button{
-    display: none;
-} 

@@ -22,7 +22,7 @@ export class BillsComponent implements OnInit {
   amountdisable=false;
   showpaymentoptions=false;
   titles=['party name','amount'];
-  innertitles=['invoice number','date of invoice','invoice amount','amount','balance amount','due date','due days'];
+  innertitles=['invoice number','date of invoice','invoice amount','amount','balance amount','due date','due days','action'];
   options=new Options(
     ['cash','cheque','bank transfer'],
     ['payment','receive'],

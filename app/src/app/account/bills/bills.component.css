@@ -108,3 +108,34 @@
 .ng-select{
     height: 53px;
 }
+
+table th{
+    background: #edecec;
+    text-align: center;
+}
+
+table td{
+    background: #fff;
+    text-align: center;
+}
+
+.titles{
+    display: inline-block;
+    width: 49%;
+}
+
+.titles p:first-child{
+display: inline-block;
+/* font-weight: bold; */
+}
+
+.titles p:last-child{
+   display: inline-block;
+   text-transform: uppercase;
+   font-weight: bold;
+}
+
+input:disabled{
+    border:none;
+    cursor: auto;
+}
