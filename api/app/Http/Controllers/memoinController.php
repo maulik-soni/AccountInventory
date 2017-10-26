@@ -22,29 +22,29 @@ class memoinController extends Controller
 
     public function editMemoin(){
         $oldmemo = Request::all();
-        $oldmemo_data = \App\MemoIn::find($oldmemo['$PCS_ID']);
+        $oldmemo_data = \App\MemoIn::find($oldmemo['$Stock_ID']);
         $newMemo = Request::all();
         $memoIn_table = new \App\MemoIn;
-        $memoIn_table = MemoIn::find($newMemo['$PCS_ID']);
+        $memoIn_table = MemoIn::find($newMemo['$Stock_ID']);
         foreach($newMemo as $fields){
-            if($fields != "PCS_ID"){
+            if($fields != "Stock_ID"){
                 $memoIn_table->$fields = $newMemo[$fields];
             }
         }
         $memoIn_table->save();
     }
 
-    public function deleteMemoin($PCS_ID=''){
+    public function deleteMemoin($Stock_ID=''){
         $data = Request::all();
         \App\MemoIn::where('id','=',$data['id'])->delete();
         $memoIn_table = new \App\MemoIn;
-        MemoIn::where('PCS_ID','=',$data['PCS_ID'])->delete();
+        MemoIn::where('Stock_ID','=',$data['Stock_ID'])->delete();
     }
    
     public function changeStatusDB($pcsID){
         $pcsid = $pcsID;
         $memoIn_table = \App\MemoIn::where(function($query) use($pcsid){
-            $query->where('PCS_ID', '=', $pcsid)
+            $query->where('Stock_ID', '=', $pcsid)
                   ->orWhere('Lot_Number', '=', $pcsid);
         })->first();
         $memoIn_table->status = "RETURNED";
@@ -67,9 +67,9 @@ class memoinController extends Controller
             if(!empty($params['search'])){
                 if($params['filterby']=='PCS ID'){
                     if($params['reportType'] == "report"){
-                        $response=\App\MemoIn::where('PCS_ID',$params['search'])->where('status','ISSUED')->get();
+                        $response=\App\MemoIn::where('Stock_ID',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIn::where('PCS_ID',$params['search'])->where('status','RETURNED')->get();
+                        $response=\App\MemoIn::where('Stock_ID',$params['search'])->where('status','RETURNED')->get();
                     return response()->json($response,200);
                 }
                 if($params['filterby']=='Invoice Number'){

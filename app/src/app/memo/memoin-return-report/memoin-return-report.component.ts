@@ -145,7 +145,7 @@ export class MemoinReturnReportComponent implements OnInit {
     if(exportCSVdata[0].sr_no != "Sr No."){
       exportCSVdata.unshift(
         {
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "PCS ID",
           "Lot_Number": "Lot Number",
           "memo_invoice_number": "Memo Invoice Number",
           "date": "Date",

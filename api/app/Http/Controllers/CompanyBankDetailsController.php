@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CompanyBankDetails;
+use App\CompanyProfile;
 use Illuminate\Http\Request;
 
 class CompanyBankDetailsController extends Controller
@@ -46,6 +47,7 @@ class CompanyBankDetailsController extends Controller
             'bank_branch'=>$key['bank_branch'],
             'account_number'=>$key['account_number'],
             'IFSC_code'=>$key['IFSC_code'],
+            'opening_balance'=>$key['opening_balance'],
             'amount'=>$key['amount'],
             'amount_USD'=>$key['amount_USD']
         ]);
@@ -72,6 +74,40 @@ class CompanyBankDetailsController extends Controller
         //
     }
 
+    public function getcompanybanks(){
+        $data=CompanyBankDetails::select('bank_name')->distinct()->pluck('bank_name');
+        return response()
+               ->json(['banks'=>$data],201);
+    }
+
+    public function getcompanybank(Request $request){
+        $query=$request->all();
+        $cid=CompanyProfile::select('id')->where('c_name',$query['company_name'])->pluck('id');
+        $data=CompanyBankDetails::select('bank_name')->where('c_id',$cid)->distinct()->pluck('bank_name');
+        return response()->json(['banks'=>$data],201);
+    }
+
+    public function getcompanybankaccount(Request $request){
+        $query=$request->all();
+        $cid=CompanyProfile::select('id')->where('c_name',$query['company_name'])->pluck('id');
+        $data=CompanyBankDetails::select('account_number')->where([['bank_name',$query['bank_name']],['c_id',$cid],['bank_branch',$query['bank_branch']]])->pluck('account_number');
+        return response()->json(['account_number'=>$data],201);
+    }
+
+    public function getbankbranches(Request $request){
+        $query=$request->all();
+        $cid=CompanyProfile::select('id')->where('c_name',$query['company_name'])->pluck('id');
+        $data=CompanyBankDetails::select('bank_branch')->where([['bank_name',$query['bank_name']],['c_id',$cid]])->distinct()->pluck('bank_branch');
+        return response()->json(['branches'=>$data],201);
+    }
+
+    public function getamount(Request $request){
+        $query=$request->all();
+        $cid=CompanyProfile::select('id')->where('c_name',$query['company_name'])->pluck('id');
+        $data=CompanyBankDetails::select('amount')->where([['bank_name',$query['bank_name']],['c_id',$cid],['account_number',$query['account_number']],['bank_branch',$query['bank_branch']]])->pluck('amount');
+        return response()->json(['amount'=>$data],201);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -80,10 +116,11 @@ class CompanyBankDetailsController extends Controller
      */
     public function show(CompanyBankDetails $companyBankDetails,Request $request)
     {
+        $query=$request->all();
 
         
         if($request->has('onload')){
-        $data=CompanyBankDetails::all();
+        $data=CompanyBankDetails::where('c_id',$query['id'])->get();
         }
 
             return response()->json(['response'=>['bankdetails'=>$data]],201);
@@ -107,9 +144,15 @@ class CompanyBankDetailsController extends Controller
      * @param  \App\CompanyBankDetails  $companyBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CompanyBankDetails $companyBankDetails)
+    public function update(Request $request,$id)
     {
-        //
+         $query=CompanyBankDetails::find($id);
+        $updatequery=$request->except(['id','api_token','dbcountry']);
+        foreach($updatequery as $update=>$newvalue){
+             $query->$update=$newvalue;
+        }
+        $query->update();
+        return response()->json('updated',201);
     }
 
     /**
@@ -118,8 +161,10 @@ class CompanyBankDetailsController extends Controller
      * @param  \App\CompanyBankDetails  $companyBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CompanyBankDetails $companyBankDetails)
+    public function destroy($id)
     {
-        //
+         $company = CompanyBankDetails::find($id);    
+        $company->delete();
+        return response()->json('deleted',201);
     }
 }

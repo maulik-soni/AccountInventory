@@ -124,7 +124,7 @@ export class PurchaseReturnComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "PCS ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",

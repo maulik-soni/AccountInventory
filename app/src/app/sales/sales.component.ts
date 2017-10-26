@@ -71,7 +71,7 @@ export class SalesComponent implements OnInit {
 
   initSalesDetails() {
     return this._fb.group({
-      PCS_ID: [''],
+      Stock_ID: [''],
       polishing_type: [''],
       bill_type: [''],
       stock_status_group: [''],

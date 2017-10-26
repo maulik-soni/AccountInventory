@@ -16,7 +16,7 @@ class memoissueController extends Controller
         DB::table('memo_issue')->insert($new_memoissue);
     } 
 
-    public function memoissueReport($PCS_ID=''){
+    public function memoissueReport($Stock_ID=''){
         $memo = \App\MemoIssue::all();
         return $memo;
     } 
@@ -27,9 +27,9 @@ class memoissueController extends Controller
         print_r($oldmemo_data);
         $newMemo = Request::all();
         $memoissue_table = new \App\MemoIssue;
-        $memoissue_table = MemoIssue::find($newMemo['$PCS_ID']);
+        $memoissue_table = MemoIssue::find($newMemo['$Stock_ID']);
         foreach($newMemo as $fields){
-            if($fields != "PCS_ID"){
+            if($fields != "Stock_ID"){
                 $memoissue_table->$fields = $newMemo[$fields];
             }
         }
@@ -40,13 +40,13 @@ class memoissueController extends Controller
         $data = Request::all();
         \App\MemoIssue::where('id','=',$data['id'])->delete();
         $memoissue_table = new \App\MemoIssue;
-        MemoIssue::where('PCS_ID','=',$data['PCS_ID'])->delete();
+        MemoIssue::where('Stock_ID','=',$data['Stock_ID'])->delete();
     }
 
     public function changeStatusDB($pcsID){
         $pcsid = $pcsID;
         $memoissue_table = \App\MemoIssue::where(function($query) use($pcsid){
-            $query->where('PCS_ID', '=', $pcsid)
+            $query->where('Stock_ID', '=', $pcsid)
                   ->orWhere('Lot_Number', '=', $pcsid);
         })->first();
         $memoissue_table->status = "RECEIVED";
@@ -69,9 +69,9 @@ class memoissueController extends Controller
             if(!empty($params['search'])){
                 if($params['filterby']=='PCS ID'){
                     if($params['reportType'] == "report"){
-                        $response=\App\MemoIssue::where('PCS_ID',$params['search'])->where('status','ISSUED')->get();
+                        $response=\App\MemoIssue::where('Stock_ID',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIssue::where('PCS_ID',$params['search'])->where('status','RECEIVED')->get();
+                        $response=\App\MemoIssue::where('Stock_ID',$params['search'])->where('status','RECEIVED')->get();
                     return response()->json($response,200);
                 }
                 if($params['filterby']=='Invoice Number'){

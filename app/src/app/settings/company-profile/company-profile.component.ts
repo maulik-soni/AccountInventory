@@ -7,6 +7,8 @@ import { CompanyProfile,CompanyTitles} from '../company.model';
 import { Bank } from "../bank.model";
 
 import { WebServicesService } from './../../services/web-services.service';
+import { SharedService } from './../../shared/shared.service';
+
 @Component({
   selector: 'app-company-profile',
   templateUrl: './company-profile.component.html',
@@ -18,15 +20,15 @@ export class CompanyProfileComponent implements OnInit {
   comtitles=CompanyTitles;
   isAdd=true;
   companyProfile:FormGroup;
-  // companyBank:FormGroup;
+  
 
   constructor(
     private _company:WebServicesService,
     private _fb:FormBuilder,
-    private _router:Router
+    private _router:Router,
+    private _shared:SharedService,
   ) { 
     this.createcompanyForm();
-    // this.createBanksForms();
   }
 
   ngOnInit() {
@@ -37,7 +39,8 @@ export class CompanyProfileComponent implements OnInit {
      let requesttype={onload:"onload"};
      this._company.showcompanyprofile(JSON.stringify(requesttype)).
      subscribe(response=>{this.companydata=response.response.companies;
-    console.log(response)});
+    // console.log(response)
+  });
   }
 
   addClient(){
@@ -53,7 +56,7 @@ get companies(){
 }
 
 addcompany(){
-  this.companies.push(this._fb.group(new CompanyProfile('','',null,null,'','','','','','','')));
+  this.companies.push(this._fb.group(new CompanyProfile(null,'','',null,null,'','','','','','')));
 }
 
   removecompany(i: number) {
@@ -64,35 +67,16 @@ addcompany(){
     this._router.navigate(['settings/company-profile',g.id]);
   }
 
-// createBanksForms(){
-//   this.companyBank=this._fb.group({
-//     banks:this._fb.array([]),
-//   });
-// }
-
-// get banks() {
-//     return this.companyBank.get('banks') as FormArray;
-//   };
-
-//   addBank(){
-//     this.banks.push(this._fb.group(new Bank('vikas','','','','',null)));
-//   }
-
-//  removeBank(i: number) {
-//         this.banks.removeAt(i);
-//     }
-
 
 
   onSubmit(){
     this._company.newcompanyprofile(JSON.stringify(this.companyProfile.value))
-     .subscribe(response=>{console.log(response);
+     .subscribe(response=>{
+      //  console.log(response);
+      this._shared.notify('Company Account '+response,'success');
       this.companies.reset();
       this.createcompanyForm();
     this.showcompanies();})
-
-      // this._company.newcompanybank(JSON.stringify(this.companyBank.value))
-      // .subscribe(response=>{console.log(response)});
     
   }
 }

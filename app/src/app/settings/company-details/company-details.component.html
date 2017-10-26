@@ -1,10 +1,10 @@
-<div [formGroup]="companyform">
+<div [formGroup]="companyform" class="company">
 <div class="row">
             <div class="col-lg-2">
           <label class="c-black f-500 labels">Company Name</label>
           <div class="form-group noneditable">
             <div class="fg-line">
-              <input type="text" class="form-control" formControlName="c_name">
+              <input type="text" class="form-control" required formControlName="c_name">
             </div>
           </div>
             </div>
@@ -13,7 +13,7 @@
           <label class="c-black f-500 labels">Company Address</label>
           <div class="form-group noneditable">
             <div class="fg-line">
-              <input type="text" class="form-control" formControlName="address">
+              <input type="text" class="form-control" required formControlName="address">
             </div>
           </div>
             </div>  
@@ -22,7 +22,7 @@
               <label class="c-black f-500 labels">Phone Number</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="phone">
+                  <input type="number" class="form-control" formControlName="phone">
                 </div>
               </div>
             </div>
@@ -30,7 +30,7 @@
               <label class="c-black f-500 labels">Mobile Number</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control"  formControlName="mobile">
+                  <input type="number" class="form-control"  formControlName="mobile">
                 </div>
               </div>
             </div>
@@ -38,7 +38,7 @@
               <label class="c-black f-500 labels">Email</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="email">
+                  <input type="email" ValidEmail class="form-control" formControlName="email">
                 </div>
               </div>
             </div>
@@ -49,15 +49,19 @@
               <label class="c-black f-500 labels">From</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="from">
+                  <input type="text" required class="form-control" [mdDatepicker]="datepicker" (focus)="datepicker.open()" readonly formControlName="from">
+                <md-datepicker  #datepicker></md-datepicker>	
                 </div>
               </div>
             </div>
+
             <div class="col-lg-2">
               <label class="c-black f-500 labels">To</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="to" >
+                  <input type="text" required class="form-control" [mdDatepicker]="datepickerto" (focus)="datepickerto.open()" readonly formControlName="to">
+          
+                  <md-datepicker #datepickerto></md-datepicker>	
                 </div>
               </div>
             </div>
@@ -68,7 +72,7 @@
               <label class="c-black f-500 labels">GST Number</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="GST">
+                  <input type="text" required class="form-control" formControlName="GST">
                 </div>
               </div>
             </div>
@@ -76,7 +80,7 @@
               <label class="c-black f-500 labels">PAN Number</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="PAN">
+                  <input type="text" required class="form-control" formControlName="PAN">
                 </div>
               </div>
             </div>
@@ -84,7 +88,7 @@
               <label class="c-black f-500 labels">IEC Number</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="IEC">
+                  <input type="text" required class="form-control" formControlName="IEC">
                 </div>
               </div>
             </div>
@@ -92,7 +96,7 @@
               <label class="c-black f-500 labels">QEC Number</label>
               <div class="form-group noneditable">
                 <div class="fg-line">
-                  <input type="text" class="form-control" formControlName="QBC">
+                  <input type="text" required class="form-control" formControlName="QBC">
                 </div>
               </div>
             </div>

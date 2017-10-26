@@ -6,7 +6,7 @@ export class Memo {
       public account_name?:string,
       public broker?:string,
       public reference?:string,
-      public PCS_ID?:string,
+      public Stock_ID?:string,
       public carats?:string,
       public Lot_Number?:number,
       public due_date?:string,

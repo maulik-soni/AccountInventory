@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import{ NgForm } from '@angular/forms';
 
-import { SearchValues,SearchOptions} from './search.model';
 import { WebServicesService } from './../services/web-services.service';
+import { Angular2Csv } from 'angular2-csv/Angular2-csv';
 
 @Component({
   selector: 'app-inventory',
@@ -10,61 +10,93 @@ import { WebServicesService } from './../services/web-services.service';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
-searchatts=new SearchOptions(['all','filter'],['purchase','jangad']);
-searchvalues=new SearchValues(
-  this.searchatts.inventory[0],
-);
+  select={};
+  selected=[];
+  barcodes=[];
+  labels=[];
+  datefilter=false;
+  searchcount=0;
+  fromDate;
+  toDate;
+  selectall=false;
+  isselected=false;
+  showfilterables=false;
+  collectiontype=['all','stock in hand','stock on memo-issue','stock on memo-in','sold stones','lab issue'];
+  initfilterby=this.collectiontype[0];
+  range0=false;
+  range1=false;
+  range2=false;
+  range3=false;
 
-filtertitles=['shape','color','clarity','group','lab','polish'];
+  caratrange=[
+    [0.01,0.02,0.03],
+    [0.04,0.05,0.06,0.07],
+    [0.08,0.09,0.10,0.11,0.12,0.13,0.14],
+    [0.15,0.16,0.17],
+  ]
+  filtertitles=['shape','color','clarity','group','lab','polish','cut','symmetry','fluor','party name','carats'];
 resulttitles=[
-  ['PCS ID','PCS_ID'],
-  ['invoice number','invoice_number'],
-  ['purchase date','purchase_date'],
-  ['due date','due_date'],
-  ['account','account_name'],
-  ['terms','payment_terms'],
-  ['polishing','polishing_type'],
-  ['conversion','currency_convrsion_rate'],
-  ['note','notes'],
-  ['less','less'],
-  ['country','country'],
-  ['bill','bill_type'],
-  ['comission','comission'],
   ['stock status','stock_status_group'],
   ['item','item'],
   ['kapan','kapan'],
+  ['STOCK ID','Stock_ID'],
   ['diamond shape','diamond_shape'],
   ['lot number','diamond_lot_number'],
-  ['size','diamond_size'],
   ['color','diamond_color'],
   ['clarity','diamond_clarity'],
-  ['peices','total_diamond_pcs'],
   ['carat','total_diamond_carat'],
+  ['crown height','crnHt'],
+  ['cut','finalCut'],
+  ['polishing','polishing_type'],
+  ['symmetry','symmetry'],
+  ['measurement','fullShapeDescription'],
+  ['fluo','fluorescenceIntensity'],
+  ['fluo Color','fluorescenceColor'],
+  ['height','length'],
+  ['girdle','girdle'],
+  ['crown angle','crnAg'],
+  ['pav depth','pavDp'],
+  ['pav angle','pavAg'],
+  ['culet','culetSize'],
+  ['LAB','LAB_type'],
   ['discount','cost_discount'],
-  ['rate/carat','cost_rate_per_carat'],
+  ['cost rate/carat','cost_rate_per_carat'],
   ['RAP','RAP_price'],
   ['wd rate','wd_rate'],
   ['wd rate/carat','wd_rate_carat'],
+  ['party name','account_name'],
+  ['purchase date','purchase_date'],
+  ['due date','due_date'],
   ['rate','rate_INR'],
   ['amount','amount_INR'],
   ['rate(USD)','rate_dolar'],
   ['amount(USD)','amount_dolar'],
-  ['LAB','LAB_type'],
-  ['certificate number','certificate_number'],
-  ['average','avg_INR'],
-  ['average(USD)','avg_dolar'],
-  ['Hform','against_Hform'],
-  ['VAT','mVAT'],
-  ['broker','broker_details'],
-  ['memo lot number','Lot_number'],
-  ['memo invoice number','memo_invoice_number'],
-  ['memo date','date'],
-  ['memo reference','reference'],
-  ['memo carats','carats'],
-  ['memo stone type','stone_type'],
-  ['memo days','no_of_days'],
-  ['memo due','due_date'],
-  ['memo status','status']
+
+  // ['invoice number','invoice_number'],
+  // ['terms','payment_terms'],
+  // ['conversion','currency_convrsion_rate'],
+  // ['note','notes'],
+  // ['less','less'],
+  // ['country','country'],
+  // ['bill','bill_type'],
+  // ['comission','comission'],
+  // ['size','diamond_size'],
+  // ['peices','total_diamond_pcs'],
+  // ['certificate number','certificate_number'],
+  // ['average','avg_INR'],
+  // ['average(USD)','avg_dolar'],
+  // ['Hform','against_Hform'],
+  // ['VAT','mVAT'],
+  // ['broker','broker_details'],
+  // ['memo lot number','Lot_number'],
+  // ['memo invoice number','memo_invoice_number'],
+  // ['memo date','date'],
+  // ['memo reference','reference'],
+  // ['memo carats','carats'],
+  // ['memo stone type','stone_type'],
+  // ['memo days','no_of_days'],
+  // ['memo due','due_date'],
+  // ['memo status','status']
   ]
 filterdata=[];
 result=[];
@@ -74,56 +106,167 @@ result=[];
   ) { }
 
   ngOnInit() {
+    this.inventoryservice.showinventory({"filterby":"all","dates":false,"filter":{"range0":false,"range1":false,"diamond_shape":{},"diamond_color":{},"diamond_clarity":{},"stock_status_group":{},"LAB_type":{},"polishing_type":{},"finalCut":{},"symmetry":{},"fluorescenceIntensity":{},"account_name":{"raha exports":"","vinay stones":""}},"date":{"fromDate":null,"toDate":null}}).subscribe(response=>{
+       this.result=response.response.inventory;
+       this.searchcount=response.response.searches;
+      //  console.log(response);
+      });
   }
 
-  getoption(option){
-    if(option=='filter'){
-      let getfilters;
+  showpopup(){
+
+  this.showfilterables=true;
+  this.selected=[];
+  this.selectall=false;
+  this.datefilter=false;
+  this.datetoggle();
+  this.searchcount=0;
+  this.barcodes=[];
+   let getfilters;
+   let getdate;
+   getdate={
+     fromDate:this.fromDate?this.fromDate:null,
+     toDate:this.toDate?this.toDate:null
+   }
       getfilters={
-        filter:'filteroptions'
+        filter:'filteroptions',
+        filterby:this.initfilterby,
+        date:getdate
       }
       this.inventoryservice.showinventory(JSON.stringify(getfilters))
-      .subscribe(response=>{this.filterdata=response.response.filters;
-      console.log(this.filterdata);});
+      .subscribe(response=>{
+        this.filterdata=response.response.filters;
+        this.filterdata.pop();
+      // console.log(response);
+    });
+}
+
+  datetoggle(){
+    if(!this.datefilter){
+      this.fromDate=null;
+      this.toDate=null;
     }
   }
 
-  getdynamic(form:NgForm){
-    var all=form.value;
-    all['getoption']='getoption';
-   
-     this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
-       this.filterdata=response.response.filters;
-      console.log(this.filterdata);});
-
- 
+  resetcollection(filterby){
+    this.showfilterables=true;
+    this.datefilter=false;
+    this.searchcount=0;
+    this.datetoggle();
+    this.barcodes=[];
+     let getfilters;
+     let getdate;
+      getdate={
+         fromDate:this.fromDate?this.fromDate:null,
+     toDate:this.toDate?this.toDate:null
+      }
+        getfilters={
+          filter:'filteroptions',
+          filterby:filterby,
+          date:getdate
+        }
+        this.inventoryservice.showinventory(JSON.stringify(getfilters))
+        .subscribe(response=>{
+          this.filterdata=response.response.filters;
+        this.filterdata.pop();          
+        // console.log(response);
+      });
   }
   
   
-  onSubmit(form:NgForm){
-    
-// var all=form.value.filter;
-// all['filterresult']='filterresult';
+  onSubmit(form:NgForm,prop){
 
-if(this.searchvalues.inventory=="all"){
-  var all = form.value;
-}
+    // console.log(this.range0);
+    // console.log(this.range1);
+    let total_diamond_carat={};
+    if(this.range0){
+      for( let  data of this.caratrange[0]){
+        total_diamond_carat[data]=true;
+        form.value.filter.total_diamond_carat=total_diamond_carat;
+      }
+    }
 
-if(this.searchvalues.inventory!="all"){
- var all=form.value.filter;
- all['filterresult']='filterresult';
- all['inventory']='filter';
- all['filter']='search';
+    if(this.range1){
+      for( let  data of this.caratrange[1]){
+        total_diamond_carat[data]=true;
+        form.value.filter.total_diamond_carat=total_diamond_carat;
+      }
+    }
 
- this.searchvalues.inventory='all';
-}
-
-console.log(all);
-
-     this.inventoryservice.showinventory(JSON.stringify(all)).subscribe(response=>{
+   if(!form.value.date){
+     let getdate;
+      getdate={
+         fromDate:this.fromDate?this.fromDate:null,
+     toDate:this.toDate?this.toDate:null
+      }
+     form.value.date=getdate;
+   }
+    console.log(JSON.stringify(form.value));
+     this.inventoryservice.showinventory(JSON.stringify(form.value)).subscribe(response=>{
        this.result=response.response.inventory;
-       console.log(response);});
-    
+       this.searchcount=response.response.searches;
+      //  console.log(response);
+      });
+       this.showfilterables=prop;
+  }
+
+  getselecteddata(data,elem){
+    this.isselected=false;
+    if(elem.checked){
+      this.select[elem.name]=data;
+    }
+    else{
+      delete this.select[elem.name];
+    }
+    this.selected=(Object.keys(this.select).map(key => this.select[key]));
+      
+  }
+
+  multiselect(){
+    if(this.selectall){
+      
+      for(let data of this.result){
+        this.select[data.Stock_ID]=data;
+      }
+       this.selected=(Object.keys(this.select).map(key => this.select[key]));
+    }
+  else{
+      this.selected=[];
+      
+  }
+  }
+
+  emptycollection(){
+    this.barcodes=[];
+    this.labels=[];
+  }
+
+  printpdf(){
+    window.print();
+    this.emptycollection();
+  }
+
+  closepdf(){
+    this.emptycollection();
+  }
+
+  generatebarcode(){
+   this.emptycollection();
+    this.barcodes=this.selected;
+  }
+
+  printlabel(){
+   this.emptycollection();
+    this.labels=this.selected;
+  }
+
+
+  printxl(){
+    let options={
+      showLabels: true, 
+    showTitle: true 
+    }
+    new Angular2Csv(this.selected, 'My Report');
   }
 
 }

@@ -1,7 +1,7 @@
 <dashboard>
- <div class="container">
+ <div class="container-fluid">
    <div class="block-header">
-      <h2>Company Details</h2>
+      <h2>Company Profile</h2>
     </div>
 
     <div class="card">
@@ -11,14 +11,14 @@
           <div>
           <button  type="button"  (click)="addcompany()" class="btn btn-info btn-sm btn-icon-text waves-effect">
             <span class="zmdi zmdi-account-add"></span>
-            <span>Add Vendors</span>
+            <span>Add Companies</span>
           </button>
         </div>
         <form [formGroup]="companyProfile" (ngSubmit)="onSubmit()" novalidate>
 
 
-        <div formArrayName="companies" class="well well-lg">
-          <div *ngFor="let company of companies.controls; let i=index" [formGroupName]="i" >
+        <div formArrayName="companies" *ngIf="companies.controls.length>0" class=" m-t-20 well well-lg">
+          <div *ngFor="let company of companies.controls; let i=index" [formGroupName]="i" class="company">
                 <div class="ch-alt">
 					      <h4 style="display: inline-block">Company {{i + 1}}</h4>
 					      <span class="glyphicon glyphicon-remove pull-right" (click)="removecompany(i)"></span>
@@ -27,34 +27,9 @@
           </div>
         </div>
 
-        <p>{{companyProfile.value | json}}</p>
-
-          
-
-
-       
-        <!-- <div class="card-header">
-          <span style="margin:11px">Bank Details</span>
-           <button  (click)="addBank()" type="button" class="btn btn-info btn-icon-text waves-effect">
-                <span> Add Bank</span>
-              </button>
-        </div>
-
-        <div class="banks" [formGroup]="vendorBank">
-            <div formArrayName="banks" class="well well-lg">
-
-              <div *ngFor="let bank of banks.controls; let i=index" [formGroupName]="i" >
-                <div class="ch-alt">
-					      <h4 style="display: inline-block">Bank {{i + 1}}</h4>
-					      <span class="glyphicon glyphicon-remove pull-right"(click)="removeBank(i)"></span>
-				        </div>
-                <bank-details [group]="bank"></bank-details>
-              </div>
-            </div>
-          </div>
-          -->
+        <!-- <p>{{companyProfile.value | json}}</p> -->
         
-        <button class="btn">Save</button> 
+        <button *ngIf="companies.controls.length>0" [disabled]="!companyProfile.valid" class="btn btn-info waves-effect">Save</button> 
     </form>
 
     

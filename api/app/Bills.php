@@ -6,9 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bills extends Model
 {
-
-
-    protected $table = 'payment_reciepts';
+    protected $table = 'bills';
     protected $fillable = [
         'invoice_number',
         'invoice_value',
@@ -25,7 +23,11 @@ class Bills extends Model
         'debit_INR',
         'transaction_conversion_rate',
         'cheque_no',
+        'account_number',
+        'company_name',
         'bank',
+        'usd_amount',
+        'company_name',
         'transaction_id',
         'bank_branch'
     ];

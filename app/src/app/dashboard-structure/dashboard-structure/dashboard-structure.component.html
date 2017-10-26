@@ -85,9 +85,15 @@
           </a>
 
           <ul class="main-menu">
-            <li>
-              <a href="#"><i class="zmdi zmdi-settings"></i> Settings</a>
-            </li>
+             <li class="sub-menu">
+            <a href="#"><i class="zmdi zmdi-account"></i>Settings</a>
+            <ul style="display: none;">
+                <li><a [routerLink]="['/settings/company-profile']">Company Profile</a></li>
+                <li><a [routerLink]="['/settings/vendors-profile']">Vendors Profile</a></li>
+                <!-- <li><a [routerLink]="['/settings/company-bank-details']">Company Bank Details</a></li>
+                <li><a [routerLink]="['/settings/vendors-bank-detail']">Vendors Bank Detail</a></li> -->
+            </ul>
+          </li>
             <li>
               <a (click)="logout()"><i class="zmdi zmdi-time-restore"></i> Logout</a>
             </li>
@@ -142,17 +148,17 @@
             <a href="#"><i class="zmdi zmdi-shopping-cart"></i>Accounts</a>
             <ul style="display: none;">
                 <li><a [routerLink]="['/accounts/bills']">Bills</a></li>
-                <li><a [routerLink]="['/accounts/payable']">Payable</a></li>
-                <li><a [routerLink]="['/accounts/receivable']">Recievable</a></li>
+                <li><a [routerLink]="['/accounts/payable']">Payables</a></li>
+                <li><a [routerLink]="['/accounts/receivable']">Recievables</a></li>
                 <li><a [routerLink]="['/accounts/ledger']">Ledger</a></li>
             </ul>
           </li>
 
           <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-assignment"></i>CashBook</a>
+            <a href="#"><i class="zmdi zmdi-assignment"></i>Journal Entry</a>
             <ul style="display: none;">
-                <li><a [routerLink]="['/cashbook/new-cashbook']">New Cashbook Entry</a></li>
-                <li><a [routerLink]="['/cashbook/cashbook-report']">Cashbook Reports</a></li>
+                <li><a [routerLink]="['/journalentry/new-journalentry']">New Journal Entry</a></li>
+                <li><a [routerLink]="['/journalentry/journalentry-report']">Journal Entry Reports</a></li>
             </ul>
           </li>
 
@@ -164,15 +170,7 @@
             </ul>
           </li>
 
-          <li class="sub-menu">
-            <a href="#"><i class="zmdi zmdi-account"></i>Settings</a>
-            <ul style="display: none;">
-                <li><a [routerLink]="['/settings/company-profile']">Company Profile</a></li>
-                <li><a [routerLink]="['/settings/vendors-profile']">Vendors Profile</a></li>
-                <li><a [routerLink]="['/settings/company-bank-details']">Company Bank Details</a></li>
-                <li><a [routerLink]="['/settings/vendors-bank-detail']">Vendors Bank Detail</a></li>
-            </ul>
-          </li>
+         
 
         </ul>
       </div>

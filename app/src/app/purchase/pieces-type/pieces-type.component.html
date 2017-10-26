@@ -1,7 +1,7 @@
 <div [formGroup]="piecesTypeForm">
     <div class="card">
 		<!-- <div class="card-header ch-alt" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-			<span>PCS ID : </span>{{piecesTypeForm.value.PCS_ID}}
+			<span>PCS ID : </span>{{piecesTypeForm.value.Stock_ID}}
 		</div> -->
 		
 		<!-- <div class="collapse in"  id="collapseExample"> -->
@@ -51,7 +51,7 @@
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">PCS ID</p>
-							<input type="text" class="form-control fg-input" formControlName = "PCS_ID" name = "PCS_ID">
+							<input type="text" class="form-control fg-input" formControlName = "Stock_ID" name = "Stock_ID">
 						</div>
 					</div>
 				</div>					
@@ -64,13 +64,13 @@
 					</div>
 				</div>
 				<div class="col-sm-4">
-					<a *ngIf = "piecesTypeForm.value.PCS_ID != '' && piecesTypeForm.value.certificate_number != ''" data-toggle="modal" href="#modalWider{{piecesTypeForm.value.PCS_ID}}" class="btn btn-sm btn-info" >Fetch Details</a>
-					<a *ngIf = "piecesTypeForm.value.PCS_ID == '' || piecesTypeForm.value.certificate_number == ''" class="btn btn-sm btn-info" disabled = "true">Fetch Details</a>
+					<a *ngIf = "piecesTypeForm.value.Stock_ID != '' && piecesTypeForm.value.certificate_number != ''" data-toggle="modal" href="#modalWider{{piecesTypeForm.value.Stock_ID}}" class="btn btn-sm btn-info" >Fetch Details</a>
+					<a *ngIf = "piecesTypeForm.value.Stock_ID == '' || piecesTypeForm.value.certificate_number == ''" class="btn btn-sm btn-info" disabled = "true">Fetch Details</a>
 				</div>
 			</div>
 			<br>
 
-			<div class="modal fade" id="modalWider{{piecesTypeForm.value.PCS_ID}}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal fade" id="modalWider{{piecesTypeForm.value.Stock_ID}}" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
 						<div class="modal-header">

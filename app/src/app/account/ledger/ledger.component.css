@@ -1,0 +1,22 @@
+td,th{
+    text-align: center;
+}
+
+th{
+    background:#c3c0c0!important;
+}
+
+.bold-td{
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+
+.c_row{
+    background:#e6dfdf;
+
+}
+
+.c_row td{
+    text-align: right;
+}

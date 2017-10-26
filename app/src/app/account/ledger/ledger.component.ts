@@ -15,85 +15,51 @@ import { Search,SearchValues } from './../search.model';
 })
 
 export class LedgerComponent implements OnInit {
-private searchterm=new Subject;
-searchatts=new Search(['all','filter'],[['invoice number','invoice_number'],['party name','account_name'],['date','date']]);
-searchvalues=new SearchValues(
-  this.searchatts.filter[0],
-  this.searchatts.filterby[0][0],
-  null,
-  new Date().toLocaleDateString(),
-  new Date().toLocaleDateString()
-);
+// private searchterm=new Subject;
+// searchatts=new Search(['all','filter'],[['invoice number','invoice_number'],['party name','account_name'],['date','date']]);
+// searchvalues=new SearchValues(
+//   this.searchatts.filter[0],
+//   this.searchatts.filterby[0][0],
+//   null,
+//   new Date().toLocaleDateString(),
+//   new Date().toLocaleDateString()
+// );
 
-titles=['date','particulars','debit','credit'];
-data=[];
-account_name=[];
+titles=['date','particulars','voucher number','debit','credit'];
+ledgers=[];
+data;
+account_names=[];
+company_names=[];
 accountname;
+companyname;
 query;
 
 constructor(private _ledgerservice:WebServicesService){}
   
   ngOnInit() {
-    let billtype;
-    billtype={
-      static_data:'staticdata',
-    }
-    this._ledgerservice.showledger(JSON.stringify(billtype))
-    .subscribe(response=>{this.account_name=response.names});
-
-
+    let requesttype={companynames:"companynames"};
+    this._ledgerservice.showcompanyprofile(JSON.stringify(requesttype)).
+    subscribe(response=>{this.company_names=response.response.company_names;
+   console.log(response)});
      
   }
 
-  selectedparty($event){
-    this.accountname=$event;
+  selectedcompany($event){
+    this.companyname=$event.id;
+    this._ledgerservice.showledger(JSON.stringify({company_name:this.companyname})).
+    subscribe(response=>{this.account_names=response.accounts;
+    this.accountname=this.account_names[0]});
   }
-  
-  // search(searchvalue){
-  //   this.searchterm.next(searchvalue);
-  // }
 
-  // issearchempty(){
-  //   return this.searchresult.length;
-  // }
-
-  // setvalue(result){
-  //   this.to=result;
-  //   this.searchresult=[];
-  // }
+  selectedaccount($event){
+    this.accountname=$event.id;
+    
+  }
 
   onSubmit(form:NgForm){
-    // let data;
-    // if(this.to){
-    //   data={
-    //   ledger: 'ledger',
-    //   account_name:this.to
-    // }
-    //   this.query=JSON.stringify(data);
-    //   console.log(this.query);
-    // }
-    // if(this.searchvalues.filterby=='date'){
-    //   this.query=JSON.stringify(form.value);
-    //   console.log(this.query);
-    // }
-    // if(form.value.search!=null){
-    //  this.query=JSON.stringify(form.value);
-    //  console.log(this.query);
-    // }
-    if(this.accountname){
-      let account;
-      account={
-        account_name:this.accountname
-      }
-      this.query=JSON.stringify(account);
-    }
-
-    
-      this._ledgerservice.showledger(this.query).subscribe(response=>{
-      this.data=response;
-      console.log(this.data);
-  
-    });
+     this._ledgerservice.showledger(JSON.stringify({company_name:this.companyname,account_name:this.accountname,showledger:'showledger'})).
+    subscribe(response=>{this.data=response.response;
+    this.ledgers=this.data.ledger});
     
   }
 

@@ -8,5 +8,5 @@ class PurchaseReturn extends Model
 {
     public $timestamps = false;
     protected $table = 'purchase_return';
-    protected $primaryKey = 'PCS_ID';
+    protected $primaryKey = 'Stock_ID';
 }

@@ -46,8 +46,6 @@ class VendorBankDetailsController extends Controller
             'account_number'=>$key['account_number'],
             'v_id'=>$key['id'],
             'IFSC_code'=>$key['IFSC_code'],
-            'amount'=>$key['amount'],
-            'amount_USD'=>$key['amount_USD']
         ]);
         $data->save();
            }
@@ -96,9 +94,15 @@ class VendorBankDetailsController extends Controller
      * @param  \App\VendorBankDetails  $vendorBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function edit(VendorBankDetails $vendorBankDetails)
+    public function update(Request $request,$id)
     {
-        //
+        $query=VendorBankDetails::find($id);
+        $updatequery=$request->except(['id','api_token','dbcountry']);
+        foreach($updatequery as $update=>$newvalue){
+             $query->$update=$newvalue;
+        }
+        $query->update();
+        return response()->json('updated',201);
     }
 
     /**
@@ -108,10 +112,10 @@ class VendorBankDetailsController extends Controller
      * @param  \App\VendorBankDetails  $vendorBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, VendorBankDetails $vendorBankDetails)
-    {
-        //
-    }
+    // public function update(Request $request, VendorBankDetails $vendorBankDetails)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -119,8 +123,10 @@ class VendorBankDetailsController extends Controller
      * @param  \App\VendorBankDetails  $vendorBankDetails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(VendorBankDetails $vendorBankDetails)
+     public function destroy($id)
     {
-        //
+         $company = VendorBankDetails::find($id);    
+        $company->delete();
+        return response()->json('deleted',201);
     }
 }

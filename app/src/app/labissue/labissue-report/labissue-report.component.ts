@@ -99,7 +99,7 @@ export class LabissueReportComponent implements OnInit {
     this._webservice.changelabissuestatus(this.labissueRecieved).subscribe((response)=>{
       for(let j=0; j<this.labissueRecieved.length; j++){
         for(var i=0; i<this.issued.length; i++){
-          if(this.issued[i].PCS_ID == this.labissueRecieved[j]){
+          if(this.issued[i].Stock_ID == this.labissueRecieved[j]){
             this.issued.splice(i,1);
           }
         }
@@ -109,7 +109,7 @@ export class LabissueReportComponent implements OnInit {
   }
 
   receiveLabissue(labissueRec,data){
-    var dataID = data.PCS_ID;
+    var dataID = data.Stock_ID;
    
     console.log(labissueRec,dataID);
     if(labissueRec == true){
@@ -164,7 +164,7 @@ export class LabissueReportComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "Sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "PCS ID",
           "LAB_type": "Lab Type",
           "date" : "Date",
           "shape" : "Shape",

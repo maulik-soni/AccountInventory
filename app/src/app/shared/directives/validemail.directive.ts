@@ -15,7 +15,10 @@ const EMAIL_REGEXP =
 export class ValidemailDirective implements Validator {
 
   validate(c: AbstractControl): ValidationErrors|null {
+    if(c.value){
     return EMAIL_REGEXP.test(c.value) ? null : {'email': true};
+    }
+  return null;
   }
 
 }

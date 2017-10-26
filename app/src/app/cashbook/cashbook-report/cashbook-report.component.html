@@ -1,18 +1,17 @@
 <dashboard>
-  <div class="container">
+  <div class="container-fluid">
     <div class="block-header">
-      <h2>Cashbook Reports</h2>
+      <h2>Journal Entry Reports</h2>
     </div>
-    <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
+    <form #filters="ngForm" (ngSubmit)="onSubmit(filters)" autocomplete="off">
     <div class="card searchfilters">
-      <div class="card-header">Filter</div>
       <div class="card-body card-padding">
 
         <md-radio-group [(ngModel)]="searchvalues.filter" class="main-filter" name="filter">
           <md-radio-button  class="radio-button" *ngFor="let option of searchatts.filter" [value]="option" >{{option}}</md-radio-button>
         </md-radio-group>
   
-        <button *ngIf="searchvalues.filter=='all'"  type="submit" class="btn btn-info waves-effect">Get Result</button>
+        <button *ngIf="searchvalues.filter=='all'"  type="submit" class="btn btn-info waves-effect  main-result">Get Result</button>
 
         <div class="filter-container" *ngIf="searchvalues.filter=='filter'">
 
@@ -61,27 +60,21 @@
         </div>
       </div>
     </div>
-    <p>{{ filters.value | json}}</p>
+    <!-- <p>{{ filters.value | json}}</p> -->
     </form>
 
-    <div class="card">
-      <div class="card-header">Reports</div>
+    <div class="card" *ngIf="data.length>0">
+      <!-- <div class="card-header">Reports</div> -->
     <div class="card-body  table-responsive">
-      <table class="table">
-        <thead>
+      <table class="table table-bordered">
+        <thead class="thead-inverse">
           <tr>
-            <th *ngFor="let title of titles">{{title}}</th>
+            <th *ngFor="let title of titles">{{title[0]}}</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of data">
-            <td>{{ data.id }}</td>
-            <td>{{data.amount}}</td>
-            <td>{{data.voucher}}</td>
-            <td>{{data.date}}</td>
-            <td>{{data.description}}</td>
-            <td>{{data.type}}</td>
-            <td>{{data.created_at}}</td>
+            <td *ngFor="let title of titles">{{data[title[1]]}}</td>
           </tr>
         </tbody>
       </table>

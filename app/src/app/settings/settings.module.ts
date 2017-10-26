@@ -15,6 +15,7 @@ import { VendorFullProfileComponent } from './vendor-full-profile/vendor-full-pr
 import { CompanyProfileComponent } from './company-profile/company-profile.component';
 import { CompanyDetailsComponent } from './company-details/company-details.component';
 import { CompanyFullProfileComponent } from './company-full-profile/company-full-profile.component';
+import { VendorBankDetailsComponent } from './vendor-bank-details/vendor-bank-details.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { CompanyFullProfileComponent } from './company-full-profile/company-full
     ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [BankDetailsComponent, VendorProfileComponent, VendorDetailsComponent, VendorFullProfileComponent, CompanyProfileComponent, CompanyDetailsComponent, CompanyFullProfileComponent],
+  declarations: [BankDetailsComponent, VendorProfileComponent, VendorDetailsComponent, VendorFullProfileComponent, CompanyProfileComponent, CompanyDetailsComponent, CompanyFullProfileComponent, VendorBankDetailsComponent],
   providers:[WebServicesService]
 })
 export class SettingsModule { }

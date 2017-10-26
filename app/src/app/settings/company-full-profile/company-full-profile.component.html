@@ -1,23 +1,23 @@
 <dashboard>
- <div class="container">
+ <div class="container-fluid">
    <div class="block-header">
-      <h2>Company Details</h2>
+      <h2>Company Profile</h2>
     </div>
 
 
       <div class="card">
-    <form (ngSubmit)="onProfileSubmit()" novalidate>
+    <form (ngSubmit)="profilesave()" novalidate>
         <div class="card-header">
-          <span style="margin:11px">Vendor Profile</span>
+          <!-- <span style="margin:11px">Company Details</span> -->
            <button *ngIf="isEditable" (click)="onProfileEdit()"  class="btn btn-info btn-sm btn-icon-text waves-effect">
                 <!--<span class="zmdi zmdi-edit"></span>-->
-                <span>Edit Details</span>
+                <span>Edit Company Details</span>
               </button>
         </div>
         <div class="card-body card-padding">
           <company-details [companygroup]="companyProfile"></company-details>
 
-      <button *ngIf="!isEditable" class="btn">Save</button>
+      <button *ngIf="!isEditable" class="btn btn-info waves-effect">Save</button>
         </div>
 
     </form>
@@ -27,10 +27,10 @@
 
     <div class="card">
        <div class="card-header">
-          <span style="margin:11px">Bank Details</span>
+          <!-- <span style="margin:11px">Bank Details</span> -->
            <button  (click)="addBank()"  class="btn btn-info btn-icon-text waves-effect">
                 <!--<span class="zmdi zmdi-account-add"></span>-->
-                <span> Add Bank</span>
+                <span> Add Bank Details</span>
               </button>
         </div>
         <div class="card-body card-padding">
@@ -46,8 +46,13 @@
               </div>
             </div>
 
-            <button class="btn" (click)="onBankSubmit()">Save</button>
-            <p>{{ companyBank.value | json}}</p>
+            <button class="btn btn-info waves-effect" [disabled]="!companyBank.valid" (click)="onBankSubmit()">Save</button>
+            <!-- <p>{{ companyBank.value | json}}</p> -->
+          </form>
+
+          <form *ngIf="isEditableBank" (ngSubmit)="onEditSubmit()" novalidate>
+            <bank-details [group]="editBank"></bank-details>
+            <button class="btn btn-info waves-effect"> save changes</button>
           </form>
 
           <div class="table-responsive">
@@ -60,14 +65,14 @@
         <tbody>
           <tr *ngFor="let bank of companiesbankdata">
             <td *ngFor="let title of titles">{{bank[title[1]]}}</td>
-            <!--<td class="text-left">
-              <button type="button"  (click)="onedit(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+            <td class="text-left">
+              <button type="button"  (click)="onedit(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-edit"></span>
               </button>
-              <button type="button" (click)="ondelete(data)" class="btn bgm-gray btn-icon waves-effect waves-circle">
+              <button type="button" (click)="ondeletebank(bank)" class="btn bgm-gray btn-icon waves-effect waves-circle">
                 <span class="zmdi zmdi-delete"></span>
               </button>
-            </td>-->
+            </td>
           </tr>
         </tbody>
       </table>

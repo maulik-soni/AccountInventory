@@ -6,8 +6,13 @@ import * as moment from 'moment';
 })
 export class DaysPipe implements PipeTransform {
 
-  transform(value: Date): number {
-    return moment(value,'DD-MM-YY',true).diff(moment(),'days')+1;
+  transform(value: Date) {
+     let result=moment().diff(moment(value,'YYYY-MM-DD',true),'days')+1;
+     if(result>0){
+       return '+'+result;
+     }
+     return result;
+   
   }
 
 }

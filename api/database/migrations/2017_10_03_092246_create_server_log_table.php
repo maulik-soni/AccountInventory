@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCashbook extends Migration
+class CreateServerLogTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateCashbook extends Migration
      */
     public function up()
     {
-        Schema::create('cashbook', function (Blueprint $table) {
+        Schema::create('server_log', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('amount');
-            $table->string('voucher');
-            $table->date('date');
-            $table->longtext('description');
-            $table->string('type');
-            $table->timestamps();
+			$table->ipAddress('server_IP');
+			$table->integer('user_id');
+			$table->longText('log');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateCashbook extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cashbook');
+        Schema::dropIfExists('server_log');
     }
 }

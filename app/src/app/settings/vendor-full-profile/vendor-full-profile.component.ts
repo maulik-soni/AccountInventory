@@ -4,8 +4,9 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { WebServicesService } from './../../services/web-services.service';
 import { Router } from '@angular/router';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Bank,BankTitles } from "../bank.model";
+import { VendorBank,VendorBankTitles } from "../bank.model";
 import { Vendor} from '../vendor.model';
+import { SharedService } from './../../shared/shared.service';
 
 @Component({
   selector: 'app-vendor-full-profile',
@@ -13,12 +14,15 @@ import { Vendor} from '../vendor.model';
   styleUrls: ['./vendor-full-profile.component.css']
 })
 export class VendorFullProfileComponent implements OnInit {
+
   vendorsprofiledata;
   vendorsbankdata;
   isEditable=true;
+  isEditableBank=false;
   vendorProfile:FormGroup;
   vendorBank:FormGroup;
-  titles=BankTitles;
+  editBank:FormGroup;
+  titles=VendorBankTitles;
   
   
 
@@ -26,10 +30,12 @@ export class VendorFullProfileComponent implements OnInit {
     private showprofile:  WebServicesService,
      private route: ActivatedRoute,
      private _router:Router,
+     private _shared:SharedService,
      private _fb:FormBuilder,
   ) {
     this.createVendorForm();
     this.createBankForms();
+    this.createedit();
    }
 
   
@@ -39,7 +45,8 @@ export class VendorFullProfileComponent implements OnInit {
       .subscribe(response=> {this.vendorsprofiledata=response.response;
          this.vendorProfile.patchValue(this.vendorsprofiledata);
          this.showbank(this.vendorsprofiledata.id);
-      console.log(response)});
+      // console.log(response)
+    });
 
   }
 
@@ -48,18 +55,26 @@ export class VendorFullProfileComponent implements OnInit {
  this.showprofile.showvendorbank(JSON.stringify(requesttype))
   .subscribe(response=>{
     this.vendorsbankdata=response.response.bankdetails;
-    console.log(response);
+    // console.log(response);
   });
 }
 
 createVendorForm(){
-    this.vendorProfile=this._fb.group(new Vendor('vikas','','','','','','','','',null,null,'','','',
+    this.vendorProfile=this._fb.group(new Vendor(null,'','','','','','','','','',null,null,'','','',
   '','','','',null,null,'','','',
   ));
     this.Disable();
   }
 
+  createedit(){
+    this.editBank=this._fb.group(new VendorBank(null,'','','','',''));
+  }
 
+  onedit(data){
+    this.editBank.patchValue(data);
+    this.isEditableBank=true;
+    // console.log(data);
+  }
 
   createBankForms(){
     this.vendorBank=this._fb.group({
@@ -72,13 +87,22 @@ createVendorForm(){
   };
 
   addBank(){
-    this.banks.push(this._fb.group(new Bank(this.vendorsprofiledata.id,'vikas','','','','',null,null)));
+    this.banks.push(this._fb.group(new VendorBank(this.vendorsprofiledata.id,'','','','','')));
   }
 
   onProfileEdit(){
      this.isEditable=false;
      this.vendorProfile.enable();
   }
+
+  ondeletebank(data){
+    this.showprofile.deletevendorbank(data.id)
+    .subscribe(response=>{
+      this._shared.notify('Bank '+response,'success');
+      this.ngOnInit();
+    })
+  }
+
 
   removeBank(i: number) {
     this.banks.removeAt(i);
@@ -89,11 +113,24 @@ createVendorForm(){
     this.vendorProfile.disable();
   }
 
-  // onProfileSubmit(){
-  //   this._company.updatecompanyprofile(JSON.stringify(this.companyProfile.value))
-  //   .subscribe(response=>{console.log(response);
-  //   this.Disable();})  
-  // }
+  profilesave(){
+    // console.log(this.vendorProfile.value)
+    this.showprofile.updatevendor(JSON.stringify(this.vendorProfile.value))
+    .subscribe(response=>{
+      this._shared.notify('Vendor Details '+response,'success');
+    this.Disable();})  
+  }
+
+  onEditSubmit(){
+    // console.log(this.editBank.value);
+    this.showprofile.updatevendorbank(JSON.stringify(this.editBank.value))
+    .subscribe(response=>{
+      this._shared.notify('Bank Details '+response,'success');
+      this.editBank.reset();
+      this.ngOnInit();
+      this.isEditableBank=false;
+    })
+  }
 
   onBankSubmit(){
     this.showprofile.newvendorbank(JSON.stringify(this.vendorBank.value))

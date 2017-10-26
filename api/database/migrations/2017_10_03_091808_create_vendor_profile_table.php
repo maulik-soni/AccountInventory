@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVendorsTable extends Migration
+class CreateVendorProfileTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateVendorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendors', function (Blueprint $table) {
+        Schema::create('vendor_profile', function (Blueprint $table) {
             $table->increments('id');
             $table->string('v_name');
             $table->integer('account_code');
-            $table->double('opening_bal')->nullable();
-            $table->double('opening_bal_USD')->nullable();
+            $table->double('opening_bal',20,2)->nullable();
+            $table->double('opening_bal_USD',20,2)->nullable();
             $table->string('remarks')->nullable();
             $table->string('contact_person')->nullable();
-             $table->string('address');
+            $table->string('address');
             $table->string('phone')->nullable();
             $table->string('mobile')->nullable();
             $table->string('email')->nullable();
@@ -34,11 +34,10 @@ class CreateVendorsTable extends Migration
             $table->string('website')->nullable();
             $table->double('credit_limit');
             $table->double('credit_limit_USD');
-            $table->string('refernce_1')->nullable();
+            $table->string('reference_1')->nullable();
             $table->string('reference_2')->nullable();
             $table->string('GST');
             $table->string('PAN');
-            $table->timestamps();
         });
     }
 
@@ -49,6 +48,6 @@ class CreateVendorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendors');
+        Schema::dropIfExists('vendor_profile');
     }
 }

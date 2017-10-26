@@ -81,7 +81,7 @@ export class MemoDetailsComponent implements OnInit {
           // this.mypurchase.diamond_color = JSON.parse(this.mypurchase.diamond_color)[0].text;
           // this.mypurchase.diamond_clarity = JSON.parse(this.mypurchase.diamond_clarity)[0].text;
           console.log(this.mypurchase,JSON.stringify(this.mypurchase));
-          this.memoDetails.controls['PCS_ID'].patchValue(this.mypurchase.PCS_ID);
+          this.memoDetails.controls['Stock_ID'].patchValue(this.mypurchase.Stock_ID);
 
           // this.newsalesdata = Object.assign(this.newsalesdata,this.mypurchase);
           // this.mypurchase.account_name = JSON.parse(this.mypurchase.account_name)[0].text;

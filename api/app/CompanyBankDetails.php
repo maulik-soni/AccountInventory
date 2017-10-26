@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class CompanyBankDetails extends Model
 {
+    protected $table = 'company_bank';
+    public $timestamps = false;
     protected $fillable=[
     'bank_name',
     'bank_address',
@@ -14,6 +16,8 @@ class CompanyBankDetails extends Model
     'IFSC_code',
     'amount',
     'c_id',
+    'opening_balance',
     'amount_USD',
     ];
+
 }

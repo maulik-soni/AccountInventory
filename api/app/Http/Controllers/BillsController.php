@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Payable;
 use App\Receivable;
 use App\Bills;
+use Carbon\Carbon;
 
 
 class BillsController extends Controller
@@ -25,6 +26,7 @@ class BillsController extends Controller
             'transaction_conversion_rate'=>'nullable',
             'credit_INR'=>'nullable',
             'debit_INR'=>'nullable',
+            'amount'=>'required'
         ]);
 
 
@@ -34,7 +36,7 @@ class BillsController extends Controller
         $data = new Bills([
             'invoice_number'=>$request->input('invoice_number'),
             'invoice_value'=>$request->input('invoice_value'),
-            'transaction_date'=>$request->input('transaction_date'),
+            'transaction_date'=>Carbon::parse($request->input('transaction_date'))->addDays(1)->toDateString(),
             'transaction_mode'=>$request->input('transaction_mode'),
             'transaction_status'=>$request->input('transaction_status'),
             'account_name'=>$request->input('account_name'),
@@ -49,6 +51,8 @@ class BillsController extends Controller
             'cheque_no'=>$request->input('cheque_no'),
             'bank'=>$request->input('bank'),
             'transaction_id'=>$request->input('transaction_id'),
+            'usd_amount'=>$request->input('usd_amount'),
+            'company_name'=>$request->input('company_name'),
             'bank_branch'=>$request->input('bank_branch')
         ]);
 
@@ -79,6 +83,8 @@ class BillsController extends Controller
             'cheque_no'=>$request->input('cheque_no'),
             'bank'=>$request->input('bank'),
             'transaction_id'=>$request->input('transaction_id'),
+            'usd_amount'=>$request->input('usd_amount'),
+            'company_name'=>$request->input('company_name'),
             'bank_branch'=>$request->input('bank_branch')
         ]);
 

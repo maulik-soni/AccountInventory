@@ -104,7 +104,7 @@ export class MemoInComponent implements OnInit {
 
   initMemoDtails() {
     return this._fb.group({
-      PCS_ID: [''],
+      Stock_ID: [''],
       Lot_Number:[''],
       carats: [0],
       rate:[0],
