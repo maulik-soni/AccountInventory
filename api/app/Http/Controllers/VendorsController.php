@@ -91,9 +91,14 @@ class VendorsController extends Controller
     public function show(Vendors $vendors,Request $request){
          if($request->has('onload')){
         $data=Vendors::all();
+            return response()->json(['response'=>['vendors'=>$data]],201);
         }
 
-            return response()->json(['response'=>['vendors'=>$data]],201);
+        if($request->has('vendornames')){
+            $data=Vendors::select('v_name')->get()->pluck('v_name');
+            return response()->json(['response'=>['vendor_names'=>$data]],201);
+        }
+
     }
 
     public function destroy($id)

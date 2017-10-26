@@ -97,7 +97,7 @@
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Date</p>
-                <input type="text" class="form-control fg-input" (focus)="datepicker.open()" [mdDatepicker]="datepicker" name="date" [max]="maxDate" readonly [(ngModel)]="paymentvalues.transaction_date">
+                <input type="text" required class="form-control fg-input" (focus)="datepicker.open()" [mdDatepicker]="datepicker" name="date" [max]="maxDate" readonly [(ngModel)]="paymentvalues.transaction_date">
                 <md-datepicker #datepicker></md-datepicker>							
 							</div>
 						</div>
@@ -136,7 +136,7 @@
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Cheque No</p>
-                     <input type="text" class="form-control fg-input" name = "cheque_no" [(ngModel)]="paymentvalues.cheque_no">	
+                     <input type="text" class="form-control fg-input" required name = "cheque_no" [(ngModel)]="paymentvalues.cheque_no">	
                     </div>
                   </div>
                 </div>
@@ -168,7 +168,7 @@
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Transaction Id</p>
-                     <input type="text" class="form-control fg-input" name = "transaction_id" #amountBox [(ngModel)]="paymentvalues.transaction_id">	
+                     <input type="text" class="form-control fg-input" required name = "transaction_id" #amountBox [(ngModel)]="paymentvalues.transaction_id">	
                     </div>
                   </div>
                 </div>
@@ -185,13 +185,13 @@
                   <div class="form-group">
                     <div class="fg-line">
                       <p class="form-label">Conversion Rate</p>
-                     <input type="number" class="form-control fg-input" (keyup)="usdcalculator($event.target.name)" name = "transaction_conversion" [(ngModel)]="paymentvalues.tranasaction_conversion_rate">	
+                     <input type="number" class="form-control fg-input" required (keyup)="usdcalculator($event)" (keypress)="onlypositive($event)" name = "transaction_conversion" [(ngModel)]="paymentvalues.tranasaction_conversion_rate">	
                     </div>
                   </div>
                   <div class="form-group">
                       <div class="fg-line">
                         <p class="form-label">Amount in dollar</p>
-                       <input type="number" class="form-control fg-input" [disabled]="usddisable" step=".01" (keyup)="usdcalculator($event.target.name)" name = "usd_amount" [(ngModel)]="paymentvalues.usd_amount">	
+                       <input type="number" class="form-control fg-input" required [disabled]="usddisable" step=".01" (keyup)="usdcalculator($event)" (keypress)="onlypositive($event)" name = "usd_amount" [(ngModel)]="paymentvalues.usd_amount">	
                       </div>
                     </div>
               </div>
@@ -212,16 +212,16 @@
 						<div class="form-group">
 							<div class="fg-line" *ngIf="paymentvalues.transaction_currency==='INR'">
                 <p class="form-label">Amount</p>
-								<input type="number" class="form-control fg-input"  [disabled]="amountdisable" [min]=1 [max]=maxamountpayable name = "amount"  [(ngModel)]="paymentvalues.amount">								
+								<input type="number" class="form-control fg-input" required  [disabled]="amountdisable" name = "amount" (keypress)="onlypositive($event)"  [(ngModel)]="paymentvalues.amount">								
               </div>
               <div class="fg-line" *ngIf="paymentvalues.transaction_currency==='USD'">
                 <p class="form-label">Amount</p>
-								<input type="number" class="form-control fg-input"  [disabled]="amountdisable" (keyup)="usdcalculator($event.target.name)" name = "amount" [min]=1 [max]=maxamountpayable [(ngModel)]="paymentvalues.amount">								
+								<input type="number" class="form-control fg-input" required  [disabled]="amountdisable" (keyup)="usdcalculator($event)" (keypress)="onlypositive($event)"  name = "amount" [min]=1 [max]=maxamountpayable [(ngModel)]="paymentvalues.amount">								
 							</div>
 						</div>
 					</div>
 
-          <button type="submit" *ngIf="filters.valid" class="btn btn-info waves-effect">save</button>
+          <button type="submit" [disabled]="!filters.valid" class="btn btn-info waves-effect">save</button>
         </div>
       </div>
     <hr>

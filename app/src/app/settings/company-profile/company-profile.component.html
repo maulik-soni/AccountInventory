@@ -29,7 +29,7 @@
 
         <!-- <p>{{companyProfile.value | json}}</p> -->
         
-        <button *ngIf="companies.controls.length>0" class="btn">Save</button> 
+        <button *ngIf="companies.controls.length>0" [disabled]="!companyProfile.valid" class="btn btn-info waves-effect">Save</button> 
     </form>
 
     

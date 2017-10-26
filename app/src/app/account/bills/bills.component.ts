@@ -115,7 +115,7 @@ export class BillsComponent implements OnInit {
       this.setamount();
     
     if(this.paymentvalues.transaction_currency==='USD' && $event.id=='full'){
-      this.paymentvalues.usd_amount=this.paymentvalues.amount/this.paymentvalues.tranasaction_conversion_rate;
+      this.paymentvalues.usd_amount=parseFloat((this.paymentvalues.amount/this.paymentvalues.tranasaction_conversion_rate).toFixed(2));
       this.usddisable=true;
     }
     else{
@@ -196,8 +196,14 @@ export class BillsComponent implements OnInit {
     this.maxamountpayable=this.bankamount});
   }
 
+  onlypositive(e){
+    if(e.charCode == 43 || e.charCode==45){
+      e.preventDefault();
+    }
+  }
+
   usdcalculator(e){
-    if(e=="transaction_conversion"){
+    if(e.target.name=="transaction_conversion"){
       // console.log(this.paymentvalues.transaction_status);
       if(this.paymentvalues.transaction_status=='full'){
         this.paymentvalues.usd_amount=parseFloat((this.paymentvalues.amount/this.paymentvalues.tranasaction_conversion_rate).toFixed(2));
@@ -206,13 +212,13 @@ export class BillsComponent implements OnInit {
     this.paymentvalues.amount=parseFloat((this.paymentvalues.tranasaction_conversion_rate*this.paymentvalues.usd_amount).toFixed(2));
     }
 
-    if( e=="usd_amount"){
+    if( e.target.name=="usd_amount"){
     this.paymentvalues.amount=parseFloat((this.paymentvalues.tranasaction_conversion_rate*this.paymentvalues.usd_amount).toFixed(2));
     }
 
     
     
-    if(e=="amount"){
+    if(e.target.name=="amount"){
       this.paymentvalues.usd_amount=parseFloat((this.paymentvalues.amount/this.paymentvalues.tranasaction_conversion_rate).toFixed(2));
     }
   }

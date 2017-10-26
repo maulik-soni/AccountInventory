@@ -106,6 +106,11 @@ result=[];
   ) { }
 
   ngOnInit() {
+    this.inventoryservice.showinventory({"filterby":"all","dates":false,"filter":{"range0":false,"range1":false,"diamond_shape":{},"diamond_color":{},"diamond_clarity":{},"stock_status_group":{},"LAB_type":{},"polishing_type":{},"finalCut":{},"symmetry":{},"fluorescenceIntensity":{},"account_name":{"raha exports":"","vinay stones":""}},"date":{"fromDate":null,"toDate":null}}).subscribe(response=>{
+       this.result=response.response.inventory;
+       this.searchcount=response.response.searches;
+      //  console.log(response);
+      });
   }
 
   showpopup(){
@@ -168,11 +173,6 @@ result=[];
       });
   }
   
-
-  onsel(form:NgForm,prop){
-    this.onSubmit(form,prop);
-    this.onSubmit(form,prop);
-  }
   
   onSubmit(form:NgForm,prop){
 
@@ -201,7 +201,7 @@ result=[];
       }
      form.value.date=getdate;
    }
-    // console.log(form.value);
+    console.log(JSON.stringify(form.value));
      this.inventoryservice.showinventory(JSON.stringify(form.value)).subscribe(response=>{
        this.result=response.response.inventory;
        this.searchcount=response.response.searches;

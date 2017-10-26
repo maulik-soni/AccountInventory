@@ -6,7 +6,7 @@
 
 
       <div class="card">
-    <form (ngSubmit)=" profilesave()" novalidate>
+    <form [formGroup]="vendorProfile" (ngSubmit)=" profilesave()" novalidate>
         <div class="card-header">
           <!-- <span style="margin:11px">Vendor Profile</span> -->
            <button *ngIf="isEditable" (click)="onProfileEdit()"  class="btn btn-info btn-sm btn-icon-text waves-effect">
@@ -17,7 +17,7 @@
         <div class="card-body card-padding">
           <vendor-details [vendorgroup]="vendorProfile"></vendor-details>
 
-      <button *ngIf="!isEditable" class="btn">Save</button>
+      <button *ngIf="!isEditable" [disabled]="!vendorProfile.valid" class="btn btn-info waves-effect">Save</button>
         </div>
 
     </form>
@@ -46,13 +46,13 @@
               </div>
             </div>
 
-            <button class="btn" (click)="onBankSubmit()">Save</button>
+            <button class="btn btn-info waves-effect" [disabled]="!vendorBank.valid" (click)="onBankSubmit()">Save</button>
             <p>{{ vendorBank.value | json}}</p>
           </form>
 
           <form (ngSubmit)="onEditSubmit()" *ngIf="isEditableBank" novalidate>
             <vendor-bank-details [group]="editBank"></vendor-bank-details>
-            <button class="btn"> save changes</button>
+            <button class="btn btn-info waves-effect"> save changes</button>
           </form>
 
           <div class="table-responsive">

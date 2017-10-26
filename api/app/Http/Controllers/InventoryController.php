@@ -15,6 +15,7 @@ class InventoryController extends Controller
         ////////////////////////////////////////////
         ///// Showing all Result
         ///////////////////////////////////////////
+
         
         // if(($request->has('inventory')) && ($query['inventory']=='all')){
             //     return response()->json([

@@ -54,7 +54,7 @@
           </div>
           -->
         
-        <button *ngIf="vendors.controls.length>0" class="btn">Save</button> 
+        <button *ngIf="vendors.controls.length>0" class="btn btn-info waves-effect" [disabled]="!vendorProfile.valid">Save</button> 
     </form>
 
     

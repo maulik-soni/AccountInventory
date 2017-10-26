@@ -17,7 +17,7 @@
         <div class="card-body card-padding">
           <company-details [companygroup]="companyProfile"></company-details>
 
-      <button *ngIf="!isEditable" class="btn">Save</button>
+      <button *ngIf="!isEditable" class="btn btn-info waves-effect">Save</button>
         </div>
 
     </form>
@@ -46,13 +46,13 @@
               </div>
             </div>
 
-            <button class="btn" (click)="onBankSubmit()">Save</button>
+            <button class="btn btn-info waves-effect" [disabled]="!companyBank.valid" (click)="onBankSubmit()">Save</button>
             <!-- <p>{{ companyBank.value | json}}</p> -->
           </form>
 
           <form *ngIf="isEditableBank" (ngSubmit)="onEditSubmit()" novalidate>
             <bank-details [group]="editBank"></bank-details>
-            <button class="btn"> save changes</button>
+            <button class="btn btn-info waves-effect"> save changes</button>
           </form>
 
           <div class="table-responsive">
