@@ -1,6 +1,10 @@
-.mdatepicker{
+/* .mdatepicker{
     display: inline-block;
     width: 82%;
+} */
+
+input:read-only{
+    cursor: text;
 }
 
 .input-group-addon{

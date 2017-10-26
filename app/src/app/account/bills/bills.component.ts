@@ -20,6 +20,8 @@ export class BillsComponent implements OnInit {
   companyname;
   invoicedata;
   bankamount;
+  maxamountpayable;
+  usddisable=false;
   amountdisable=false;
   showpaymentoptions=false;
   titles=['party name','amount'];
@@ -37,7 +39,7 @@ export class BillsComponent implements OnInit {
   paymentvalues=new Bills(
     null,
     null,
-    new Date().toLocaleDateString('en-ca'),
+   '',
     this.options.transaction_mode[0],
     this.options.transaction_type[0],
     this.options.transaction_status[0],
@@ -75,7 +77,8 @@ export class BillsComponent implements OnInit {
     }
     this._bills.showbills(JSON.stringify(billtype))
     .subscribe(response=>{this.options.account_name=response.response.account_names;
-    console.log(response)});
+    // console.log(response)
+  });
 
   }
 
@@ -90,7 +93,7 @@ export class BillsComponent implements OnInit {
       }
       this._bills.getcompanybank(JSON.stringify(data))
       .subscribe(response=>{this.options.bank=response.banks;
-        console.log(response)
+        // console.log(response)
          this.selectedbank({id:this.options.bank[0]});
          
       });
@@ -99,27 +102,37 @@ export class BillsComponent implements OnInit {
 
   selectedtype($event){
     this.paymentvalues.transaction_type=$event.id;
-    console.log(this.paymentvalues.transaction_type);
+    // console.log(this.paymentvalues.transaction_type);
   }
 
   selectedparty($event){
     this.paymentvalues.account_name=$event.id;
-    console.log(this.paymentvalues.account_name);
     this.getdata();
   }
 
   selectedstatus($event){
     this.paymentvalues.transaction_status=$event.id;
-  
       this.setamount();
     
-    console.log(this.paymentvalues.transaction_status);
+    if(this.paymentvalues.transaction_currency==='USD' && $event.id=='full'){
+      this.paymentvalues.usd_amount=this.paymentvalues.amount/this.paymentvalues.tranasaction_conversion_rate;
+      this.usddisable=true;
+    }
+    else{
+      this.usddisable=false;
+    }
+  
+    
+    // console.log(this.paymentvalues.transaction_status);
   }
 
 
   selectedcurrency($event){
     this.paymentvalues.transaction_currency=$event.id;
-    console.log(this.paymentvalues.transaction_currency);
+    if(this.paymentvalues.transaction_status=='full'){
+        this.usddisable=true;
+      }
+    // console.log(this.paymentvalues.transaction_currency);
   }
 
   selectedbank($event){
@@ -133,7 +146,6 @@ export class BillsComponent implements OnInit {
     .subscribe(response=>{this.options.branch=response.branches;
       this.paymentvalues.bank_branch=this.options.branch[0];
       this.getbankaccount(this.paymentvalues.bank,this.paymentvalues.bank_branch,this.companyname);
-      this.paymentvalues.account_number=this.options.account_number[0];
       this.getbankamount(this.paymentvalues.bank,this.paymentvalues.bank_branch,this.paymentvalues.account_number,this.companyname);
     });
   }
@@ -167,7 +179,8 @@ export class BillsComponent implements OnInit {
       company_name:companyname,
     }
     this._bills.getcompanybankaccount(JSON.stringify(data))
-    .subscribe(response=>{this.options.account_number=response.account_number});
+    .subscribe(response=>{this.options.account_number=response.account_number;
+    this.getbankamount(bank,branch,this.options.account_number[0],companyname)});
   }
 
   getbankamount(bank,branch,account,companyname){
@@ -179,7 +192,29 @@ export class BillsComponent implements OnInit {
       company_name:companyname
     }
     this._bills.getcompanyamount(JSON.stringify(data))
-    .subscribe(response=>{this.bankamount=response.amount[0]});
+    .subscribe(response=>{this.bankamount=response.amount[0];
+    this.maxamountpayable=this.bankamount});
+  }
+
+  usdcalculator(e){
+    if(e=="transaction_conversion"){
+      // console.log(this.paymentvalues.transaction_status);
+      if(this.paymentvalues.transaction_status=='full'){
+        this.paymentvalues.usd_amount=parseFloat((this.paymentvalues.amount/this.paymentvalues.tranasaction_conversion_rate).toFixed(2));
+        return;
+      }
+    this.paymentvalues.amount=parseFloat((this.paymentvalues.tranasaction_conversion_rate*this.paymentvalues.usd_amount).toFixed(2));
+    }
+
+    if( e=="usd_amount"){
+    this.paymentvalues.amount=parseFloat((this.paymentvalues.tranasaction_conversion_rate*this.paymentvalues.usd_amount).toFixed(2));
+    }
+
+    
+    
+    if(e=="amount"){
+      this.paymentvalues.usd_amount=parseFloat((this.paymentvalues.amount/this.paymentvalues.tranasaction_conversion_rate).toFixed(2));
+    }
   }
 
 
@@ -219,12 +254,15 @@ export class BillsComponent implements OnInit {
   }
 
   getinvoice(data){
-    console.log(data);
+    // console.log(data);
     this.companyname=data.company_name;
     this.invoicedata=data;
+    this.maxamountpayable=data.invoice_value;
+    // console.log(this.maxamountpayable);
     this.setdata();
     this.showpaymentoptions=true;
   }
+  
 
 
 
@@ -238,6 +276,7 @@ export class BillsComponent implements OnInit {
     }
     this._bills.showbills(JSON.stringify(bill))
     .subscribe(response=>{this.accountdata=response.response;
+      // console.log(response);
     if(response.response.accounts.length===0 ){
     this._shared.notify('No Results Found','inverse');
   }});
@@ -248,24 +287,18 @@ export class BillsComponent implements OnInit {
 
 
   onSubmit(form:NgForm){
-     this.paymentvalues.transaction_date=new Date(this.paymentvalues.date.valueOf()).toLocaleDateString('en-ca');
+     this.paymentvalues['company_name']=this.companyname;
      this._bills.newbill(JSON.stringify(this.paymentvalues))
-     .subscribe(response=>{console.log(response);
+     .subscribe(response=>{
+      //  console.log(response);
      this.getdata();
      this.showpaymentoptions=false;
-     console.log(form);
-     this.paymentvalues.amount=null;
-     
-    //  this.paymentvalues.balance=this.invoicedata.balance;
-    //  this.paymentvalues.date=this.invoicedata.date;
-    // this.paymentvalues.due_date=this.invoicedata.due_date;
-    // this.paymentvalues.invoice_number=this.invoicedata.invoice_number;
-    // this.paymentvalues.invoice_value=this.invoicedata.invoice_value;
-    // this.paymentvalues.received=this.invoicedata.received;
+    form.controls.transaction.reset();
+    this.paymentvalues.transaction_date= new Date().toLocaleDateString('en-ca');
 
   });
   
-    console.log(JSON.stringify(this.paymentvalues));
+    // console.log(JSON.stringify(this.paymentvalues));
     this.setdata();
 
   }

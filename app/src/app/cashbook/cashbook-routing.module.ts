@@ -10,15 +10,15 @@ import { AdminGuard } from './../authorization/admin-role-guard.service';
 
 const cashbookRoutes:Routes=[
   {
-    path:'cashbook',
+    path:'journalentry',
     canActivate:[AuthGuard,AdminGuard],
     children:[
       {
-        path:'new-cashbook',
+        path:'new-journalentry',
         component: NewCashbookComponent
       },
       {
-        path:'cashbook-report',
+        path:'journalentry-report',
         component: CashbookReportComponent
       },
     ]

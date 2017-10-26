@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\CashBook;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class CashbookController extends Controller
 {
@@ -25,7 +26,9 @@ class CashbookController extends Controller
             'amount'=>'required|integer',
             'type'=>'required',
             'voucher'=>'required',
-            'date'=>'required|date'
+            'date'=>'required|date',
+            'company_name'=>'required',
+            'transaction_mode'=>'required'
         ]);
 
         $casbook=new CashBook([
@@ -33,7 +36,14 @@ class CashbookController extends Controller
             'type'=>$request->input('type'),
             'voucher'=>$request->input('voucher'),
             'date'=>$request->input('date'),
-            'description'=>$request->input('description')
+            'description'=>$request->input('description'),
+            'company_name'=>$request->input('company_name'),
+            'transaction_mode'=>$request->input('transaction_mode'),
+            'bank'=>$request->input('bank'),
+            'bank_branch'=>$request->input('bank_branch'),
+            'account_number'=>$request->input('account_number'),
+            'cheque_no'=>$request->input('cheque_no'),
+            'transaction_id'=>$request->input('transaction_id')
         ]);
 
         $casbook->save();
@@ -65,7 +75,7 @@ class CashbookController extends Controller
 
             if($request->has('fromdate') || $request->has('todate'))
                 {
-                    $response=Cashbook::whereBetween('date',[$query['fromdate'],$query['todate']])->get();
+                    $response=Cashbook::whereBetween('date',[Carbon::parse($query['fromdate'])->addDays(1)->toDateString(),Carbon::parse($query['todate'])->addDays(1)->toDateString()])->get();
                     return response()->json(['data'=>$response],201);
                 }
             }
@@ -80,13 +90,13 @@ class CashbookController extends Controller
 
     }
 
-    public function edit($id){
-        $data=CashBook::all()->where('id',$id)->first();
-        return response()->json(['response'=>$data],201);
-    }
+    // public function edit($id){
+    //     $data=CashBook::all()->where('id',$id)->first();
+    //     return response()->json(['response'=>$data],201);
+    // }
 
     public function search(Request $request){
-        $query=$request->all();
+        $query=$request->except(['api_token','dbcountry']);
         if($query[key($query)]){
         $store=CashBook::select(key($query))->where(key($query),'like','%'.$query[key($query)].'%')->distinct()->pluck(key($query));
         return response()->json($store,201);
@@ -95,22 +105,22 @@ class CashbookController extends Controller
     }
 
    
-    public function update(Request $request,$id)
-    {
-        $query=CashBook::find($id);
-        $updatequery=$request->all();
-        foreach($updatequery as $update=>$newvalue){
-            if($update!='id'){
-                $query->$update=$newvalue;
-            }    
-        }
-        return response()->json('updated',201);
-    }
+    // public function update(Request $request,$id)
+    // {
+    //     $query=CashBook::find($id);
+    //     $updatequery=$request->all();
+    //     foreach($updatequery as $update=>$newvalue){
+    //         if($update!='id'){
+    //             $query->$update=$newvalue;
+    //         }    
+    //     }
+    //     return response()->json('updated',201);
+    // }
 
-    public function destroy($id)
-    {
-        $CashBook = CashBook::find($id);    
-        $CashBook->delete();
-        return response()->json('deleted',201);
-    }
+    // public function destroy($id)
+    // {
+    //     $CashBook = CashBook::find($id);    
+    //     $CashBook->delete();
+    //     return response()->json('deleted',201);
+    // }
 }

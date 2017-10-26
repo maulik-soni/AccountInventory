@@ -14,7 +14,7 @@ class CreateSalesTable extends Migration
     public function up()
     {
         Schema::create('sales', function (Blueprint $table) {
-			$table->integer('String_ID')->unique();
+			$table->integer('Stock_ID')->unique();
 			$table->increments('invoice_number');
 			$table->date('sales_date')->nullable();
 			$table->date('due_date')->nullable();

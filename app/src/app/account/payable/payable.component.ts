@@ -21,8 +21,8 @@ searchvalues=new SearchValues(
   this.searchatts.filter[0],
   this.searchatts.filterby[0][1],
   null,
-  new Date().toLocaleDateString(),
-  new Date().toLocaleDateString()
+  '',
+  ''
 );
 
 titles=['party name','amount'];
@@ -35,22 +35,22 @@ query;
 constructor(private _payableservice:WebServicesService){}
   
   ngOnInit() {
-    this._payableservice.showpayable({staticdata:'data'}).subscribe(
-      resData=>{
-        this.titles=resData.titles;
-        this.data=resData.data;
-        console.log(resData.titles);
-        console.log(resData.data);
-      });
+      // this._payableservice.showpayable({staticdata:'data'}).subscribe(
+      //   resData=>{
+      //     this.titles=resData.titles;
+      //     this.data=resData.data;
+      //     console.log(resData.titles);
+      //     console.log(resData.data);
+      //   });
 
-      this.searchterm
-      .debounceTime(100)
-      .switchMap(search=>this._payableservice.searchpayable({filterby:this.searchvalues.filterby,searchterm:search}))
-      .subscribe(result=>{
-          if(result.constructor=== Array){
-           this.searchresult=result;
-          }
-      });
+        this.searchterm
+        .debounceTime(100)
+        .switchMap(search=>this._payableservice.searchpayable({filterby:this.searchvalues.filterby,searchterm:search}))
+        .subscribe(result=>{
+            if(result.constructor=== Array){
+            this.searchresult=result;
+            }
+        });
      
   }
   
@@ -69,6 +69,7 @@ constructor(private _payableservice:WebServicesService){}
 
   resetsearch(){
     this.searchvalues.search=null;
+    this.searchresult=[];
   }
 
   onSubmit(form:NgForm){
@@ -76,23 +77,24 @@ constructor(private _payableservice:WebServicesService){}
       this.query=JSON.stringify({
        payable:"all"
       });
-      console.log(this.query);
+      // console.log(this.query);
     }
     if(this.searchvalues.filterby=='date'){
       this.query=JSON.stringify(form.value);
-      console.log(this.query);
+      // console.log(this.query);
     }
     if(form.value.search!=null){
      this.query=JSON.stringify(form.value);
-     console.log(this.query);
+    //  console.log(this.query);
     }
+ 
 
     if(this.query){
       this._payableservice.showpayable(this.query).subscribe(response=>{
-      console.log(response.response);
-      console.log(response.response.accounts);
-      console.log(response.response.accounts[0]);
-      console.log(response.response.accounts[0].account_name);
+      // console.log(response.response);
+      // console.log(response.response.accounts);
+      // console.log(response.response.accounts[0]);
+      // console.log(response.response.accounts[0].account_name);
     this.data=response.response});
     }
     

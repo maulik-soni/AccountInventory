@@ -15,6 +15,10 @@
     margin-right: 10px !important;
 }
 
+.main-result{
+    margin-bottom: 15px;    
+}
+
 .main-filter{
     padding-bottom:15px;
     display: inline-block;
@@ -25,6 +29,7 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
+    margin-right: 10px;
     
 }
 
@@ -79,5 +84,31 @@
 .search-suggestion p:hover{
     background: #00bcd4;
     color:#fff;
+}
+
+table th{
+    background: #edecec;
+    text-align: center;
+}
+
+table td{
+    background: #fff;
+    text-align: center;
+}
+
+.titles{
+    display: inline-block;
+    width: 49%;
+}
+
+.titles p:first-child{
+display: inline-block;
+/* font-weight: bold; */
+}
+
+.titles p:last-child{
+   display: inline-block;
+   text-transform: uppercase;
+   font-weight: bold;
 }
 

@@ -1,8 +1,4 @@
-.mdatepicker{
-    display: inline-block;
-    width: 92%;
-}
-
-.input-group-addon{
-    min-width: auto;
+input:read-only{
+    cursor: text;
+    opacity: 1;
 }

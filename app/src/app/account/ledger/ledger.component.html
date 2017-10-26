@@ -1,74 +1,86 @@
 <dashboard>
-  <div class="container">
+  <div class="container-fluid">
     <div class="block-header">
-      <h2>Payables</h2>
+      <h2>Ledger</h2>
     </div>
     <form #filters="ngForm" (ngSubmit)="onSubmit(filters)">
     <div class="card searchfilters">
-      <div class="card-header">Filter</div>
-      <div class="card-body card-padding">
-         
-            <div class="col-sm-2">
-						<div class="form-group">
-							<div class="fg-line">
-						
-                <p class="form-label">Company Name</p>
-                <ng-select [items]="account_names" (selected)="selectedparty($event)"  (removed)="removed($event)" placeholder="No Party Selected"></ng-select>
-												
-							</div>
-						</div>
-					</div>
-         
+      <div class="card-body card-padding"> 
 
-
-          <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
-          
+        <div class="col-sm-3">
+          <div class="form-group">
+            <p class="form-label">Company Name</p>
+            <ng-select [items]="company_names" (selected)="selectedcompany($event)"  (removed)="removed($event)" placeholder="No Company Selected"></ng-select>
+          </div>
         </div>
+          
+        <div class="col-sm-3">
+          <div class="form-group">
+            <p class="form-label">Party Name</p>
+            <ng-select [active]="account_names" [items]="account_names" (selected)="selectedaccount($event)"></ng-select>
+          </div>
+        </div>
+        <button type="submit"  class="btn btn-info waves-effect">Get Result</button>
+          
       </div>
+    </div>
     <!--<p>{{ filters.value | json}}</p>-->
     </form>
 
-    <div class="card">
-      <div class="card-header">Reports</div>
+      <div class="card" *ngIf="ledgers.length>0"> 
     <div class="card-body  table-responsive">
-      <table class="table" *ngIf="data.purchase">
-        <caption>Purchase Report</caption>
-        <thead>
+      <table class="table table-bordered" >
+        <thead class="thead-inverse">
           <tr>
             <th *ngFor="let title of titles">{{title}}</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of data.purchase">
+           <tr *ngFor="let data of ledgers">
             <td>{{data.transaction_date}}</td>
+            <td>
+              <span *ngIf="!data.Stock_ID">
+              <span *ngIf="data.debit_INR==null">Sales - Received</span>
+              <span *ngIf="data.credit_INR==null">Purchase - Paid</span>
+              </span>
+            <span *ngIf="data.Stock_ID">
+               <span *ngIf="data.debit_INR==null">purchase</span>
+              <span *ngIf="data.credit_INR==null">sales</span>
+            </span>
+            </td>
             <td>{{data.invoice_number}}</td>
-            <td>{{data.debit_INR}}</td>
-            <td>{{data.credit_INR}}</td>
+            <td style="text-align: right;">{{data.debit_INR}}</td>
+            <td style="text-align: right;">{{data.credit_INR}}</td>
           </tr>
-        </tbody>
-      </table>
-
-
-
-      <table class="table" *ngIf="data.sales">
-        <caption>Sales Report</caption>
-        <thead>
-          <tr>
-            <th *ngFor="let title of titles">{{title}}</th>
+          <tr class="c_row">
+          
+            <td></td>
+            <td></td>
+            <td class="bold-td">total</td>
+            <td>{{data.tot_deb}}</td>
+            <td>{{data.tot_cred}}</td>
           </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of data.sales">
-            <td>{{data.transaction_date}}</td>
-            <td>{{data.invoice_number}}</td>
-            <td>{{data.debit_INR}}</td>
-            <td>{{data.credit_INR}}</td>
+          <tr class="c_row">
+            
+            <td></td>
+            <td></td>
+            <td class="bold-td">opening balance</td>
+            <td>{{data.obal}}</td>
+            <td></td>
+          </tr>
+          <tr class="c_row">
+            
+            <td></td>
+            <td></td>
+            <td class="bold-td">closing balance</td>
+            <td>{{data.tot_clos_deb}}</td>
+            <td></td>
           </tr>
         </tbody>
       </table>
 
       
     </div>
-    </div>
+    </div>  
   </div>
 </dashboard>

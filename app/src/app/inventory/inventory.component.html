@@ -55,6 +55,10 @@
               
             </div>
             </div>
+
+            <!-- <div ngModelGroup="certificate">
+
+            </div> -->
             
             <div  ngModelGroup="filter" class="filter-container">
               <div *ngFor="let datas of filterdata; index as i" class="filter-boxes">
@@ -68,7 +72,7 @@
                 </div>
               </div>
 
-              <div class="filter-boxes">
+                <!-- <div class="filter-boxes">
                 <div class="shade-bg">
                   <div ngModelGroup="total_diamond_carat">
                     <p class="c-black f-500 labels">carat</p>
@@ -82,8 +86,7 @@
                     </div>
                   </div> 
                 </div>
-              </div>
-
+              </div>   -->
 
               <div class="filter-boxes">
                 <div class="shade-bg">
@@ -96,6 +99,7 @@
                   </div> 
                 </div>
               </div>
+
             </div>
               
 
@@ -105,8 +109,8 @@
         </div>
         <button type="button" (click)="showpopup()" class="btn btn-info waves-effect">Search</button>
         <hr>
-        <button type="button" (click)="generatebarcode()" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Generate Barcode</button>
-        <button type="button" class="btn bgm-lightgreen waves-effect" (click)="printlabel()">Print Label</button>
+        <button type="button" (click)="generatebarcode()" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Generate Barcodes</button>
+        <button type="button" class="btn bgm-lightgreen waves-effect" [disabled]="selected.length==0" (click)="printlabel()">Generate Labels</button>
         <span *ngIf="initfilterby=='stock in hand'">
         <button type="button" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">BulK Sell</button>
         <button type="button" [disabled]="selected.length==0" class="btn bgm-lightgreen waves-effect">Bulk Memo</button>
@@ -116,12 +120,12 @@
       </div>
       </div>
 
-    <!-- <p>{{ filters.value | json}}</p> -->
+     <!-- <p>{{ filters.value | json}}</p>  -->
   </form>
 
-  <div class="card" id="print-div" >
-    <div *ngIf="selected.length>0">
-    <div class="label-container" *ngFor="let data of selected">
+  <div class="card" *ngIf="barcodes.length>0 || labels.length>0" id="print-div" >
+    <div *ngIf="labels.length>0">
+    <div class="label-container" *ngFor="let data of labels">
       <div class="inputs">
         <div class="single-line">
           <label>St. Id</label>
@@ -161,30 +165,68 @@
               <input type="text" id="weight" value={{data.weight}}>
           </div>
       </div>
+
+      <div class="img-container">
+
+      </div>
     </div>
   </div>
 
 
     <div *ngIf="barcodes.length>0">
-    <ngx-barcode bc-text-position="top" bc-height="47" bc-width="1" *ngFor="let data of barcodes" [bc-value]="data" [bc-display-value]="true"></ngx-barcode>
-    <button type="button" *ngIf="barcodes.length>0" (click)="printbarcode()" >Print Barcodes</button>
+    <div *ngFor="let data of barcodes" class="barcodes">
+      <div class="barcode-data">
+        <div>
+          <strong><span>{{data.Stock_ID}}</span></strong>
+          <span>shape:{{data.diamond_shape}}</span>
+        </div>
+      <div>
+        <span>ct:{{data.total_diamond_carat}}</span>
+        <span>cut:{{data.finalCut}}</span>
+        <span>dep:{{data.depth}}</span>
+      </div>
+      <div>
+        <span>col:{{data.diamond_color}}</span>
+        <span>pol:{{data.polishing_type}}</span>
+        <span>tab:{{data.tablePct}}</span>
+      </div>
+      <div>
+        <span>clr:{{data.diamond_clarity}}</span>
+        <span>sym:{{data.symmetry}}</span>
+        <span>flo:{{data.fluorescenceColor}}</span>
+      </div>
+      <div>
+        <span>meas:</span>
+      </div>
+      <div>
+        <span>gia:</span>
+        <span>cd:</span>
+      </div>
+      </div>
+      <ngx-barcode bc-height="30" bc-element-type="img" [bc-width]=.9 [bc-value]="data" [bc-display-value]="false" [bc-margin-top]=0></ngx-barcode>
+
+    </div>
+  </div>
+  <div class="command">
+  <button type="button" *ngIf="barcodes.length>0 || labels.length>0" (click)="printpdf()">print</button>
+  <button type="button" *ngIf="barcodes.length>0 || labels.length>0" (click)="closepdf()">close</button>
   </div>
   </div>
 
-  <div class="card" id="results">
+  <div class="card" *ngIf="result.length>0" id="results">
     <div class="p-0 card-body card-padding overflow">
       <div class="p-0 card-header">
         <form #filterresult="ngForm">
-          <table class="table table-bordered">
+          <table class="table table-bordered" >
             <thead>
               <tr>
-                <th><md-checkbox *ngIf="datas" (change)="getselecteddata(filterresult)" (ngModel)=datas name={{datas|json}}></md-checkbox></th>
+                <th><md-checkbox [(ngModel)]="selectall" (change)="multiselect()" name="all"></md-checkbox></th>
                 <th *ngFor="let title of resulttitles">{{title[0]}}</th>
               </tr>
             </thead>
             <tbody style=" height: 130px; overflow-y: scroll">
               <tr *ngFor="let datas of result" [class.lab]="datas.status=='lab'" [class.memo]="datas.status=='memoout'">
-                <td><md-checkbox *ngIf="datas" (change)="getselecteddata(filterresult)" (ngModel)=datas name={{datas|json}}></md-checkbox></td>
+                <td><md-checkbox *ngIf="datas" [checked]="selectall" #ref  (change)="getselecteddata(datas,ref)" [ngModel]="selectall" name={{datas.Stock_ID}}></md-checkbox></td>
                 <td *ngFor="let properties of resulttitles">{{datas[properties[1]]}}</td>
               </tr>
             </tbody>
@@ -192,7 +234,7 @@
           <!-- <ngx-barcode [bc-value]="avalue" [bc-display-value]="true"></ngx-barcode> -->
           </form>
         </div>
-        <p>{{filters.value | json}}</p>
+        <!-- <p>{{filterresult.value | json}}</p> -->
     </div>
     </div>
 

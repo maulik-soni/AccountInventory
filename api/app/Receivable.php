@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use App\Bills;
+use Carbon\Carbon;
 use DB;
 
 class Receivable extends Model
@@ -30,7 +31,7 @@ class Receivable extends Model
     }
 
     public static function search($term){
-        if(Schema::hasColumn('sales',key($term))){
+        if($term[key($term)]){
             $sales = DB::table('sales')
                             ->leftjoin('bills', 'sales.invoice_number', '=', 'bills.invoice_number')
                             ->where('bills.invoice_number','=',null)
@@ -40,7 +41,7 @@ class Receivable extends Model
                         
 
             $reciept = Bills::select('invoice_number','account_name','balance')
-                       ->where([['balance','>=',0],['debit_INR','!=',0],[key($term),'like','%'.$term[key($term)].'%']])
+                       ->where([['balance','>=',0],['credit_INR','!=',0],[key($term),'like','%'.$term[key($term)].'%']])
                        ->latest()
                        ->get()
                        ->unique('account_name')
@@ -55,10 +56,12 @@ class Receivable extends Model
                         ->values()
                         ->all();
         }
-        return null;
+        return [];
     }
 
      public static function betweenDates($from,$to){
+         $from=Carbon::parse($from)->addDays(1)->toDateString();
+        $to=Carbon::parse($to)->addDays(1)->toDateString();
         $sales = DB::table('sales')
                          ->leftjoin('bills', 'sales.invoice_number', '=', 'bills.invoice_number')
                          ->where('bills.invoice_number','=',null)

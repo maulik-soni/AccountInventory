@@ -397,8 +397,7 @@ export class WebServicesService {
   }
 
   searchcashbook(data){
-    console.log(data);
-    return this._http.get(this.apis.searchcashbook+'?'+data.filterby+'='+data.searchterm+this.api_token_header())
+    return this._http.get(this.apis.searchcashbook+'?'+data.filterby+'='+data.searchterm+'&&api_token='+this.gettoken()+'&&dbcountry='+this.getcountry())
        .map((response:Response) => response.json());
   }
 
@@ -433,7 +432,7 @@ showinventory(data){
 
 
   searchpayable(data){
-    return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm+this.api_token_header())
+    return this._http.get(this.apis.searchpayable+'?'+data.filterby+'='+data.searchterm+'&&api_token='+this.gettoken()+'&&dbcountry='+this.getcountry())
        .map((response:Response) => response.json());
   }
 
@@ -451,7 +450,7 @@ showinventory(data){
   }
 
   searchreceivable(data){
-    return this._http.get(this.apis.searchreceivable+'?'+data.filterby+'='+data.searchterm+this.api_token_header())
+    return this._http.get(this.apis.searchreceivable+'?'+data.filterby+'='+data.searchterm+'&&api_token='+this.gettoken()+'&&dbcountry='+this.getcountry())
        .map((response:Response) => response.json());
   }
 

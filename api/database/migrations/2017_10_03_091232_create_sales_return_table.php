@@ -15,7 +15,7 @@ class CreateSalesReturnTable extends Migration
     {
         Schema::create('sales_return', function (Blueprint $table) {
             $table->increments('id');
-			$table->integer('String_ID')->unique();
+			$table->integer('Stock_ID')->unique();
 			$table->string('invoice_number')->nullable();
 			$table->date('sales_date')->nullable();
 			$table->date('due_date')->nullable();

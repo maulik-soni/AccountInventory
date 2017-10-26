@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'name'=>'required',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users',
             'password'=>'required',
             ]);
 
@@ -24,8 +24,12 @@ class UserController extends Controller
             'email'=>$request->input('email'),
             'password'=>bcrypt($request->input('password')),
             'api_token'=>str_random($length = 60)]);
-
         $user->save();
+
+        $user_id=User::select('id')->where('email',$request->input('email'))->sum('id');
+
+        DB::table('role_user')->insert(['role_id'=>2,'user_id'=>$user_id]);
+
         return response()->json(['message'=>'successfully created user'],201);
     }
 

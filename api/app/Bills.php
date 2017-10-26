@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Bills extends Model
 {
     protected $table = 'bills';
-    public $timestamps = false;
     protected $fillable = [
         'invoice_number',
         'invoice_value',
@@ -27,6 +26,8 @@ class Bills extends Model
         'account_number',
         'company_name',
         'bank',
+        'usd_amount',
+        'company_name',
         'transaction_id',
         'bank_branch'
     ];

@@ -22,11 +22,24 @@ searchvalues=new SearchValues(
   this.searchatts.filter[0],
   this.searchatts.filterby[0],
   null,
-  new Date().toLocaleDateString(),
-  new Date().toLocaleDateString()
+  null,
+  null
 );
 
-titles=[];
+titles=[
+['voucher','voucher'],
+['date','date'],
+['description','description'],
+['type','type'],
+['mode','transaction_mode'],
+['company','company_name'],
+['account number','account_number'],
+['transaction id','transaction_id'],
+['cheque','cheque_no'],
+['bank','bank'],
+['branch','bank_branch'],
+['amount','amount']
+];
 data=[];
 searchresult=[];
 query;
@@ -35,10 +48,8 @@ constructor(private _cashbookservice:WebServicesService){}
   
   ngOnInit() {
     this._cashbookservice.showcashbook({staticdata:'data'}).subscribe(
-      resData=>{
-        this.titles=resData.titles;
-        this.titles.pop();
-        this.data=resData.data;
+      response=>{
+        this.data=response.data;
       });
 
       this.searchterm

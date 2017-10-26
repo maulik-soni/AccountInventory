@@ -10,12 +10,16 @@ import { Angular2Csv } from 'angular2-csv/Angular2-csv';
   styleUrls: ['./inventory.component.css']
 })
 export class InventoryComponent implements OnInit {
+  select={};
   selected=[];
   barcodes=[];
+  labels=[];
   datefilter=false;
   searchcount=0;
   fromDate;
   toDate;
+  selectall=false;
+  isselected=false;
   showfilterables=false;
   collectiontype=['all','stock in hand','stock on memo-issue','stock on memo-in','sold stones','lab issue'];
   initfilterby=this.collectiontype[0];
@@ -107,6 +111,8 @@ result=[];
   showpopup(){
 
   this.showfilterables=true;
+  this.selected=[];
+  this.selectall=false;
   this.datefilter=false;
   this.datetoggle();
   this.searchcount=0;
@@ -126,7 +132,8 @@ result=[];
       .subscribe(response=>{
         this.filterdata=response.response.filters;
         this.filterdata.pop();
-      console.log(response);});
+      // console.log(response);
+    });
 }
 
   datetoggle(){
@@ -157,14 +164,35 @@ result=[];
         .subscribe(response=>{
           this.filterdata=response.response.filters;
         this.filterdata.pop();          
-        console.log(response);});
+        // console.log(response);
+      });
   }
   
+
+  onsel(form:NgForm,prop){
+    this.onSubmit(form,prop);
+    this.onSubmit(form,prop);
+  }
   
   onSubmit(form:NgForm,prop){
 
-    console.log(this.range0);
-    console.log(this.range1);
+    // console.log(this.range0);
+    // console.log(this.range1);
+    let total_diamond_carat={};
+    if(this.range0){
+      for( let  data of this.caratrange[0]){
+        total_diamond_carat[data]=true;
+        form.value.filter.total_diamond_carat=total_diamond_carat;
+      }
+    }
+
+    if(this.range1){
+      for( let  data of this.caratrange[1]){
+        total_diamond_carat[data]=true;
+        form.value.filter.total_diamond_carat=total_diamond_carat;
+      }
+    }
+
    if(!form.value.date){
      let getdate;
       getdate={
@@ -173,39 +201,64 @@ result=[];
       }
      form.value.date=getdate;
    }
-    console.log(form.value);
+    // console.log(form.value);
      this.inventoryservice.showinventory(JSON.stringify(form.value)).subscribe(response=>{
        this.result=response.response.inventory;
        this.searchcount=response.response.searches;
-       console.log(response);});
+      //  console.log(response);
+      });
        this.showfilterables=prop;
   }
 
-  getselecteddata(formb:NgForm){
-    let barcodevalues=[];
-    for (let key in formb.value){
-      let value=formb.value[key];
-      if(value){
-        barcodevalues.push(JSON.parse(key));
-      }
+  getselecteddata(data,elem){
+    this.isselected=false;
+    if(elem.checked){
+      this.select[elem.name]=data;
     }
-    this.selected=barcodevalues;
+    else{
+      delete this.select[elem.name];
+    }
+    this.selected=(Object.keys(this.select).map(key => this.select[key]));
+      
+  }
+
+  multiselect(){
+    if(this.selectall){
+      
+      for(let data of this.result){
+        this.select[data.Stock_ID]=data;
+      }
+       this.selected=(Object.keys(this.select).map(key => this.select[key]));
+    }
+  else{
+      this.selected=[];
+      
+  }
+  }
+
+  emptycollection(){
+    this.barcodes=[];
+    this.labels=[];
+  }
+
+  printpdf(){
+    window.print();
+    this.emptycollection();
+  }
+
+  closepdf(){
+    this.emptycollection();
   }
 
   generatebarcode(){
-    this.barcodes=[];
-    let barcodedata=this.selected;
-    for(let data of barcodedata){
-      this.barcodes.push('Stock ID: '+data.Stock_ID);
-    }
-    console.log(this.barcodes);
+   this.emptycollection();
+    this.barcodes=this.selected;
   }
 
-  printbarcode(data){
-    window.print();
-    this.barcodes=[];
+  printlabel(){
+   this.emptycollection();
+    this.labels=this.selected;
   }
-
 
 
   printxl(){

@@ -1,16 +1,16 @@
 <dashboard>
-  <div class="container">
+  <div class="container-fluid">
     <div class="block-header">
-      <h2>CashBook</h2>
+      <h2>Journal Entry</h2>
     </div>
     <div class="card">
-      <div class="card-header">
-        <h2>New Cashbook Entry</h2>
+      <div class="card-header"> 
       </div>
       <div class="card-body card-padding">
         <form #ac="ngForm" novalidate (ngSubmit)="onSubmit(ac)">
-          <div class="row">
-           <div class="col-sm-4">
+          <div class="container-fluid">
+            <div class="row">          
+           <div class="col-sm-2">
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Voucher Number</p>
@@ -19,7 +19,7 @@
 						</div>
 					</div>
 
-          <div class="col-sm-4">
+          <div class="col-sm-2">
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Voucher Amount</p>
@@ -28,7 +28,7 @@
 						</div>
 					</div>
 
-          <div class="col-sm-4">
+          <div class="col-sm-2">
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Voucher Type</p>
@@ -36,31 +36,121 @@
 							</div>
 						</div>
 					</div>
-          </div>
-          <div class="row">
-          <div class="col-sm-4">
+          
+
+          
+          <div class="col-sm-2">
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Voucher Date</p>
-                <input type="text" class="form-control fg-input mdatepicker" [mdDatepicker]="picker" name="date" [max]="maxDate" [(ngModel)]="cashbook.date">
-                <button class="input-group-addon last" mdSuffix [mdDatepickerToggle]="picker"></button>
+                <input type="text" class="form-control fg-input" readonly (focus)="picker.open()" [mdDatepicker]="picker" name="date" [(ngModel)]="cashbook.date">
                 <md-datepicker #picker></md-datepicker>							
 							</div>
 						</div>
 					</div>
 
-          <div class="col-sm-4">
+          <div class="col-sm-2">
 						<div class="form-group">
 							<div class="fg-line">
                 <p class="form-label">Voucher Description</p>
 								<input type="text" class="form-control fg-input" name = "vdesc" #vtype="ngModel" [(ngModel)]="cashbook.description">								
 							</div>
 						</div>
-					</div>
-
-          <button class="btn btn-success btn-lg waves-effect"[disabled]="!ac.valid" type="submit">Add Entry</button>
           </div>
+
+          <div class="col-sm-2">
+						<div class="form-group">
+              <p class="form-label">Company name</p>
+              <ng-select [items]="options.company_name" (selected)="selectedcompany($event)"  (removed)="removed($event)" placeholder="No Company Selected"></ng-select>
+            </div>
+          </div>
+
+          <div class="col-sm-2">
+						<div class="form-group">
+              <p class="form-label">By</p>
+              <ng-select [disabled]="!cashbook.company_name"  [items]="options.transaction_mode" (selected)="selectedby($event)"  (removed)="removed($event)" ></ng-select>
+            </div>
+          </div>
+
+          <div *ngIf="cashbook.transaction_mode==='cheque'">
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Bank</p>
+                  <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Bank Branch</p>
+                  <ng-select [items]="options.bank_branch" [active]="options.bank_branch" (selected)="selectedbankbranch($event)"></ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Account Number</p>
+                  <ng-select [items]="options.account_number" [active]="options.account_number" (selected)="selectedaccountnumber($event)"></ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Cheque No</p>
+                  <input type="text" class="form-control fg-input" name = "cheque_no" [(ngModel)]="cashbook.cheque_no">	
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="cashbook.transaction_mode==='bank transfer'">
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Bank</p>
+                  <ng-select [items]="options.bank" [active]="options.bank" (selected)="selectedbank($event)"></ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Bank Branch</p>
+                  <ng-select [items]="options.branch" [active]="options.branch" (selected)="selectedbankbranch($event)"></ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Account Number</p>
+                  <ng-select [items]="options.account_number" [active]="options.account_number" (selected)="selectedaccountnumber($event)"></ng-select>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="form-group">
+                <div class="fg-line">
+                  <p class="form-label">Cheque No</p>
+                  <input type="text" class="form-control fg-input" name = "cheque_no" [(ngModel)]="cashbook.cheque_no">	
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           
+
+          <div class="col-sm-12">
+          <button class="btn btn-success waves-effect"[disabled]="!ac.valid" type="submit">Add Entry</button>
+          </div>
+            </div>
+            </div>
         </form>
       </div>
     </div>
