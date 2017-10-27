@@ -169,6 +169,6 @@ Route::get('/getInvoiceNumber', 'sharedAPIController@generateInvoiceNumber');
 
 	});
 Route::post('/login','UserController@authenticate');
-Route::post('password/email', 'Auth\ForgotPasswordController@getResetToken');
-Route::post('password/email/{token}', 'Auth\ResetPasswordController@reset');
-// });
+Route::post('/resetpassword', 'Auth\ForgotPasswordController@getResetToken');
+Route::post('/resetpassword/{token}', 'Auth\ResetPasswordController@reset');
+});
