@@ -70,14 +70,21 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   }
 
   setDolarRate(){
-    sessionStorage.setItem('dolarRate', this.myForm.value.currency_convrsion_rate);
+    sessionStorage.setItem('dolarRate', this.myForm.value.currency_conversion_rate);
   }
 
   ngOnInit() {
 
-    this._webservice.getCompany().subscribe(response=>
-      this.companyName=response
-    );
+     let companyrequesttype={companynames:"companynames"};
+     let vendorrequesttype={vendornames:"vendornames"};
+    this._webservice.showcompanyprofile(JSON.stringify(companyrequesttype)).
+    subscribe(response=>{this.companyName=response.response.company_names});
+
+    this._webservice.showvendor(JSON.stringify(vendorrequesttype)).
+    subscribe(response=>{this.names=response.response.vendor_names});
+
+
+    
 
     
     this._webservice.generateInvoice('purchase').subscribe(response=>
@@ -86,7 +93,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
     this.myForm = this._fb.group({
             invoice_number: [''],
-            currency_convrsion_rate: this.dolar,
+            currency_conversion_rate: this.dolar,
             payment_terms:[''],
             purchase_date:[''],
             due_date:[''],
@@ -113,7 +120,6 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   initPiecesType() {
         return this._fb.group({
-            Stock_ID: [''],
             certificate_number: [''],
             kapan:[''],
             LAB_type:[''],
@@ -218,15 +224,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           // });
           // delete purchaseData[i].comission1 
           // delete purchaseData[i].comission2
-          purchaseData[i].broker_details = JSON.stringify({
-            brokerType : purchaseData[i].brokerType,
-            brokerName : purchaseData[i].brokerName,
-            brokerage : purchaseData[i].brokerage
-          });
-          delete purchaseData[i].brokerType;
-          delete purchaseData[i].brokerName;
-          delete purchaseData[i].brokerage;
-          delete purchaseData[i].taxes;
+          // purchaseData[i].broker_details = JSON.stringify({
+          //   brokerType : purchaseData[i].brokerType,
+          //   brokerName : purchaseData[i].brokerName,
+          //   brokerage : purchaseData[i].brokerage
+          // });
+          // delete purchaseData[i].brokerType;
+          // delete purchaseData[i].brokerName;
+          // delete purchaseData[i].brokerage;
+          // delete purchaseData[i].taxes;
         }
         // console.log(purchaseData);
         this._webservice.postpurchasedata(purchaseData);
@@ -237,7 +243,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public invoice:any;
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public brokertypes:Array<string> = this.ConstantService.BROKERTYPES;
-  public names:Array<string> = this.ConstantService.NAMES;
+  public names:Array<string> = [];
   public brokers:Array<string> = this.ConstantService.BROKERS;
   public shapes:Array<string> = this.ConstantService.SHAPES;
   public colors:Array<string> = this.ConstantService.COLORS;
@@ -341,7 +347,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public CALrate(){
     var rateINR = this.newpurchase.cost_rate_per_carat*this.newpurchase.total_diamond_carat*this.newpurchase.total_diamond_pcs;
-    var rateDOLAR = rateINR/this.newpurchase.currency_convrsion_rate;
+    var rateDOLAR = rateINR/this.newpurchase.currency_conversion_rate;
     this.newpurchase.rate_INR = parseFloat(rateINR.toFixed(2));
     this.newpurchase.rate_dolar = parseFloat(rateDOLAR.toFixed(2));
     this.CALavg();
@@ -349,7 +355,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public CALavg(){
     var avgINR = this.newpurchase.rate_INR/this.newpurchase.total_diamond_carat;
-    var avgDOLAR = avgINR/this.newpurchase.currency_convrsion_rate;
+    var avgDOLAR = avgINR/this.newpurchase.currency_conversion_rate;
     this.newpurchase.avg_INR = parseFloat(avgINR.toFixed(2));
     this.newpurchase.avg_dolar = parseFloat(avgDOLAR.toFixed(2));
     this.CALAmount();
@@ -364,7 +370,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     var lessDis = parseInt(this.less)
     console.log(this.newpurchase.amount_INR,lessDis,(this.newpurchase.amount_INR*(lessDis/100)))
     var amountINR = this.newpurchase.amount_INR-(this.newpurchase.amount_INR*(lessDis/100));
-    var amountDOLAR = this.newpurchase.amount_INR/this.newpurchase.currency_convrsion_rate;
+    var amountDOLAR = this.newpurchase.amount_INR/this.newpurchase.currency_conversion_rate;
     this.newpurchase.amount_INR = parseInt(amountINR.toFixed(2));
     this.newpurchase.amount_dolar = parseInt(amountDOLAR.toFixed(2));
   }
@@ -374,7 +380,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     if(this.myForm.value.amount_INR!=undefined && this.myForm.value.mVAT!=undefined){
       this.parenFunction();
       this.myForm.controls['amount_INR'].patchValue(this.myForm.value.amount_INR+(this.myForm.value.amount_INR*(this.myForm.value.mVAT/100)));
-      this.myForm.controls['amount_dolar'].patchValue(this.myForm.value.amount_INR/this.myForm.value.currency_convrsion_rate);
+      this.myForm.controls['amount_dolar'].patchValue(this.myForm.value.amount_INR/this.myForm.value.currency_conversion_rate);
     }
   }
 
@@ -477,14 +483,14 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public onFileChange(evt:any) {
     var jsonMap = {
-          "Stock_ID": "Stock ID",
+          // "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",
           "account_name": "Party's Name",
           "payment_terms": "Terms of Payment",
           "polishing_type": "Polish Type",
-          "currency_convrsion_rate": "Currency Conversion rate",
+          "currency_conversion_rate": "Currency Conversion rate",
           "notes": "Notes",
           "country": "Country",
           "bill_type": "Bill Type",

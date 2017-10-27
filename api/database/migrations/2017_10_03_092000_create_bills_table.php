@@ -15,7 +15,7 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->increments('transaction_id');
-            $table->integer('invoice_number');
+            $table->string('invoice_number');
             $table->double('invoice_value');
             $table->date('transaction_date');
             $table->string('transaction_mode');

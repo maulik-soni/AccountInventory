@@ -1,7 +1,7 @@
 export class Purchase { 
    constructor( 
       public invoice_number?: string, 
-      public currency_convrsion_rate?:number,
+      public currency_conversion_rate?:number,
       public aginst_Hform?:boolean,
       public bill_type?:string,
       public days?:number,
@@ -14,7 +14,6 @@ export class Purchase {
       public brokerName?:string,
       public brokerType?:string,
       public brokerage?:number,
-      public Stock_ID?:number,
       public certificate_number?:string,
       public diamond_lot_number?:string,
       public diamond_shape?:string,

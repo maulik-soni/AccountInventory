@@ -717,13 +717,13 @@ showinventory(data){
   }
 
 
-  getCompany(){
-    return this._http.get(this.apis.getcompany)
-    .map((response:Response) => response.json());
-  }
+  // getCompany(){
+  //   return this._http.get(this.apis.getcompany)
+  //   .map((response:Response) => response.json());
+  // }
 
   generateInvoice(table){
-    return this._http.get(this.apis.generateInvoice+"?table="+table)
+    return this._http.get(this.apis.generateInvoice+"?table="+table+'&&api_token='+this.gettoken()+'&&dbcountry='+this.getcountry())
     .map((response:Response) => response.json());
   }
 

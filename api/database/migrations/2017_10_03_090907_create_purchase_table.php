@@ -37,22 +37,24 @@ class CreatePurchaseTable extends Migration
 			$table->string('diamond_clarity')->nullable();
 			$table->integer('total_diamond_pcs')->nullable();
 			$table->float('total_diamond_carat')->nullable();
-			$table->float('cost_discount')->nullable();
-			$table->float('cost_rate_per_carat')->nullable();
+			$table->double('cost_discount',20,2)->nullable();
+			$table->double('cost_rate_per_carat',20,2)->nullable();
 			$table->double('RAP_price',20,2)->nullable();
-			$table->float('wd_rate')->nullable();
+			$table->float('wd_rate',20,2)->nullable();
 			$table->float('wd_rate_carat')->nullable();
-			$table->float('rate_INR')->nullable();
+			$table->double('rate_INR',20,2)->nullable();
 			$table->double('amount_INR',20,2)->nullable();
-			$table->double('rate_dolar')->nullable();
+			$table->double('rate_dolar',20,2)->nullable();
 			$table->double('amount_dolar',20,2)->nullable();
 			$table->string('LAB_type')->nullable();
 			$table->string('certificate_number')->unique()->nullable();
-			$table->float('avg_INR')->nullable();
-			$table->float('avg_dolar')->nullable();
+			$table->double('avg_INR',20,2)->nullable();
+			$table->double('avg_dolar',20,2)->nullable();
 			$table->string('aginst_Hform')->nullable();
 			$table->float('mVAT')->nullable();
-			$table->string('broker_details')->nullable();
+			$table->string('brokerType')->nullable();
+			$table->string('brokerName')->nullable();
+			$table->string('brokerage')->nullable();
 			$table->float('length')->nullable();
 			$table->float('width')->nullable();
 			$table->float('depth')->nullable();
@@ -64,10 +66,11 @@ class CreatePurchaseTable extends Migration
 			$table->float('depthPct')->nullable();
 			$table->float('tablePct')->nullable();
 			$table->float('crnAg')->nullable();
+			$table->float('crnHt')->nullable();
 			$table->float('pavAg')->nullable();
 			$table->float('pavDp')->nullable();
 			$table->float('starLn')->nullable();
-			$table->float('IrHalf')->nullable();
+			$table->float('lrHalf')->nullable();
 			$table->string('girdle')->nullable();
 			$table->string('girdleCondition')->nullable();
 			$table->string('girdlePct')->nullable();
@@ -83,7 +86,6 @@ class CreatePurchaseTable extends Migration
 			$table->string('fullShapeDescription')->nullable();
 			$table->string('company_name')->nullable();
 			$table->float('askedPrice')->nullable();
-			$table->float('additional_expenses')->nullable();
         });
     }
 

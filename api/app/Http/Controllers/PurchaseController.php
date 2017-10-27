@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class PurchaseController extends Controller
 {
     public function newPurchaseEntry(){
-        $new_purchase = Request::all();
+        $new_purchase = Request::except(['api_token','dbcountry']);
         $purchase = new \App\Purchase;
         DB::table('purchase')->insert($new_purchase);
     }
