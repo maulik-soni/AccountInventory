@@ -43,11 +43,11 @@ class memoissueController extends Controller
         MemoIssue::where('Stock_ID','=',$data['Stock_ID'])->delete();
     }
 
-    public function changeStatusDB($pcsID){
-        $pcsid = $pcsID;
-        $memoissue_table = \App\MemoIssue::where(function($query) use($pcsid){
-            $query->where('Stock_ID', '=', $pcsid)
-                  ->orWhere('Lot_Number', '=', $pcsid);
+    public function changeStatusDB($Stock_ID){
+        $Stock_ID = $Stock_ID;
+        $memoissue_table = \App\MemoIssue::where(function($query) use($Stock_ID){
+            $query->where('Stock_ID', '=', $Stock_ID)
+                  ->orWhere('Lot_Number', '=', $Stock_ID);
         })->first();
         $memoissue_table->status = "RECEIVED";
         $memoissue_table->due_date = date("Y/m/d");
@@ -76,9 +76,9 @@ class memoissueController extends Controller
                 }
                 if($params['filterby']=='Invoice Number'){
                     if($params['reportType'] == "report"){
-                        $response=\App\MemoIssue::where('memo_invoice_number',$params['search'])->where('status','ISSUED')->get();
+                        $response=\App\MemoIssue::where('invoice_number',$params['search'])->where('status','ISSUED')->get();
                     }else
-                        $response=\App\MemoIssue::where('memo_invoice_number',$params['search'])->where('status','RECEIVED')->get();
+                        $response=\App\MemoIssue::where('invoice_number',$params['search'])->where('status','RECEIVED')->get();
                    return response()->json($response,200);
                 }
                 if($params['filterby']=='Party Name'){

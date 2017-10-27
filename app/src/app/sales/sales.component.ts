@@ -27,6 +27,8 @@ export abstract class AbstractViewInit {
 export class SalesComponent implements OnInit {
 
   public myForm: FormGroup;
+  public singleSalesData = {};
+  public bulkSalesData:any = [];
   loadInvoiceComponent:boolean = false;
   finalSalesData : any;
   constructor(
@@ -43,35 +45,10 @@ export class SalesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.myForm = this._fb.group({
-            invoice_number:[''],
-            currency_convrsion_rate:[''],
-            sales_date:[''],
-            due_date:[''],
-            country:[''],
-            notes:[''],
-            payment_terms:0,
-            account_name:[''],
-            brokerName:[''],
-            brokerType:[''],
-            brokerage:[''],
-            comission1:0,
-            comission2:0,
-            purchase_amount_INR:0,
-            purchase_amount_dolar:0,
-            freight:0,
-            sales_amount_INR:0,
-            sales_amount_dolar:0,
-            diff_amount_INR:0,
-            diff_amount_dolar:0,
-            salesDetails: this._fb.array([])
-        });
-    this.addSalesDetails();
-  }
+    this.bulkSalesData=[];
 
-  initSalesDetails() {
-    return this._fb.group({
-      Stock_ID: [''],
+    this.singleSalesData = {
+      Stock_ID: '',
       polishing_type: [''],
       bill_type: [''],
       stock_status_group: [''],
@@ -97,9 +74,7 @@ export class SalesComponent implements OnInit {
       certificate_number: [''],
       avg_INR: 0,
       avg_dolar: 0,
-      less1:0,
-      less2:0,
-      less3:0,
+      less:0,
       sale_disc:0,
       sale_rate:0,
       length: [''],
@@ -130,13 +105,54 @@ export class SalesComponent implements OnInit {
       reportDt: [''],
       inscription: [''],
       infoMsg:[''],
-      fullShapeDescription:['']
-    });
+      fullShapeDescription:[''],
+      company_name : [''],
+    };
+
+    this._webservice.generateInvoice('sales').subscribe(response=>
+      this.myForm.controls['invoice_number'].patchValue("SA-"+response)
+    );
+
+    this.myForm = this._fb.group({
+            invoice_number:[''],
+            currency_convrsion_rate:[''],
+            sales_date:[''],
+            due_date:[''],
+            country:[''],
+            notes:[''],
+            payment_terms:0,
+            account_name:[''],
+            brokerName:[''],
+            brokerType:[''],
+            brokerage:[''],
+            comission:0,
+            purchase_amount_INR:0,
+            purchase_amount_dolar:0,
+            freight:0,
+            sales_amount_INR:0,
+            sales_amount_dolar:0,
+            diff_amount_INR:0,
+            diff_amount_dolar:0,
+            salesDetails: this._fb.array([])
+        });
+    
+    if(this.bulkSalesData.length){
+      this.bulkSalesData.forEach(element => {
+        this.addSalesDetails(element);
+      });
+    }else{
+      this.addSalesDetails({});
+    }
   }
 
-  addSalesDetails() {
+  initSalesDetails(salesData) {
+    return this._fb.group(Object.assign(JSON.parse(JSON.stringify(this.singleSalesData)),salesData));
+  }
+
+  addSalesDetails(salesData) {
+      
       const control = <FormArray>this.myForm.controls['salesDetails'];
-      const addrCtrl = this.initSalesDetails();
+      const addrCtrl = this.initSalesDetails(salesData);
       control.push(addrCtrl);
   }
 
@@ -154,20 +170,20 @@ export class SalesComponent implements OnInit {
       var salesData:any = [];
       for(var i = 0; i < salesdetails.length; i++){
         salesData.push(Object.assign({}, newsales, salesdetails[i]));
-        salesData[i].less = JSON.stringify({
-          less1:salesdetails[i].less1,
-          less2:salesdetails[i].less2,
-          less3:salesdetails[i].less3
-        });
-        delete salesData[i].less1;
-        delete salesData[i].less2;
-        delete salesData[i].less3;
-        salesData[i].comission = JSON.stringify({
-          comission1:salesData[i].comission1,
-          comission2:salesData[i].comission2
-        });
-        delete salesData[i].comission1 
-        delete salesData[i].comission2
+        // salesData[i].less = JSON.stringify({
+        //   less1:salesdetails[i].less1,
+        //   less2:salesdetails[i].less2,
+        //   less3:salesdetails[i].less3
+        // });
+        // delete salesData[i].less1;
+        // delete salesData[i].less2;
+        // delete salesData[i].less3;
+        // salesData[i].comission = JSON.stringify({
+        //   comission1:salesData[i].comission1,
+        //   comission2:salesData[i].comission2
+        // });
+        // delete salesData[i].comission1 
+        // delete salesData[i].comission2
         salesData[i].broker_details = JSON.stringify({
           brokerType : salesData[i].brokerType,
           brokerName : salesData[i].brokerName,
@@ -191,9 +207,7 @@ export class SalesComponent implements OnInit {
 
 
 
-  ngAfterViewInit(){
-    console.log("view loaded");
-  }
+  ngAfterViewInit(){}
 
   date: DateModel;
   options: DatePickerOptions;
@@ -208,8 +222,12 @@ export class SalesComponent implements OnInit {
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public names:Array<string> = this.ConstantService.NAMES;
 
-  public less:any = {less1:0,less2:0,less3:0};
-  public comission:any = {comission1:0,comission2:0};
+  // public less:any = {less1:0,less2:0,less3:0};
+  // public comission:any = {comission1:0,comission2:0};
+  public less:any =0;
+  
+  public comission:any = 0;
+  
   private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
@@ -261,8 +279,9 @@ export class SalesComponent implements OnInit {
   public checkComission(){
     console.log(this.comissionCheck);
     if(!this.comissionCheck){
-      this.comission.comission1 = 0;
-      this.comission.comission2 = 0;
+      // this.comission.comission1 = 0;
+      // this.comission.comission2 = 0;
+      this.comission = 0; 
     }
   }
 
@@ -330,7 +349,7 @@ export class SalesComponent implements OnInit {
 
   public calAmount():void{
     var salesAmount = this.newsales.sale_rate*this.mypurchase.total_diamond_carat*this.mypurchase.total_diamond_pcs;
-    var lessDis = parseInt(this.less.less1)+parseInt(this.less.less2)+parseInt(this.less.less3);
+    var lessDis = parseInt(this.less)
     salesAmount = parseInt((salesAmount*(1-(lessDis/100))).toFixed(2));
     salesAmount = parseInt((salesAmount*(1-(this.newsales.sale_disc/100))).toFixed(2));
     this.newsales.sales_amount_INR = salesAmount;
@@ -341,8 +360,8 @@ export class SalesComponent implements OnInit {
 
   
   onSubmit() { 
-    this.newsales.less = JSON.stringify(this.less);
-    this.newsales.comission = JSON.stringify(this.comission);
+    // this.newsales.less = JSON.stringify(this.less);
+    // this.newsales.comission = JSON.stringify(this.comission);
     this.newsalesdata.broker_details = {
       brokerName : this.newsales.brokerName,
       brokerType : this.newsales.brokerType,

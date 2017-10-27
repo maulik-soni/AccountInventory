@@ -143,9 +143,9 @@ export class PiecesTypeComponent implements OnInit {
     // var lessDis = parseInt(this.piecesTypeForm.value.less1)+parseInt(this.piecesTypeForm.value.less2)+parseInt(this.piecesTypeForm.value.less3);
     
     // console.log(this.piecesTypeForm.value.rate_INR,lessDis,(this.piecesTypeForm.value.rate_INR*(lessDis/100)))
-    var amountINR = this.piecesTypeForm.value.rate_INR-(this.piecesTypeForm.value.rate_INR*(this.piecesTypeForm.value.less1/100));
-    amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less2/100));
-    amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less3/100));
+    var amountINR = this.piecesTypeForm.value.rate_INR-(this.piecesTypeForm.value.rate_INR*(this.piecesTypeForm.value.less/100));
+    // amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less2/100));
+    // amountINR = amountINR-(amountINR*(this.piecesTypeForm.value.less3/100));
     
     var amountDOLAR = amountINR/this.getDolarRate();
     this.piecesTypeForm.controls['rate_INR'].patchValue(parseInt(amountINR.toFixed(2)));

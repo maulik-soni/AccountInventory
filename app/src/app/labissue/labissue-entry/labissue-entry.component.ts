@@ -88,14 +88,25 @@ export class LabissueEntryComponent implements OnInit {
           console.log(this.mypurchase,JSON.stringify(this.mypurchase));
           this.showPurchase = true;
           //this.newlabissue = Object.assign(this.newlabissuedata,this.mypurchase);
-          this.newlabissue = new LabIssue(
-            this.mypurchase.Stock_ID,
-            this.mypurchase.diamond_size,
-            this.mypurchase.diamond_shape,
-            this.mypurchase.total_diamond_carat,
-            this.mypurchase.diamond_color,
-            this.mypurchase.diamond_clarity,
-            this.mypurchase.total_diamond_carat
+          // this.newlabissue = new LabIssue(
+          //   this.mypurchase.Stock_ID,
+          //   this.mypurchase.diamond_size,
+          //   this.mypurchase.diamond_shape,
+          //   this.mypurchase.total_diamond_carat,
+          //   this.mypurchase.diamond_color,
+          //   this.mypurchase.diamond_clarity,
+          //   this.mypurchase.total_diamond_carat
+          // );
+          this._webservice.generateInvoice('lab_issue').subscribe(response=>
+            this.newlabissue = new LabIssue(
+              "LI-"+response,
+              this.mypurchase.Stock_ID,
+              this.mypurchase.diamond_size,
+              this.mypurchase.diamond_shape,
+              this.mypurchase.total_diamond_carat,
+              this.mypurchase.diamond_color,
+              this.mypurchase.diamond_clarity,
+            )
           );
           console.log(this.newlabissue);
         }

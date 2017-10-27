@@ -25,13 +25,14 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header">
-				<h2>Basic Purchase Information</h2>
+			<div class="card-header ch-alt">
+				<h2 style="display: inline-block">Basic Purchase Information</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#basicInfo" aria-expanded="true" aria-controls="basicInfo"></a>
 			</div>
 
-			<div class="card-body card-padding">
+			<div class="card-body card-padding collapse in" id="basicInfo">
 				<div class="row">
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Invoice Number</p>
@@ -39,7 +40,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Conversion Rate ($&#8594;&#8377;)</p>
@@ -47,7 +48,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">						
+					<div class="col-sm-3">						
 						<p class="form-label">Purchase Date</p>
 						<!--<material-datepicker [(date)]="newpurchase.purchase_date" (onSelect)="calcDay($event)"></material-datepicker>-->
 						<span class="dp-container">	
@@ -57,20 +58,19 @@
 							</md-input-container>
 							<md-datepicker #picker></md-datepicker>	
 						</span>
-					</div> 
-				</div>
-				<br>
-				<div class="row">
-					
-					<div class="col-sm-4">
+					</div>
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Terms of Payment</p>
 								<input type="text" class="form-control fg-input" formControlName="payment_terms" (blur)="calcDay(newpurchase.payment_terms)">
 							</div>
 						</div>
-					</div>				
-					<div class="col-sm-4">
+					</div>	
+				</div>
+				<br>
+				<div class="row">			
+					<div class="col-sm-3">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Due Date</p>
@@ -78,7 +78,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4">
+					<div class="col-sm-3">
 						<p class="form-label">Country</p>
 						<ng-select [allowClear]="true"
 							[items]="countries"
@@ -91,27 +91,17 @@
 							placeholder="Select The Country" name="country" [ngModelOptions]="{standalone: true}">
 						</ng-select> 
 					</div>
-				</div>
-
-				<div class="row m-t-15">
-					<div class="col-sm-8">
+					<div class="col-sm-6">
 						<div class="form-group ">
 							<div class="fg-line">
 								<p class="form-label">Notes or Remarks</p>
-								<textarea class="form-control" rows="3" formControlName="notes"></textarea>
+								<textarea class="form-control" rows="2" formControlName="notes"></textarea>
 							</div>
 						</div>
-					</div>					
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="card">
-			<div class="card-header">
-				<h2>Party Details</h2>
-			</div>
-			<div class="card-body card-padding">
 				<div class="row">
-					<div class="col-sm-12">
+					<div class="col-sm-6">
 						<p class="form-label m-b-10">Party's Name</p>
 						<ng-select [allowClear]="true"
 							[items]="names"
@@ -124,10 +114,22 @@
 							placeholder="Select Party's Name" name = "account_name" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
+					<div class="col-sm-6">
+						<p class="form-label m-b-10">Company Name</p>
+						<ng-select [allowClear]="true"
+							[items]="companyName"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'company_name')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.company_name"
+							placeholder="Select Party's Name" name = "company_name" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
 				</div>
 			</div>
 		</div>
-        <!--addresses-->
 		
         <div formArrayName="piecesTypes">
           	<div *ngFor="let piecesType of myForm.controls.piecesTypes.controls; let i=index">
@@ -136,8 +138,9 @@
 				<div class="card-header ch-alt">
 					<h2 style="display: inline-block">Purchase Item {{i + 1}}</h2>
 					<span class="glyphicon glyphicon-remove pull-right" *ngIf="myForm.controls.piecesTypes.controls.length > 1" (click)="removePiece(i)"></span>
+					<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="true" aria-controls="collapseExample"></a>
 				</div>
-				<div [formGroupName]="i">
+				<div [formGroupName]="i" id="collapseExample{{i}}" class="collapse in">
 					<app-pieces-type [mygroup]="myForm.controls.piecesTypes.controls[i]" (childEvent) = "parenFunction($event)"></app-pieces-type>
 				<!--<address></address>-->
 				</div>
@@ -146,40 +149,56 @@
           	</div>
         </div>
 
-		<a (click)="AddpiecesType()" class="btn btn-success btn-md m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add New Purchase Item</a>
-
-
 		<div class="card">
-			<div class="card-header">
-				<h2>Purchase Revenue Details</h2>
+			<div class="card-header ch-alt">
+				<h2 style="display: inline-block">Purchase Revenue Details</h2>
+				<a class="zmdi zmdi-format-valign-center zmdi-hc-fw pull-right collapseButton" data-toggle="collapse" href="#revenueDetails" aria-expanded="true" aria-controls="revenueDetails"></a>
 			</div>
 
-			<div class="card-body card-padding">
-				
-
-				<div class="row m-t-15">
-					<p class="col-sm-12 c-black f-500">Average</p>
-					<div class="col-sm-4 m-t-5">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">Average in INR(&#8377;)</p>
-								<input type="text" class="form-control fg-input" formControlName = "avg_INR" name = "avg_INR" disabled = "true">
+			<div class="card-body card-padding collapse in" id="revenueDetails">  
+				<div class="row">
+					<div class="col-sm-6">
+						<p class="col-sm-12 c-black f-500">Average</p>
+						<div class="col-sm-6">
+							<div class="form-group ">
+								<div class="fg-line">
+									<p class="form-label">Average in INR(&#8377;)</p>
+									<input type="text" class="form-control fg-input" formControlName = "avg_INR" name = "avg_INR" disabled = "true">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group ">
+								<div class="fg-line">
+									<p class="form-label">Average in USD($)</p>
+									<input type="text" class="form-control fg-input" formControlName = "avg_dolar" name = "avg_dolar" disabled = "true">
+									<label class="fg-label"></label>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4 m-t-5">
-						<div class="form-group ">
-							<div class="fg-line">
-								<p class="form-label">Average in USD($)</p>
-								<input type="text" class="form-control fg-input" formControlName = "avg_dolar" name = "avg_dolar" disabled = "true">
-								<label class="fg-label"></label>
+					<div class="col-sm-6">
+						<p class="col-sm-12 c-black f-500">Amount</p>
+						<div class="col-sm-6">
+							<div class="form-group ">
+								<div class="fg-line">
+									<p class="form-label">Amount in INR(&#8377;)</p>
+									<input type="text" class="form-control fg-input" formControlName = "amount_INR" name = "amount_INR" disabled = "true">
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group ">
+								<div class="fg-line">
+									<p class="form-label">Amount in USD($)</p>
+									<input type="text" class="form-control fg-input" formControlName = "amount_dolar" name = "amount_dolar" disabled = "true">
+								</div>
 							</div>
 						</div>
 					</div>
-
 				</div>
 
-				<div class="row m-t-15">
+				<!-- <div class="row m-t-15">
 					<p class="col-sm-12 c-black f-500">Amount</p>
 					<div class="col-sm-4 m-t-5">
 						<div class="form-group ">
@@ -197,10 +216,9 @@
 							</div>
 						</div>
 					</div>
+				</div> -->
 
-				</div>
-
-				<div class="row m-t-15">
+				<div class="row">
 					<div class="col-sm-4">
 						<p class="form-label m-b-10">Broker Type</p>
 						<ng-select [allowClear]="true"
@@ -214,11 +232,10 @@
 							placeholder="No Broker Type selected" name = "brokerType" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-					<div class="col-sm-4 m-t-15">
+					<div class="col-sm-4">
 						<p class="form-label m-b-10">Broker Name</p>
 						<ng-select [allowClear]="true"
 							[items]="brokers"
-							[disabled] = "disable == 'Direct'"
 							(data)="refreshValue($event)"
 							(selected)="selected($event,'brokerName')"
 							(removed)="removed($event)"
@@ -227,11 +244,11 @@
 							placeholder="No Broker Name selected" name = "brokerName" [ngModelOptions]="{standalone: true}">
 						</ng-select>
 					</div>
-					<div class="col-sm-4 m-t-20">
+					<div class="col-sm-4 m-t-10">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Brokerage in %</p>
-								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage" [readonly]="disable == 'Direct'">
+								<input type="text" class="form-control fg-input" formControlName = "brokerage" name = "brokerage">
 							</div>
 						</div>
 					</div>
@@ -249,40 +266,41 @@
 					<div class="col-sm-4 m-t-20">
 						<div class="form-group">
 							<div class="fg-line">
-								<p class="form-label">Aggent Comission 1 in %</p>
-								<input type="text" class="form-control fg-input" formControlName = "comission1" name = "comission2" [readonly] = "!comissionCheck">
+								<p class="form-label">Aggent Comission in %</p>
+								<input type="text" class="form-control fg-input" formControlName = "comission" name = "comission" [readonly] = "!comissionCheck">
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-4 m-t-20">
+					<div class="col-sm-4 m-t-15">
+							<ng-select [allowClear]="true"
+							[items]="taxes"
+							[disabled]="newpurchase.aginst_Hform"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'taxes')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.taxes"
+							placeholder="No Taxes selected" name = "taxes" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+						</div>
+						<div class="form-group  col-sm-4">
+							<div class="fg-line">
+								<p class="form-label">% Tax</p>
+								<input type="text" class="form-control fg-input" formControlName = "mVAT" name = "mVAT" [disabled] = "newpurchase.aginst_Hform" (blur) = "addTax()"> 
+							</div>
+						</div>
+					<!-- <div class="col-sm-4 m-t-20">
 						<div class="form-group">
 							<div class="fg-line">
 								<p class="form-label">Aggent Comission 2 in %</p>
 								<input type="text" class="form-control fg-input" formControlName = "comission2" name = "comission2" [readonly] = "!comissionCheck">
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="row m-t-25">
-					<div class="col-sm-4 m-t-15">
-						<ng-select [allowClear]="true"
-						[items]="taxes"
-						[disabled]="newpurchase.aginst_Hform"
-						(data)="refreshValue($event)"
-						(selected)="selected($event,'taxes')"
-						(removed)="removed($event)"
-						(typed)="typed($event)"
-						[(ngModel)] = "newpurchase.taxes"
-						placeholder="No Taxes selected" name = "taxes" [ngModelOptions]="{standalone: true}">
-					</ng-select>
-					</div>
-					<div class="form-group  col-sm-4">
-						<div class="fg-line">
-							<p class="form-label">% Tax</p>
-							<input type="text" class="form-control fg-input" formControlName = "mVAT" name = "mVAT" [disabled] = "newpurchase.aginst_Hform" (blur) = "addTax()"> 
-						</div>
-					</div>
+					
 					<!--<label class="checkbox checkbox-inline m-r-20">						
 						<input type="checkbox" value="againstHForm" formControlName = "aginst_Hform" name = "aginst_Hform" (change)="checkAgianstHform()">
 						<i class="input-helper"></i>
@@ -292,7 +310,7 @@
 			</div>
 		</div>
 
-
+		<a (click)="AddpiecesType()" class="btn btn-success btn-md m-btn waves-effect"><i class="zmdi zmdi-plus"></i> Add New Purchase Item</a>
 
         <div class="margin-20">
           <button type="submit" class="btn btn-lg btn-primary">Submit</button>

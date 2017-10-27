@@ -25,7 +25,7 @@ export class MemoinReportComponent implements OnInit {
   public sortOrder = "asc";
 
   private searchterm=new Subject;
-  searchatts=new Search(['all','filter'],['PCS ID','Invoice Number','Party Name','date']);
+  searchatts=new Search(['all','filter'],['Stock ID','Invoice Number','Party Name','date']);
   searchvalues=new SearchValues(
     this.searchatts.filter[0],
     this.searchatts.filterby[0],
@@ -186,9 +186,9 @@ export class MemoinReportComponent implements OnInit {
     if(exportCSVdata[0].sr_no != "Sr No."){
       exportCSVdata.unshift(
         {
-          "Stock_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "Lot_Number": "Lot Number",
-          "memo_invoice_number": "Memo Invoice Number",
+          "invoice_number": "Memo Invoice Number",
           "date": "Date",
           "account_name": "Party Name",
           "broker": "Broker Name",

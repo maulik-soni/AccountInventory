@@ -17,7 +17,7 @@ export class PurchaseReturnComponent implements OnInit {
 
   purchasereturn =  [];
   private searchterm=new Subject;
-  searchatts=new Search(['all','filter'],['PCS ID','Invoice Number','Party Name','date']);
+  searchatts=new Search(['all','filter'],['Stock ID','Invoice Number','Party Name','date']);
   searchvalues=new SearchValues(
     this.searchatts.filter[0],
     this.searchatts.filterby[0],
@@ -97,19 +97,19 @@ export class PurchaseReturnComponent implements OnInit {
         if(exportCSVdata[i][key] == null){
           exportCSVdata[i][key] = '-'; 
         }
-        if(key == "less"){
-          exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
-          exportCSVdata[i].less1 = exportCSVdata[i][key].less1;
-          exportCSVdata[i].less2 = exportCSVdata[i][key].less2;
-          exportCSVdata[i].less3 = exportCSVdata[i][key].less3;
-          delete exportCSVdata[i][key];
-        }
-        if(key == "comission"){
-          exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
-          exportCSVdata[i].comission1 = exportCSVdata[i][key].comission1;
-          exportCSVdata[i].comission2 = exportCSVdata[i][key].comission2;
-          delete exportCSVdata[i][key];
-        }
+        // if(key == "less"){
+        //   exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
+        //   exportCSVdata[i].less1 = exportCSVdata[i][key].less1;
+        //   exportCSVdata[i].less2 = exportCSVdata[i][key].less2;
+        //   exportCSVdata[i].less3 = exportCSVdata[i][key].less3;
+        //   delete exportCSVdata[i][key];
+        // }
+        // if(key == "comission"){
+        //   exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
+        //   exportCSVdata[i].comission1 = exportCSVdata[i][key].comission1;
+        //   exportCSVdata[i].comission2 = exportCSVdata[i][key].comission2;
+        //   delete exportCSVdata[i][key];
+        // }
         if(key == "broker_details"){
           exportCSVdata[i][key] = JSON.parse(exportCSVdata[i][key]);
           exportCSVdata[i].brokerType = exportCSVdata[i][key].brokerType;
@@ -124,7 +124,7 @@ export class PurchaseReturnComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "sr_no": "Sr No.",
-          "Stock_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",
@@ -160,11 +160,13 @@ export class PurchaseReturnComponent implements OnInit {
           "avg_dolar": "Average in USD",
           "aginst_Hform": "Against Hform",
           "mVAT": "mVAT",
-          "less1": "Less 1",
-          "less2": "Less 2",
-          "less3": "Less 3",
-          "comission1": "Comission 1",
-          "comission2": "Comission 2",
+          // "less1": "Less 1",
+          // "less2": "Less 2",
+          // "less3": "Less 3",
+          "less": "Less",
+          // "comission1": "Comission 1",
+          // "comission2": "Comission 2",
+          "comission": "Comission",
           "brokerType": "Broker Type",
           "brokerName": "Broker Name",
           "brokerage": "Brokerage",

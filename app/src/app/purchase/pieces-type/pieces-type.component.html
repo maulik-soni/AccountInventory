@@ -1,12 +1,12 @@
 <div [formGroup]="piecesTypeForm">
     <div class="card">
 		<!-- <div class="card-header ch-alt" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-			<span>PCS ID : </span>{{piecesTypeForm.value.Stock_ID}}
+			<span>Stock ID : </span>{{piecesTypeForm.value.Stock_ID}}
 		</div> -->
 		
 		<!-- <div class="collapse in"  id="collapseExample"> -->
 		<div style="overflow : hidden">
-			<ul class="actions pull-right m-t-20 m-b-20">
+			<ul class="actions pull-right m-t-5">
 				<li>
 					<label class="radio radio-inline m-r-20">
 						<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
@@ -27,7 +27,7 @@
 		
 		<div class="card-body card-padding" *ngIf="piecetype == 'singlestone'">
 			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">Lab Type</p>
@@ -45,17 +45,15 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
-							<p class="form-label">PCS ID</p>
+							<p class="form-label">Stock ID</p>
 							<input type="text" class="form-control fg-input" formControlName = "Stock_ID" name = "Stock_ID">
 						</div>
 					</div>
 				</div>					
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">Certificate Number</p>
@@ -63,22 +61,21 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<a *ngIf = "piecesTypeForm.value.Stock_ID != '' && piecesTypeForm.value.certificate_number != ''" data-toggle="modal" href="#modalWider{{piecesTypeForm.value.Stock_ID}}" class="btn btn-sm btn-info" >Fetch Details</a>
 					<a *ngIf = "piecesTypeForm.value.Stock_ID == '' || piecesTypeForm.value.certificate_number == ''" class="btn btn-sm btn-info" disabled = "true">Fetch Details</a>
 				</div>
 			</div>
-			<br>
 
-			<div class="modal fade" id="modalWider{{piecesTypeForm.value.Stock_ID}}" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog modal-lg">
+			<div class="modal fade " id="modalWider{{piecesTypeForm.value.Stock_ID}}" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-lg modalWidth">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Certified Stone Details</h4>
 						</div>
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<p class="form-label m-b-10">Stock Group</p>
 									<ng-select [allowClear]="true"
 										[items]="groups"
@@ -91,7 +88,7 @@
 										placeholder="No Stock Group selected" name = "stock_status_group"  [ngModelOptions]="{standalone: true}">
 									</ng-select>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<p class="form-label m-b-10">Shape of Diamond</p>
 									<ng-select [allowClear]="true"
 										[items]="shapes"
@@ -104,7 +101,7 @@
 										placeholder="No Shape of Diamond selected" name = "diamond_shape"  [ngModelOptions]="{standalone: true}">
 									</ng-select>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<p class="form-label m-b-10">Color of Diamond</p>
 									<ng-select [allowClear]="true"
 										[items]="colors"
@@ -116,10 +113,8 @@
 										[(ngModel)] = "newpurchase.diamond_color"
 										placeholder="No Color of Diamond selected" name = "diamond_color"  [ngModelOptions]="{standalone: true}">
 									</ng-select>
-								</div>					
-							</div>
-							<div class="row m-t-25">					
-								<div class="col-sm-4 m-b-10">
+								</div>
+								<div class="col-sm-3">
 									<p class="form-label m-b-10">Clarity of Diamond</p>
 									<ng-select [allowClear]="true"
 										[items]="clarity"
@@ -131,8 +126,10 @@
 										[(ngModel)] = "newpurchase.diamond_clarity"
 										placeholder="No Clarity of Diamond selected" name = "diamond_clarity"  [ngModelOptions]="{standalone: true}">
 									</ng-select>
-								</div>	
-								<div class="col-sm-4">
+								</div>				
+							</div>
+							<div class="row">					
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">Polish Type</p>
@@ -140,10 +137,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">length Of Diamond</p>
@@ -151,7 +145,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">width Of Diamond</p>
@@ -159,7 +153,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">depth Of Diamond</p>
@@ -169,8 +163,8 @@
 								</div>
 							</div>
 
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+							<div class="row">					
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">message</p>
@@ -178,7 +172,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">weight Of Diamond</p>
@@ -186,7 +180,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">reportNo</p>
@@ -194,10 +188,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">Color Description Of Diamond</p>
@@ -205,7 +196,10 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">final Cut Of Diamond</p>
@@ -213,7 +207,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">depthPct</p>
@@ -221,10 +215,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">tablePct</p>
@@ -232,7 +223,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">crnAg</p>
@@ -240,7 +231,10 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-4">
+							</div>
+
+							<div class="row">					
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">crnHt</p>
@@ -248,10 +242,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">pavAg</p>
@@ -259,7 +250,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">pavDp</p>
@@ -267,7 +258,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">starLn</p>
@@ -277,8 +268,32 @@
 								</div>
 							</div>
 
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+							<div class="row">					
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="fg-line">
+											<p class="form-label">pavAg</p>
+											<input type="text" class="form-control fg-input m-t-10" formControlName = "pavAg" name = "pavAg">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="fg-line">
+											<p class="form-label">pavDp</p>
+											<input type="text" class="form-control fg-input m-t-10" formControlName = "pavDp" name = "pavDp">
+										</div>
+									</div>
+								</div>	
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="fg-line">
+											<p class="form-label">starLn</p>
+											<input type="text" class="form-control fg-input m-t-10" formControlName = "starLn" name = "starLn">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">lrHalf</p>
@@ -286,7 +301,10 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">girdle</p>
@@ -294,7 +312,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">girdleCondition</p>
@@ -302,10 +320,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">girdlePct</p>
@@ -313,15 +328,18 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">culet Size</p>
 											<input type="text" class="form-control fg-input m-t-10" formControlName = "culetSize" name = "culetSize">
 										</div>
 									</div>
-								</div>	
-								<div class="col-sm-4">
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">symmetry Of Diamond</p>
@@ -329,10 +347,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">Fluorescence Intensity</p>
@@ -340,7 +355,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">Fluorescence Color</p>
@@ -348,7 +363,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">key To Symbols</p>
@@ -358,8 +373,32 @@
 								</div>
 							</div>
 
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+							<div class="row">					
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="fg-line">
+											<p class="form-label">Fluorescence Intensity</p>
+											<input type="text" class="form-control fg-input m-t-10" formControlName = "fluorescenceIntensity" name = "fluorescenceIntensity">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="fg-line">
+											<p class="form-label">Fluorescence Color</p>
+											<input type="text" class="form-control fg-input m-t-10" formControlName = "fluorescenceColor" name = "fluorescenceColor">
+										</div>
+									</div>
+								</div>	
+								<div class="col-sm-3">
+									<div class="form-group">
+										<div class="fg-line">
+											<p class="form-label">key To Symbols</p>
+											<input type="text" class="form-control fg-input m-t-10" formControlName = "keyToSymbols" name = "keyToSymbols">
+										</div>
+									</div>
+								</div>
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">report Type</p>
@@ -367,7 +406,10 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">report Date</p>
@@ -375,7 +417,7 @@
 										</div>
 									</div>
 								</div>	
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">inscription Of Diamond</p>
@@ -383,10 +425,7 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<div class="row m-t-25">					
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">information Message</p>
@@ -394,7 +433,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-sm-4">
+								<div class="col-sm-3">
 									<div class="form-group">
 										<div class="fg-line">
 											<p class="form-label">full Shape Description</p>
@@ -411,8 +450,8 @@
 				</div>
 			</div>
 			
-			<div class="row m-t-20">
-				<div class="col-sm-4">
+			<div class="row">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">Total Number of Pieces</p>
@@ -420,7 +459,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">Total Number of Carats</p>
@@ -428,10 +467,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-
-			<div class="row m-t-25">
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">RAP Price</p>
@@ -439,7 +475,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">Cost Discount %</p>
@@ -447,18 +483,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Rate per Carat Cost</p>
-							<input type="text" class="form-control fg-input" formControlName = "cost_rate_per_carat" name = "cost_rate_per_carat" disabled="true">
-						</div>
-					</div>
-				</div>					
 			</div>
 
-			<div class="row m-t-25">
-				<div class="col-sm-4">
+			<div class="row">
+				<div class="col-sm-3">
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">WD Discount %</p>
@@ -466,7 +494,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="fg-line">
+							<p class="form-label">Rate per Carat Cost</p>
+							<input type="text" class="form-control fg-input" formControlName = "cost_rate_per_carat" name = "cost_rate_per_carat" disabled="true">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">WD Rate per Carat</p>
@@ -474,27 +510,54 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-sm-3">
+					<div class="form-group ">
+						<div class="fg-line">
+							<p class="form-label">Asked Price</p>
+							<input type="text" class="form-control fg-input" formControlName = "askedPrice" name = "askedPrice">
+						</div>
+					</div>
+				</div>				
 			</div>
 
-			<div class="row m-t-25">
-				<label class="checkbox checkbox-inline m-l-10">						
-					<input type="checkbox" value="lessCheck" [(ngModel)] = "lessCheck" name = "lessCheck" (change)="checkLess()" [ngModelOptions]="{standalone: true}">
-					<i class="input-helper"></i>
-					<b>Less Discount</b>
-				</label>
+			<div class="row">
+				<div class=" col-sm-4">
+					<label class="checkbox checkbox-inline">						
+						<input type="checkbox" value="lessCheck" [(ngModel)] = "lessCheck" name = "lessCheck" (change)="checkLess()" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						<b>Less Discount</b>
+					</label>
+				</div>
+				<p class="col-sm-8 c-black f-500 hidden-xs">Rate</p>
 			</div>
 
 			<div class="row">				
 				<!-- <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p> -->
-				<div class="col-sm-4 m-t-15">
+				<div class="col-sm-4">
 					<div class="form-group">
 						<div class="fg-line">
-							<p class="form-label">LESS 1</p>
-							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur)="CALAmount()" [readonly] = "!lessCheck">
+							<p class="form-label">LESS</p>
+							<input type="text" class="form-control fg-input" formControlName = "less" name = "less" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4 m-t-15">
+				<div class="col-sm-4">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Rate in INR(&#8377;)</p>
+								<input type="text" class="form-control fg-input" formControlName = "rate_INR" name = "rate_INR" disabled="true">
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="form-group ">
+							<div class="fg-line">
+								<p class="form-label">Rate in USD($)</p>
+								<input type="text" class="form-control fg-input" formControlName = "rate_dolar" name="rate_dolar" disabled="true">
+							</div>
+						</div>
+					</div>
+				<!-- <div class="col-sm-4 m-t-15">
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">LESS 2</p>
@@ -509,86 +572,62 @@
 							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
-				</div>
-			</div>
-
-			<div class="row m-t-25">
-				<p class="col-sm-12 c-black f-500">Rate</p>
-				<div class="col-sm-4 m-t-5">
-					<div class="form-group ">
-						<div class="fg-line">
-							<p class="form-label">Rate in INR(&#8377;)</p>
-							<input type="text" class="form-control fg-input" formControlName = "rate_INR" name = "rate_INR" disabled="true">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4 m-t-5">
-					<div class="form-group ">
-						<div class="fg-line">
-							<p class="form-label">Rate in USD($)</p>
-							<input type="text" class="form-control fg-input" formControlName = "rate_dolar" name="rate_dolar" disabled="true">
-						</div>
-					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
 		<div class="card-body card-padding" *ngIf="piecetype == 'parcel'">
 			<div class="row">					
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">Lot Number</p>
-							<input type="text" class="form-control fg-input" name = "diamond_lot_number" formControlName = "diamond_lot_number">
+							<input type="text" class="form-control fg-input m-t-10" name = "diamond_lot_number" formControlName = "diamond_lot_number">
 						</div>
 					</div>
-				</div>					
-			</div>
-			<br>
-			<div class="row">
-				<div class="col-sm-4">
-					<p class="form-label m-b-10">Stock Group</p>
-					<ng-select [allowClear]="true"
-						[items]="groups"
-						[disabled]="disabled"
-						(data)="refreshValue($event)"
-						(selected)="selected($event,'stock_status_group')"
-						(removed)="removed($event)"
-						(typed)="typed($event)"
-						[(ngModel)] = "newpurchase.stock_status_group"
-						placeholder="No Stock Group selected" name = "stock_status_group"[ngModelOptions]="{standalone: true}">
-					</ng-select>
 				</div>
-				<div class="col-sm-4">
-					<p class="form-label m-b-10">Shape of Diamond</p>
-					<ng-select [allowClear]="true"
-						[items]="shapes"
-						[disabled]="disabled"
-						(data)="refreshValue($event)"
-						(selected)="selected($event,'diamond_shape')"
-						(removed)="removed($event)"
-						(typed)="typed($event)"
-						[(ngModel)] = "newpurchase.diamond_shape"
-						placeholder="No Shape of Diamond selected" name = "diamond_shape" [ngModelOptions]="{standalone: true}">
-					</ng-select>
-				</div>
-				<div class="col-sm-4">
-					<p class="form-label m-b-10">Color of Diamond</p>
-					<ng-select [allowClear]="true"
-						[items]="colors"
-						[disabled]="disabled"
-						(data)="refreshValue($event)"
-						(selected)="selected($event,'diamond_color')"
-						(removed)="removed($event)"
-						(typed)="typed($event)"
-						[(ngModel)] = "newpurchase.diamond_color"
-						placeholder="No Color of Diamond selected" name = "diamond_color" [ngModelOptions]="{standalone: true}">
-					</ng-select>
-				</div>					
+				<div class="col-sm-3">
+						<p class="form-label m-b-10">Stock Group</p>
+						<ng-select [allowClear]="true"
+							[items]="groups"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'stock_status_group')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.stock_status_group"
+							placeholder="No Stock Group selected" name = "stock_status_group"[ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-3">
+						<p class="form-label m-b-10">Shape of Diamond</p>
+						<ng-select [allowClear]="true"
+							[items]="shapes"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'diamond_shape')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.diamond_shape"
+							placeholder="No Shape of Diamond selected" name = "diamond_shape" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
+					<div class="col-sm-3">
+						<p class="form-label m-b-10">Color of Diamond</p>
+						<ng-select [allowClear]="true"
+							[items]="colors"
+							[disabled]="disabled"
+							(data)="refreshValue($event)"
+							(selected)="selected($event,'diamond_color')"
+							(removed)="removed($event)"
+							(typed)="typed($event)"
+							[(ngModel)] = "newpurchase.diamond_color"
+							placeholder="No Color of Diamond selected" name = "diamond_color" [ngModelOptions]="{standalone: true}">
+						</ng-select>
+					</div>
 			</div>
-
-			<div class="row m-t-25">										
-				<div class="col-sm-4 m-b-10">
+			<div class="row">										
+				<div class="col-sm-3">
 					<p class="form-label m-b-10">Clarity of Diamond</p>
 					<ng-select [allowClear]="true"
 						[items]="clarity"
@@ -601,7 +640,7 @@
 						placeholder="No Clarity of Diamond selected" name = "diamond_clarity" [ngModelOptions]="{standalone: true}">
 					</ng-select>
 				</div>					
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<p class="form-label m-b-10">Size of Diamond</p>
 					<ng-select [allowClear]="true"
 						[items]="sizes"
@@ -614,26 +653,26 @@
 						placeholder="No Size of Diamond selected" name = "diamond_size" [ngModelOptions]="{standalone: true}">
 					</ng-select>
 				</div>
-				<div class="col-sm-4 m-t-10">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">Kapan</p>
-							<input type="text" class="form-control fg-input" formControlName="kapan" name = "kapan">
+							<input type="text" class="form-control fg-input m-t-10" formControlName="kapan" name = "kapan">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="form-group">
+						<div class="fg-line">
+							<p class="form-label">Total Number of Pieces</p>
+							<input type="text" class="form-control fg-input m-t-10" placeholder="" formControlName = "total_diamond_pcs" name = "total_diamond_pcs">
 						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="row m-t-20">					
-				<div class="col-sm-4">
-					<div class="form-group">
-						<div class="fg-line">
-							<p class="form-label">Total Number of Pieces</p>
-							<input type="text" class="form-control fg-input" placeholder="" formControlName = "total_diamond_pcs" name = "total_diamond_pcs">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4">
+				<div class="col-sm-3">
 					<div class="form-group">
 						<div class="fg-line">
 							<p class="form-label">Total Number of Carats</p>
@@ -641,27 +680,46 @@
 						</div>
 					</div>
 				</div>
-			</div>			
+			</div>
 
-			<div class="row m-t-25">
-				<label class="checkbox checkbox-inline m-l-10">						
-					<input type="checkbox" value="lessCheck" [(ngModel)] = "lessCheck" name = "lessCheck" (change)="checkLess()" [ngModelOptions]="{standalone: true}">
-					<i class="input-helper"></i>
-					<b>Less Discount</b>
-				</label>
+			<div class="row">
+				<div class=" col-sm-4">
+					<label class="checkbox checkbox-inline">						
+						<input type="checkbox" value="lessCheck" [(ngModel)] = "lessCheck" name = "lessCheck" (change)="checkLess()" [ngModelOptions]="{standalone: true}">
+						<i class="input-helper"></i>
+						<b>Less Discount</b>
+					</label>
+				</div>
+				<p class="col-sm-8 c-black f-500 hidden-xs">Rate</p>
 			</div>
 
 			<div class="row">				
 				<!-- <p class="col-sm-12 c-black f-500 m-b-5 m-t-20">Less Discount</p> -->
-				<div class="col-sm-4 m-t-15">
+				<div class="col-sm-4">
 					<div class="form-group">
 						<div class="fg-line">
-							<p class="form-label">LESS 1</p>
-							<input type="text" class="form-control fg-input" formControlName = "less1" name = "less1" (blur)="CALAmount()" [readonly] = "!lessCheck">
+							<p class="form-label">LESS</p>
+							<input type="text" class="form-control fg-input" formControlName = "less" name = "less" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4 m-t-15">
+				<div class="col-sm-4">
+					<div class="form-group ">
+						<div class="fg-line">
+							<p class="form-label">Rate in INR(&#8377;)</p>
+							<input type="text" class="form-control fg-input" formControlName = "rate_INR" name = "rate_INR">
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="form-group ">
+						<div class="fg-line">
+							<p class="form-label">Rate in USD($)</p>
+							<input type="text" class="form-control fg-input" formControlName = "rate_dolar" name="rate_dolar">
+						</div>
+					</div>
+				</div>
+				<!-- <div class="col-sm-4 m-t-15">
 					<div class="form-group ">
 						<div class="fg-line">
 							<p class="form-label">LESS 2</p>
@@ -676,30 +734,8 @@
 							<input type="text" class="form-control fg-input" formControlName = "less3" name = "less3" (blur)="CALAmount()" [readonly] = "!lessCheck">
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
-
-			<div class="row m-t-25">
-				<p class="col-sm-12 c-black f-500">Rate</p>
-				<div class="col-sm-4 m-t-5">
-					<div class="form-group ">
-						<div class="fg-line">
-							<p class="form-label">Rate in INR(&#8377;)</p>
-							<input type="text" class="form-control fg-input" formControlName = "rate_INR" name = "rate_INR">
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4 m-t-5">
-					<div class="form-group ">
-						<div class="fg-line">
-							<p class="form-label">Rate in USD($)</p>
-							<input type="text" class="form-control fg-input" formControlName = "rate_dolar" name="rate_dolar">
-						</div>
-					</div>
-				</div>
-
-			</div>
-
 		</div>
 		<!-- </div> -->
 	</div>

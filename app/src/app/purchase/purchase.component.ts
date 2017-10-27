@@ -59,6 +59,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     private _fb: FormBuilder
   ) {
     this.options = new DatePickerOptions();
+     
   }
 
   addComponents() {
@@ -74,6 +75,15 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   ngOnInit() {
 
+    this._webservice.getCompany().subscribe(response=>
+      this.companyName=response
+    );
+
+    
+    this._webservice.generateInvoice('purchase').subscribe(response=>
+      this.myForm.controls['invoice_number'].patchValue("PU-"+response)
+    );
+
     this.myForm = this._fb.group({
             invoice_number: [''],
             currency_convrsion_rate: this.dolar,
@@ -86,14 +96,14 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             brokerType:[''],
             brokerName:[''],
             brokerage:[0],
-            comission1:0,
-            comission2:0,
+            comission:0,
             avg_INR:0,
             avg_dolar:0,
             amount_INR:0,
             amount_dolar:0,
             mVAT:0,
-            aginst_Hform:[''],            
+            aginst_Hform:[''],
+            company_name : [''],
             piecesTypes: this._fb.array([])
         });
         
@@ -117,9 +127,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             cost_rate_per_carat:0,
             wd_rate:0,
             wd_rate_carat:0,
-            less1:0,
-            less2:0,
-            less3:0,
+            less:0,
             rate_INR:0,
             rate_dolar:0,
             diamond_lot_number:[''],
@@ -156,7 +164,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
             reportDt: [''],
             inscription: [''],
             infoMsg:[''],
-            fullShapeDescription:['']
+            fullShapeDescription:[''],
+            askedPrice:0,
         });
     }
 
@@ -195,20 +204,20 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
         var purchaseData:any = [];
         for(var i = 0; i < piecesarray.length; i++){
           purchaseData.push(Object.assign({}, newpurchase, piecesarray[i]));
-          purchaseData[i].less = JSON.stringify({
-            less1:piecesarray[i].less1,
-            less2:piecesarray[i].less2,
-            less3:piecesarray[i].less3
-          });
-          delete purchaseData[i].less1;
-          delete purchaseData[i].less2;
-          delete purchaseData[i].less3;
-          purchaseData[i].comission = JSON.stringify({
-            comission1:purchaseData[i].comission1,
-            comission2:purchaseData[i].comission2
-          });
-          delete purchaseData[i].comission1 
-          delete purchaseData[i].comission2
+          // purchaseData[i].less = JSON.stringify({
+          //   less1:piecesarray[i].less1,
+          //   less2:piecesarray[i].less2,
+          //   less3:piecesarray[i].less3
+          // });
+          // delete purchaseData[i].less1;
+          // delete purchaseData[i].less2;
+          // delete purchaseData[i].less3;
+          // purchaseData[i].comission = JSON.stringify({
+          //   comission1:purchaseData[i].comission1,
+          //   comission2:purchaseData[i].comission2
+          // });
+          // delete purchaseData[i].comission1 
+          // delete purchaseData[i].comission2
           purchaseData[i].broker_details = JSON.stringify({
             brokerType : purchaseData[i].brokerType,
             brokerName : purchaseData[i].brokerName,
@@ -224,7 +233,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     }
 
   ngAfterViewInit(){}
-
+  public companyName:Array<string>=[];
+  public invoice:any;
   public countries:Array<string> = this.ConstantService.COUNRTIES;
   public brokertypes:Array<string> = this.ConstantService.BROKERTYPES;
   public names:Array<string> = this.ConstantService.NAMES;
@@ -235,14 +245,16 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public clarity:Array<string> = this.ConstantService.CLARITY;
   public sizes:Array<string> = this.ConstantService.SIZES;
   public taxes:Array<string> = this.ConstantService.TAXES;
-  public invoice:any = this.ConstantService.INVOICE;
+  
   public dolar:any = this.ConstantService.DOLAR;
   public lab_type:any = this.ConstantService.LAB_TYPE;
+  newpurchase = new Purchase();
 
-  newpurchase = new Purchase(this.invoice,this.dolar,false,"Bill To Bill");
-
-  public less:any = {less1:0,less2:0,less3:0};
-  public comission:any = {comission1:0,comission2:0};
+  // public less:any = {less1:0,less2:0,less3:0};
+  // public comission:any = {comission1:0,comission2:0};
+  public less:any = 0;
+  
+  public comission:any = 0;  
   private value:any = {};
   private _disabledV:string = '0';
   private disabled:boolean = false;
@@ -349,7 +361,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     var totalCRT = this.newpurchase.total_diamond_carat;
 
     this.newpurchase.amount_INR =  this.newpurchase.avg_INR*this.newpurchase.total_diamond_carat;
-    var lessDis = parseInt(this.less.less1)+parseInt(this.less.less2)+parseInt(this.less.less3);
+    var lessDis = parseInt(this.less)
     console.log(this.newpurchase.amount_INR,lessDis,(this.newpurchase.amount_INR*(lessDis/100)))
     var amountINR = this.newpurchase.amount_INR-(this.newpurchase.amount_INR*(lessDis/100));
     var amountDOLAR = this.newpurchase.amount_INR/this.newpurchase.currency_convrsion_rate;
@@ -379,8 +391,9 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   public checkComission(){
     console.log(this.comissionCheck);
     if(!this.comissionCheck){
-      this.comission.comission1 = 0;
-      this.comission.comission2 = 0;
+      // this.comission.comission1 = 0;
+      // this.comission.comission2 = 0;
+      this.comission = 0;
     }
   }
 
@@ -412,8 +425,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
     var amountINR = avgINR*sumOfCarats;
     var amountDOLAR = amountINR/this.getDolarRate();
 
-    amountINR = amountINR+(amountINR*(this.myForm.value.comission1/100));
-    amountINR = amountINR+(amountINR*(this.myForm.value.comission1/100));
+    amountINR = amountINR+(amountINR*(this.myForm.value.comission/100));
+    amountINR = amountINR+(amountINR*(this.myForm.value.comission/100));
 
     this.myForm.controls['amount_INR'].patchValue(parseFloat(amountINR.toFixed(2)));
     this.myForm.controls['amount_dolar'].patchValue(parseFloat(amountDOLAR.toFixed(2)));
@@ -424,8 +437,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
   onSubmit(form:NgForm) {
 
     this.submitted = true;
-    this.newpurchase.less = JSON.stringify(this.less);
-    this.newpurchase.comission = JSON.stringify(this.comission);
+    // this.newpurchase.less = JSON.stringify(this.less);
+    // this.newpurchase.comission = JSON.stringify(this.comission);
     this.newpurchasedata = JSON.parse(JSON.stringify(this.newpurchase));
     console.log(JSON.stringify(this.newpurchasedata));
     this.newpurchasedata.purchase_date = this.dateConversion(this.newpurchasedata.purchase_date);
@@ -464,8 +477,7 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
 
   public onFileChange(evt:any) {
     var jsonMap = {
-          "sr_no": "Sr No.",
-          "Stock_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",
@@ -501,11 +513,13 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           "avg_dolar": "Average in USD",
           "aginst_Hform": "Against Hform",
           "mVAT": "mVAT",
-          "less1": "Less 1",
-          "less2": "Less 2",
-          "less3": "Less 3",
-          "comission1": "Comission 1",
-          "comission2": "Comission 2",
+          // "less1": "Less 1",
+          // "less2": "Less 2",
+          // "less3": "Less 3",
+          "less": "Less",
+          // "comission1": "Comission 1",
+          // "comission2": "Comission 2",
+          "comission": "Comission",
           "brokerType": "Broker Type",
           "brokerName": "Broker Name",
           "brokerage": "Brokerage",
@@ -537,7 +551,9 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           "reportDt": "reportDt",
           "inscription": "inscription",
           "infoMsg": "infoMsg",
-          "fullShapeDescription": "fullShapeDescription"
+          "fullShapeDescription": "fullShapeDescription",
+          "company_name":"Company Name",
+          "askedPrice" : "Asked Price"
         };
 		const scope = this;
 		/* wire up file reader */
@@ -557,26 +573,31 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
       for (let x in jsonMap) {
         index.push(x);
       }
+      console.log(scope.data);
       for(let i=1; i<scope.data.length; i++){
-        for(let j=0; j<index.length; j++){
-          jsonMap[index[j]] = scope.data[i][j];
+        if(scope.data[i].length){
+          for(let j=0; j<index.length; j++){
+            console.log(jsonMap[index[j]], scope.data[i][j]);
+            jsonMap[index[j]] = scope.data[i][j];
+          }
+          console.log(jsonMap);
+          importedData.push(JSON.parse(JSON.stringify(jsonMap)));
         }
-        importedData.push(JSON.parse(JSON.stringify(jsonMap)));
       }
       for(var i = 0; i<importedData.length; i++){
         console.log(importedData[i]);
-        importedData[i].comission = {
-          comission1 : importedData[i].comission1,
-          comission2 : importedData[i].comission2
-        };
-        importedData[i].comission = JSON.stringify(importedData[i].comission);
+        // importedData[i].comission = {
+        //   comission1 : importedData[i].comission1,
+        //   comission2 : importedData[i].comission2
+        // };
+        // importedData[i].comission = JSON.stringify(importedData[i].comission);
 
-        importedData[i].less = {
-          less1 : importedData[i].less1,
-          less2 : importedData[i].less2,
-          less3 : importedData[i].less3
-        };
-        importedData[i].less = JSON.stringify(importedData[i].less);
+        // importedData[i].less = {
+        //   less1 : importedData[i].less1,
+        //   less2 : importedData[i].less2,
+        //   less3 : importedData[i].less3
+        // };
+        // importedData[i].less = JSON.stringify(importedData[i].less);
         
         importedData[i].broker_details = {
           brokerName : importedData[i].brokerName,
@@ -584,11 +605,8 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           brokerage : importedData[i].brokerage
         };
         importedData[i].broker_details = JSON.stringify(importedData[i].broker_details);
-        
-    }
-      // console.log(importedData);
+      }
     };
-
 		reader.readAsBinaryString(target.files[0]);
   }
   submitData(){
@@ -600,27 +618,16 @@ export class PurchaseComponent implements OnInit, AbstractViewInit {
           }
         }
         delete importedData[i].sr_no;
-        delete importedData[i].less1;
-        delete importedData[i].less2;
-        delete importedData[i].less3;
-        delete importedData[i].comission1;
-        delete importedData[i].comission2;
+        // delete importedData[i].less1;
+        // delete importedData[i].less2;
+        // delete importedData[i].less3;
+        // delete importedData[i].comission1;
+        // delete importedData[i].comission2;
         delete importedData[i].brokerName;
         delete importedData[i].brokerType;
         delete importedData[i].brokerage;
     }
       
       this._webservice.postpurchasedata(importedData);
-  }  
-//   function getObjectKeyIndex(obj, keyToFind) {
-//     var i = 0, key;
-//     for (key in obj) {
-//         if (key == keyToFind) {
-//             return i;
-//         }
-//         i++;
-//     }
-//     return null;
-// }
-
+  }
 }

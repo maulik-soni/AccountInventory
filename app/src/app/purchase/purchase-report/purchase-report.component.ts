@@ -19,7 +19,7 @@ export class PurchaseReportComponent implements OnInit {
 
   mydata:any =  [];
   private searchterm=new Subject;
-  searchatts=new Search(['all','filter'],['PCS ID','Invoice Number','Party Name','date']);
+  searchatts=new Search(['all','filter'],['Stock ID','Invoice Number','Party Name','date']);
   searchvalues=new SearchValues(
     this.searchatts.filter[0],
     this.searchatts.filterby[0],
@@ -174,11 +174,10 @@ export class PurchaseReportComponent implements OnInit {
         }
       }
     }
-    if(exportCSVdata[0].sr_no != "Sr No."){
+    if(exportCSVdata[0].Stock_ID != "Stock_ID"){
       exportCSVdata.unshift(
         {
-          "sr_no": "Sr No.",
-          "Stock_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "invoice_number": "Invoice Number",
           "purchase_date": "Purchase Date",
           "due_date": "Due Date",
@@ -250,7 +249,8 @@ export class PurchaseReportComponent implements OnInit {
           "reportDt": "reportDt",
           "inscription": "inscription",
           "infoMsg": "infoMsg",
-          "fullShapeDescription": "fullShapeDescription"
+          "fullShapeDescription": "fullShapeDescription",
+          "company_name":"Company Name"
         }
       );
     }

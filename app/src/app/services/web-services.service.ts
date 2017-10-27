@@ -98,7 +98,10 @@ export class WebServicesService {
     searchmemoin:this.base_url+'/api/searchmemoin',
 
     showmemoissue:this.base_url+'/api/showmemoissue',
-    searchmemoissue:this.base_url+'/api/searchmemoissue'
+    searchmemoissue:this.base_url+'/api/searchmemoissue',
+
+    getcompany : this.base_url+'/api/getcompany',
+    generateInvoice : this.base_url+'/api/getInvoiceNumber'
   };
   
   constructor(private _http:Http) { }
@@ -519,16 +522,16 @@ showinventory(data){
       .map((response:Response) => response.json());
   }
 
-  memoinchangestatus(pcsid){
+  memoinchangestatus(stockid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoinchangestatus+this.api_token_header(),pcsid,options);
+    return this._http.post(this.apis.memoinchangestatus+this.api_token_header(),stockid,options);
   }
 
-  memoissuechangestatus(pcsid){
+  memoissuechangestatus(stockid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.memoissuechangestatus+this.api_token_header(),pcsid,options);
+    return this._http.post(this.apis.memoissuechangestatus+this.api_token_header(),stockid,options);
   }
 
   showmemoin(data){
@@ -561,10 +564,10 @@ showinventory(data){
   *Lab Issue Module Web services*
   *******************************/
 
-  changelabissuestatus(pcsid){
+  changelabissuestatus(stockid){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this._http.post(this.apis.changelabissuestatus+this.api_token_header(),pcsid,options);
+    return this._http.post(this.apis.changelabissuestatus+this.api_token_header(),stockid,options);
   }
 
   createlabissue(data){
@@ -647,12 +650,12 @@ showinventory(data){
       .map((response:Response) => response.json());
   }
 
-  fetchpurchase(pcsid,pcstype){
+  fetchpurchase(stockid,pcstype){
     if(pcstype == "singlestone"){
-      return this._http.get(this.apis.purchasereport+"?pcsid="+pcsid+this.api_token_header())
+      return this._http.get(this.apis.purchasereport+"?stockid="+stockid+this.api_token_header())
        .map((response:Response) => response.json());
     }else{
-      return this._http.get(this.apis.purchasereport+"?lot_number="+pcsid+this.api_token_header())
+      return this._http.get(this.apis.purchasereport+"?lot_number="+stockid+this.api_token_header())
        .map((response:Response) => response.json());
     }
   }
@@ -714,7 +717,15 @@ showinventory(data){
   }
 
 
-  
+  getCompany(){
+    return this._http.get(this.apis.getcompany)
+    .map((response:Response) => response.json());
+  }
+
+  generateInvoice(table){
+    return this._http.get(this.apis.generateInvoice+"?table="+table)
+    .map((response:Response) => response.json());
+  }
 
   dateConversion(date){
     console.log(date);

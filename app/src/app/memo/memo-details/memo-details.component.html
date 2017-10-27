@@ -1,8 +1,8 @@
 <form  [formGroup]="memoDetails">
   <div class="card">
-		<div class="card-header">
 			<!--<h2>Goods Details</h2>-->
-			<ul class="actions">
+    <div style="overflow : hidden">
+      <ul class="actions pull-right m-t-5">
 				<li>
 					<label class="radio radio-inline m-r-20">
 						<input type="radio" value="singlestone" name = "piecetype" [(ngModel)] = "piecetype" [ngModelOptions]="{standalone: true}">
@@ -16,18 +16,20 @@
 						Parcel
 					</label>
 				</li>			
-			</ul>
-		</div>
+      </ul>
+    </div>
 
     <div class="card-body card-padding" *ngIf="piecetype == 'singlestone'">
       <div *ngIf = "this._router.url == '/jangad/jangad-issue-entry'">
-        <div class="row m-t-25">
+        <div class="row">
           <div class = "col-sm-4">
-          <div class="form-group">
-            <p class="form-label">Search Purchase by 'PCS ID'</p>
-            <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
-          </div>
-          <button class="btn btn-primary btn-sm waves-effect" (click) = "search(searchPCS)">Search</button>
+            <div class="form-group col-lg-8 col-sm-8 col-xs-8">
+              <p class="form-label">Search Purchase by 'Stock ID'</p>
+              <input type="text" class="form-control" [(ngModel)]="searchPCS" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class = "col-lg-4 col-sm-4 col-xs-4">
+              <button class="btn btn-primary btn-sm waves-effect m-t-25" (click) = "search(searchPCS)">Search</button>
+            </div>
           </div>
         </div>
 
@@ -68,7 +70,7 @@
               </div>
               <div style="width:100%;float:left;">
                 <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                Pcs ID : {{mypurchase.Stock_ID}}
+                Stock ID : {{mypurchase.Stock_ID}}
                 <span style="font-size:11px; float:left; width:100%;">
                 Total Carats : {{mypurchase.carat}}
                 <!--<br>
@@ -109,15 +111,15 @@
       </div>
 
       <div class="row m-t-25" *ngIf = "searchResult || this._router.url == '/jangad/jangad-in-entry'">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
-              <p class="form-label">PCS ID</p>
+              <p class="form-label">Stock ID</p>
               <input type="text" class="form-control fg-input" formControlName = "Stock_ID" name = "Stock_ID" (disabled)="this._router.url != '/jangad/jangad-in-entry'">
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Diamond Carats</p>
@@ -125,7 +127,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Rate</p>
@@ -133,7 +135,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Country</p>
@@ -155,13 +157,15 @@
 
     <div class="card-body card-padding" *ngIf="piecetype == 'parcel'">
       <div *ngIf = "this._router.url == '/jangad/jangad-issue-entry'">
-        <div class="row m-t-25">
+        <div class="row">
           <div class = "col-sm-4">
-          <div class="form-group">
-            <p class="form-label">Search Purchase by 'Lot Number'</p>
-            <input type="text" class="form-control" [(ngModel)]="searchLotNumber" [ngModelOptions]="{standalone: true}">
-          </div>
-          <button class="btn btn-primary btn-sm waves-effect" (click) = "search(searchLotNumber)">Search</button>
+            <div class="form-group col-lg-8 col-sm-8 col-xs-8">
+              <p class="form-label">Search Purchase by 'Lot Number'</p>
+              <input type="text" class="form-control" [(ngModel)]="searchLotNumber" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class = "col-lg-4 col-sm-4 col-xs-4">
+              <button class="btn btn-primary btn-sm waves-effect m-t-25" (click) = "search(searchPCS)">Search</button>
+            </div>
           </div>
         </div>
 
@@ -203,7 +207,7 @@
               
               <div style="width:100%;float:left;">
                 <span style="float:left; text-align:left;padding:10px;width:50%;color:#888;">
-                Pcs ID : {{mypurchase.Stock_ID}}
+                Stock ID : {{mypurchase.Stock_ID}}
                 <span style="font-size:11px; float:left; width:100%;">
                 Total Carats : {{mypurchase.total_diamond_carat}}
                 <!--<br>
@@ -244,7 +248,7 @@
       </div>
 
       <div class="row m-t-25" *ngIf = "searchResult || this._router.url == '/jangad/jangad-in-entry'">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Lot Number</p>              
@@ -252,7 +256,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Diamond Carats</p>
@@ -260,7 +264,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Rate</p>
@@ -268,7 +272,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <div class="fg-line">
               <p class="form-label">Country</p>

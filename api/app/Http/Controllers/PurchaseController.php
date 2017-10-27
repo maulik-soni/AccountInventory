@@ -25,8 +25,8 @@ class PurchaseController extends Controller
             $purchase_data = Purchase::all()->take($params['limit']);
         }else if(!empty($params['lastid'])){
             $purchase_data = Purchase::all()->where('sr_no','>',$params['lastid']);
-        }else if(!empty($params['pcsid'])){
-            $purchase_data = Purchase::all()->where('Stock_ID','=',$params['pcsid']);
+        }else if(!empty($params['stockid'])){
+            $purchase_data = Purchase::all()->where('Stock_ID','=',$params['stockid']);
         }else if(!empty($params['lot_number'])){
             $purchase_data = Purchase::all()->where('diamond_lot_number','=',$params['lot_number']);
         }else{
@@ -53,15 +53,15 @@ class PurchaseController extends Controller
         Purchase::where('Stock_ID', '=', $data['Stock_ID'])->delete();
     }
 
-    public function purchaseReturnFromDB($pcsID){
+    public function purchaseReturnFromDB($stockid){
         
-        $PR_pcsid = $pcsID;
+        $PR_stockid = $stockid;
         
         $purchase = new \App\Purchase;
         $purchase_return = new \App\PurchaseReturn;
-        $PR_data = Purchase::where(function($query) use($PR_pcsid){
-            $query->where('Stock_ID', '=', $PR_pcsid)
-                  ->orWhere('diamond_lot_number', '=', $PR_pcsid);
+        $PR_data = Purchase::where(function($query) use($PR_stockid){
+            $query->where('Stock_ID', '=', $PR_stockid)
+                  ->orWhere('diamond_lot_number', '=', $PR_stockid);
         })->first()->toArray();
         
         foreach ($PR_data as $fields => $value) {
@@ -69,9 +69,9 @@ class PurchaseController extends Controller
                 $purchase_return->$fields = $PR_data[$fields];
         }
         $purchase_return->save();
-        Purchase::where(function($query) use($PR_pcsid){
-            $query->where('Stock_ID', '=', $PR_pcsid)
-                  ->orWhere('diamond_lot_number', '=', $PR_pcsid);
+        Purchase::where(function($query) use($PR_stockid){
+            $query->where('Stock_ID', '=', $PR_stockid)
+                  ->orWhere('diamond_lot_number', '=', $PR_stockid);
         })->first()->delete();
     }
 
@@ -159,10 +159,10 @@ class PurchaseController extends Controller
     }
 
     public function purchaseReturn(){
-        $PR_pcsid = Request::all();
-        // print_r($PR_pcsid);
-        for($i = 0; $i<count($PR_pcsid); $i++){
-            $this->purchaseReturnFromDB($PR_pcsid[$i]);
+        $PR_stockid = Request::all();
+        // print_r($PR_stockid);
+        for($i = 0; $i<count($PR_stockid); $i++){
+            $this->purchaseReturnFromDB($PR_stockid[$i]);
         }
     }
 

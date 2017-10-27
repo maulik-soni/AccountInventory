@@ -22,7 +22,7 @@ export class LabissueReportComponent implements OnInit {
   issued:any = [];
   received:any = [];
   private searchterm=new Subject;
-  searchatts=new Search(['all','filter'],['PCS ID','Lab Type','date']);
+  searchatts=new Search(['all','filter'],['Stock ID','Lab Type','date']);
   searchvalues=new SearchValues(
     this.searchatts.filter[0],
     this.searchatts.filterby[0],
@@ -164,7 +164,7 @@ export class LabissueReportComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "Sr_no": "Sr No.",
-          "Stock_ID": "PCS ID",
+          "Stock_ID": "Stock ID",
           "LAB_type": "Lab Type",
           "date" : "Date",
           "shape" : "Shape",

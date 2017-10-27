@@ -201,6 +201,21 @@
     background: #00bcd4;
     color:#fff;
 }
+.container {
+    width: 100%;
+}
+
+.collapseButton {
+    color:#000;
+    font-weight: 600;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.modalWidth{
+    max-width: 90%;
+    width: auto !important;
+}
 
 .ui-select-match-text{
     margin-top: 5px;
