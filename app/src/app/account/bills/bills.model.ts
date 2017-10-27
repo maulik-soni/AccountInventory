@@ -18,8 +18,10 @@ export class Bills{
         public transaction_id?:String,
         public debit?:number,
         public credit?:number,
+        public usd_amount?:number,
+        public account_number?:number,
         public tranasaction_conversion_rate?:number,
-        public bank_branch?:string
+        public bank_branch?:String
     ){}
 }
 
@@ -31,7 +33,8 @@ export class Options{
         public transaction_currency:Array<String>,
         public account_name:Array<String>,
         public bank:Array<String>,
-        public branch:Array<String>
+        public branch:Array<String>,
+        public account_number:Array<number>
     ){
         
     }

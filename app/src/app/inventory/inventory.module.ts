@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 import { SharedModule } from './../shared/shared.module';
 import { InventoryComponent } from './inventory.component';
@@ -9,7 +10,8 @@ import { InventoryRoutingModule } from './inventory-routing.module';
   imports: [
     CommonModule,
     SharedModule,
-    InventoryRoutingModule
+    InventoryRoutingModule,
+    NgxBarcodeModule
   ],
   declarations: [InventoryComponent]
 })

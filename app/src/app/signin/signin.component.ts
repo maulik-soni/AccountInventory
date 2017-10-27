@@ -28,15 +28,15 @@ export class SigninComponent implements OnInit {
  
   ngOnInit():any {
     this.fields={email:"",password:"",country:this.countries[0]};
-    localStorage.setItem('country',this.fields.country)
+    localStorage.setItem('dbcountry',this.fields.country)
   }
 
   countryChange(){
-    localStorage.setItem('country',this.fields.country)
+    localStorage.setItem('dbcountry',this.fields.country)
   }
 
   getCountry(){
-     let store= localStorage.getItem('country');
+     let store= localStorage.getItem('dbcountry');
      return store.slice(1,store.length-1);
   }
 

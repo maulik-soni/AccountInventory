@@ -1,5 +1,6 @@
 export class Vendor{
     constructor(
+        public id:number,
         public v_name:string,
         public account_code:string,
         public address:string,

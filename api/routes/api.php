@@ -41,13 +41,13 @@ use Illuminate\Http\Request;
 
 
 
-// Route::group(['middleware'=>'setdatabase'],function(){
-// 		Route::put('/{user}','UserController@update');
-// 		Route::delete('/{user}','UserController@delete');
-// 		Route::post('/','UserController@make');	
-// 	});
-// Route::group(['middleware'=>'setdatabase'],function(){
-// Route::group(['middleware'=>'auth:api'],function(){
+Route::group(['middleware'=>'setdatabase'],function(){
+		Route::put('/{user}','UserController@update');
+		Route::delete('/{user}','UserController@delete');
+		Route::post('/','UserController@make');	
+	});
+Route::group(['middleware'=>'setdatabase'],function(){
+Route::group(['middleware'=>'auth:api'],function(){
 Route::post('/newpurchase', 'PurchaseController@newPurchaseEntry');
 Route::post('/purchasereturn', 'PurchaseController@purchaseReturn');
 Route::post('/newsales', 'salesConroller@newSalesEntry');
@@ -92,6 +92,7 @@ Route::post('/showuser','UserController@show');
 Route::post('/newuser','UserController@create');
 Route::put('/updateuser/{id}','UserController@update');
 Route::delete('/deleteuser/{id}','UserController@destroy');
+Route::post('/logout','UserController@logout');
 	
 
 
@@ -113,25 +114,32 @@ Route::post('/showinventory','InventoryController@show');
 Route::post('/newvendor','VendorsController@create');
 Route::get('/editvendor/{id}','VendorsController@edit');
 Route::post('/showvendor','VendorsController@show');
-Route::post('/updatevendor','VendorsController@update');
+Route::put('/updatevendor/{id}','VendorsController@update');
 Route::delete('/deletevendor/{id}','VendorsController@destroy');
 
 Route::post('/newcompanybank','CompanyBankDetailsController@create');
 Route::get('/editcompanybank/{id}','CompanyBankDetailsController@edit');
 Route::post('/showcompanybank','CompanyBankDetailsController@show');
-Route::post('/updatecompanybank','CompanyBankDetailsController@update');
+Route::put('/updatecompanybank/{id}','CompanyBankDetailsController@update');
 Route::delete('/deletecompanybank/{id}','CompanyBankDetailsController@destroy');
+Route::get('/getcompanybanks','CompanyBankDetailsController@getcompanybanks');
+Route::post('/getcompanybank','CompanyBankDetailsController@getcompanybank');
+Route::post('/getcompanybankaccount','CompanyBankDetailsController@getcompanybankaccount');
+Route::post('/getcompanybranches','CompanyBankDetailsController@getbankbranches');
+Route::post('/getbankamount','CompanyBankDetailsController@getamount');
 
 Route::post('/newvendorbank','VendorBankDetailsController@create');
 Route::get('/editvendorbank/{id}','VendorBankDetailsController@edit');
 Route::post('/showvendorbank','VendorBankDetailsController@show');
-Route::post('/updatevendorbank','VendorBankDetailsController@update');
+Route::put('/updatevendorbank/{id}','VendorBankDetailsController@update');
 Route::delete('/deletevendorbank/{id}','VendorBankDetailsController@destroy');
 
 Route::post('/newcompanyprofile','CompanyProfileController@create');
 Route::get('/editcompanyprofile/{id}','CompanyProfileController@edit');
 Route::post('/showcompanyprofile','CompanyProfileController@show');
 Route::put('/updatecompanyprofile/{id}','CompanyProfileController@update');
+Route::delete('/deletecompanyprofile/{id}','CompanyProfileController@destroy');
+
 
 
 Route::post('/showcashbook','CashbookController@show');	
@@ -159,7 +167,7 @@ Route::get('/searchmemoissue','memoissueController@search');
 Route::get('/getcompany', 'sharedAPIController@fetchCompanyName');
 Route::get('/getInvoiceNumber', 'sharedAPIController@generateInvoiceNumber');
 
-	// });
+	});
 Route::post('/login','UserController@authenticate');
 Route::post('password/email', 'Auth\ForgotPasswordController@getResetToken');
 Route::post('password/email/{token}', 'Auth\ResetPasswordController@reset');

@@ -17,7 +17,7 @@ class CheckDatabase
     public function handle($request, Closure $next)
     {
      $query=$request->all();   
-         Config::set('database.default', $query['country']);
+         Config::set('database.default', $query['dbcountry']);
         return $next($request);
     }
 }

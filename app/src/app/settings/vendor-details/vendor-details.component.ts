@@ -1,5 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { SharedModule } from './../../shared/shared.module';
 
 @Component({
   selector: 'vendor-details',

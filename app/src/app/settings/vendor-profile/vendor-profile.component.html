@@ -1,7 +1,7 @@
 <dashboard>
- <div class="container">
+ <div class="container-fluid">
    <div class="block-header">
-      <h2>Vendor Details</h2>
+      <h2>Vendor Profile</h2>
     </div>
 
     <div class="card">
@@ -17,8 +17,8 @@
         <form [formGroup]="vendorProfile" (ngSubmit)="onSubmit()" novalidate>
 
 
-        <div formArrayName="vendors" class="well well-lg">
-          <div *ngFor="let vendor of vendors.controls; let i=index" [formGroupName]="i" >
+        <div formArrayName="vendors" *ngIf="vendors.controls.length>0" class="well well-lg m-t-20">
+          <div *ngFor="let vendor of vendors.controls; let i=index" [formGroupName]="i" class="vendor">
                 <div class="ch-alt">
 					      <h4 style="display: inline-block">Vendors {{i + 1}}</h4>
 					      <span class="glyphicon glyphicon-remove pull-right" (click)="removeVendor(i)"></span>
@@ -27,7 +27,7 @@
           </div>
         </div>
 
-        <p>{{vendorProfile.value | json}}</p>
+        <!-- <p>{{vendorProfile.value | json}}</p> -->
 
           
 
@@ -54,7 +54,7 @@
           </div>
           -->
         
-        <button class="btn">Save</button> 
+        <button *ngIf="vendors.controls.length>0" class="btn btn-info waves-effect" [disabled]="!vendorProfile.valid">Save</button> 
     </form>
 
     

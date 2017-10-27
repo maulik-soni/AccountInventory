@@ -20,8 +20,8 @@ searchvalues=new SearchValues(
   this.searchatts.filter[0],
   this.searchatts.filterby[0][1],
   null,
-  new Date().toLocaleDateString(),
-  new Date().toLocaleDateString()
+  '',
+  ''
 );
 
 titles=['party name','amount'];
@@ -34,13 +34,13 @@ query;
 constructor(private _receivableservice:WebServicesService){}
   
   ngOnInit() {
-    this._receivableservice.showreceivable({staticdata:'data'}).subscribe(
-      resData=>{
-        this.titles=resData.titles;
-        this.data=resData.data;
-        console.log(resData.titles);
-        console.log(resData.data);
-      });
+    // this._receivableservice.showreceivable({staticdata:'data'}).subscribe(
+    //   resData=>{
+    //     this.titles=resData.titles;
+    //     this.data=resData.data;
+    //     console.log(resData.titles);
+    //     console.log(resData.data);
+    //   });
 
       this.searchterm
       .debounceTime(100)
@@ -68,28 +68,31 @@ constructor(private _receivableservice:WebServicesService){}
 
   resetsearch(){
     this.searchvalues.search=null;
+    this.searchresult=[];
   }
 
   onSubmit(form:NgForm){
     if(this.searchvalues.filter=='all'){
       this.query=JSON.stringify(form.value);
-      console.log(this.query);
+      // console.log(this.query);
     }
     if(this.searchvalues.filterby=='date'){
       this.query=JSON.stringify(form.value);
-      console.log(this.query);
+      // console.log(this.query);
     }
     if(form.value.search!=null){
      this.query=JSON.stringify(form.value);
-     console.log(this.query);
+    //  console.log(this.query);
     }
+
+     console.log(this.query);
 
     if(this.query){
       this._receivableservice.showreceivable(this.query).subscribe(response=>{
-      console.log(response.response);
-      console.log(response.response.accounts);
-      console.log(response.response.accounts[0]);
-      console.log(response.response.accounts[0].account_name);
+      // console.log(response.response);
+      // console.log(response.response.accounts);
+      // console.log(response.response.accounts[0]);
+      // console.log(response.response.accounts[0].account_name);
     this.data=response.response});
     }
     

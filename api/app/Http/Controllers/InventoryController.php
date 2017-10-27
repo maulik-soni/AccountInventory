@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Inventory;
+use App\MemoIssue;
+use App\LabIssue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -9,63 +11,72 @@ class InventoryController extends Controller
 {
     public function show(Request $request){
         $query=$request->all();
-        $collect=Inventory::collection();
+        $collect=Inventory::collection($query['filterby'],$query['date']);
+        ////////////////////////////////////////////
+        ///// Showing all Result
+        ///////////////////////////////////////////
 
-
-	////////////////////////////////////////////
-	///// Showing all Result
-	///////////////////////////////////////////
-
-        if(($request->has('inventory')) && ($query['inventory']=='all')){
-            return response()->json([
-						'response'=>[
-								'inventory'=>$collect
-								]
-						],201);
-        }
-
-
-	////////////////////////////////////////////
-	/////  Filters
-	///////////////////////////////////////////
-
-        if($request->has('filter')){
-            $filterables = collect([
-                    'diamond_shape'=>[],
-                    'diamond_color'=>[],
-                    'diamond_clarity'=>[],
-                    'stock_status_group'=>[],
-                    // 'kapan'=>[],
-                    'LAB_type'=>[],
-                    'polishing_type'=>[]
-                    ]);
+        
+        // if(($request->has('inventory')) && ($query['inventory']=='all')){
+            //     return response()->json([
+                // 				'response'=>[
+                    //                         'inventory'=>$collect,
+                    // 						]
+                    // 				],201);
+                    // }
+                    
+                    // if(($request->has('searchby'))){
+                        
+                        // }
+                        
+                        
+                        ////////////////////////////////////////////
+                        /////  Filters
+                        ///////////////////////////////////////////
+                        
+                        $filterables = collect([
+                                'diamond_shape'=>[],
+                                'diamond_color'=>[],
+                                'diamond_clarity'=>[],
+                                'stock_status_group'=>[],
+                                'LAB_type'=>[],
+                                'polishing_type'=>[],
+                                'finalCut'=>[],
+                                'symmetry'=>[],
+                                'fluorescenceIntensity'=>[],
+                                'account_name'=>[],
+                                'total_diamond_carat'=>[],
+                                ]);
+                                if($query['filter']=='filteroptions'){
+                    
+                                    $filtervalues = $filterables->keys()
+                                                    ->map(function($item){
+                                                            $collection = Inventory::getfields($item);
+                                                            return array('item'=>$item,'items'=>$collection);  
+                                                    });
+                    
+                                    return response()->json([
+                                            'response'=>[
+                                                    'filters'=>$filtervalues
+                                                    ]
+                                            ],201);
+                    
+                                }
+                        if($request->has('filter')){
+                           
             
 
             ////////////////////////////////////////////
             ///// All Filters
             ///////////////////////////////////////////
 
-            if($query['filter']=='filteroptions'){
-
-                $filtervalues = $filterables->keys()
-                                ->map(function($item){
-                                        $collect = Inventory::getfields($item);
-									    return array('item'=>$item,'items'=>$collect);  
-								});
-
-                return response()->json([
-						'response'=>[
-								'filters'=>$filtervalues
-								]
-						],201);
-
-            }
             ////////////////////////////////////////////
             /////  Filter options
             ///////////////////////////////////////////
 
-            if($query['inventory']=='filter'){
-                $querycollection=collect($query);
+            // if($query['inventory']=='filter'){
+                $querycollection=collect($query['filter']);
+               
                 $filtered=$querycollection->transform(
                             function($value,$key){
                                 $valueobject=collect($value);
@@ -98,39 +109,26 @@ class InventoryController extends Controller
                 /////  Filter Results
                 ///////////////////////////////////////////
 
-                 if($request->has('filterresult')){
+                 
                     return response()->json([
                             'response'=>[
-                                    'inventory'=>$inventories
+                                    'inventory'=>$inventories,
+                                    'searches'=>sizeof($inventories),
+                                    'total_carats'=>$inventories->pluck('total_diamond_carat')->avg(),
                                     ]
                             ],201);
-                 }
+                 
 
                 ////////////////////////////////////////////
                 /////  Dynamic Filter options
                 ///////////////////////////////////////////
 
-                if($request->has('getoption')){
-                    $filtervalues=collect([]);
+                // if($request->has('getoption')){
+                //     return $inventories;
 
-                    foreach($filterables as $key=>$value){
-                        foreach($inventories as $inventory){
-                            if(!(collect($value)->contains($inventory[$key]))){
-                                array_push($value,$inventory[$key]);
-                            }
-                        }
-                        $filtervalues=$filtervalues->push(array('item'=>$key,'items'=>$value))->values();
-                    }
+                // }
 
-                    return response()->json([
-                    'response'=>[
-                            'filters'=>$filtervalues
-                            ]
-                    ],201);
-
-                }
-
-            }
+            // }
 
         }
 

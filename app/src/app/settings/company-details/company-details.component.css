@@ -1,0 +1,14 @@
+.company{
+    padding: 15px;
+   
+}
+
+input:read-only{
+    cursor:text;
+    opacity: 1;
+}
+
+input:disabled {
+border:none;
+cursor: auto;
+}

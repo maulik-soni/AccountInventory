@@ -4,5 +4,5 @@ use Illuminate\Database\Eloquent\Model;
 class LabIssue extends Model
 {
     public $table='lab_issue';
-    protected $primaryKey = 'PCS_ID';
+    protected $primaryKey = 'Stock_ID';
 }

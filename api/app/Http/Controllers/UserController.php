@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $this->validate($request,[
             'name'=>'required',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users',
             'password'=>'required',
             ]);
 
@@ -24,8 +24,12 @@ class UserController extends Controller
             'email'=>$request->input('email'),
             'password'=>bcrypt($request->input('password')),
             'api_token'=>str_random($length = 60)]);
-
         $user->save();
+
+        $user_id=User::select('id')->where('email',$request->input('email'))->sum('id');
+
+        DB::table('role_user')->insert(['role_id'=>2,'user_id'=>$user_id]);
+
         return response()->json(['message'=>'successfully created user'],201);
     }
 
@@ -84,16 +88,6 @@ class UserController extends Controller
 
         $credentials= $request->only('email','password');
 
-        //  Config::set('database.default', 'India');
-
-//         Config::set("database.connections.mysql", [
-//     "driver" => "mysql",
-//     "host"=> env('DB_HOST', '127.0.0.1'),
-//     "database" => $query['db'],
-//     'username' => env('DB_USERNAME', 'forge'),
-//     'password' => env('DB_PASSWORD', ''),
-// ]);
-        
 
          if (Auth::attempt($credentials)){
             $token=$request->user()->api_token;
@@ -102,5 +96,19 @@ class UserController extends Controller
          }
 
          return response()->json(['error'=> 'invalid password or email'],401);
+    }
+
+    public function logout(Request $request){
+        $query=$request->all();
+        $this->validate($request,[
+            'api_token'=>'required',
+        ]);
+        if($request->has('logout')){
+            $id=User::select('id')->where('api_token',$query['api_token'])->pluck('id')[0];
+            $userrecord=User::find($id);
+            $userrecord->api_token=str_random($length = 60);
+            $userrecord->save();
+            return response()->json(['response'=>'success'],200);
+        }
     }
 }

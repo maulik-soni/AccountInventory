@@ -15,7 +15,7 @@ class PayableController extends Controller
 	///////////////////////////////////////////
 
 	public function search(Request $request){
-		$term = $request->all();
+		$term = $request->except(['api_token','dbcountry']);
 		$response=Payable::search($term);
 		 return response()
 				   ->json($response,201);

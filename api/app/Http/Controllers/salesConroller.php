@@ -80,7 +80,7 @@ class salesConroller extends Controller
         $sales_return->save();
         Sales::where(function($query) use($SR_stockid){
             $query->where('Stock_ID', '=', $SR_stockid)
-                  ->orWhere('diamond_lot_number', '=', $SR_stocki);
+                  ->orWhere('diamond_lot_number', '=', $SR_stockid);
         })->first()->delete();
     }
 

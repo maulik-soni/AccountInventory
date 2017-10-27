@@ -8,5 +8,5 @@ class Sales extends Model
 {
     public $timestamps = false;
     protected $table = 'sales';
-    protected $primaryKey = 'PCS_ID';
+    protected $primaryKey = 'Stock_ID';
 }

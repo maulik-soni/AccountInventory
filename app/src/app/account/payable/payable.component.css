@@ -21,12 +21,15 @@
     vertical-align: top;
 }
 
+
 .search-box{
     display: inline-block;
     vertical-align: middle;
     position: relative;
+    margin-right: 10px;
     
 }
+
 
 .search-box .search-field{
     padding: 10px;
@@ -81,3 +84,31 @@
     color:#fff;
 }
 
+table th{
+    background: #edecec;
+    text-align: center;
+}
+
+table td{
+    background: #fff;
+    text-align: center;
+}
+
+.titles{
+    display: inline-block;
+    width: 49%;
+}
+
+.titles p:first-child{
+display: inline-block;
+/* font-weight: bold; */
+}
+.main-result{
+    margin-bottom: 15px;    
+}
+
+.titles p:last-child{
+   display: inline-block;
+   text-transform: uppercase;
+   font-weight: bold;
+}

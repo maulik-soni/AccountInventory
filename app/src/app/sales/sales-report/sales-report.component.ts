@@ -102,7 +102,7 @@ export class SalesReportComponent implements OnInit {
     console.log(this.salesReturnData);
     for(let j=0; j<this.salesReturnData.length; j++){
       for(var i=0; i<this.mydata.length; i++){
-        if(this.mydata[i].PCS_ID == this.salesReturnData[j] || this.mydata[i].Lot_Number == this.salesReturnData[j]){
+        if(this.mydata[i].Stock_ID == this.salesReturnData[j] || this.mydata[i].Lot_Number == this.salesReturnData[j]){
           this.mydata.splice(i,1);
         }
       }  
@@ -112,8 +112,8 @@ export class SalesReportComponent implements OnInit {
   }
 
   returnSales(salesretrun,data){
-    var dataID = data.PCS_ID;
-    if(data.PCS_ID == undefined || data.PCS_ID == '' || data.PCS_ID == null){
+    var dataID = data.Stock_ID;
+    if(data.Stock_ID == undefined || data.Stock_ID == '' || data.Stock_ID == null){
       dataID = data.diamond_lot_number;
     }
     console.log(salesretrun,dataID);
@@ -177,7 +177,7 @@ export class SalesReportComponent implements OnInit {
       exportCSVdata.unshift(
         {
           "sr_no": "Sr No.",
-          "PCS_ID": "PCS ID",
+          "Stock_ID": "PCS ID",
           "invoice_number": "Invoice Number",
           "sales_date": "Sales Date",
           "due_date": "Due Date",

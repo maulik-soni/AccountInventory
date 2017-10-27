@@ -19,13 +19,14 @@ import { InventoryModule } from './inventory/inventory.module';
 import { CashbookModule } from './cashbook/cashbook.module';
 import { UserModule } from './user/user.module';
 import { SettingsModule } from './settings/settings.module';
-
+import { ForgetPasswordModule } from './forgetpassword/forgetpassword.module';
 import { DatepickerModule } from 'angular2-material-datepicker';
 import { LabissueModule } from './labissue/labissue.module';
 import { HomeComponent } from './home/home.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [AppComponent, HomeComponent, ResetPasswordComponent],
   imports: [
     BrowserModule,
     AuthModule,
@@ -49,7 +50,8 @@ import { HomeComponent } from './home/home.component';
     DatepickerModule,
     // ServicesModule,   
     AppRoutingModule,
-    LabissueModule 
+    LabissueModule,
+    ForgetPasswordModule
   ],
   providers: [],
   bootstrap: [AppComponent]

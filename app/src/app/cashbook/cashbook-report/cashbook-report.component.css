@@ -25,6 +25,8 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
+    margin-right: 10px;
+    
     
 }
 
@@ -81,3 +83,16 @@
     color:#fff;
 }
 
+.main-result{
+    margin-bottom: 15px;    
+}
+
+table th{
+    background: #c3c0c0;
+    text-align: center;
+}
+
+table td{
+    background: #fff;
+    text-align: center;
+}
