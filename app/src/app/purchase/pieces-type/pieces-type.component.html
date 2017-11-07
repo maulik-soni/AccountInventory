@@ -70,12 +70,12 @@
 					</div>
 				</div>
 				<div class="col-sm-3">
-					<a *ngIf = "piecesTypeForm.value.Stock_ID != '' && piecesTypeForm.value.certificate_number != ''" data-toggle="modal" href="#modalWider{{piecesTypeForm.value.Stock_ID}}" class="btn btn-sm btn-info" >Fetch Details</a>
+					<a *ngIf = "piecesTypeForm.value.Stock_ID != '' && piecesTypeForm.value.certificate_number != ''" data-toggle="modal" href="#modalWider{{piecesTypeForm.value.certificate_number}}" class="btn btn-sm btn-info" >Fetch Details</a>
 					<a *ngIf = "piecesTypeForm.value.Stock_ID == '' || piecesTypeForm.value.certificate_number == ''" class="btn btn-sm btn-info" disabled = "true">Fetch Details</a>
 				</div>
 			</div>
 
-			<div class="modal fade " id="modalWider{{piecesTypeForm.value.Stock_ID}}" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal fade " id="modalWider{{piecesTypeForm.value.certificate_number}}" tabindex="-1" role="dialog" aria-hidden="true">
 				<div class="modal-dialog modal-lg modalWidth">
 					<div class="modal-content">
 						<div class="modal-header">
